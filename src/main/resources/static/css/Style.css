@@ -1,0 +1,41 @@
+@charset "UTF-8";
+body {
+  font-family: "Nanum Gothic", sans-serif; /* 한글을 지원하는 폰트 사용 */
+}
+
+body {
+  width: 100%;
+}
+
+body div#wrap {
+  width: 92.5%;
+  margin: 0 auto;
+  max-width: 1760px;
+  min-width: 1000px;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a:link {
+  color: black;
+  text-decoration: none;
+}
+a:visited {
+  color: black;
+  text-decoration: none;
+}
+a:active {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  color: rgb(147, 112, 98) !important;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.lh-27px {
+  line-height: 27px;
+}
