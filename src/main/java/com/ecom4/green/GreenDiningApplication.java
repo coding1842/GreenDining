@@ -1,4 +1,4 @@
-package com.green.ecom4;
+package com.ecom4.green;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

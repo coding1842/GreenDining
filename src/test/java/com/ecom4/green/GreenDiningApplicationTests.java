@@ -1,4 +1,4 @@
-package com.green.ecom4;
+package com.ecom4.green;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
