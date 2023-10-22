@@ -1,4 +1,10 @@
-# GreenDining
+# 목차
+1. Description
+2. 프로젝트 계획이유
+3. Environment
+4. 기능 설명
+5. Prerequisite
+6. Usage
 
 # Description  
 프로젝트: GreenDining  
@@ -15,7 +21,7 @@ Framework: Spring Boot 3.1.4
 Web server: Apache Tomcat 9.0  
 DBMS: Oracle SQL Developer
 
-# GreenDining 기능 설명  
+# 기능 설명  
 ## 관리자 기능
 
 ## 사용자 기능
