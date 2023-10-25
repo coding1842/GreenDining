@@ -10,20 +10,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %> --%>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Header</title>
-    <link rel="stylesheet" href="Header.css" />
-    <link rel="stylesheet" href="Style.css" />
-    <link rel="stylesheet" href="Sizing.css" />
-    <link rel="stylesheet" href="Main.css" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
-      crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  
   </head>
-  <body>
-    <div id="wrap">
-      <header>
+  <body>    
         <section id="coupon_banner">
           <a href="/login/memberJoin">
             <div class="text-center h-30px" id="coupon_contents">
@@ -51,13 +40,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %> --%>
                   <i class="fa-solid fa-cart-shopping"></i>
                 </div>
               </a>
-              <a href="/myPage">
+              <a href="/user/myPage">
                 <div class="d-flex align-items-center h-30px">
                   <i class="fa-solid fa-user" style="color: #70bee6"></i>
                   <span class="ms-2 text-nowrap">마이페이지</span>
                 </div>
               </a>
-              <a href="/loginPage">
+              <a href="/user/login">
                 <div class="d-flex align-items-center h-30px">
                   <i class="fa-solid fa-user" style="color: #67c73d"></i>
                   <span class="ms-2 text-nowrap">로그인</span>
@@ -85,14 +74,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %> --%>
           </nav>
         </section>
        
-      </header>
-      <main>
-        
-      </main>
-      <footer></footer>
-    </div>
-    <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
-    <script src="Script.js"></script>
+     
+    
+   
+
   </body>
 </html>
