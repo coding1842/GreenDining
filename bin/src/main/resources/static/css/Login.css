@@ -5,11 +5,7 @@
 	padding: 20px;
 	width: 500px;
 	height: 600px;
-<<<<<<< Updated upstream
 /* 	border: solid 1px #dddddd; */
-=======
-	border: solid 1px #dddddd;
->>>>>>> Stashed changes
 	
 }
 h1#title{
@@ -18,17 +14,12 @@ h1#title{
 	
 }
 #kakao {
-<<<<<<< Updated upstream
 	margin-bottom: 2rem;	
 }
 #ngf{
 	margin-bottom: 3rem;
 }
 
-=======
-	margin-bottom: 3rem;	
-}
->>>>>>> Stashed changes
 #login_inp{
 	margin-bottom: 1rem;
 }
