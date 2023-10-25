@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" type="text/css" href="Footer.css">
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-
+<div id="wrap">
+	<footer>
 	<div class="foot">
 		<div class="footH">
 		<strong>고객센터</strong>
@@ -70,6 +71,7 @@
 			<img alt="" src="">
 			<p>ⓒ 2023 by 00000.00000.</p>
 		</div>
-
+	</footer>
+	</div>
 </body>
 </html>
