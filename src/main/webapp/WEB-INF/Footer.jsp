@@ -9,8 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="wrap">
-	<footer>
+
+
 	<div class="foot">
 		<div class="footH">
 		<strong>고객센터</strong>
@@ -70,7 +70,6 @@
 			<img alt="" src="">
 			<p>ⓒ 2023 by 00000.00000.</p>
 		</div>
-	</footer>
-	</div>
+
 </body>
 </html>
