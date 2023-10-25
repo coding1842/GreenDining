@@ -12,9 +12,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %> --%>
     <title>Header</title>
   
   </head>
-  <body>
-    <div id="wrap">
-      <header>
+  <body>    
         <section id="coupon_banner">
           <a href="/login/memberJoin">
             <div class="text-center h-30px" id="coupon_contents">
@@ -42,13 +40,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %> --%>
                   <i class="fa-solid fa-cart-shopping"></i>
                 </div>
               </a>
-              <a href="/myPage">
+              <a href="/user/myPage">
                 <div class="d-flex align-items-center h-30px">
                   <i class="fa-solid fa-user" style="color: #70bee6"></i>
                   <span class="ms-2 text-nowrap">마이페이지</span>
                 </div>
               </a>
-              <a href="/loginPage">
+              <a href="/user/login">
                 <div class="d-flex align-items-center h-30px">
                   <i class="fa-solid fa-user" style="color: #67c73d"></i>
                   <span class="ms-2 text-nowrap">로그인</span>
@@ -76,12 +74,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %> --%>
           </nav>
         </section>
        
-      </header>
-      <main>
-        
-      </main>
-      <footer></footer>
-    </div>
+     
+    
+   
 
   </body>
 </html>
