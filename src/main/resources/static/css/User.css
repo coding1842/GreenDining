@@ -1,0 +1,67 @@
+@charset "EUC-KR";
+@charset "EUC-KR";
+.general_title{
+	font-size: 40px;
+	color: black;
+	margin-top: 6rem;
+}
+#general_box{
+	width: 33rem;
+	height: 55rem;
+	margin: 0 auto;
+	text-align: center;
+/* 	border: 1px solid black; */
+}
+#general{
+	width:100%;
+	margin-top: 3rem;
+	margin-bottom: 3rem;
+	text-align: center;
+}
+.text_in{
+	width: 24rem;
+	height: 3rem;
+	margin-top: 0.8rem;
+	border: 1px solid #bbbbbb;
+	border-radius: 5px;
+}
+input::placeholder{
+	color: #A3A3A3;
+}
+#ch{
+	margin: 0 auto;
+	width:24rem;
+	display: block;
+	text-align: left;
+}
+.chb{
+	width: 24rem;
+	height: 3rem;
+	margin-top: 2rem;
+	border: none;
+	border-radius: 5px;
+	background-color: #5A72F5;
+	color: #ffffff;
+	display: inline-block; 
+}
+#general_box button:hover{
+	background-color: #7096FF;
+}
+#general_box button:active{
+	background-color: #5A72F5;
+	color: black;
+}
+
+#general_box #ch input{
+	margin-top: 0.8rem;
+	margin-right: 0.8rem;
+	margin-left: 1rem;
+	transform: scale(1.8);
+	text-align: left;
+}
+#ch span{
+	color: #A3A3A3;
+}
+#ch a{
+	color: #2F79E6;
+}

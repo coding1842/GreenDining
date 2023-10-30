@@ -18,5 +18,31 @@ public class UserController {
 		model.addAttribute("main" , main);
 		return "Index";
 	}
+	
+	@RequestMapping("/sign-up")
+	public String sign_up(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/SignUp";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/sign-up/customer")
+	public String User(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/CustomerSignUp";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/sign-up/business")
+	public String business(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/BusinessSignUp";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
 
 }
+
+
