@@ -1,0 +1,15 @@
+#open_switch {
+  left: -20px;
+}
+
+#open_box header span {
+  margin-top: 2rem;
+}
+
+#open_box button {
+  left: -121px;
+}
+#right_wing {
+  border-width: 2px;
+  border-style: solid;
+}
