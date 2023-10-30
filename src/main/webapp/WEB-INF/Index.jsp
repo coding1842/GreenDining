@@ -10,6 +10,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="/css/Main.css" />
     <link rel="stylesheet" href="/css/Footer.css" />
     <link rel="stylesheet" href="/css/Login.css" />
+    <link rel="stylesheet" href="/css/Aside.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -18,7 +19,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <title>Document</title>
   </head>
   <body>
@@ -28,7 +29,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       </header>
       <main>
         <c:import url="${main}.jsp" />
-        <aside id="right_wing" class="w-60px h-440px position-fixed top-50 end-0 translate-middle-y bg-info rounded-start-2"></aside>
+        <c:import url="Aside.jsp" />
       </main>
       <footer>
         <c:import url="Footer.jsp" />
@@ -37,5 +38,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   </body>
   <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="js/Script.js"></script>
 </html>

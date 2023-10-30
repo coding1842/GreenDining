@@ -13,9 +13,17 @@ body div#wrap {
   max-width: 1760px;
   min-width: 1000px;
 }
-
-ul {
+html {
+  scroll-behavior: smooth;
+}
+li,
+span {
+  user-select: none;
+}
+ul,
+ol {
   list-style-type: none;
+  padding-left: 0 !important;
 }
 
 a:link {
@@ -31,11 +39,48 @@ a:active {
   text-decoration: none;
 }
 a:hover {
-  color: rgb(147, 112, 98) !important;
   text-decoration: none;
   font-weight: bold;
 }
 
 .lh-27px {
   line-height: 27px;
+}
+.fs-14px {
+  font-size: 14px !important;
+}
+.fs-50px {
+  font-size: 50px !important;
+}
+
+.fs-45px {
+  font-size: 45px !important;
+}
+
+.fs-40px {
+  font-size: 40px !important;
+}
+
+.fs-35px {
+  font-size: 35px !important;
+}
+
+.fs-60px {
+  font-size: 60px !important;
+}
+.fs-16px {
+  font-size: 16px !important;
+}
+.fs-12px {
+  font-size: 12px !important;
+}
+.fs-11px {
+  font-size: 11px !important;
+}
+.fs-10px {
+  font-size: 10px !important;
+}
+
+.lh-50px {
+  line-height: 50px;
 }

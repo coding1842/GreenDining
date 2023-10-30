@@ -1,3 +1,17 @@
+$(function () {
+  $("#open_switch").click(function (e) {
+    $("#close_box").toggleClass("visually-hidden");
+    $("#open_box").toggleClass("visually-hidden");
+  });
+
+  $("#close_switch").click(function (e) {
+    $("#close_box").toggleClass("visually-hidden");
+    $("#open_box").toggleClass("visually-hidden");
+  });
+});
+
+// =======================================
+
 const swiper = new Swiper(".swiper", {
   // Optional parameters
   direction: "horizontal",
@@ -22,3 +36,7 @@ const swiper = new Swiper(".swiper", {
 });
 
 swiper.update();
+
+function scrollToTop() {
+  $("html, body").animate({scrollTop: 0}, "fast");
+}
