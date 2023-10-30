@@ -9,8 +9,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div id="wrap">
-	<footer>
+
+
 	<div class="foot">
 		<div class="footH">
 		<strong>고객센터</strong>
@@ -23,6 +23,7 @@
 				<i class="fa-solid fa-comment fa-flip-horizontal" style="color: #f0b470;"></i>
 				<a>1:1문의하기</a>
 			</button>
+			<div class="clear"></div>
 		</div>
 		<div>
 			<p>운영시간</p>
@@ -48,8 +49,8 @@
 			<a href="/faq">자주묻는질문</a>&nbsp;
 			</p>
 			<p>광고/제휴 문의: abc@abc.net</p>	
-		</div>
 			<div class="clear"></div>	
+		</div>
 		<div class="addressWrapper">
 		<address>
 		<p>(주)000</p>
@@ -70,7 +71,6 @@
 			<img alt="" src="">
 			<p>ⓒ 2023 by 00000.00000.</p>
 		</div>
-	</footer>
-	</div>
+
 </body>
 </html>

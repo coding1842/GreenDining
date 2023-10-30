@@ -1,0 +1,75 @@
+@charset "EUC-KR";
+.login_Box {
+	text-align: center;
+	margin: 20px auto;
+	padding: 20px;
+	width: 500px;
+	height: 600px;
+/* 	border: solid 1px #dddddd; */
+	
+}
+h1#title{
+	margin: 2rem 0 2rem 0;
+	text-align: center;
+	color: black;
+}
+#kakao {
+	margin-bottom: 2rem;	
+}
+#ngf{
+	margin-bottom: 3rem;
+}
+#ngf a{
+	margin-right: 1rem; 
+}
+
+#login_inp{
+	margin-bottom: 1rem;
+}
+
+#login_inp input{
+	margin-top: 1rem;
+	height: 3rem;
+	font-size: 18px;
+	background-color: none;
+	border-top: 0 solid black;
+	border-left: 0 solid black;
+	border-right: 0 solid black;
+}
+
+#login_btn .log_but {
+	width: 12rem;
+	height: 3rem;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+	background-color: white;
+	border: 1px solid #eeeeee;
+	border-radius: 35px;
+}
+#login_btn button:active{
+	background-color: #CCCCCC;
+}
+input::placeholder{
+	color: #e3e3e3;
+}
+#check{
+	width: 500px;
+	margin: 0 0 2rem 2rem;
+	text-align: left;
+	color: #A3A3A3;
+	font-size: 12px;
+}
+#sign_box{
+	text-align: center;
+	margin-top: 14rem;
+	margin-bottom: 22rem;
+
+}
+#sign_p{
+	font-size: 24px;
+}
+#middl_i{
+	font-size: 40px;
+	margin-left: 2rem;
+	margin-right: 2rem;
+}
