@@ -35,3 +35,7 @@ food-name{
 	grid-template-columns: 1fr 1fr 1fr;
 }
 
+button
+{
+	border : 0 !important;
+}
