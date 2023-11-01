@@ -32,3 +32,20 @@ public class MerchantController {
 		
 } 
 
+
+	@RequestMapping("/login/fing-id/by-business-number-id")
+	public String businessnumberid(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/BusinessNumID";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-password/by-business-number-pw")
+	public String businessnumberpw(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/BusinessNumPW";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+}
