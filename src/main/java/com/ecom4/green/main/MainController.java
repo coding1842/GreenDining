@@ -19,11 +19,18 @@ public class MainController {
 	}
 
 	@RequestMapping("/np/best")
-	public String Best(HttpServletRequest req, HttpServletResponse resp , Model model)
+	public String best(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
 	        String main = "view/Best";
 	        model.addAttribute("main", main);
 	        return "Index";
 	}
-	
+
+	@RequestMapping("/np/search")
+        public String search(HttpServletRequest req, HttpServletResponse resp , Model model)
+        {
+	      String main = "view/Search";
+	      model.addAttribute("main", main);
+	      return "Index";
+        }
 }
