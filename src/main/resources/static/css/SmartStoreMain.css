@@ -1,5 +1,5 @@
-@charset "EUC-KR";
-/* º£½ºÆ® »óÇ° */
+@charset "UTF-8";
+/* ë² ìŠ¤íŠ¸ ìƒí’ˆ */
 #smartstore .bestproduct {
 	display: inline-block;
 	width: 20rem;
@@ -24,7 +24,7 @@
     width: 6rem;
 }
 
-/* ½Å»óÇ° */
+/* ì‹ ìƒí’ˆ */
 #smartstore .newproduct {
 	display: inline-block;
 	width: 20rem;
@@ -49,7 +49,7 @@
     width: 5rem;
 }
 
-/* ÀüÃ¼ »óÇ° */
+/* ì „ì²´ ìƒí’ˆ */
 #smartstore .sortlist ul {
 	display: flex;
     justify-content: space-evenly;

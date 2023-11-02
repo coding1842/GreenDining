@@ -1,0 +1,65 @@
+@charset "UTF-8";
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f3f3f3;
+    padding: 20px;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+form table thead th {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 10px;
+    font-size: 20px;
+}
+
+form table tbody td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    vertical-align: top;
+}
+
+form table tbody .col1 {
+    background-color: #f9f9f9;
+    font-weight: bold;
+    width: 150px;
+}
+
+form table tbody .col2 {
+    width: 650px;
+}
+
+form table tbody input,
+form table tbody textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+form table tfoot td {
+    text-align: right;
+}
+
+form table tfoot button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #6c757d;
+    color: #fff;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 3px;
+}
