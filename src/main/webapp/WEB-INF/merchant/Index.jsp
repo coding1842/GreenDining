@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="/css/Footer.css" />
     <link rel="stylesheet" href="/css/Login.css" />
     <link rel="stylesheet" href="/css/SmartStoreMain.css" />
+    <link rel="stylesheet" href="/css/ProductDetail.css" />
+    <link rel="stylesheet" href="/css/ProductList.css" />
+ 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
       rel="stylesheet"

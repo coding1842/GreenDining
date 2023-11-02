@@ -136,7 +136,7 @@
 					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
 					</div>
 				</div>
-				<a style="text-align: center; display: block; margin-top: 20px; margin-bottom: 20px;">
+				<a href="/list" style="text-align: center; display: block; margin-top: 20px; margin-bottom: 20px;">
 				전체 상품 더보기</a>
 				</div>
 		</div>
