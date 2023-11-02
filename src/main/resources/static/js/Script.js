@@ -53,5 +53,10 @@ swiper.update();
 swiper2.update();
 
 function scrollToTop() {
-  $("html, body").animate({scrollTop: 0}, "fast");
+  $("html, body").animate({scrollTop: 300}, "fast");
+}
+
+function checkedCategory(ele, category) {
+  $(".checkbox-input").prop("checked", false);
+  $(ele).prop("checked", true);
 }
