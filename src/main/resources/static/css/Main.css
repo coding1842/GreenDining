@@ -1,11 +1,66 @@
-section#slider {
-  width: 100%;
-  height: 500px;
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
 }
 
-#slider .swiper {
-  height: 100%;
+/* ! 슬라이더 디자인 */
+section#main_slider {
+  width: 100%;
+  height: 400px;
+  font-family: "GmarketSansMedium";
 }
+section#best_product {
+  width: 100%;
+  height: 400px;
+  font-family: "GmarketSansMedium";
+}
+.swiper {
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
+
+.swiper-slide {
+  font-size: 18px;
+  color: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 40px 60px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+#main_slider .swiper-slide::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.swiper-slide .title {
+  font-size: 41px;
+
+  margin-left: 50px;
+  font-weight: 300;
+}
+
+.swiper-slide .subtitle {
+  margin-left: 50px;
+  font-size: 21px;
+}
+
+.swiper-slide .text {
+  font-size: 20px;
+  max-width: 400px;
+  margin-top: 50px;
+  margin-left: 50px;
+  line-height: 1.3;
+}
+
 body div.item-pack {
   width: 100%;
 }
@@ -33,4 +88,92 @@ food-name {
   display: grid;
   column-gap: 16px;
   grid-template-columns: 1fr 1fr 1fr;
+}
+.bestSwiper .swiper-group {
+  width: 224px;
+  height: 400px;
+}
+.bestSwiper {
+  background-color: transparent;
+  height: 400px;
+}
+.bestSwiper .swiper-slide {
+  width: 218px !important;
+  height: 218px;
+  border: 2px solid black;
+  border-radius: 50%;
+  color: black;
+}
+
+.bestSwiper .product_title {
+  font-size: 14px;
+  width: 200px;
+  position: absolute;
+  bottom: -60px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  letter-spacing: -0.5px;
+  left: 50%;
+}
+.bestSwiper .product_price {
+  position: absolute;
+  word-wrap: break-word;
+  width: 200px;
+  left: 50%;
+  bottom: -100px;
+  transform: translateX(-50%);
+  overflow: hidden;
+  letter-spacing: -0.5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.bestSwiper #sale_percent {
+  color: red;
+  font-size: 18px;
+}
+
+#banner {
+  margin: 3rem 0;
+  width: 100%;
+  height: 100px !important;
+}
+
+#banner video {
+  width: 100%;
+  height: 100px !important;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+video:hover {
+  pointer-events: none;
+}
+
+#banner #video_text {
+  color: white;
+  font-size: 28px;
+  right: 30px;
+  top: 52%;
+  transform: translateY(-50%);
+}
+
+#banner #video_icon {
+  color: white;
+  right: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#recommand_theme .container .row div {
+  height: 200px;
+  overflow: hidden;
+}
+
+#recommand_theme .container .row div img {
+  border-radius: 5%;
+}
+
+#special_exhibition img {
+  border-radius: 3%;
 }

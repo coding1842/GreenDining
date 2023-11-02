@@ -46,7 +46,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       </div>
       <div id="open_box" class="w-200px vh-100 visually-hidden bg-light-subtle">
         <button id="close_switch" class="border-0 bg-transparent position-absolute top-50 translate-middle-y">
-                <img src="image/icon_149.png" alt="">
+                <img id="icon_img" src="image/icon_149.png" alt="">
                 <span class="material-symbols-outlined position-absolute text-white">arrow_forward_ios</span>
         </button>
         <!-- 오픈 박스 머리 부분 로그인 요청 -->

@@ -4,13 +4,6 @@ body {
   margin: 0;
 }
 
-body div#wrap {
-  width: 85%;
-  margin: 0 auto;
-  max-width: 1760px;
-  min-width: 1200px;
-}
-
 a:link {
   color: black;
   text-decoration: none;
@@ -39,7 +32,6 @@ div.footH {
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;
-
 }
 
 div.btn {

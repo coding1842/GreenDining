@@ -110,11 +110,11 @@
 	    <artifactId>commons-fileupload</artifactId>
 	    <version>1.4</version>
 	</dependency>
-	<dependency>
-	    <groupId>commons-io</groupId>
-	    <artifactId>commons-io</artifactId>
-	    <version>2.7</version>
-	</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.7</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -130,6 +130,46 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>1.14.2</version> <!-- 플러그인 버전 확인 필요 -->
+				<configuration>
+					<nodeVersion>v10.1.0</nodeVersion> <!-- 사용하려는 Node.js 버전 -->
+					<workingDirectory>${project.basedir}</workingDirectory>
+					<installDirectory>${project.basedir}</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+						<phase>generate-resources</phase>
+					</execution>
+					<execution>
+						<id>npm run build</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>run build</arguments>
+						</configuration>
+						<phase>generate-resources</phase>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
