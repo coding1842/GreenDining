@@ -16,9 +16,7 @@ nav#top_menu {
   align-items: center;
   margin: 2rem 1rem 0 0;
 }
-div#logo {
-  margin-left: 1rem;
-}
+
 div#icons {
   margin-right: 1rem;
 }
@@ -28,7 +26,8 @@ div#icons a {
 
 div#icons a span {
   font-size: 13px;
-  line-height: 19px;
+  height: 40px;
+  line-height: 43px;
 }
 
 /* nav 스토어 레시피 키친가이드 큐레이션 이벤트 */
@@ -36,7 +35,6 @@ div#icons a span {
   font-weight: bold;
 }
 #top_menu a {
-  margin-right: 1rem;
   text-decoration: none;
   display: block;
 }
@@ -66,4 +64,42 @@ div#icons a span {
   width: 100%;
   left: 0;
   right: auto;
+}
+
+.logo-container {
+  text-align: center;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.logo {
+  color: #333;
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.logo-accent {
+  color: #90ee90;
+}
+
+#search input {
+  border: 0;
+  appearance: none;
+}
+#search input:focus {
+  outline: none;
+}
+
+#logo {
+  position: absolute;
+  top: 8px;
+}
+#search {
+  position: absolute;
+  top: 20px;
+}
+
+#icons {
+  position: absolute;
+  top: 25px;
 }
