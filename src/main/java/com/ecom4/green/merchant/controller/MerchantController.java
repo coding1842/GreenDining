@@ -19,7 +19,7 @@ public class MerchantController {
 		String main = "StoreMain";
 		model.addAttribute("main", main);
 		
-		return "merchant/Index"; 	 
+		return "Index"; 	 
 	}
 	
 	@RequestMapping("/product-detail")
@@ -28,7 +28,7 @@ public class MerchantController {
 		String main = "ProductDetail";
 		model.addAttribute("main", main);
 		
-		return "merchant/Index";
+		return "Index";
 	}
 
 	@RequestMapping("/list")
@@ -36,6 +36,8 @@ public class MerchantController {
 			HttpServletResponse resp , Model model) {
 		String main = "ProductList";
 		model.addAttribute("main", main);
+		return "Index";
+	}
 	
 	@RequestMapping("/my-page")
 	public String merchantMyPage(HttpServletRequest req, 
@@ -43,26 +45,25 @@ public class MerchantController {
 		String main = "merchant/MyPage";
 		model.addAttribute("main", main);
 		
-		return "merchant/Index";
+		return "Index";
 	}
 	
 	@RequestMapping("/qnaWriteForm")
 	public String qnaWriteForm(HttpServletRequest req, 
 			HttpServletResponse resp , Model model) {
-		String main = "QnaWriteForm";
+		String main = "merchant/QnaWriteForm";
 		model.addAttribute("main", main);
 		
-		return "merchant/Index";
+		return "Index";
 	}
 	
 	@RequestMapping("/reviewWriteForm")
 	public String reviewWriteForm(HttpServletRequest req, 
 			HttpServletResponse resp , Model model) {
-		String main = "ReviewWriteForm";
+		String main = "merchant/ReviewWriteForm";
 		model.addAttribute("main", main);
 		
-		return "merchant/Index";
-	}
+	
 		
 		return "Index";
 	}
@@ -70,19 +71,19 @@ public class MerchantController {
 
 
 
-	@RequestMapping("/login/fing-id/by-business-number-id")
+	@RequestMapping("/find-id/business-number")
 	public String businessNumberID(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-		String main = "BusinessNumID";
+		String main = "merchant/BusinessNumID";
 		model.addAttribute("main" , main);
-		return "merchant/Index";
+		return "Index";
 	}
 	
-	@RequestMapping("/login/fing-password/by-business-number-pw")
+	@RequestMapping("/find-password/business-number")
 	public String businessNumberPW(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-		String main = "BusinessNumPW";
+		String main = "merchant/BusinessNumPW";
 		model.addAttribute("main" , main);
-		return "merchant/Index";
+		return "Index";
 	}
 }
