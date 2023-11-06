@@ -1,28 +1,139 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-		<h1 id="title">·Î±×ÀÎ/È¸¿ø°¡ÀÔ</h1>
+		<h1 id="title">ï¿½Î±ï¿½ï¿½ï¿½/È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</h1>
 		<div class="login_Box">
-			<div id="kakao">
-				<a href=""><img alt="Ä«Ä«¿À" src="../image/kakao_login_medium_wide.png"></a>
+			<div id="kakao" onclick="kakaoLogin();">
+				<a href="javascript:void(0)"><img alt="Ä«Ä«ï¿½ï¿½" src="../image/kakao_login_medium_wide.png"></a>
 			</div>
+			
+<!-- 			<ul> -->
+<!-- 	</li> -->
+<!-- 	<li onclick="kakaoLogout();"> -->
+<!--       <a href="javascript:void(0)"> -->
+<!--           <span>Ä«Ä«ï¿½ï¿½ ï¿½Î±×¾Æ¿ï¿½</span> -->
+<!--       </a> -->
+<!-- 	</li> -->
+<!-- </ul> -->
+<!-- Ä«Ä«ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® -->
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script>
+Kakao.init('6dbff2fd1ac2e1ba6e38025d2fcdeced'); //ï¿½ß±Þ¹ï¿½ï¿½ï¿½ Å° ï¿½ï¿½ javascriptÅ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø´ï¿½.
+console.log(Kakao.isInitialized()); // sdkï¿½Ê±ï¿½È­ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½
+//Ä«Ä«ï¿½ï¿½ï¿½Î±ï¿½ï¿½ï¿½
+function kakaoLogin() {
+    Kakao.Auth.login({
+      success: function (response) {
+        Kakao.API.request({
+          url: '/v2/user/me',
+          success: function (response) {
+        	  console.log(response)
+          },
+          fail: function (error) {
+            console.log(error)
+          },
+        })
+      },
+      fail: function (error) {
+        console.log(error)
+      },
+    })
+  }
+//Ä«Ä«ï¿½ï¿½ï¿½Î±×¾Æ¿ï¿½  
+function kakaoLogout() {
+    if (Kakao.Auth.getAccessToken()) {
+      Kakao.API.request({
+        url: '/v1/user/unlink',
+        success: function (response) {
+        	console.log(response)
+        },
+        fail: function (error) {
+          console.log(error)
+        },
+      })
+      Kakao.Auth.setAccessToken(undefined)
+    }
+  }  
+</script>
+			
 			<div id="ngf">
-				<a href=""><img alt="naver" src="../image/naver_icon2.png" width="40px" height="40px"></a>
-				<a href=""><img alt="naver" src="../image/google_logo_2_littledeep.png" width="40px" height="40px"></a>
-				<a href=""><img alt="naver" src="../image/facebook2-icon-file.png" width="40px" height="40px"></a>
+				<a id="naverIdLogin_loginButton" href="javascript:void(0)"><img alt="naver" src="../image/naver_icon2.png" width="40px" height="40px"></a>
+				
+<!-- 				<ul> -->
+<!-- 	<li onclick="naverLogout(); return false;"> -->
+<!--       <a href="javascript:void(0)"> -->
+<!--           <span>ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½Î±×¾Æ¿ï¿½</span> -->
+<!--       </a> -->
+<!-- 	</li> -->
+<!-- </ul> -->
+
+<!-- ï¿½ï¿½ï¿½Ì¹ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+
+<script>
+
+var naverLogin = new naver.LoginWithNaverId(
+		{
+			clientId: "KLCCCiQiyblMBC0XRkfH", //ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ cliendIdï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
+			callbackUrl: "http://localhost:9000/naverLogin", // ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½ APIï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Callback URL ï¿½ï¿½ ï¿½Ô·ï¿½ï¿½ï¿½ï¿½Ý´Ï´ï¿½.
+			isPopup: false,
+			callbackHandle: true
+		}
+	);	
+
+naverLogin.init();
+
+window.addEventListener('load', function () {
+	naverLogin.getLoginStatus(function (status) {
+		if (status) {
+			var email = naverLogin.user.getEmail(); // ï¿½Ê¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½Æ·ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½Ç¹ï¿½ï¿½ï¿½ ï¿½Ý´Ï´ï¿½.
+    		
+			console.log(naverLogin.user); 
+    		
+            if( email == undefined || email == null) {
+				alert("ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½.");
+				naverLogin.reprompt();
+				return;
+			}
+		} else {
+			console.log("callback Ã³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
+		}
+	});
+});
+
+
+var testPopUp;
+function openPopUp() {
+    testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
+}
+function closePopUp(){
+    testPopUp.close();
+}
+
+function naverLogout() {
+	openPopUp();
+	setTimeout(function() {
+		closePopUp();
+		}, 1000);
+	
+	
+}
+</script>
+				
+				<a href=""><img alt="google" src="../image/google_logo_2_littledeep.png" width="40px" height="40px"></a>
+				<a href=""><img alt="facebook" src="../image/facebook2-icon-file.png" width="40px" height="40px"></a>
 			</div>
 			<div id="login_inp">
-				<input type="text" title="¾ÆÀÌµð" placeholder="¾ÆÀÌµð">
-				<input type="password" title="ºñ¹Ð¹øÈ£" placeholder="ºñ¹Ð¹øÈ£">
+				<input type="text" title="ï¿½ï¿½ï¿½Ìµï¿½" placeholder="ï¿½ï¿½ï¿½Ìµï¿½">
+				<input type="password" title="ï¿½ï¿½Ð¹ï¿½È£" placeholder="ï¿½ï¿½Ð¹ï¿½È£">
 			</div>
 			<div id="check">
-				<input type="checkbox">·Î±×ÀÎ »óÅÂ À¯Áö
+				<input type="checkbox">ï¿½Î±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			</div>
 			<div id="login_btn">
-				<button class="log_but" onclick="">·Î±×ÀÎ</button>
+				<button class="log_but" onclick="">ï¿½Î±ï¿½ï¿½ï¿½</button>
 			</div>
 			<div>
-
-				<p><a href="">¾ÆÀÌµð/ºñ¹Ð¹øÈ£ Ã£±â</a>&nbsp;	<a href="/user/sign-up">È¸¿ø°¡ÀÔ</a></p>
+				<p><a href="/user/login/fing-id">ï¿½ï¿½ï¿½Ìµï¿½</a>/<a href="/user/login/fing-password">ï¿½ï¿½Ð¹ï¿½È£ Ã£ï¿½ï¿½</a>&nbsp;	<a href="/user/sign-up">È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½</a></p>
 				
 			</div>
 		</div>

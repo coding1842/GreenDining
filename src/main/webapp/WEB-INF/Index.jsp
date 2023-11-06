@@ -12,6 +12,11 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="/css/Login.css" />
     <link rel="stylesheet" href="/css/Aside.css" />
     <link rel="stylesheet" href="/css/User.css" />
+
+    <!-- SASS / BABLE NODE.js -->
+    <link rel="stylesheet" href="/dist/css/main.css" />
+    <link rel="stylesheet" href="/dist/css/ImageOver.css" />
+    <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -40,5 +45,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="js/Script.js"></script>
+  <script src="/js/Script.js"></script>
+  <script src="/js/Card.js"></script>
+  <script src="/js/User.js"></script>
 </html>

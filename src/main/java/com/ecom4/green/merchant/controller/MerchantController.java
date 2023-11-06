@@ -21,7 +21,7 @@ public class MerchantController {
 		return "merchant/Index"; 	 
 	}
 	
-	@RequestMapping("/detail")
+	@RequestMapping("/product-detail")
 	public String detail(HttpServletRequest req, 
 						HttpServletResponse resp , Model model) {
 		String main = "ProductDetail";
@@ -48,5 +48,22 @@ public class MerchantController {
 		return "merchant/Index";
 	}
 		
-} 
 
+
+
+	@RequestMapping("/login/fing-id/by-business-number-id")
+	public String businessNumberID(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/BusinessNumID";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-password/by-business-number-pw")
+	public String businessNumberPW(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/BusinessNumPW";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+}

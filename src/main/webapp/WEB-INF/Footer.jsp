@@ -25,7 +25,7 @@
 			</button>
 			<div class="clear"></div>
 		</div>
-		<div>
+		<div id="opTime">
 			<p>운영시간</p>
 			<p>
 			전화문의-10:00~12:00,13:00~17:00/주말·공휴일 휴무
