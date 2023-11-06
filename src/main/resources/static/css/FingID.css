@@ -1,0 +1,65 @@
+@charset "EUC-KR";
+
+.fingForm{
+	width: 33rem;
+	margin: 0 auto;
+	margin-bottom: 5rem;
+	text-align: center;
+/* 	border: 1px solid black; */
+}
+
+#middleTit{
+	font-size: 20px;
+	font-weight: bold;
+	margin-top: 2rem;
+	margin-bottom: 0;
+}
+
+#pickHow{
+	font-size: 14px;
+	margin-bottom: 3rem;
+}
+
+.fingBtn{
+	width: 20rem;
+	height: 4rem;
+	padding: 0 1rem 0 1rem;
+	background-color: white;
+	border: 1px solid #8A8A8A;
+	text-align: left;
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 1rem;
+}
+.fBtnI{
+	float: right;
+}
+.fingForm button:hover {
+	border: 2px solid black;
+}
+
+.fingForm button:active {
+	background-color: #D1D1D1;
+}
+#smallTit{
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 3rem;
+	margin-bottom: 0;
+}
+#searchA{
+	font-size: 12px;
+	margin-bottom: 3rem;
+}
+#backCol{
+	width: 24rem;
+	height: 9rem;
+	margin: 0 auto;
+	padding: 1rem;
+	text-align: left;
+	background-color: #E0E0E0;
+}
+#backCol p{
+	font-size: 10px;
+	margin-bottom: 0.4rem; 
+}

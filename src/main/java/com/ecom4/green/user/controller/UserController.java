@@ -43,6 +43,53 @@ public class UserController {
 		return "Index";
 	}
 
+	@RequestMapping("/login/fing-id")
+	public String fingid(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/FingID";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-password")
+	public String fingpassword(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/FingPassword";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-id/by-phone-number")
+	public String phonenumberid(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/PhoneNumID";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-id/by-email-address")
+	public String emailaddressid(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/EmailID";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-password/by-phone-number")
+	public String phonenumberpwd(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/PhoneNumPwd";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/login/fing-password/by-email-address")
+	public String emailaddresspwd(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/EmailPwd";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
 }
 
 
