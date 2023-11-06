@@ -45,16 +45,23 @@ public class ProductController {
 		return "merchant/ProductEdit";
 	}
 	
-	/* 추가 페이지*/
 	@RequestMapping("/main")
-	public String mian(HttpServletRequest req,
+	public String main(HttpServletRequest req,
 			HttpServletResponse resp,
 			Model model,
 			@ModelAttribute("product") ProductDTO pdto) {
 		String main = "Main";
 		model.addAttribute("main", main);
-		return "smartstore/Index";
+		return "merchant/Index";
 	}
+	
+	@RequestMapping("/request")
+	public String request(HttpServletRequest req,
+							HttpServletResponse res) {
+		
+		return "merchant/ProductReturn";
+	}
+	
 }
 
 
