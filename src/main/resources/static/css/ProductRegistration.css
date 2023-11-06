@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+*{
+	margin: 0 auto;
+	padding: 0;
+}
+body {
+	width: 100rem;
+	height: 50rem;
+}
+#product_all{
+	width: 100%;
+	height: 100%;
+	padding: 20px 20px;
+}
+#product_top{
+	width: 15rem;
+	height: 2rem;
+	font-size: 30px;
+	display: block;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+#product_table{
+	padding: 10px 30px;
+/* 	border: 1px solid black; */
+}
+#discount_rate{
+	float: left;
+}
+#discount_bar{
+	width: 240px;
+	border: 1px solid rgb(60, 60, 60);
+	margin-top: 8px;
+	margin-bottom: 5px;
+}
+#discount_total{
+/* 	margin-bottom: 9px; */
+	padding-bottom: 9px;
+}
+#product_table th, #product_table td{
+	border: 1px solid black;
+	border-radius: 8px;
+}
+#product_table th{
+	width: 150px;
+	height: 40px;
+	background-color: aqua;
+}
+#product_table td{
+	width: 280px;
+	height: 30px;
+	padding-left: 30px;
+	padding-right: 30px;
+	background-color: yellow;
+}
+#product_a, #product_b, #product_c{
+	padding-top: 5px;
+}
+#product_textarea{
+	width: 100%;
+	height: 95%;
+	height: 100px;
+	box-sizing: border-box;
+	padding: 10px;
+	display: flex;
+	border-radius: 8px;
+	resize: none;
+}
+.product_puch_space{
+	background-color: white !important;
+	border-color: white !important;
+}
+#product_reset{
+	width: 130px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 17px;
+	background-color: white;
+	border-radius: 8px;
+	border: 1px solid black;
+	margin-top: 6px;
+	margin-right: 11px;
+}
+#product_push{
+	width: 130px;
+	height: 40px;
+	font-weight: bold;
+	font-size: 17px;
+	background-color: white;
+	border-radius: 8px;
+	border: 1px solid black;
+	margin-top: 6px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
