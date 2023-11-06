@@ -7,9 +7,14 @@
 }
 
 #open_box button {
-  left: -121px;
+  left: -50px;
 }
 #right_wing {
   border-width: 2px;
   border-style: solid;
+}
+
+#aside_arrow {
+  top: 40%;
+  left: 20px;
 }

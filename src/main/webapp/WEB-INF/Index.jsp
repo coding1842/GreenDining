@@ -47,5 +47,4 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="/js/Script.js"></script>
   <script src="/js/Card.js"></script>
-  <script src="/js/User.js"></script>
 </html>
