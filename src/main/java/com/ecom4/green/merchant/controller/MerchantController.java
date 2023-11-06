@@ -47,6 +47,15 @@ public class MerchantController {
 		
 		return "merchant/Index";
 	}
+	
+	@RequestMapping("/reviewWriteForm")
+	public String reviewWriteForm(HttpServletRequest req, 
+			HttpServletResponse resp , Model model) {
+		String main = "ReviewWriteForm";
+		model.addAttribute("main", main);
+		
+		return "merchant/Index";
+	}
 		
 } 
 
