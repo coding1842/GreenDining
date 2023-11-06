@@ -13,12 +13,12 @@ $(function () {
   // ! 카테고리 박스 온오프 관련
   $("#category_button").hover(
     function () {
-      $("#category_box").toggleClass("visually-hidden");
+      $("#category_box").removeClass("visually-hidden");
       $("#category_box_inside").addClass("visually-hidden");
       $("#category_box_inside_last").addClass("visually-hidden");
     },
     function () {
-      $("#category_box").toggleClass("visually-hidden");
+      $("#category_box").addClass("visually-hidden");
     }
   );
   // ! 카테고리 박스 1차-2차 내부 온오프

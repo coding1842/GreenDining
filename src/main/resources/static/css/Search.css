@@ -1,0 +1,27 @@
+#search_items {
+  width: calc(100% - 200px);
+}
+#filter div:not(:first-of-type) > * {
+  margin-left: 1rem;
+  font-size: 14px;
+}
+
+#filter div:not(:nth-child(2)) {
+}
+
+#filter div:not(:first-of-type) {
+  padding-top: 1rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+#price_option input {
+  width: 30%;
+}
+
+#product_option_list {
+  --bs-bg-opacity: 0.1;
+}
+#product_option_list label {
+  font-size: 12px;
+  margin-right: 2rem;
+}
