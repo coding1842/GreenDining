@@ -103,7 +103,9 @@ a:hover {
 .fs-10px {
   font-size: 10px !important;
 }
-
+.fs-50px {
+  font-size: 50px !important;
+}
 .lh-50px {
   line-height: 50px;
 }

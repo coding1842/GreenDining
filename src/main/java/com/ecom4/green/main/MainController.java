@@ -18,15 +18,24 @@ public class MainController {
 		return "Index";
 	}
 
-	@RequestMapping("/np/best")
-	public String best(HttpServletRequest req, HttpServletResponse resp , Model model)
+	@RequestMapping("/np/best-product")
+	public String bestProductList(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-	        String main = "view/Best";
+	        String main = "view/BestProductList";
 	        model.addAttribute("main", main);
 	        return "Index";
 	}
 
-	@RequestMapping("/np/search")
+        @RequestMapping("/np/best-region")
+        public String bestRegionList(HttpServletRequest req, HttpServletResponse resp , Model model)
+        {
+	      String main = "view/BestRegionList";
+	      model.addAttribute("main", main);
+	      return "Index";
+        }
+
+
+        @RequestMapping("/np/search")
         public String search(HttpServletRequest req, HttpServletResponse resp , Model model)
         {
 	      String main = "view/Search";

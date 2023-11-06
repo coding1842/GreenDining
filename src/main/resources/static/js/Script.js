@@ -1,4 +1,5 @@
 $(function () {
+  // ! Aside 우측 박스 열었다 닫았다
   $("#open_switch").click(function (e) {
     $("#close_box").toggleClass("visually-hidden");
     $("#open_box").toggleClass("visually-hidden");
@@ -8,13 +9,39 @@ $(function () {
     $("#close_box").toggleClass("visually-hidden");
     $("#open_box").toggleClass("visually-hidden");
   });
-});
 
-$(function () {
-  $(selector).click(function (e) {
-    e.preventDefault();
+  // ! 카테고리 박스 온오프 관련
+  $("#category_button").hover(
+    function () {
+      $("#category_box").removeClass("visually-hidden");
+      $("#category_box_inside").addClass("visually-hidden");
+      $("#category_box_inside_last").addClass("visually-hidden");
+    },
+    function () {
+      $("#category_box").addClass("visually-hidden");
+    }
+  );
+  // ! 카테고리 박스 1차-2차 내부 온오프
+  $("#category_box_outside a").mouseover(function () {
+    $("#category_box_inside").removeClass("visually-hidden");
+    $("#category_box_inside_last").addClass("visually-hidden");
+    $("#category_box_inside div").addClass("visually-hidden");
+    var insideId = $(this).data("inside");
+    $("#" + insideId).toggleClass("visually-hidden");
+  });
+  // ! 카테고리 박스 2차-3차 내부 온오프
+  $("#category_box_inside a").mouseover(function () {
+    $("#category_box_inside_last").removeClass("visually-hidden");
+    $("#category_box_inside_last div").addClass("visually-hidden");
+    var insideId = $(this).data("inside");
+    $("#" + insideId).toggleClass("visually-hidden");
+  });
+
+  $("#category_box_inside_last").mouseleave(function () {
+    $("#category_box_inside_last").addClass("visually-hidden");
   });
 });
+
 // =======================================
 
 const swiper = new Swiper(".mainSwiper", {
