@@ -90,6 +90,22 @@ public class UserController {
 		model.addAttribute("main" , main);
 		return "Index";
 	}
+	
+	@RequestMapping("/my-page")
+	public String mypage(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/MyPage";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/cart")
+	public String cart(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/Cart";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
 }
 
 

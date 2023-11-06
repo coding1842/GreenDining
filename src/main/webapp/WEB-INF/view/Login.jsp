@@ -1,25 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/css/Login.css" />
 		<h1 id="title">로그인/회원가입</h1>
 		<div class="login_Box">
 			<div id="kakao" onclick="kakaoLogin();">
-				<a href="javascript:void(0)"><img alt="īī��" src="../image/kakao_login_medium_wide.png"></a>
+				<a href="javascript:void(0)"><img alt="카카오" src="../image/kakao_login_medium_wide.png"></a>
 			</div>
 			
 <!-- 			<ul> -->
 <!-- 	</li> -->
 <!-- 	<li onclick="kakaoLogout();"> -->
 <!--       <a href="javascript:void(0)"> -->
-<!--           <span>īī�� �α׾ƿ�</span> -->
+<!--           <span>카카오 로그아웃</span> -->
 <!--       </a> -->
 <!-- 	</li> -->
 <!-- </ul> -->
-<!-- īī�� ��ũ��Ʈ -->
+<!-- 카카오 스크립트 -->
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script>
-Kakao.init('6dbff2fd1ac2e1ba6e38025d2fcdeced'); //�߱޹��� Ű �� javascriptŰ�� ������ش�.
-console.log(Kakao.isInitialized()); // sdk�ʱ�ȭ�����Ǵ�
-//īī���α���
+Kakao.init('6dbff2fd1ac2e1ba6e38025d2fcdeced'); //발급받은 키 중 javascript키를 사용해준다.
+console.log(Kakao.isInitialized()); // sdk초기화여부판단
+//카카오로그인
 function kakaoLogin() {
     Kakao.Auth.login({
       success: function (response) {
@@ -38,7 +39,7 @@ function kakaoLogin() {
       },
     })
   }
-//īī���α׾ƿ�  
+//카카오로그아웃  
 function kakaoLogout() {
     if (Kakao.Auth.getAccessToken()) {
       Kakao.API.request({
@@ -61,20 +62,20 @@ function kakaoLogout() {
 <!-- 				<ul> -->
 <!-- 	<li onclick="naverLogout(); return false;"> -->
 <!--       <a href="javascript:void(0)"> -->
-<!--           <span>���̹� �α׾ƿ�</span> -->
+<!--           <span>네이버 로그아웃</span> -->
 <!--       </a> -->
 <!-- 	</li> -->
 <!-- </ul> -->
 
-<!-- ���̹� ��ũ��Ʈ -->
+<!-- 네이버 스크립트 -->
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 
 <script>
 
 var naverLogin = new naver.LoginWithNaverId(
 		{
-			clientId: "KLCCCiQiyblMBC0XRkfH", //�� ���ø����̼� ������ cliendId�� �Է����ݴϴ�.
-			callbackUrl: "http://localhost:9000/naverLogin", // �� ���ø����̼� API������ Callback URL �� �Է����ݴϴ�.
+			clientId: "KLCCCiQiyblMBC0XRkfH", //내 애플리케이션 정보에 cliendId를 입력해줍니다.
+			callbackUrl: "http://localhost:9000/naverLogin", // 내 애플리케이션 API설정의 Callback URL 을 입력해줍니다.
 			isPopup: false,
 			callbackHandle: true
 		}
@@ -85,17 +86,17 @@ naverLogin.init();
 window.addEventListener('load', function () {
 	naverLogin.getLoginStatus(function (status) {
 		if (status) {
-			var email = naverLogin.user.getEmail(); // �ʼ��� �����Ұ��� �޾ƿ� �Ʒ�ó�� ���ǹ��� �ݴϴ�.
+			var email = naverLogin.user.getEmail(); // 필수로 설정할것을 받아와 아래처럼 조건문을 줍니다.
     		
 			console.log(naverLogin.user); 
     		
             if( email == undefined || email == null) {
-				alert("�̸����� �ʼ������Դϴ�. ���������� �������ּ���.");
+				alert("이메일은 필수정보입니다. 정보제공을 동의해주세요.");
 				naverLogin.reprompt();
 				return;
 			}
 		} else {
-			console.log("callback ó���� �����Ͽ����ϴ�.");
+			console.log("callback 처리에 실패하였습니다.");
 		}
 	});
 });
@@ -123,17 +124,17 @@ function naverLogout() {
 				<a href=""><img alt="facebook" src="../image/facebook2-icon-file.png" width="40px" height="40px"></a>
 			</div>
 			<div id="login_inp">
-				<input type="text" title="아이디" placeholder="아이디">
-				<input type="password" title="비밀번호" placeholder="비밀번호">
+				<input type="text" title="���̵�" placeholder="���̵�">
+				<input type="password" title="��й�ȣ" placeholder="��й�ȣ">
 			</div>
 			<div id="check">
-				<input type="checkbox">로그인 상태 유지
+				<input type="checkbox">�α��� ���� ����
 			</div>
 			<div id="login_btn">
-				<button class="log_but" onclick="">로그인</button>
+				<button class="log_but" onclick="">�α���</button>
 			</div>
 			<div>
-				<p><a href="/user/login/fing-id">���̵�</a>/<a href="/user/login/fing-password">��й�ȣ ã��</a>&nbsp;	<a href="/user/sign-up">ȸ������</a></p>
+				<p><a href="/user/login/fing-id">아이디</a>/<a href="/user/login/fing-password">비밀번호 찾기</a>&nbsp;	<a href="/user/sign-up">회원가입</a></p>
 				
 			</div>
 		</div>
