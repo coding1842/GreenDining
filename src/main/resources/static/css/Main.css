@@ -67,20 +67,14 @@ body div.item-pack {
 div#item {
   margin-top: 3rem;
 }
-h1 {
-  text-align: center;
-  font-family: serif;
-  color: darkgoldenrod;
-}
+
 .item-table {
   border: solid 1px black;
   text-align: center;
   width: 28%;
   margin-top: 3rem;
 }
-food-name {
-  text-align: center;
-}
+
 .grid-it {
   margin-top: 3rem;
   width: 100%;
@@ -105,10 +99,7 @@ food-name {
   color: black;
 }
 
-button
-{
-	border : 0 !important;
-}
+
 
 
 .bestSwiper .product_title {
