@@ -14,8 +14,8 @@
 	<!-- 상품이미지 -->
 	<section id="detail_slider" class="w-50 h-500px d-block position-relative float-start">
 		<div class="detail_img">
-			<img alt="상품이미지" src=""
-				 style="width: 500px; height: 500px;">
+			<img alt="상품이미지" src="/image/arin.jpg"
+				 style="width: 650px; height: 725px;">
 		</div>
 	</section>
 	<!-- 상품대표 설명 -->
@@ -109,60 +109,52 @@
 						<td>노스코리아</td>
 					</tr>
 				</table> <br><br>
-				<img alt="상품상세정보이미지 / 상세정보 펼처보기 기능넣기" src="">
+				<img alt="상품상세정보이미지" src="/image/hani1.jpg">
+				<img alt="상품상세정보이미지" src="/image/hani2.jpg">
+				<img alt="상품상세정보이미지" src="/image/hani3.jpg">
+				<img alt="상품상세정보이미지" src="/image/hani4.jpg">
+				<img alt="상세정보 펼처보기 기능넣기" src="">
 			</div>
 			
-			<!-- 리뷰 -->
-			<div class="fingForm" id="2" style="display: none;">
-				<h4 id="title" class="mt-5">리뷰</h4>
-				<p>상품을 구매하신 분들이 작성하신 리뷰입니다. 리뷰 작성시 포인트가 적립됩니다.</p>
-				<p>전체리뷰 수 : '기능'개</p>
-				<br><br>
-				<hr>
-				<div class="" id="review_list">
-					<%-- <c:choose>
-						<c:when test="">
-							<c:forEach var="" items="${}"> --%>
-									<div class="" id="review_form">
-										<div id="review_top">
-											<img id="user_profile" alt="유저프로필" src="">
-											<span id="user_star"></span> <em>5</em>
-											<div id="user_info">
-												<span id="user_id">dlsgur8431</span>
-												<span id="review_created"></span>
-												<span id="product_name">맛있는 장어구이</span>
-											</div>
-											<div id="review_content" class="position-relative">
-												<span class=" w-700px ms-5 start-50 translate-middle-x">
-												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas blandit nulla vitae est condimentum, et ullamcorper odio rutrum. Nullam vitae ornare nisl. Pellentesque urna ipsum, cursus quis vehicula eu, pretium nec lectus. Quisque tempus, nisl et semper euismod, enim orci accumsan felis, quis volutpat dui tortor sed sem. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. In et nibh lobortis, suscipit ipsum vel, bibendum libero. Nulla vestibulum purus nisi, et hendrerit purus porttitor et. Fusce vitae vestibulum nibh. Vivamus ac lacinia massa. Proin sit amet augue sem. Quisque viverra ex a nulla venenatis, ut bibendum massa porta. Vivamus elementum arcu diam, quis eleifend odio luctus ac.
-												Sed quis fermentum lorem. Maecenas sit amet neque non nibh rhoncus volutpat. Sed egestas magna blandit eros cursus, id porta risus viverra. Phasellus a urna est. Maecenas eget ultrices lectus, eget gravida lectus. Nulla tincidunt metus sit amet ante pellentesque, ut ullamcorper ex maximus. Maecenas lectus elit, blandit at arcu sed, pellentesque accumsan magna. Quisque congue felis eget ipsum dignissim, ut efficitur lectus vestibulum. Sed nec nisl venenatis, tincidunt purus ac, malesuada metus. Phasellus vestibulum sem in pellentesque posuere.
-												Nullam quis mi dapibus elit blandit pharetra vitae eget dui. Morbi id dolor pulvinar, interdum sem non, fermentum enim. Maecenas ultricies, nisi blandit placerat congue, tortor arcu faucibus urna, at tempor dui massa a ex. Quisque ut faucibus magna. Morbi nisi arcu, aliquam et aliquet ac, dignissim sed nisl. In ullamcorper orci et nisl accumsan facilisis. Quisque hendrerit consequat tempor. Vestibulum viverra nulla sed purus porttitor auctor. Ut ac commodo metus. Morbi vestibulum lacus lacinia, consequat nisl id, mattis urna. Vestibulum tempor ex erat, pharetra convallis libero convallis id.
-												Donec placerat sit amet nunc quis ornare. Maecenas mattis efficitur turpis quis sagittis. Nunc porttitor volutpat libero non mollis. Phasellus finibus justo non dui rhoncus commodo. Donec quis faucibus urna. Pellentesque et eleifend nisl. Aenean pretium libero ipsum, et lacinia diam tempus vel. Vivamus scelerisque turpis et libero porta ultrices. Aenean ut feugiat orci. Phasellus et felis a turpis rutrum cursus.
-												In bibendum mi at viverra rutrum. Maecenas rutrum tellus dapibus nulla tempus ultricies. Morbi fringilla sapien quis viverra vestibulum. In nunc sem, tincidunt nec viverra non, tincidunt quis erat. Aenean semper pulvinar viverra. Pellentesque facilisis euismod massa. Ut tortor odio, bibendum quis ultricies quis, imperdiet non enim. Nunc orci urna, efficitur porttitor elit quis, imperdiet faucibus eros. Etiam placerat risus ligula. Vivamus ornare odio felis, eget suscipit eros lacinia vitae. Nullam mollis fringilla felis, non ornare risus interdum eu. Maecenas tristique eleifend orci eget ornare. Aliquam sed odio pulvinar, elementum sem vel, porttitor justo. Pellentesque molestie dolor posuere, molestie ipsum vitae, sollicitudin ex.
-												</span>
-												<img alt="상품리뷰이미지" src="">
-											</div>
-										</div>
-									</div>
-										<a href="javascript:;" id="load">더보기 펼치기기능</a>
-							<%-- </c:forEach>
-						</c:when>
-					</c:choose> --%>
+			<!-- 리뷰 1 -->
+				<div class="fingForm" id="2" style="display: none;">
+					<h4 id="title" class="mt-5">리뷰</h4>
+					<p>상품을 구매하신 분들이 작성하신 리뷰입니다. 리뷰 작성시 포인트가 적립됩니다.</p>
+					<p>전체리뷰 수 : '기능'개</p>
+					<a href="/reviewWriteForm" style="border: solid 1px #dddddd; border-radius: 5px; background-color: skyblue; padding: 3px;">상품 리뷰 작성하기</a>
+					<br><br>
+						<table style="">
+							<tr style="border: none;">
+								<th style="border: none;">평점</th>
+								<th style="border: none;">제목</th>
+								<th style="border: none;">작성자</th>
+								<th style="border: none;">내용</th>
+								<th style="border: none;">이미지</th>
+								<th style="border: none;">작성일</th>
+							</tr>
+							<tr>
+								<td style="border: none;"></td>
+								<td style="border: none;"></td>
+								<td style="border: none;"></td>
+								<td style="border: none;"></td>
+								<td style="border: none;"></td>
+								<td style="border: none;"></td>						
+							</tr>
+						</table>
 				</div>
-			</div>
 			
 			<!-- Q&A -->
 			<div class="fingForm" id="3" style="display: none;">
 				<h4 id="title" class="mt-5">Q&A</h4>
 				<p style="text-align: center; padding-right: 10px; font-size: 16px;">총 질문 수: &nbsp;개</p>
 				<a href="/qnaWriteForm" style="border: solid 1px #dddddd; border-radius: 5px; background-color: skyblue; padding: 3px;">상품 Q&A 작성하기</a>
-				<table class="noticelist" style="text-align: center; display: inline-block;">
-					<tr style="height: 50px; width: 300px;" class="headcolor">
-						<th>순서</th>
+				<br><br>
+				<table class="noticelist" style="">
+					<tr style="" class="headcolor">
+						<th>답변상태</th>
 						<th>제목</th>
 						<th>작성자</th>
-						<th>조회수</th>
-						<th>등록일</th>
+						<th>작성일</th>
 					</tr>
 					<!-- Q&A 리스트 받아오기 -->
 					<%-- <c:choose>

@@ -25,3 +25,16 @@
 #All_product_list .all_list div {
 	display: inline-block;
 }
+
+#list_pagenation {
+	margin-top: 5rem;
+	margin-bottom : 3rem;
+	display: flex;
+	justify-content: center;	
+}
+
+#list_pagenation div {
+	width: 600px;
+    display: flex;
+    justify-content: space-evenly;
+}

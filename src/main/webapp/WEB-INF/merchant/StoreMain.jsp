@@ -106,35 +106,56 @@
 				</div>
 				<div class="all_list">
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
+					
 				</div>
 				<a href="/list" style="text-align: center; display: block; margin-top: 20px; margin-bottom: 20px;">
 				전체 상품 더보기</a>
