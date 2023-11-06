@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/css/Login.css" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,8 @@
 <body>
 
 <div id="sign_box">
-	<span id="sign_p"><a href="/user/sign-up/customer">ÀÏ¹ÝÈ¸¿ø °¡ÀÔ</a></span>
-	<span id="middl_i">|</span><span id="sign_p"><a href="/user/sign-up/business">»ç¾÷ÀÚÈ¸¿ø °¡ÀÔ</a></span>
+	<span id="sign_p"><a href="/user/sign-up/customer">ì¼ë°˜íšŒì› ê°€ìž…</a></span>
+	<span id="middl_i">|</span><span id="sign_p"><a href="/user/sign-up/business">ì‚¬ì—…ìžíšŒì› ê°€ìž…</a></span>
 </div>
 
 </body>

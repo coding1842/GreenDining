@@ -8,8 +8,6 @@
 <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 </head>
-<body>
-
 
 	<div class="foot">
 		<div class="footH">
@@ -72,5 +70,6 @@
 			<p>ⓒ 2023 by 00000.00000.</p>
 		</div>
 
-</body>
+
+
 </html>

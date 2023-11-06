@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping; 
  
 @Controller 
+@RequestMapping("/merchant")
 public class MerchantController { 
  
 	@RequestMapping("/store") 
@@ -35,6 +36,12 @@ public class MerchantController {
 			HttpServletResponse resp , Model model) {
 		String main = "ProductList";
 		model.addAttribute("main", main);
+	
+	@RequestMapping("/my-page")
+	public String merchantMyPage(HttpServletRequest req, 
+			HttpServletResponse resp , Model model) {
+		String main = "merchant/MyPage";
+		model.addAttribute("main", main);
 		
 		return "merchant/Index";
 	}
@@ -57,22 +64,25 @@ public class MerchantController {
 		return "merchant/Index";
 	}
 		
+		return "Index";
+	}
+		
 
 
 
 	@RequestMapping("/login/fing-id/by-business-number-id")
 	public String businessNumberID(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-		String main = "merchant/BusinessNumID";
+		String main = "BusinessNumID";
 		model.addAttribute("main" , main);
-		return "Index";
+		return "merchant/Index";
 	}
 	
 	@RequestMapping("/login/fing-password/by-business-number-pw")
 	public String businessNumberPW(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-		String main = "merchant/BusinessNumPW";
+		String main = "BusinessNumPW";
 		model.addAttribute("main" , main);
-		return "Index";
+		return "merchant/Index";
 	}
 }
