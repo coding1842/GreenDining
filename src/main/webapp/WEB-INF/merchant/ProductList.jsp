@@ -29,51 +29,108 @@
 		</div>
 		<div class="all_list">
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
 					<div>
-					<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						<a href="/detail">
+							<img alt="" src="/image/loading.jpg"><br>상품 준비중 <br>10,000원
+						</a>
 					</div>
-		</div>			
+					
+					
+		</div>
+		<section id="list_pagenation">
+		   <div>
+		         <a href="#">
+		         [이전]
+		         </a>
+		         <a href="#">
+		         <span>1</span>
+		         </a>
+		         <a href="#">
+		         <span>2</span>
+		         </a>
+		         <a href="#">
+		         <span>3</span>
+		         </a>
+		         <a href="#">
+		         <span>4</span>
+		         </a>
+		         <a href="#">
+		         <span>5</span>
+		         </a>
+		         <a href="#">
+		         [다음]
+		         </a>
+		   </div>
+		</section>			
 	</div>
 </body>
 </html>
