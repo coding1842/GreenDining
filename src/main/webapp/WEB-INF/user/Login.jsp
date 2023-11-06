@@ -21,6 +21,7 @@
 				<button class="log_but" onclick="">로그인</button>
 			</div>
 			<div>
+
 				<p><a href="">아이디/비밀번호 찾기</a>&nbsp;	<a href="/user/sign-up">회원가입</a></p>
 				
 			</div>
