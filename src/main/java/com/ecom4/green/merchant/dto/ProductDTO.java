@@ -8,6 +8,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+
+import java.sql.Timestamp;
+
 @Getter
 @Setter
 @Scope(value = WebApplicationContext.SCOPE_SESSION,
@@ -15,16 +18,15 @@ import lombok.ToString;
 @Data
 @ToString
 public class ProductDTO {
-	private int no;
-	private int stock;
-	private int price;
-	private int discount;
+	private int id;
 	private String name;
-	private String detail;
-	private String image;
-	private String period;
-	private String pr_date;
-	private String textarea;
+	private int price;
+	private int weight;
+	private String status;
+	private String stock;
+	private Timestamp created_at;
+	private int image_id;
+	private String merchant_id;
 }
 
 

@@ -4,18 +4,23 @@
   "description": "Thymeleaf with Gulp",
   "type": "module",
   "scripts": {
-    "dev": "gulp dev",
+    "dev": "npm-run-all --parallel gulp webpack",
+    "gulp": "gulp dev",
+    "webpack": "webpack -w --mode development --devtool inline-source-map",
+    "start": "npm run dev",
     "build": "gulp build --env production"
   },
   "author": "chloe kang",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.18.9",
-    "@babel/preset-env": "^7.18.9",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
     "@babel/register": "^7.18.9",
+    "babel-loader": "^9.1.3",
     "babelify": "^10.0.0",
     "browser-sync": "^2.27.11",
     "browserify": "^17.0.0",
+    "css-loader": "^6.8.1",
     "del": "^7.0.0",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^8.0.0",
@@ -26,9 +31,17 @@
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^3.0.2",
     "gulp-uglifycss": "^1.1.0",
+    "mini-css-extract-plugin": "^2.7.6",
+    "npm-run-all": "^4.1.5",
     "sass": "^1.56.1",
     "uglifyify": "^5.0.2",
     "vinyl-source-stream": "^2.0.0",
     "watchify": "^4.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "swiper": "^11.0.3",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   }
 }

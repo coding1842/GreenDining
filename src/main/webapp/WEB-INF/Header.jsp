@@ -173,7 +173,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
 
       <!-- ! 상단 nav 메뉴 -->
       <nav id="top_menu" class="fs-6 float-start ms-5 border-1">
-        <a href="/np/best-product">
+        <a href="/np/best-item">
           <div id="style_store"><span>산지제철</span></div>
         </a>
         <a href="/np/best-region">

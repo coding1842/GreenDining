@@ -4,18 +4,13 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <link rel="stylesheet" href="/css/Header.css" />
-    <link rel="stylesheet" href="/css/Style.css" />
-    <link rel="stylesheet" href="/css/Sizing.css" />
-    <link rel="stylesheet" href="/css/Main.css" />
-    <link rel="stylesheet" href="/css/Footer.css" />
-    <link rel="stylesheet" href="/css/Login.css" />
-    <link rel="stylesheet" href="/css/Aside.css" />
-    <link rel="stylesheet" href="/css/User.css" />
-
+    <!-- Webpack 번들 적용 -->
+    <link rel="stylesheet" href="/dist/bundle/bundle.css" />
+    <script  src="/dist/bundle/bundle.js"></script>
     <!-- SASS / BABLE NODE.js -->
-    <link rel="stylesheet" href="/dist/css/main.css" />
-    <link rel="stylesheet" href="/dist/css/ImageOver.css" />
+    <link rel="stylesheet" href="/dist/gulp/css/main.css" />
+
+    <!--  -->
     <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
@@ -45,6 +40,4 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <script src="https://kit.fontawesome.com/dd4730185a.js" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="/js/Script.js"></script>
-  <script src="/js/Card.js"></script>
 </html>
