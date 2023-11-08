@@ -25,7 +25,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
     <section id="header_popup" class="mt-2 border-bottom border-2 mb-3 border-danger border-opacity-50">
       <nav id="logo_and_icons" class="position-relative h-60px">
         <div id="logo" class="position-absolute start-0 w-300px">
-          <a href="/index">
+          <a href="/">
             <div id="logo_container" class=""><span class="logo">Green</span><span class="logo logo-accent">ing</span></div>
           </a>
         </div>

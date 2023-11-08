@@ -6,7 +6,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <head>
     <!-- Webpack 번들 적용 -->
     <link rel="stylesheet" href="/dist/bundle/bundle.css" />
-    <script  src="/dist/bundle/bundle.js"></script>
+    <script src="/dist/bundle/bundle.js"></script>
+    <script src="/js/Script.js"></script>
     <!-- SASS / BABLE NODE.js -->
     <link rel="stylesheet" href="/dist/gulp/css/main.css" />
 
