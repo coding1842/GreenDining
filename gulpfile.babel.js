@@ -23,22 +23,22 @@ const proxyUrl = 'localhost:8080';
 const paths = {
   img: {
     src: 'gulp-src/img/*',
-    dist: 'src/main/resources/static/dist/img/',
+    dist: 'src/main/resources/static/dist/gulp/img',
   },
   scss: {
     watch: 'gulp-src/sass/**/*.scss',
     src: 'gulp-src/sass/main.scss',
-    dist: 'src/main/resources/static/dist/css/'
+    dist: 'src/main/resources/static/dist/gulp/css/'
   },
   js: {
     entry: 'gulp-src/js/main.js',
     watch: 'gulp-src/js/**/*.js',
     src: 'gulp-src/js/**/*.js',
-    dist: 'src/main/resources/static/dist/js/',
+    dist: 'src/main/resources/static/dist/gulp/js/',
   }
 };
 
-const cleanDist = () => deleteAsync(['src/main/resources/static/dist/']);
+const cleanDist = () => deleteAsync(['src/main/resources/static/dist/gulp/']);
 
 const img = () => 
   gulp.src(paths.img.src)

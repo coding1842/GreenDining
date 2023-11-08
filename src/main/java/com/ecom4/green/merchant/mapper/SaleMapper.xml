@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecom4.green.merchant.dao.SaleDAO">
+    <select id="getSaleList" parameterType="RequestPageList" resultType="saleDTO">
+        SELECT id
+        , title
+        , content
+        , status
+        , discount
+        , started_at
+        , ended_at
+        , create_at
+        , image_id
+        , merchant_id
+        , category_code
+        , region_code
+        FROM sale
+        <where>
+            <if test="data.category != null and data.category != ''">
+                AND category_code LIKE '%' || #{data.category} || '%'
+            </if>
+            <if test="data.keyword != null and data.keyword != ''">
+                AND title LIKE '%' || #{data.keyword} || '%'
+            </if>
+        </where>
+        OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+    </select>
+
+    <select id="getSaleListCount" resultType="int">
+        SELECT COUNT(*) AS CNT
+        FROM sale
+        <where>
+            <if test="category != null and category != ''">
+                AND category_code LIKE '%' || #{category} || '%'
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND title LIKE '%' || #{keyword} || '%'
+            </if>
+        </where>
+    </select>
+</mapper>

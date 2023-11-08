@@ -11,5 +11,9 @@
     <typeAliases>
          <typeAlias alias="hashMap" type="java.util.HashMap" />
          <typeAlias alias="map" type="java.util.Map" />
-     </typeAliases>	
+		<typeAlias alias="RequestPageList" type="com.ecom4.green.data.RequestPageList"/>
+		<typeAlias alias="productDTO" type="com.ecom4.green.merchant.dto.ProductDTO"/>
+		<typeAlias alias="merchantDTO" type="com.ecom4.green.merchant.dto.MerchantDTO"/>
+		<typeAlias alias="saleDTO" type="com.ecom4.green.merchant.dto.SaleDTO"/>
+     </typeAliases>
 </configuration>
