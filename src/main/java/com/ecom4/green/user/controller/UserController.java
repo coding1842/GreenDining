@@ -26,6 +26,14 @@ public class UserController {
 		model.addAttribute("main" , main);
 		return "Index";
 	}
+	
+	@RequestMapping("/request")
+	public String request(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/form/ReturnProductForm";
+		model.addAttribute("main", main);
+		return "Index";
+	}
 }
 
 
