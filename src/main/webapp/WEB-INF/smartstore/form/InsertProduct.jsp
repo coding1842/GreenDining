@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>스마트 스토어 상품 등록</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/smartstore/product/InsertProduct.css" />
+<!--     <link rel="stylesheet" href="/css/smartstore/product/InsertProduct.css" /> -->
     <!-- JS -->
     <script src="/jquery/jquery-3.7.0.min.js"></script>
     <script src="/js/smartstore/product/InsertProduct.js"></script>
@@ -17,17 +17,17 @@
       <div id="product_box">
         <form action="#" method="post" enctype="mutipart/form-data" autocomplete="off">
           <table id="product_table">
-            <!-- 				<tr> -->
-            <!-- 					<th>상품 유형</th> -->
-            <!-- 					<td> -->
-            <!-- 						<select> -->
-            <!-- 							<option selected="selected">선택</option> -->
-            <!-- 							<option value="농산물">농산물</option> -->
-            <!-- 							<option value="수산물">수산물</option> -->
-            <!-- 							<option value="축산물">축산물</option> -->
-            <!-- 						</select> -->
-            <!-- 					</td> -->
-            <!-- 				</tr> -->
+<!--             				<tr> -->
+<!--             					<th>상품 유형</th> -->
+<!--             					<td> -->
+<!--             						<select> -->
+<!--             							<option selected="selected">선택</option> -->
+<!--             							<option value="농산물">농산물</option> -->
+<!--             							<option value="수산물">수산물</option> -->
+<!--             							<option value="축산물">축산물</option> -->
+<!--             						</select> -->
+<!--             					</td> -->
+<!--             				</tr> -->
             <tr>
               <th>상품명</th>
               <td>
@@ -47,30 +47,30 @@
               <th>판매가</th>
               <td><input type="text" placeholder="숫자만 입력" />&nbsp;원</td>
             </tr>
-            <!-- 				<tr> -->
-            <!-- 					<th>할인</th> -->
-            <!-- 					<td> -->
-            <!-- 						<div> -->
-            <!-- 							<input type="radio" id="discount_setting" name="discount"> -->
-            <!-- 							<label for="discount_setting">설정함</label>	 -->
-            <!-- 							<input type="radio" id="notdiscount_setting" name="discount"> -->
-            <!-- 							<label for="notdiscount_setting">설정안함</label>	 -->
-            <!-- 						</div> -->
-            <!-- 						<div id="discount_rate" style="display: none;"> -->
-            <!-- 							<input type="text" placeholder="숫자만 입력">&nbsp;% -->
-            <!-- 							<hr id="discount_bar"> -->
-            <!-- 						</div> -->
-            <!-- 						<div id="discount_total" style="display: none"> -->
-            <!-- 							<input type="text" placeholder="총 금액">&nbsp;원(총 금액) -->
-            <!-- 						</div> -->
-            <!-- 					</td> -->
-            <!-- 				</tr> -->
-            <!-- 				<tr> -->
-            <!-- 					<th>판매기간</th> -->
-            <!-- 					<td> -->
-            <!-- 						<input type="datetime-local">&nbsp;까지 -->
-            <!-- 					</td> -->
-            <!-- 				</tr> -->
+<!--             				<tr> -->
+<!--             					<th>할인</th> -->
+<!--             					<td> -->
+<!--             						<div> -->
+<!--             							<input type="radio" id="discount_setting" name="discount"> -->
+<!--             							<label for="discount_setting">설정함</label>	 -->
+<!--             							<input type="radio" id="notdiscount_setting" name="discount"> -->
+<!--             							<label for="notdiscount_setting">설정안함</label>	 -->
+<!--             						</div> -->
+<!--             						<div id="discount_rate" style="display: none;"> -->
+<!--             							<input type="text" placeholder="숫자만 입력">&nbsp;% -->
+<!--             							<hr id="discount_bar"> -->
+<!--             						</div> -->
+<!--             						<div id="discount_total" style="display: none"> -->
+<!--             							<input type="text" placeholder="총 금액">&nbsp;원(총 금액) -->
+<!--             						</div> -->
+<!--             					</td> -->
+<!--             				</tr> -->
+<!--             				<tr> -->
+<!--             					<th>판매기간</th> -->
+<!--             					<td> -->
+<!--             						<input type="datetime-local">&nbsp;까지 -->
+<!--             					</td> -->
+<!--             				</tr> -->
             <!-- 				<tr> -->
             <!-- 					<th>부가세</th> -->
             <!-- 					<td> -->
@@ -110,21 +110,21 @@
                 <small>*(하나만 선택 가능합니다.)</small>
               </td>
             </tr>
-            <!-- 				<tr> -->
-            <!-- 					상품 디테일에서 보이는 내부 사진 -->
-            <!-- 					<th>상품 설명 이미지</th> -->
-            <!-- 					<td> -->
-            <!-- 						<input type="file" multiple> -->
-            <!-- 						<br> -->
-            <!-- 						<small>*(여러개 선택 가능합니다.)</small> -->
-            <!-- 					</td> -->
-            <!-- 				</tr> -->
-            <!-- 				<tr> -->
-            <!-- 					<th>상품설명</th> -->
-            <!-- 					<td> -->
-            <!-- 						<textarea id="product_textarea" placeholder="상품설명을 작성해주세요."></textarea> -->
-            <!-- 					</td> -->
-            <!-- 				</tr> -->
+<!--             				<tr> -->
+<!--             					상품 디테일에서 보이는 내부 사진 -->
+<!--             					<th>상품 설명 이미지</th> -->
+<!--             					<td> -->
+<!--             						<input type="file" multiple> -->
+<!--             						<br> -->
+<!--             						<small>*(여러개 선택 가능합니다.)</small> -->
+<!--             					</td> -->
+<!--             				</tr> -->
+<!--             				<tr> -->
+<!--             					<th>상품설명</th> -->
+<!--             					<td> -->
+<!--             						<textarea id="product_textarea" placeholder="상품설명을 작성해주세요."></textarea> -->
+<!--             					</td> -->
+<!--             				</tr> -->
             <tr>
               <th>상품 상태</th>
               <td>

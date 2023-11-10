@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+#sale-wrap .sale_flex{
+	display: flex;
+}
+#sale-wrap .sale-type-label{
+	display: flex;
+}
+#sale-wrap .sale-type-label span{
+	width: 180px;
+}
+#sale-wrap .discount-public{
+	display: flex;
+}
+#sale-wrap .discount-public span{
+	width: 200px;
+}
+#sale-wrap .sale-discount-text{
+	width: 250px;
+}
+#sale-wrap .datetime{
+	width: 250px;
+}
+#sale-wrap .submit-data{
+	background-color: white;
+	width: 632.5px;
+	height: 40px;
+	border: 1px solid #cecece;
+	margin-top: 20px;
+}
+#sale-wrap #submit-data-div{
+	justify-content: flex-end;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

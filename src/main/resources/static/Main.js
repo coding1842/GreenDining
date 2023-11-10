@@ -21,7 +21,7 @@ import './css/public/Search.css';
 import './css/smartstore/ItemDetail.css';
 import './css/smartstore/ItemList.css';
 import './css/smartstore/Main.css';
-import './css/smartstore/DMLProductForm.css';
+import './css/smartstore/ProductForm.css';
 
 // ! 일반 유저
 import './css/user/Cart.css';
