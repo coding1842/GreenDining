@@ -11,7 +11,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
   <body>
     <form action="/imgur/upload" method="post" enctype="multipart/form-data">
       <input type="file" name="fileList" id="" multiple />
-      <input type="number" name="saleID" id="" value="3" />
+      <input type="number" name="group_id" id="" value="3" />
       <input type="submit" value="" />
     </form>
   </body>

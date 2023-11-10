@@ -1,6 +1,7 @@
 package com.ecom4.green.imgur.controller;
 
 
+import com.ecom4.green.imgur.dto.ImgurDTO;
 import com.ecom4.green.imgur.service.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.json.JSONObject;
@@ -33,10 +34,10 @@ public class ImgurController
 	     return "test/form/ImageUploadForm";
        }
         @PostMapping("/upload")
-        public String uploadImage(@RequestParam ("fileList") MultipartFile[] fileList, @RequestParam("saleID") int saleID) throws IOException {
+        public ResponseEntity<String> uploadImageList(@RequestParam ("fileList") MultipartFile[] fileList) throws IOException {
 
 	      RestTemplate restTemplate = new RestTemplate();
-	      List<String> imgUrlList = new ArrayList<>();
+	      List<ImgurDTO> imgurDTOList = new ArrayList<>();
 
 	      for (MultipartFile file : fileList)
 	      {
@@ -57,12 +58,16 @@ public class ImgurController
 			  JSONObject jsonObject = new JSONObject(response.getBody());
 
 			  // 업로드된 이미지 URL 추출
-			  String imageUrl = jsonObject.getJSONObject("data").getString("link");
-			  String imageID = jsonObject.getJSONObject("data").getString("id");
+			  String path = jsonObject.getJSONObject("data").getString("link");
+			  String imgur_id = jsonObject.getJSONObject("data").getString("id");
 
 
+			 ImgurDTO imgurDTO = new ImgurDTO();
 
-			  imgUrlList.add(imageUrl);
+			  imgurDTO.setImgur_id(imgur_id);
+			  imgurDTO.setPath(path);
+
+			  imgurDTOList.add(imgurDTO);
 		    }
 		    catch (Exception e)
 		    {
@@ -70,18 +75,29 @@ public class ImgurController
 		    }
 	      }
 	      int r = 0;
-	      r = imgurService.InsertImageList(imgUrlList,saleID);
+	      r = imgurService.insertImageList(imgurDTOList);
 
 
 
 
-	      return "이미지 저장완료";
+	      return new ResponseEntity<>("url",HttpStatus.OK);
 
         }
-        @DeleteMapping("/delete/{imageId}")
-        public String deleteImage(@PathVariable String imageId) {
 
-	      String CLIENT_ID = "898c7032bf09d08";
+//        업데이트 보류
+        @PatchMapping("/update")
+		public String updateImageList(@RequestParam ("fileList") MultipartFile[] fileList, @RequestParam("group_id") int group_id) throws IOException
+        {
+
+
+
+	      return "";
+        }
+
+//        단일 삭제
+        @DeleteMapping("/delete/{image_id}")
+        public String deleteImage(@PathVariable("image_id") int image_id) {
+
 	      RestTemplate restTemplate = new RestTemplate();
 
 	      HttpHeaders headers = new HttpHeaders();
@@ -89,9 +105,32 @@ public class ImgurController
 
 	      HttpEntity<String> requestEntity = new HttpEntity<>(headers);
 
-	      restTemplate.exchange("https://api.imgur.com/3/image/" + imageId, HttpMethod.DELETE, requestEntity, Void.class);
+	      restTemplate.exchange("https://api.imgur.com/3/image/" + image_id, HttpMethod.DELETE, requestEntity, Void.class);
 
 	      return "이미지 삭제 완료";
+        }
+//        다중 삭제
+        @DeleteMapping("/delete/{image_group_id}")
+        public String deleteImageList(@PathVariable("image_group_id") int image_group_id) {
+
+	      RestTemplate restTemplate = new RestTemplate();
+
+	      HttpHeaders headers = new HttpHeaders();
+	      headers.set("Authorization", "Client-ID " + CLIENT_ID);
+
+	      HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+
+
+	      List<ImgurDTO> imgurDTOList = imgurService.selectImageList(image_group_id);
+	      int result = imgurService.deleteImageList(image_group_id);
+
+	      for(ImgurDTO imgurDTO : imgurDTOList)
+	      {
+		    String imgur_id = imgurDTO.getImgur_id();
+		    restTemplate.exchange("https://api.imgur.com/3/image/" + imgur_id, HttpMethod.DELETE, requestEntity, Void.class);
+	      }
+
+	      return "이미지 리스트 삭제 완료";
         }
 
 
