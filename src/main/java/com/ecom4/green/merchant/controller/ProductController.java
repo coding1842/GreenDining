@@ -100,16 +100,16 @@ public class ProductController {
 		    return url;
 	      }
 
-	        model.addAttribute("merchant_id", authService.getCurrentUser(session).getId());
+//	        model.addAttribute("merchant_id", authService.getCurrentUser(session).getId());
 	        model.addAttribute("main", main);
-		
-		return "Index";
+	        model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
+	        return "Index";
 	}
         //	상품 등록
         @PostMapping("/write")
         public String insertProduct(HttpServletRequest req,
 			      HttpServletResponse resp,
-			      Model model , @ModelAttribute("product") ProductDTO productDTO,HttpSession session) {
+			      Model model , ProductDTO productDTO,HttpSession session) {
 
 	      String url = null;
 	      int r = 0;
@@ -118,7 +118,14 @@ public class ProductController {
 
 	      if(currentStatus == RoleStatus.MERCHANT)
 	      {
-		    r = productService.insertProduct(productDTO);
+		   try
+		   {
+			 r = productService.insertProduct(productDTO);
+		   }
+		   catch(Exception e)
+		    {
+			e.printStackTrace();
+		    }
 		    url = "redirect:/product/list";
 	      }
 	      else
@@ -154,13 +161,14 @@ public class ProductController {
 
 
 	        model.addAttribute("product" , productDTO );
-	        model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
+//	        테스트에서는 비활성화
+//	        model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
 	        model.addAttribute("main", main);
 	        return "Index";
 	}
 //	상품 수정 요청
 	@PatchMapping("/write/{product-id}")
-	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@ModelAttribute("product") ProductDTO productDTO ) {
+	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO ) {
 
 
 	        UserDTO ssKey = null;

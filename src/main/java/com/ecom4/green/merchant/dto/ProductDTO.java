@@ -25,7 +25,7 @@ public class ProductDTO {
 	private String status;
 	private String stock;
 	private Timestamp created_at;
-	private int image_id;
+	private int image_group_id;
 	private String merchant_id;
 }
 

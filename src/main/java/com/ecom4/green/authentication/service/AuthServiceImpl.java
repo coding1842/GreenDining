@@ -2,9 +2,11 @@ package com.ecom4.green.authentication.service;
 
 import com.ecom4.green.constant.RoleStatus;
 import com.ecom4.green.user.dto.UserDTO;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 
+@Service
 public class AuthServiceImpl implements  AuthService
 {
 
@@ -13,6 +15,7 @@ public class AuthServiceImpl implements  AuthService
         {
 	      UserDTO currentUser = (UserDTO) session.getAttribute("ssKey");
 
+	      currentUser = new UserDTO();
 //	      임시 가짜 신분 부여
 	      currentUser.setRole(RoleStatus.MERCHANT);
 

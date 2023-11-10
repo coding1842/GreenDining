@@ -3,7 +3,7 @@
 
 <mapper namespace="com.ecom4.green.merchant.dao.ProductDAO">
 
-	<select id="getProduct">
+	<select id="getProduct" resultType="productDTO">
 		select * from product
 		where id= #{id}
 	</select>
@@ -38,8 +38,8 @@
 		<selectKey keyProperty="id" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(ID),0)+1 FROM PRODUCT
 		</selectKey>
-			insert into product (NAME, PRICE, WEIGHT, STOCK, IMAGE_ID, STATUS, merchant_id)
-			VALUES(#{name}, #{price}, #{weight}, #{stock}, #{image_id}, #{status}, #{merchant_id})
+			insert into product (id,NAME, PRICE, WEIGHT, STOCK, IMAGE_GROUP_ID, created_at,STATUS, merchant_id)
+			VALUES(#{id},#{name}, #{price}, #{weight}, #{stock}, #{image_group_id}, systimestamp, #{status}, #{merchant_id})
 		</insert>
 	<update id="updateProduct" parameterType="productDTO">
 		update product set
