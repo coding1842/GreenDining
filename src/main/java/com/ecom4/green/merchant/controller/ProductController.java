@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
@@ -14,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -39,45 +41,39 @@ public class ProductController {
 	ProductService productService;
 
 	@Autowired
+        	AuthService authService;
+	@Autowired
         	UserService userService;
 
 //	상품관리 리스트 확인
         @GetMapping("/list")
-        public String getProductList(HttpServletRequest req,HttpServletResponse resp, Model model ,@RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable) {
+        public String getProductList(HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ,@RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable) {
 
-	      UserDTO ssKey = null;
+
 	      String main = null;
 	      String url = null;
 	      Page<ProductDTO> productList = null;
-	      HttpSession session = req.getSession();
-	      
-	      if(session.getAttribute("ssKey") != null)
-	      {
-		    ssKey = (UserDTO) session.getAttribute("ssKey");
 
-		    if(ssKey.getRole().equals(RoleStatus.MERCHANT))
-		    {
-		    	  Map<String, Object> dataMap = null;
-			      dataMap.put("category", category);
-			      dataMap.put("keyword", keyword);
-			      dataMap.put("pageable", pageable);
-			      dataMap.put("merchant_id", ssKey.getId());
-			      
-	    		productList = productService.getProductList(dataMap);
-           
-	    		main = "smartstore/view/ProductList";
-		    }
-		    else
-		    {
-				url = "redirect:/";
-				return url;
-		    }
+	      RoleStatus currentStatus = authService.checkRoleStatus(session);
+
+	      if(currentStatus == RoleStatus.MERCHANT)
+	      {
+		    Map<String, Object> dataMap = null;
+		    dataMap.put("category", category);
+		    dataMap.put("keyword", keyword);
+		    dataMap.put("pageable", pageable);
+		    dataMap.put("merchant_id", authService.getCurrentUser(session).getRole());
+
+		    productList = productService.getProductList(dataMap);
 	      }
 	      else
 	      {
 		    url = "redirect:/";
 		    return url;
 	      }
+
+
+	      main = "smartstore/view/ProductList";
 	      model.addAttribute("productList",productList);
 	      model.addAttribute("main", main);
 	      return "Index";
@@ -86,38 +82,26 @@ public class ProductController {
 	@GetMapping("/write")
 	public String insertProductForm(HttpServletRequest req,
 						              HttpServletResponse resp,
-						              Model model) {
+						              Model model, HttpSession session) {
 
-//	        UserDTO ssKey = null;
-//	        String main = null;
-//	        String url = null;
-//
-//	        HttpSession session = req.getSession();
-//	        if(session.getAttribute("ssKey") != null)
-//	        {
-//		      ssKey = (UserDTO) session.getAttribute("ssKey");
-//
-//		      if(ssKey.getRole().equals(RoleStatus.MERCHANT))
-//		      {
-//			    main = "smartstore/form/InsertProduct";
-//		      }
-//		      else
-//		      {
-//			    url = "redirect:/";
-//			    return url;
-//		      }
-//	        }
-//	        else
-//	        {
-//		      url = "redirect:/";
-//		      return url;
-//	        }
-//
-//	        model.addAttribute("ssKey",ssKey);
-//	        model.addAttribute("main", main);
-//	        return "Index";
-		String main = "smartstore/form/InsertProduct";
-		model.addAttribute("main", main);
+
+	        String main = null;
+	        String url = null;
+
+	        RoleStatus currentStatus = authService.checkRoleStatus(session);
+
+	      if(currentStatus == RoleStatus.MERCHANT)
+	      {
+		    main = "smartstore/form/InsertProduct";
+	      }
+	      else
+	      {
+		    url = "redirect:/";
+		    return url;
+	      }
+
+	        model.addAttribute("merchant_id", authService.getCurrentUser(session).getId());
+	        model.addAttribute("main", main);
 		
 		return "Index";
 	}
@@ -125,59 +109,42 @@ public class ProductController {
         @PostMapping("/write")
         public String insertProduct(HttpServletRequest req,
 			      HttpServletResponse resp,
-			      Model model , @ModelAttribute("product") ProductDTO productDTO) {
+			      Model model , @ModelAttribute("product") ProductDTO productDTO,HttpSession session) {
 
-	      UserDTO ssKey = null;
 	      String url = null;
 	      int r = 0;
 
-	      HttpSession session = req.getSession();
-	      if(session.getAttribute("ssKey") != null)
+	      RoleStatus currentStatus = authService.checkRoleStatus(session);
+
+	      if(currentStatus == RoleStatus.MERCHANT)
 	      {
-		    ssKey = (UserDTO) session.getAttribute("ssKey");
-
-		    if(ssKey.getRole().equals(RoleStatus.MERCHANT))
-		    {
-			  r = productService.insertProduct(productDTO);
-			  url = "redirect:/product/list";
-		    }
-		    else
-		    {
-			  url = "redirect:/";
-			  return url;
-		    }
+		    r = productService.insertProduct(productDTO);
+		    url = "redirect:/product/list";
 	      }
-
+	      else
+	      {
+		    url = "redirect:/";
+	      }
 
 	      return url;
         }
 
 //	상품 수정 폼으로 이동
 	@GetMapping("/write/{product-id}")
-	public String updateProductForm(HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
+	public String updateProductForm(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
 
 
-	        UserDTO ssKey = null;
+
 	        String main = null;
 	        String url = null;
-	        ProductDTO productDTO = null;
-	        HttpSession session = req.getSession();
+	        ProductDTO productDTO = new ProductDTO();
 
+	        RoleStatus currentStatus = authService.checkRoleStatus(session);
 
-	        if(session.getAttribute("ssKey") != null)
+	        if(currentStatus == RoleStatus.MERCHANT)
 	        {
-		      ssKey = (UserDTO) session.getAttribute("ssKey");
-
-		      if(ssKey.getRole().equals(RoleStatus.MERCHANT))
-		      {
-			    productDTO = productService.getProduct(productID);
-			    main = "smartstore/form/UpdateProduct";
-		      }
-		      else
-		      {
-			    url = "redirect:/";
-			    return url;
-		      }
+		      productDTO = productService.getProduct(productID);
+		      main = "smartstore/form/UpdateProduct";
 	        }
 	        else
 	        {
@@ -185,34 +152,33 @@ public class ProductController {
 		      return url;
 	        }
 
+
 	        model.addAttribute("product" , productDTO );
-	        model.addAttribute("ssKey",ssKey);
+	        model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
 	        model.addAttribute("main", main);
 	        return "Index";
 	}
 //	상품 수정 요청
 	@PatchMapping("/write/{product-id}")
-	public String updateProduct(HttpServletRequest req, HttpServletResponse resp, Model model,@ModelAttribute("product") ProductDTO productDTO ) {
+	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@ModelAttribute("product") ProductDTO productDTO ) {
 
 
 	        UserDTO ssKey = null;
 	        String main = null;
 	        String url = null;
 	        int r = 0;
-	        HttpSession session = req.getSession();
-	        if(session.getAttribute("ssKey") != null)
-	        {
-		      ssKey = (UserDTO) session.getAttribute("ssKey");
 
-		      if(ssKey.getRole().equals(RoleStatus.MERCHANT))
-		      {
-			    r = productService.updateProduct(productDTO);
-			    url = "redirect:/product/list";
-		      }
-		      else
-		      {
-			    url = "redirect:/";
-		      }
+	        RoleStatus currentStatus = authService.checkRoleStatus(session);
+
+	        if(currentStatus == RoleStatus.MERCHANT)
+	        {
+		      r = productService.updateProduct(productDTO);
+		      url = "redirect:/product/list";
+	        }
+	        else
+	        {
+		      url = "redirect:/";
+		      return url;
 	        }
 
 	        return url;
@@ -220,26 +186,24 @@ public class ProductController {
 
 //	상품 삭제
 	@GetMapping("/delete/{product-id}")
-	public String deleteProduct(HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
+	public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
 
 	        UserDTO ssKey = null;
 	        String url = null;
 	        int r = 0;
-	        HttpSession session = req.getSession();
-	        if(session.getAttribute("ssKey") != null)
-	        {
-		      ssKey = (UserDTO) session.getAttribute("ssKey");
 
-		      if(ssKey.getRole().equals(RoleStatus.MERCHANT))
-		      {
-			    r = productService.deleteProduct(productID);
-			    url = "redirect:/product/list";
-		      }
-		      else
-		      {
-			    url = "redirect:/";
-		      }
+	        RoleStatus currentStatus = authService.checkRoleStatus(session);
+
+	        if(currentStatus == RoleStatus.MERCHANT)
+	        {
+		      r = productService.deleteProduct(productID);
+		      url = "redirect:/product/list";
 	        }
+	        else
+	        {
+		      url = "redirect:/";
+	        }
+
 	        return url;
 	}
 	

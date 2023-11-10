@@ -1,6 +1,8 @@
 package com.ecom4.green.merchant.controller;
 
+import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.merchant.dto.SaleDTO;
+import com.ecom4.green.merchant.service.MerchantService;
 import com.ecom4.green.merchant.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,6 +29,12 @@ public class SmartStoreController
         @Autowired
         SaleService saleService;
 
+        @Autowired
+        MerchantService merchantService;
+
+        @Autowired
+        AuthService authService;
+
 
         @GetMapping("")
         public String testStore(HttpServletRequest req, HttpServletResponse resp , Model model)
@@ -40,21 +48,21 @@ public class SmartStoreController
 
 //       특정 스토어  메인으로 view
         @GetMapping("/{store-name}")
-        public String smartStorePage(HttpServletRequest req, HttpServletResponse resp , Model model)
+        public String smartStorePage(HttpServletRequest req, HttpServletResponse resp , Model model,@PathVariable("store_name") String store_name,@PageableDefault(size = 10,page = 0) Pageable pageable)
         {
 
                 String main = null;
+
+                Map<String, Object> dataMap = null;
+                dataMap.put("store_name", store_name);
+                dataMap.put("pageable", pageable);
+
                 main = "smartstore/view/Main";
                 model.addAttribute("main", main);
                 return "Index";
         }
 
-        @GetMapping("/{store_name}/{sale_id}")
-        public String smartStoreItem(HttpServletRequest req, HttpServletResponse resp , Model model,@PathVariable("store_name") String store_name, @PathVariable("sale_id") int sale_id)
-        {
-			return store_name;
-        	
-        }
+
         
 //        ?page= 페이지 번호 RequestParam하면 자동으로 pageable로 들어감
         @GetMapping("/{store_name}/list")
