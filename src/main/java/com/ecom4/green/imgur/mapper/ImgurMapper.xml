@@ -3,19 +3,35 @@
 
 <mapper namespace="com.ecom4.green.imgur.dao.ImgurDAO">
 
+    <select id="selectMaxGroupId" resultType="java.lang.Integer">
+          select max(group_id) from image
+    </select>
     <insert id="InsertImageList">
-        <foreach item="imageURL" collection="list" separator="">
+        <foreach item="imgurDTO" collection="list" separator="">
             <choose>
-                <when test="saleID != 0">
-                    insert into image (id,path,sale_id)
-                    values (auto_image.NEXTVAL,#{imageURL},#{saleID})
+<!-- 단일 이미지면 이미지 그룹은 null로 설정함-->
+                <when test="list.size() == 1">
+                    insert into image (id,path,imgur_id)
+                    values (auto_image_id.NEXTVAL,#{imgurDTO.path}, #{imgurDTO.imgur_id})
                 </when>
+<!--                그후 업로드 되는 이미지 그룹은 그룹 번호 최대값에서 +1 된 값으로 삽입 됩니다.-->
+                <when test="max_group_id != null">
+                    insert into image (id,path,group_id,imgur_id)
+                    values (auto_image_id.NEXTVAL,#{imgurDTO.path},#{max_group_id} + 1, #{imgurDTO.imgur_id})
+                </when>
+<!--                처음 업로드하는 이미지 그룹은 그룹 번호 1을 부여합니다-->
                 <otherwise>
-                    insert into image (id,path)
-                    values (auto_image.NEXTVAL,#{imageURL})
+                    insert into image (id,path,group_id,imgur_id)
+                    values (auto_image_id.NEXTVAL,#{imgurDTO.path},1, #{imgurDTO.imgur_id})
                 </otherwise>
             </choose>
+
         </foreach>
     </insert>
+    <select id="selectImageList" resultType="imgurDTO">
+        select id,group_id,path,imgur_id
+        from image
+        where group_id = #{group_id}
+    </select>
 
 </mapper>
