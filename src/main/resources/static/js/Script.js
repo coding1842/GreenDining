@@ -1,8 +1,8 @@
-import $ from 'jquery';
-// import Swiper JS
-import Swiper from 'swiper';
-// import Swiper styles
-import 'swiper/css';
+// import $ from 'jquery';
+// // import Swiper JS
+// import Swiper from 'swiper';
+// // import Swiper styles
+// import 'swiper/css';
 
 $(function () {
   // ! Aside 우측 박스 열었다 닫았다
@@ -81,14 +81,9 @@ $(function () {
 
   swiper.update();
   swiper2.update();
-
-
-
 });
 
 // =======================================
-
-
 
 function scrollToTop() {
   $("html, body").animate({scrollTop: 300}, "fast");
@@ -100,6 +95,27 @@ function checkedCategory(ele, category) {
 }
 
 
+function uploadImageTest() {
+  var bodyData = new FormData();
+  var imageFileList = $("#upload_image").get(0).files;
+  var CLIENT_ID = "898c7032bf09d08";
+  for (var i = 0; i < files.length; i++) {
+    var file = imageFileList[i];
+    bodyData.append("image", file);
+
+    fetch("https://api.imgur.com/3/image", {
+      method: "POST",
+      headers: {
+        Authorization: "Client-ID " + CLIENT_ID,
+        Accept: "application/json",
+      },
+      body: bodyData,
+    });
+  }
+}
+
+
 //============================사업자 마이페이지 드롭다운 버튼
 const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
 const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
+

@@ -33,6 +33,7 @@
             </if>
         </where>
 	</select>
+
 	<insert id="insertProduct" parameterType="productDTO">
 		<selectKey keyProperty="id" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(ID),0)+1 FROM PRODUCT
