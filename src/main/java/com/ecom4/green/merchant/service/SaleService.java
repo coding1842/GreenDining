@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface SaleService
 {
-        Page<SaleDTO > getSaleList(int category, Pageable pageable);
-        Page<SaleDTO> getSaleList(int category,String keyword , Pageable pageable);
+        Page<SaleDTO > getSaleList(Map<String, Object> dataMap);
+       
 
 }

@@ -13,7 +13,7 @@ public interface SaleDAO
 {
         List<SaleDTO> getSaleList(RequestPageList<?> requestPageList);
 
-        int getSaleListCount(@Param("category") int category);
-        int getSaleListCount(@Param("category") int category,@Param("keyword") String keyword);
+        int getSaleListCount(@Param("map") Map<String, Object> dataMap);
+      
 
 }

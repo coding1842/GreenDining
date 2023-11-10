@@ -14,7 +14,7 @@ public class UserController {
 	@RequestMapping("/my-page")
 	public String mypage(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-		String main = "user/MyPage";
+		String main = "user/view/MyPage";
 		model.addAttribute("main" , main);
 		return "Index";
 	}
