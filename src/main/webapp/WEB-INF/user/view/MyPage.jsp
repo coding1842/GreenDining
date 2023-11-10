@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
-<link rel="stylesheet" href="/css/MyPage.css" />
+<link rel="stylesheet" href="/css/user/MyPage.css" />
 <title>mypage</title>
 <div class="my_page_box">
 	<div class="my_page_aside_box">

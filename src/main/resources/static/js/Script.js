@@ -100,4 +100,6 @@ function checkedCategory(ele, category) {
 }
 
 
-
+//============================사업자 마이페이지 드롭다운 버튼
+const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
+const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))

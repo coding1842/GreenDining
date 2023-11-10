@@ -3,16 +3,21 @@ package com.ecom4.green.merchant.service;
 import com.ecom4.green.merchant.dto.ProductDTO;
 
 import java.util.List;
+import java.util.Map;
+
+import org.springframework.data.domain.Page;
 
 public interface ProductService {
 
         ProductDTO getProduct(int productID);
 
-        List<ProductDTO> getProductList(String id);
+        Page<ProductDTO> getProductList(Map<String, Object> dataMap);
 
-        int InsertProduct(ProductDTO productDTO);
+        int insertProduct(ProductDTO productDTO);
 
         int updateProduct(ProductDTO productDTO);
 
         int deleteProduct(int productID);
+
+		
 }
