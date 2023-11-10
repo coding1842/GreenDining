@@ -12,6 +12,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       rel="stylesheet"
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous" />
+    <link rel="stylesheet" href="/dist/bundle/bundle.css" />
+    <script src="/dist/bundle/bundle.js"></script>
+    <script src="/js/Script.js"></script>
   </head>
   <body>
     <section class="container">
