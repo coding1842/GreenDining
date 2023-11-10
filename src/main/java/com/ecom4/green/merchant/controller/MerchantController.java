@@ -17,7 +17,8 @@ public class MerchantController {
 	@RequestMapping("/my-page")
 	public String merchantMyPage(HttpServletRequest req,
 			HttpServletResponse resp , Model model) {
-		String main = "merchant/MyPage";
+		
+		String main = "merchant/view/MyPage";
 		model.addAttribute("main", main);
 		
 		return "Index";

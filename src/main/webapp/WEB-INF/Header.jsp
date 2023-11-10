@@ -37,7 +37,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
           <i class="fa-solid fa-magnifying-glass position-absolute end-0 top-50 translate-middle"></i>
         </div>
         <div id="icons" class="fs-5 position-absolute end-0 w-300px d-flex align-items-end flex-row-reverse">
-          <a href="/user/login">
+          <a href="/user/cart">
             <div class="d-flex align-items-center h-40px">
               <img src="/icon/image__header-cart.svg" alt="" />
             </div>

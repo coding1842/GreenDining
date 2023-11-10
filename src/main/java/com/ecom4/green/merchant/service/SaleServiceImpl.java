@@ -21,32 +21,20 @@ public class SaleServiceImpl implements SaleService
         SaleDAO saleDAO;
 
         @Override
-        public  Page<SaleDTO>  getSaleList(int category, Pageable pageable)
+        public  Page<SaleDTO>  getSaleList(Map<String, Object> dataMap )
         {
                 RequestPageList<?> requestPageList = RequestPageList.builder()
-                            .data(category)
-                            .pageable(pageable)
+                            .data(dataMap.get("store_name"))
+                            .data(dataMap.get("category"))
+                            .data(dataMap.get("keyword")) 
+                            .pageable((Pageable)dataMap.get("pageable"))
                             .build();
 
                 List<SaleDTO> content = saleDAO.getSaleList(requestPageList);
-                int total = saleDAO.getSaleListCount(category);
+                int total = saleDAO.getSaleListCount(dataMap);
 
-                return new PageImpl<>(content,pageable,total);
+                return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
         }
 
-        @Override
-        public Page<SaleDTO> getSaleList(int category, String keyword, Pageable pageable)
-        {
-
-                RequestPageList<?> requestPageList = RequestPageList.builder()
-                            .data(category)
-                            .data(keyword)
-                            .pageable(pageable)
-                            .build();
-
-                List<SaleDTO> content = saleDAO.getSaleList(requestPageList);
-                int total = saleDAO.getSaleListCount(category,keyword);
-
-                return new PageImpl<>(content,pageable,total);
-        }
+        
 }

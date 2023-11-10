@@ -9,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -48,24 +49,31 @@ public class SmartStoreController
                 return "Index";
         }
 
+        @GetMapping("/{store_name}/{sale_id}")
+        public String smartStoreItem(HttpServletRequest req, HttpServletResponse resp , Model model,@PathVariable("store_name") String store_name, @PathVariable("sale_id") int sale_id)
+        {
+			return store_name;
+        	
+        }
+        
 //        ?page= 페이지 번호 RequestParam하면 자동으로 pageable로 들어감
-        @GetMapping("/{store-name}/list")
-        public String smartStoreItemList(HttpServletRequest req, HttpServletResponse resp , Model model ,
+        @GetMapping("/{store_name}/list")
+        public String smartStoreItemList(HttpServletRequest req, HttpServletResponse resp , Model model , @PathVariable("store_name") String store_name,
                                          @RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable)
         {
 
 
                 Page<SaleDTO> saleList =  null;
                 String main = null;
-                if(keyword == null)
-                {
-                        saleList = saleService.getSaleList(category,pageable);
-                }
-                else
-                {
-                        saleList = saleService.getSaleList(category,keyword,pageable);
-
-                }
+                
+                Map<String, Object> dataMap = null;
+                dataMap.put("store_name", store_name);
+                dataMap.put("category", category);
+                dataMap.put("keyword", keyword);
+                dataMap.put("pageable", pageable);
+                saleList = saleService.getSaleList(dataMap);
+               
+                 
                 main = "smartstore/view/ItemList";
 
                 model.addAttribute("saleList",saleList);
