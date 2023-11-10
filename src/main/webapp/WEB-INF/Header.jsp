@@ -25,7 +25,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
     <section id="header_popup" class="mt-2 border-bottom border-2 mb-3 border-danger border-opacity-50">
       <nav id="logo_and_icons" class="position-relative h-60px">
         <div id="logo" class="position-absolute start-0 w-300px">
-          <a href="/index">
+          <a href="/">
             <div id="logo_container" class=""><span class="logo">Green</span><span class="logo logo-accent">ing</span></div>
           </a>
         </div>
@@ -37,7 +37,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
           <i class="fa-solid fa-magnifying-glass position-absolute end-0 top-50 translate-middle"></i>
         </div>
         <div id="icons" class="fs-5 position-absolute end-0 w-300px d-flex align-items-end flex-row-reverse">
-          <a href="/user/login">
+          <a href="/user/cart">
             <div class="d-flex align-items-center h-40px">
               <img src="/icon/image__header-cart.svg" alt="" />
             </div>
