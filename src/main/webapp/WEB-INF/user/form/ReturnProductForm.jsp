@@ -55,16 +55,16 @@
 					<div id="product_return_problem_data_box">
 						<div>
 							<p>단순 변심</p>
-							<input type="radio" id="1" name="11">
-							<label for="1">상품이 마음에 들지 않음</label>
+							<input type="radio" id="return_simple" name="return_simple_label">
+							<label for="return_simple">상품이 마음에 들지 않음</label>
 							<hr>
-							<input type="radio" id="2" name="11">
-							<label for="2">더 저렴한 상품을 발견함</label>
+							<input type="radio" id="return_simple" name="return_simple_label">
+							<label for="return_simple">더 저렴한 상품을 발견함</label>
 						</div>
 						<div>
 							<p>배송문제</p>
-							<input type="radio" id="22" name="11">
-							<label for="22">더 저렴한 상품을 발견함</label>
+							<input type="radio" id="return_delivery" name="return_delivery_label">
+							<label for="return_delivery">더 저렴한 상품을 발견함</label>
 							<br>
 							<div id="product_return_problem_textarea">
 								<textarea rows="5" cols="45"
@@ -73,14 +73,14 @@
 						</div>
 						<div>
 							<p>상품문제</p>
-							<input type="radio" id="3" name="22">
-							<label for="3">상품의 구성품 / 부속품이 들어있지 않음</label>
+							<input type="radio" id="return_problem__no" name="return_problem_select">
+							<label for="return_problem_no">상품의 구성품 / 부속품이 들어있지 않음</label>
 							<hr>
-							<input type="radio" id="4" name="22">
-							<label for="4">상품이 설명과 다름</label>
+							<input type="radio" id="return_problem_difference" name="return_problem_select">
+							<label for="return_problem_difference">상품이 설명과 다름</label>
 							<hr>
-							<input type="radio" id="5" name="22">
-							<label for="5">상품이 파손되어 배송됨</label>
+							<input type="radio" id="return_problem_break" name="return_problem_select">
+							<label for="return_problem_break">상품이 파손되어 배송됨</label>
 						</div>
 						<div>
 							<button type="button" class="product_return_problem_next">이전 단계 ></button>
@@ -113,9 +113,9 @@
 						<div class="product_return_solution_product_select_h3 p-3">
 							<h3>어떤 해결방법을 원하세요?</h3>
 							<div id="product_return_solution_data_box" class="mt-3">
-								<label><input type="radio" name="33"> 교환</label>
+								<label><input type="radio" name="return_product_exchange"> 교환</label>
 								<hr class="my-3">
-								<label><input type="radio" name="33"> 반품 후 환불</label>
+								<label><input type="radio" name="return_product_exchange"> 반품 후 환불</label>
 							</div>
 						</div>
 						
