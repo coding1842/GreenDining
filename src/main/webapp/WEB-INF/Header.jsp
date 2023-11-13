@@ -42,7 +42,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
               <img src="/icon/image__header-cart.svg" alt="" />
             </div>
           </a>
-          <a href="/user/my-page">
+          <a href="/auth/login">
             <div class="d-flex align-items-center h-40px">
               <img src="/icon/image__header-mypage.svg" alt="" srcset="" />
             </div>
