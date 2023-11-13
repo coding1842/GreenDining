@@ -19,7 +19,8 @@ import "./css/public/Search.css";
 import "./css/smartstore/ItemDetail.css";
 import "./css/smartstore/ItemList.css";
 import "./css/smartstore/Main.css";
-import "./css/smartstore/DMLProductForm.css";
+import "./css/smartstore/ProductForm.css";
+import "./css/smartstore/SaleForm.css";
 
 // ! 일반 유저
 import "./css/user/Cart.css";
@@ -37,7 +38,7 @@ import "./js/Script.js";
 import "./js/auth/Auth.js";
 
 // ! 스마트 스토어
-import "./js/smartstore/DMLProductForm.js"; // Update, Insert 관련 폼 컨트롤
+import "./js/smartstore/ProductForm.js"; // Update, Insert 관련 폼 컨트롤
 import "./js/smartstore/ItemDetail.js";
 
 // ! 일반 유저 관련

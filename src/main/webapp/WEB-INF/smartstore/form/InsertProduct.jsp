@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <title>스마트 스토어 상품 등록</title>
     <!-- CSS -->
-    <link rel="stylesheet" href="/css/smartstore/product/Insertcss" />
+<!--     <link rel="stylesheet" href="/css/smartstore/product/InsertProduct.css" /> -->
     <!-- JS -->
     <script src="/jquery/jquery-3.7.0.min.js"></script>
     <script src="/js/imgur/ImgurManagement.js"></script>
