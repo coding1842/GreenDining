@@ -23,8 +23,19 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         </button>
         <ul class="w-100 h-100 mb-0 mt-2 d-flex flex-column ps-0 fs-14px justify-content-around">
           <li class="w-100 text-center">
-            <span class="material-symbols-outlined fs-35px"> login </span>
-            <p>로그인</p>
+            <c:choose>
+	            <c:when test="${ssKey!=null}">
+	            <a href="/auth/logoutProc">
+		            <span class="material-symbols-outlined fs-35px">logout</span>
+		            <p>로그아웃</p></a>
+		        </c:when>
+	            <c:when test="${ssKey==null}">
+	            <a href="/auth/login">
+		            <span class="material-symbols-outlined fs-35px"> login </span>
+		            <p>로그인</p></a>
+	            </c:when>
+            </c:choose>
+            
           </li>
           <li class="w-100 h-60px text-center">
             <span class="material-symbols-outlined fs-35px"> local_shipping </span>
@@ -52,11 +63,22 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <!-- 오픈 박스 머리 부분 로그인 요청 -->
         <header class="w-100 h-200px text-center bg-secondary text-white">
           <span class="material-symbols-outlined text-center fs-60px"> account_circle </span>
-          <p>
-            <strong><a href="/user/login" class="text-decoration-underline text-white">로그인</a> 하시고</strong>
-            <br />
-            <span class="fs-12px">즐거운 쇼핑을 시작해보세요.</span>
-          </p>
+          <c:choose>
+	          <c:when test="${ssKey==null}">
+		          <p>
+		            <strong><a href="/auth/login" class="text-decoration-underline text-white">로그인</a> 하시고</strong>
+		            <br />
+		            <span class="fs-12px">즐거운 쇼핑을 시작해보세요.</span>
+		          </p>
+	          </c:when>
+	          <c:when test="${ssKey!=null}">
+		          <p>
+		            <strong><a href="/auth/login" class="text-decoration-underline text-white">${ssKey.name}(님)</a> 환영합니다.</strong>
+		            <br />
+		            <span class="fs-12px">즐거운 쇼핑을 시작해보세요.</span>
+		          </p>
+	          </c:when>
+          </c:choose>
         </header>
         <ul class="w-100 h-100 mb-0 d-flex flex-column ps-0 fs-14px text-white bg-black">
           <li class="w-170px fs-6 text-start mx-auto mt-4 position-relative">
