@@ -54,9 +54,7 @@ public class ProductController {
 	      String url = null;
 	      Page<ProductDTO> productList = null;
 
-	      RoleStatus currentStatus = authService.checkRoleStatus(session);
-
-	      if(currentStatus == RoleStatus.MERCHANT)
+	      if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	      {
 		    Map<String, Object> dataMap = null;
 		    dataMap.put("category", category);
@@ -83,14 +81,10 @@ public class ProductController {
 	public String insertProductForm(HttpServletRequest req,
 						              HttpServletResponse resp,
 						              Model model, HttpSession session) {
-
-
 	        String main = null;
 	        String url = null;
 
-	        RoleStatus currentStatus = authService.checkRoleStatus(session);
-
-	      if(currentStatus == RoleStatus.MERCHANT)
+	      if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	      {
 		    main = "smartstore/form/InsertProduct";
 	      }
@@ -114,9 +108,7 @@ public class ProductController {
 	      String url = null;
 	      int r = 0;
 
-	      RoleStatus currentStatus = authService.checkRoleStatus(session);
-
-	      if(currentStatus == RoleStatus.MERCHANT)
+	      if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	      {
 		   try
 		   {
@@ -146,9 +138,7 @@ public class ProductController {
 	        String url = null;
 	        ProductDTO productDTO = new ProductDTO();
 
-	        RoleStatus currentStatus = authService.checkRoleStatus(session);
-
-	        if(currentStatus == RoleStatus.MERCHANT)
+	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	        {
 		      productDTO = productService.getProduct(productID);
 		      main = "smartstore/form/UpdateProduct";
@@ -169,16 +159,11 @@ public class ProductController {
 //	상품 수정 요청
 	@PatchMapping("/write/{product-id}")
 	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO ) {
-
-
-	        UserDTO ssKey = null;
 	        String main = null;
 	        String url = null;
 	        int r = 0;
 
-	        RoleStatus currentStatus = authService.checkRoleStatus(session);
-
-	        if(currentStatus == RoleStatus.MERCHANT)
+	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	        {
 		      r = productService.updateProduct(productDTO);
 		      url = "redirect:/product/list";
@@ -195,14 +180,10 @@ public class ProductController {
 //	상품 삭제
 	@GetMapping("/delete/{product-id}")
 	public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
-
-	        UserDTO ssKey = null;
 	        String url = null;
 	        int r = 0;
 
-	        RoleStatus currentStatus = authService.checkRoleStatus(session);
-
-	        if(currentStatus == RoleStatus.MERCHANT)
+	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	        {
 		      r = productService.deleteProduct(productID);
 		      url = "redirect:/product/list";

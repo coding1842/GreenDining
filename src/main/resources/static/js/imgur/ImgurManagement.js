@@ -13,26 +13,57 @@ function imgurProcess() {
   var formData = new FormData(form);
   var imgurUrl = $("#url").val();
 
+  // 파일 정보가 있으면 업로드 합니다
+  if (imageData.get("fileList") != undefined) {
+    $.ajax({
+      type: "post",
+      url: imgurUrl,
+      data: imageData,
+      dataType: "json",
+      processData: false, // FormData 객체를 직렬화하지 않음
+      contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
+      success: function (response) {
+        formData.append("image_group_id", response.image_group_id);
+        $.ajax({
+          type: "post",
+          url: formUrl,
+          data: formData,
+          processData: false, // FormData 객체를 직렬화하지 않음
+          contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
+          dataType: "json",
+        });
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        alert("ERROR : ", textStatus, errorThrown);
+      },
+    });
+  }
+  // 없으면 데이터만 전달
+  else {
+    $.ajax({
+      type: "post",
+      url: formUrl,
+      data: formData,
+      processData: false, // FormData 객체를 직렬화하지 않음
+      contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
+      dataType: "json",
+    });
+  }
+}
+
+$(function () {
+  $("#imgur_push").click(function (e) {
+    imgurProcess();
+  });
+});
+
+function serialize() {
+  var data = $("form").serialize();
+  var url = $("form").attr("action");
   $.ajax({
     type: "post",
-    url: imgurUrl,
-    data: imageData,
-    dataType: "json",
-    processData: false, // FormData 객체를 직렬화하지 않음
-    contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
-    success: function (response) {
-      formData.append("image_group_id", response.image_group_id);
-      $.ajax({
-        type: "post",
-        url: formUrl,
-        data: formData,
-        processData: false, // FormData 객체를 직렬화하지 않음
-        contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
-        dataType: "json",
-      });
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-      alert("ERROR : ", textStatus, errorThrown);
-    },
+    url: url,
+    data: data,
+    success: function (response) {},
   });
 }

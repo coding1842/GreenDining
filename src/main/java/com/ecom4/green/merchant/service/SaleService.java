@@ -10,6 +10,13 @@ import java.util.Map;
 public interface SaleService
 {
         Page<SaleDTO > getSaleList(Map<String, Object> dataMap);
-       
 
+
+        int insertSale(SaleDTO saleDTO);
+
+        SaleDTO getSale(int saleID);
+
+        int updateSale(SaleDTO saleDTO);
+
+        int deleteSale(int saleID);
 }

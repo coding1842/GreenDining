@@ -38,18 +38,15 @@
 		<selectKey keyProperty="id" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(ID),0)+1 FROM PRODUCT
 		</selectKey>
-			insert into product (id,NAME, PRICE, WEIGHT, STOCK, IMAGE_GROUP_ID, created_at,STATUS, merchant_id)
-			VALUES(#{id},#{name}, #{price}, #{weight}, #{stock}, #{image_group_id}, systimestamp, #{status}, #{merchant_id})
-		</insert>
+			insert into product (id,NAME, PRICE, WEIGHT, STOCK, IMAGE_GROUP_ID, created_at,STATUS, merchant_id,category_code)
+			VALUES(#{id},#{name}, #{price}, #{weight}, #{stock}, #{image_group_id}, sysdate, #{status}, #{merchant_id},#{category_code})
+	</insert>
 	<update id="updateProduct" parameterType="productDTO">
 		update product set
 		name = #{name},
 		price = #{price},
 		weight = #{weight},
 		stock = #{stock},
-		<if test="image_id != null">
-		image_id = #{image_id},
-		</if>
 		status = #{status}
 	</update>
 	<delete id="deleteProduct" >

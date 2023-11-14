@@ -6,27 +6,23 @@
     <select id="selectMaxGroupId" resultType="java.lang.Integer">
           select NVL(max(group_id),1) from image
     </select>
-    <insert id="insertImageList">
-        <foreach item="imgurDTO" collection="list" separator="">
-            <choose>
-<!--                그후 업로드 되는 이미지 그룹은 그룹 번호 최대값에서 +1 된 값으로 삽입 됩니다.-->
-                <when test="imgurDTO.group_id != null">
-                    insert into image (id,path,group_id,imgur_id)
-                    values (auto_image_id.NEXTVAL,#{imgurDTO.path},#{imgurDTO.group_id}, #{imgurDTO.imgur_id})
-                </when>
-                <when test="max_group_id != null">
-                    insert into image (id,path,group_id,imgur_id)
-                    values (auto_image_id.NEXTVAL,#{imgurDTO.path},#{max_group_id} + 1, #{imgurDTO.imgur_id})
-                </when>
-<!--                처음 업로드하는 이미지 그룹은 그룹 번호 1을 부여합니다-->
-                <otherwise>
-                    insert into image (id,path,group_id,imgur_id)
-                    values (auto_image_id.NEXTVAL,#{imgurDTO.path},1, #{imgurDTO.imgur_id})
-                </otherwise>
-            </choose>
 
+    <insert id="insertImageList" parameterType="list">
+        <selectKey keyProperty="group_id" resultType="int" order="BEFORE">
+            SELECT NVL(MAX(group_id), 0) + 1 FROM image
+        </selectKey>
+        BEGIN
+        <foreach item="imgurDTO" collection="list" separator=" ">
+            INSERT INTO image (id, path, group_id, imgur_id)
+            VALUES (auto_image_id.NEXTVAL, #{imgurDTO.path}, #{group_id}, #{imgurDTO.imgur_id});
         </foreach>
+        END;
     </insert>
+
+
+
+
+
     <select id="selectImageList" resultType="imgurDTO">
         select id,group_id,path,imgur_id
         from image

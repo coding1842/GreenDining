@@ -70,7 +70,6 @@ public class ImgurController
 
 			  imgurDTO.setImgur_id(imgur_id);
 			  imgurDTO.setPath(path);
-
 			  imgurDTOList.add(imgurDTO);
 		    }
 		    catch (Exception e)
@@ -82,10 +81,7 @@ public class ImgurController
 	      {
 		    r = imgurService.insertImageList(imgurDTOList);
 
-		    if(r < 1)
-		    {
-			  throw new Exception("업로드가 정상적으로 되지 않았습니다.");
-		    }
+
 	      }
 	      catch (Exception e)
 	      {

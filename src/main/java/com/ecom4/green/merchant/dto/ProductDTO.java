@@ -2,6 +2,7 @@ package com.ecom4.green.merchant.dto;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.context.WebApplicationContext;
 
 import lombok.Data;
@@ -10,6 +11,8 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -24,7 +27,8 @@ public class ProductDTO {
 	private int weight;
 	private String status;
 	private String stock;
-	private Timestamp created_at;
+
+	private String created_at;
 	private int image_group_id;
 	private String merchant_id;
 }

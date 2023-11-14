@@ -36,5 +36,31 @@ public class SaleServiceImpl implements SaleService
                 return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
         }
 
-        
+        @Override
+        public int insertSale(SaleDTO saleDTO)
+        {
+
+
+                return saleDAO.insertSale(saleDTO);
+        }
+
+        @Override
+        public SaleDTO getSale(int saleID)
+        {
+                return saleDAO.getSale(saleID);
+        }
+
+        @Override
+        public int updateSale(SaleDTO saleDTO)
+        {
+                return saleDAO.updateSale(saleDTO);
+        }
+
+        @Override
+        public int deleteSale(int saleID)
+        {
+                return saleDAO.deleteSale(saleID);
+        }
+
+
 }

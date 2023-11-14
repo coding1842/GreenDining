@@ -44,4 +44,40 @@
             </if>
         </where>
     </select>
+
+    <select id="getSale" resultType="saleDTO">
+        select * from sale
+        where id= #{id}
+    </select>
+    <insert id="insertSale" parameterType="saleDTO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="int">
+            SELECT NVL(MAX(ID),0)+1 FROM SALE
+        </selectKey>
+        INSERT INTO sale (id, title, content, status, discount, started_at, ended_at, IMAGE_GROUP_ID, created_at, category_code, region_code, merchant_id)
+        VALUES (
+        #{id}, #{title}, #{content}, #{status}, #{discount},
+        TO_DATE(#{started_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD HH24:MI'),
+        TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD HH24:MI'),
+        #{image_group_id}, SYSDATE, #{category_code}, #{region_code}, #{merchant_id}
+        )
+    </insert>
+
+
+
+
+    <update id="updateSale" parameterType="saleDTO">
+        update sale set
+        title = #{title},
+        content = #{content},
+        status = #{status},
+        discount = #{discount},
+        started_at = #{started_at},
+        ended_at = #{ended_at},
+        category_code = #{category_code},
+        region_code = #{region_code}
+    </update>
+    <delete id="deleteSale" >
+        delete from product
+        where id = #{id}
+    </delete>
 </mapper>

@@ -4,13 +4,6 @@
   <head>
     <meta charset="UTF-8" />
     <title>스마트 스토어 상품 등록</title>
-    <!-- CSS -->
-<!--     <link rel="stylesheet" href="/css/smartstore/product/InsertProduct.css" /> -->
-    <!-- JS -->
-    <script src="/jquery/jquery-3.7.0.min.js"></script>
-    <script src="/js/imgur/ImgurManagement.js"></script>
-    i
-    <script src="/js/smartstore/ProductForm.js"></script>
   </head>
   <!-- 사업자로 로그인 된상태임 -->
   <body>
@@ -65,8 +58,8 @@
               <th class="product_puch_space"></th>
               <td class="product_puch_space">
                 <button type="reset" id="product_reset">다시쓰기</button>
-                <input class="submit1" onclick="imgurProcess()" type="button" id="product_push" value="상품 등록하기" />
-                <input type="hidden" name="merchant_id" value="${merchant_id}" />
+                <input class="submit1" type="button" id="imgur_push" value="상품 등록하기" />
+                <input type="hidden" name="merchant_id" value="lhj9979" />
                 <input type="hidden" id="url" value="/imgur/upload" />
               </td>
             </tr>
