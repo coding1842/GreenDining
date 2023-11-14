@@ -38,9 +38,7 @@ public class AuthServiceImpl implements AuthService {
     {
       UserDTO currentUser = (UserDTO) session.getAttribute("ssKey");
 
-      currentUser = new UserDTO();
-//      임시 가짜 신분 부여
-      currentUser.setRole(RoleStatus.MERCHANT);
+
 
       if(currentUser == null)
       {

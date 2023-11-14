@@ -4,7 +4,10 @@ import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
 import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.merchant.dto.SaleDTO;
+import com.ecom4.green.merchant.dto.SaleProductDTO;
+import com.ecom4.green.merchant.service.ProductService;
 import com.ecom4.green.merchant.service.SaleService;
+import com.ecom4.green.merchant.wrapper.SaleForm;
 import com.ecom4.green.user.dto.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -28,6 +33,8 @@ public class SaleController
         @Autowired
         SaleService saleService;
 
+        @Autowired
+        ProductService productService;
         @GetMapping("/list")
         public String getProductList(HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ,@RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable) {
 
@@ -64,18 +71,20 @@ public class SaleController
                                         Model model, HttpSession session) {
                 String main = null;
                 String url = null;
-
+                List<ProductDTO> productDTOList = new ArrayList<>();
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
                 {
                         main = "smartstore/form/InsertSale";
+                        productDTOList = productService.getProductList(authService.getCurrentUser(session).getId());
                 }
                 else
                 {
-                        url = "redirect:/";
+                        url = "redirect:/auth/login";
                         return url;
                 }
 
                 model.addAttribute("main", main);
+                model.addAttribute("productList",productDTOList);
 //                model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
                 return "Index";
         }
@@ -83,15 +92,18 @@ public class SaleController
         @PostMapping("/write")
         public String insertSale(HttpServletRequest req,
                                  HttpServletResponse resp,
-                                 Model model , SaleDTO saleDTO, HttpSession session) {
+                                 Model model ,@ModelAttribute SaleForm saleForm, HttpSession session) {
                 String url = null;
-                int r = 0;
+
+                SaleDTO saleDTO = saleForm.getSaleDTO();
+                List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
 
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
                 {
                         try
                         {
-                                r = saleService.insertSale(saleDTO);
+                                saleService.insertSale(saleDTO);
+                                saleService.insertSaleProductList(saleProductDTOList);
                         }
                         catch(Exception e)
                         {
@@ -135,17 +147,18 @@ public class SaleController
         }
         //	상품 수정 요청
         @PatchMapping("/write/{sale-id}")
-        public String updateSale(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, SaleDTO saleDTO ) {
+        public String updateSale(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, SaleDTO saleDTO ) throws Exception
+        {
 
                 String main = null;
                 String url = null;
-                int r = 0;
+
 
 
 
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
                 {
-                        r = saleService.updateSale(saleDTO);
+                        saleService.updateSale(saleDTO);
                         url = "redirect:/item/list";
                 }
                 else
@@ -159,17 +172,17 @@ public class SaleController
 
         //	상품 삭제
         @PostMapping("/delete/{sale-id}")
-        public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("sale-id") int saleID ) {
+        public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("sale-id") int saleID ) throws Exception
+        {
 
 
                 String url = null;
-                int r = 0;
 
 
 
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
                 {
-                        r = saleService.deleteSale(saleID);
+                        saleService.deleteSale(saleID);
                         url = "redirect:/sale/list";
                 }
                 else

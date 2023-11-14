@@ -62,7 +62,7 @@ public class ProductController {
 		    dataMap.put("pageable", pageable);
 		    dataMap.put("merchant_id", authService.getCurrentUser(session).getRole());
 
-		    productList = productService.getProductList(dataMap);
+		    productList = productService.getProductPage(dataMap);
 	      }
 	      else
 	      {

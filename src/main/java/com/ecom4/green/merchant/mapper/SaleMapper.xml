@@ -61,6 +61,14 @@
         #{image_group_id}, SYSDATE, #{category_code}, #{region_code}, #{merchant_id}
         )
     </insert>
+    <insert id="insertSaleProductList" parameterType="list">
+        BEGIN
+        <foreach item="saleProductDTO" collection="list" separator=" ">
+            INSERT INTO sale_product (sale_id, product_id, name, sale_option,sale_type)
+            VALUES (#{saleProductDTO.sale_id}, #{saleProductDTO.product_id}, #{saleProductDTO.name}, #{saleProductDTO.sale_option},#{saleProductDTO.sale_type});
+        </foreach>
+        END;
+    </insert>
 
 
 

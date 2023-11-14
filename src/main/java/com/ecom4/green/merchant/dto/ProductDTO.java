@@ -31,15 +31,6 @@ public class ProductDTO {
 	private String created_at;
 	private int image_group_id;
 	private String merchant_id;
+	private int category_code;
 }
 
-
-//private int rr;
-//private int p_no     ;
-//private int stock  ;
-//private int price  ;
-//private String p_name   ;
-//private String detail ;
-//private String pr_date;
-//private String image  ;
-//private String path   ;

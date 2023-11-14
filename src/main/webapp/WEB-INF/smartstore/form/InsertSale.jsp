@@ -1,9 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>     
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
     <title>상품 판매 등록</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   </head>
   <body>
     <div id="sale-wrap">
@@ -13,19 +17,19 @@
           <tr>
             <th>판매글 제목</th>
             <td>
-              <input type="text" name="title" id="" />
+              <input type="text" name="saleDTO.title" id="" />
             </td>
           </tr>
           <tr>
             <th>판매글 상세 설명</th>
             <td>
-              <textarea rows="5" cols="30" name="content" placeholder="상품설명을 작성해주세요."></textarea>
+              <textarea rows="5" cols="30" name="saleDTO.content" placeholder="상품설명을 작성해주세요."></textarea>
             </td>
           </tr>
           <tr>
             <th>카테고리 코드 유형</th>
             <td>
-              <select name="category_code">
+              <select name="saleDTO.category_code">
                 <option selected="selected">선택</option>
                 <option value="10000">과일/견과</option>
                 <option value="20000">채소</option>
@@ -39,7 +43,7 @@
           <tr>
             <th>지역 코드 유형</th>
             <td>
-              <select name="region_code">
+              <select name="saleDTO.region_code">
                 <option selected="selected">선택</option>
                 <option value="1000">수도권</option>
                 <option value="2000">강원도</option>
@@ -50,13 +54,43 @@
               </select>
             </td>
           </tr>
-
+          <tr>
+            <th>판매글에 상품 추가</th>
+            <td class="product">
+                <c:choose>
+                  <c:when test="${fn:length(productList)>0}">
+                    <div id="product_container" class="w-100">
+                      <div class="saleProductDTO d-flex flex-row" id="">
+                        <select name="saleProductDTO[0].product_id" id="">
+                          <c:forEach var="product" items="${productList}" varStatus="i">
+                            <option value="${product.id}">${product.name}</option>
+                          </c:forEach>
+                        </select>
+                        <input type="text" name="saleProductDTO[0].name" placeholder="설정하실 상품명">
+                        <input type="text" name="saleProductDTO[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게">
+                        <select name="saleProductDTO[0].sale_type" id="">
+                          <option value="MAIN">메인상품</option>
+                          <option value="SUB">추가상품</option>
+                        </select>
+                      </div>
+                    </div>
+                    
+                  </c:when>
+                  <c:when test="${fn:length(productList) == 0}">
+                    <p>등록 하신 상품이 없습니다. 상품 등록 후에 판매글을 작성해주세요.</p>
+                  </c:when>
+                </c:choose>
+                <button type="button" id="add_product">상품 추가</button>
+                <button type="button" id="remove_product">상품 삭제</button>
+            </td>
+           
+          </tr>
           <tr>
             <th>상태</th>
             <td class="sale_flex">
-              <label class="sale-type-label"><input type="radio" name="status" /><span>판매 대기</span></label>
-              <label class="sale-type-label"><input type="radio" name="status" /><span>판매중</span></label>
-              <label class="sale-type-label"><input type="radio" name="status" /><span>판매 종료</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" /><span>판매 대기</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" /><span>판매중</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" /><span>판매 종료</span></label>
             </td>
           </tr>
           <tr>
@@ -108,9 +142,5 @@
       </form>
     </div>
   </body>
-  <script>
-    $("#sale_push").click(function (e) {
-      imgurProcess();
-    });
-  </script>
+  <script src="/js/smartstore/SaleForm.js"></script>
 </html>

@@ -11,8 +11,8 @@ public interface ProductService {
 
         ProductDTO getProduct(int productID);
 
-        Page<ProductDTO> getProductList(Map<String, Object> dataMap);
-
+        Page<ProductDTO> getProductPage(Map<String, Object> dataMap);
+        List<ProductDTO> getProductList(String merchant_id);
         int insertProduct(ProductDTO productDTO);
 
         int updateProduct(ProductDTO productDTO);

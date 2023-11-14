@@ -2,6 +2,7 @@ package com.ecom4.green.merchant.dao;
 
 import com.ecom4.green.data.RequestPageList;
 import com.ecom4.green.merchant.dto.SaleDTO;
+import com.ecom4.green.merchant.dto.SaleProductDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -23,4 +24,6 @@ public interface SaleDAO
         int updateSale(SaleDTO saleDTO);
 
         int deleteSale(int saleID);
+
+        int insertSaleProductList(List<SaleProductDTO> saleProductDTOList);
 }
