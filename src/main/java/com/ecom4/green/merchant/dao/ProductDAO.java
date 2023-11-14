@@ -22,7 +22,9 @@ public interface ProductDAO
 
 	ProductDTO getProduct(@Param("id") int productID);
 
-	List<ProductDTO> getProductList(RequestPageList<?> requestPageList);
+	List<ProductDTO> getProductPage(RequestPageList<?> requestPageList);
 
 	int getProductListCount(@Param("map") Map<String, Object> dataMap);
+
+        List<ProductDTO> getProductList(@Param("merchant_id") String merchant_id);
 }

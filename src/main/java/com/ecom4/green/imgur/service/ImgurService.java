@@ -13,4 +13,10 @@ public interface ImgurService
         List<ImgurDTO> selectImageList(int group_id);
 
         int deleteImageList(int group_id);
+
+        int selectMaxGroupId();
+
+        List<ImgurDTO> selectImageAll();
+
+
 }
