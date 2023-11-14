@@ -15,6 +15,7 @@
 		<typeAlias alias="productDTO" type="com.ecom4.green.merchant.dto.ProductDTO"/>
 		<typeAlias alias="merchantDTO" type="com.ecom4.green.merchant.dto.MerchantDTO"/>
 		<typeAlias alias="saleDTO" type="com.ecom4.green.merchant.dto.SaleDTO"/>
+		<typeAlias alias="userDTO" type="com.ecom4.green.user.dto.UserDTO"/>
 		<typeAlias alias="imgurDTO" type="com.ecom4.green.imgur.dto.ImgurDTO" />
      </typeAliases>
 </configuration>

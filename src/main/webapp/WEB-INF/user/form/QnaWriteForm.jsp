@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="/css/QnaWriteForm.css" />
 </head>
 <body>
-<form action="" name="topForm1" method="post">
+<form id="QnaWrite" action="" name="topForm1" method="post">
 	<table>
 		<thead>
 			<tr>
