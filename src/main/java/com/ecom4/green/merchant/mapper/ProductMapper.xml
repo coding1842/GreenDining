@@ -11,11 +11,11 @@
 	<select id="getProductPage" parameterType="productDTO">
 		select * from product
 	 <where>
-            <if test="data.category != null and data.category != ''">
-                AND category_code LIKE '%' || #{data.category} || '%'
+            <if test="data.category != null and data.category != 0">
+				category_code = #{data.category}
             </if>
             <if test="data.keyword != null and data.keyword != ''">
-                AND title LIKE '%' || #{data.keyword} || '%'
+				title LIKE '%' || #{data.keyword} || '%'
             </if>
             and merchant_id = #{data.merchant_id}
         </where>
@@ -29,11 +29,11 @@
 		select count(*) as cnt
 		FROM product
         <where>
-            <if test="map.category != null and map.category != ''">
-                AND category_code LIKE '%' || #{map.category} || '%'
+            <if test="map.category != null and map.category != 0">
+                category_code = #{map.category}
             </if>
             <if test="map.keyword != null and map.keyword != ''">
-                AND title LIKE '%' || #{map.keyword} || '%'
+                title LIKE '%' || #{map.keyword} || '%'
             </if>
         </where>
 	</select>
@@ -52,6 +52,8 @@
 		weight = #{weight},
 		stock = #{stock},
 		status = #{status}
+        where merchant_id = #{merchant_id}
+		and id = #{id}
 	</update>
 	<delete id="deleteProduct" >
 		delete from product

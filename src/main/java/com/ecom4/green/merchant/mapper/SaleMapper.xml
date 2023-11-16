@@ -2,33 +2,99 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ecom4.green.merchant.dao.SaleDAO">
-	<select id="getSaleList" parameterType="RequestPageList" resultType="saleDTO">
-        SELECT s.id
-        , s.title
-        , s.content
-        , s.status
-        , s.discount
-        , s.started_at
-        , s.ended_at
-        , s.create_at
-        , s.image_id
-        , s.merchant_id
-        , s.category_code
-        , s.region_code
-        FROM sale s
-        JOIN merchant m ON s.merchant_id = m.id
-        <where>
-            <if test="data.category != null and data.category != ''">
-                AND s.category_code LIKE '%' || #{data.category} || '%'
-            </if>
-            <if test="data.keyword != null and data.keyword != ''">
-                AND s.title LIKE '%' || #{data.keyword} || '%'
-            </if>
-            <if test="data.store_name != null and data.store_name != ''">
-                AND m.store_name = #{data.store_name}
-            </if>
-        </where>
-        OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+	<select id="getSalePage" parameterType="RequestPageList" resultType="saleDTO">
+        <choose>
+<!--            USER가 스마트스토어 진입시 데이터를 불러 오는 방법-->
+            <when test="data.store_name != null">
+                SELECT s.id
+                , s.title
+                , s.content
+                , s.status
+                , s.discount
+                , s.started_at
+                , s.ended_at
+                , s.created_at
+                , s.image_group_id
+                , s.merchant_id
+                , s.category_code
+                , s.region_code
+                FROM sale s
+                JOIN merchant m ON s.merchant_id = m.id
+                <where>
+                    <if test="data.category != null and data.category != 0">
+                         s.category_code = #{data.category}
+                    </if>
+                    <if test="data.region != null and data.region != 0">
+                        s.region_code = #{data.region}
+                    </if>
+                    <if test="data.keyword != null and data.keyword != ''">
+                         s.title LIKE  '%' || #{data.keyword} || '%'
+                    </if>
+                    AND m.store_name = #{data.store_name}
+                    AND systimestamp between started_at and ended_at
+                </where>
+            OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+            </when>
+<!--            MERCHANT가 판매글 관리 위해서 요청할시-->
+            <when test="data.merchant_id != null and data.merchant_id != ''">
+                select id
+                , title
+                , content
+                , status
+                , discount
+                , started_at
+                , ended_at
+                , created_at
+                , image_group_id
+                , merchant_id
+                , category_code
+                , region_code
+                from sale
+                <where>
+                    <if test="data.category != null and data.category != 0">
+                        category_code = #{data.category}
+                    </if>
+                    <if test="data.region != null and data.region != 0">
+                        region_code = #{data.region}
+                    </if>
+                    <if test="data.keyword != null and data.keyword != ''">
+                        title LIKE '%' || #{data.keyword} || '%'
+                    </if>
+                    and merchant_id = #{data.merchant_id}
+                </where>
+                OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+            </when>
+<!--           검색 페이지 또는 카테고리 별 상품 탐색에서 public-->
+            <otherwise>
+                select id
+                , title
+                , content
+                , status
+                , discount
+                , started_at
+                , ended_at
+                , created_at
+                , image_group_id
+                , merchant_id
+                , category_code
+                , region_code
+                from sale
+                <where>
+                    <if test="data.category != null and data.category != 0">
+                        category_code = #{data.category}
+                    </if>
+                    <if test="data.region != null and data.region != 0">
+                        region_code = #{data.region}
+                    </if>
+                    <if test="data.keyword != null and data.keyword != ''">
+                        title LIKE '%' || #{data.keyword} || '%'
+                    </if>
+                    AND systimestamp between started_at and ended_at
+                </where>
+                OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+            </otherwise>
+        </choose>
+
     </select>
 
 
@@ -36,11 +102,14 @@
         SELECT COUNT(*) AS CNT
         FROM sale
         <where>
-            <if test="map.category != null and map.category != ''">
-                AND category_code LIKE '%' || #{map.category} || '%'
+            <if test="map.category != null and map.category != 0">
+                category_code = #{map.category}
+            </if>
+            <if test="map.region != null and map.region != 0">
+                region_code = #{map.region}
             </if>
             <if test="map.keyword != null and map.keyword != ''">
-                AND title LIKE '%' || #{map.keyword} || '%'
+                title LIKE '%' || #{map.keyword} || '%'
             </if>
         </where>
     </select>
@@ -49,6 +118,9 @@
         select * from sale
         where id= #{id}
     </select>
+    <select id="selectMaxSaleId" resultType="int">
+        select NVL(MAX(ID),0) FROM SALE
+    </select>
     <insert id="insertSale" parameterType="saleDTO">
         <selectKey keyProperty="id" order="BEFORE" resultType="int">
             SELECT NVL(MAX(ID),0)+1 FROM SALE
@@ -56,8 +128,8 @@
         INSERT INTO sale (id, title, content, status, discount, started_at, ended_at, IMAGE_GROUP_ID, created_at, category_code, region_code, merchant_id)
         VALUES (
         #{id}, #{title}, #{content}, #{status}, #{discount},
-        TO_DATE(#{started_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD HH24:MI'),
-        TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD HH24:MI'),
+        TO_DATE(#{started_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
+        TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
         #{image_group_id}, SYSDATE, #{category_code}, #{region_code}, #{merchant_id}
         )
     </insert>
@@ -65,7 +137,7 @@
         BEGIN
         <foreach item="saleProductDTO" collection="list" separator=" ">
             INSERT INTO sale_product (sale_id, product_id, name, sale_option,sale_type)
-            VALUES (#{saleProductDTO.sale_id}, #{saleProductDTO.product_id}, #{saleProductDTO.name}, #{saleProductDTO.sale_option},#{saleProductDTO.sale_type});
+            VALUES (#{sale_id}, #{saleProductDTO.product_id}, #{saleProductDTO.name}, #{saleProductDTO.sale_option},#{saleProductDTO.sale_type});
         </foreach>
         END;
     </insert>
@@ -88,4 +160,48 @@
         delete from product
         where id = #{id}
     </delete>
+    <select id="selectImagePath" parameterType="int" resultType="String">
+        select * from (
+        select path, rownum as rn
+        from image
+        where group_id = #{image_group_id}
+        order by id asc
+        ) where rn = 1
+    </select>
+
+    <select id="selectMinPrice" resultType="int">
+        <bind name="sale_type" value="'MAIN'"/>
+        select * from (
+        select p.price, rownum as rn
+        from product p
+        join sale_product sp on p.id = sp.product_id
+        where sp.sale_id = #{id} and sp.sale_type = #{sale_type}
+        order by p.price asc
+        ) where rn = 1
+    </select>
+    <select id="selectStoreName" parameterType="String" resultType="String">
+        select store_name
+        from merchant
+        where id = #{merchant_id}
+    </select>
+    <select id="selectImageGroupPath" parameterType="int" resultType="String">
+        select path
+        from image
+        where group_id = #{image_group_id}
+        order by id asc
+    </select>
+    <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
+        <bind name="sale_type" value="'MAIN'"/>
+        select *
+        from sale_product
+        where sale_id = #{sale_id}
+        and sale_type = #{sale_type}
+    </select>
+    <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
+        <bind name="sale_type" value="'SUB'"/>
+        select *
+        from sale_product
+        where sale_id = #{sale_id}
+        and sale_type = #{sale_type}
+    </select>
 </mapper>

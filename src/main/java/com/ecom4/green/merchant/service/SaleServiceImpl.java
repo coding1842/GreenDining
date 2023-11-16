@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class SaleServiceImpl implements SaleService
@@ -22,16 +23,22 @@ public class SaleServiceImpl implements SaleService
         SaleDAO saleDAO;
 
         @Override
-        public  Page<SaleDTO>  getSaleList(Map<String, Object> dataMap )
+        public  Page<SaleDTO>  getSalePage(Map<String, Object> dataMap )
         {
                 RequestPageList<?> requestPageList = RequestPageList.builder()
-                            .data(dataMap.get("store_name"))
-                            .data(dataMap.get("category"))
-                            .data(dataMap.get("keyword")) 
+                            .data(dataMap)
                             .pageable((Pageable)dataMap.get("pageable"))
                             .build();
 
-                List<SaleDTO> content = saleDAO.getSaleList(requestPageList);
+                List<SaleDTO> content = saleDAO.getSalePage(requestPageList);
+
+                for(SaleDTO ele : content)
+                {
+                         ele.setImage_path(saleDAO.selectImagePath(ele.getImage_group_id()));
+                         ele.setMin_price(saleDAO.selectMinPrice(ele.getId()));
+                         ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
+                }
+
                 int total = saleDAO.getSaleListCount(dataMap);
 
                 return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
@@ -41,17 +48,18 @@ public class SaleServiceImpl implements SaleService
         public void insertSale(SaleDTO saleDTO) throws Exception
         {
                 int r = saleDAO.insertSale(saleDTO);
-                if(r < 1)
-                {
-                        throw new Exception("정상적으로 판매글 정보가 삽입되지 않았습니다.");
-                }
+
 
         }
 
         @Override
         public SaleDTO getSale(int saleID)
         {
-                return saleDAO.getSale(saleID);
+                SaleDTO saleDTO = saleDAO.getSale(saleID);
+                saleDTO.setMin_price(saleDAO.selectMinPrice(saleDTO.getId()));
+                saleDTO.setStore_name(saleDAO.selectStoreName(saleDTO.getMerchant_id()));
+                saleDTO.setImage_group_path(saleDAO.selectImageGroupPath(saleDTO.getImage_group_id()));
+                return saleDTO;
         }
 
         @Override
@@ -76,14 +84,33 @@ public class SaleServiceImpl implements SaleService
         }
 
         @Override
-        public void insertSaleProductList(List<SaleProductDTO> saleProductDTOList) throws Exception
+        public void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id) throws Exception
         {
-                int r = saleDAO.insertSaleProductList(saleProductDTOList);
+                int r = saleDAO.insertSaleProductList(saleProductDTOList,sale_id);
 
                 if(r<1)
                 {
                         throw new Exception("정상적으로 판매글상품정보가 삽입 되지 않았습니다.");
                 }
+        }
+
+        @Override
+        public int selectMaxSaleId()
+        {
+                return saleDAO.selectMaxSaleId();
+        }
+
+        @Override
+        public List<SaleProductDTO> selectSaleProductListMain(int saleId)
+        {
+                return saleDAO.selectSaleProductListMain(saleId);
+        }
+
+        @Override
+        public List<SaleProductDTO> selectSaleProductListSUB(int saleId)
+        {
+                return saleDAO.selectSaleProductListSub(saleId);
+
         }
 
 

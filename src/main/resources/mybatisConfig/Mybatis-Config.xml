@@ -3,7 +3,7 @@
 <configuration>
 	<settings>
 		<setting name="cacheEnabled" value="false" />
-		<setting name="useGeneratedKeys" value="true" />
+		<setting name="useGeneratedKeys" value="false" />
 		<setting name="defaultExecutorType" value="REUSE" />
 		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
@@ -17,7 +17,7 @@
 		<typeAlias alias="saleDTO" type="com.ecom4.green.merchant.dto.SaleDTO"/>
 		<typeAlias alias="userDTO" type="com.ecom4.green.user.dto.UserDTO"/>
 		<typeAlias alias="imgurDTO" type="com.ecom4.green.imgur.dto.ImgurDTO" />
+		<typeAlias alias="saleProductDTO" type="com.ecom4.green.merchant.dto.SaleProductDTO" />
 		<typeAlias alias="addressDTO" type="com.ecom4.green.user.dto.AddressDTO" />
-	
      </typeAliases>
 </configuration>

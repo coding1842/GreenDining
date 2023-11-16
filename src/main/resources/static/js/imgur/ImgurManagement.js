@@ -13,6 +13,10 @@ function imgurProcess() {
   var formData = new FormData(form);
   var imgurUrl = $("#url").val();
 
+  // 업데이트 같은 경우에 이미지 삭제 이후 업로드 처리을 위해 group_id 정보 전달
+  if ($("input[name=image_group_id]").length > 1) {
+    imageData.append("image_group_id", $("input[name=image_group_id]").val());
+  }
   // 파일 정보가 있으면 업로드 합니다
   if (imageData.get("fileList") != undefined) {
     $.ajax({
@@ -56,14 +60,3 @@ $(function () {
     imgurProcess();
   });
 });
-
-function serialize() {
-  var data = $("form").serialize();
-  var url = $("form").attr("action");
-  $.ajax({
-    type: "post",
-    url: url,
-    data: data,
-    success: function (response) {},
-  });
-}

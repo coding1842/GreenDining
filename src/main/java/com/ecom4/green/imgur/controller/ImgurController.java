@@ -1,6 +1,7 @@
 package com.ecom4.green.imgur.controller;
 
 
+import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.imgur.dto.ImgurDTO;
 import com.ecom4.green.imgur.service.ImgurService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ImgurController
        @Autowired
         ImgurService imgurService;
 
+       @Autowired
+        AuthService authService;
+
        @GetMapping("/test-form")
        public String uploadTestForm()
        {
@@ -37,6 +41,7 @@ public class ImgurController
        }
         @PostMapping("/upload")
         public ResponseEntity<?> uploadImageList(@RequestParam ("fileList") MultipartFile[] fileList) throws IOException {
+
 
 	      int r = 0;
 
@@ -102,6 +107,7 @@ public class ImgurController
 		public ResponseEntity<?> updateImageList(@RequestParam ("fileList") MultipartFile[] fileList, @RequestParam("image_group_id") int image_group_id) throws IOException
         {
 	      int r = 0;
+
 
 	      RestTemplate restTemplate = new RestTemplate();
 	      List<ImgurDTO> imgurDTOList = new ArrayList<>();

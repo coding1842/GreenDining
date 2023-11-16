@@ -61,14 +61,14 @@
                   <c:when test="${fn:length(productList)>0}">
                     <div id="product_container" class="w-100">
                       <div class="saleProductDTO d-flex flex-row" id="">
-                        <select name="saleProductDTO[0].product_id" id="">
+                        <select name="saleProductDTOList[0].product_id" id="product_id">
                           <c:forEach var="product" items="${productList}" varStatus="i">
                             <option value="${product.id}">${product.name}</option>
                           </c:forEach>
                         </select>
-                        <input type="text" name="saleProductDTO[0].name" placeholder="설정하실 상품명">
-                        <input type="text" name="saleProductDTO[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게">
-                        <select name="saleProductDTO[0].sale_type" id="">
+                        <input type="text" name="saleProductDTOList[0].name" placeholder="설정하실 상품명">
+                        <input type="text" name="saleProductDTOList[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게">
+                        <select name="saleProductDTOList[0].sale_type" id="sale_type">
                           <option value="MAIN">메인상품</option>
                           <option value="SUB">추가상품</option>
                         </select>
@@ -88,9 +88,9 @@
           <tr>
             <th>상태</th>
             <td class="sale_flex">
-              <label class="sale-type-label"><input type="radio" name="saleDTO.status" /><span>판매 대기</span></label>
-              <label class="sale-type-label"><input type="radio" name="saleDTO.status" /><span>판매중</span></label>
-              <label class="sale-type-label"><input type="radio" name="saleDTO.status" /><span>판매 종료</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="PREPARED" /><span>판매 대기</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="SALE" /><span>판매중</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="SOLD_OUT" /><span>판매 종료</span></label>
             </td>
           </tr>
           <tr>
@@ -115,13 +115,13 @@
           <tr>
             <th>판매 시작시간</th>
             <td>
-              <input type="datetime-local" name="started_at" class="datetime" />
+              <input type="datetime-local" name="saleDTO.started_at" class="datetime" />
             </td>
           </tr>
           <tr>
             <th>판매 종료시간</th>
             <td>
-              <input type="datetime-local" name="ended_at" class="datetime" />
+              <input type="datetime-local" name="saleDTO.ended_at" class="datetime" />
             </td>
           </tr>
           <tr>
@@ -136,7 +136,7 @@
         <div class="sale_flex" id="submit-data-div">
           <button type="reset" id="sale_reset">다시쓰기</button>
           <input class="submit-data" type="button" id="imgur_push" value="상품 등록하기" />
-          <input type="hidden" name="merchant_id" value="lhj9979" />
+          <input type="hidden" name="saleDTO.merchant_id" value="${ssKey.id}" />
           <input type="hidden" id="url" value="/imgur/upload" />
         </div>
       </form>

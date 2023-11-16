@@ -29,12 +29,17 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
             <div id="logo_container" class=""><span class="logo">Green</span><span class="logo logo-accent">ing</span></div>
           </a>
         </div>
-        <div id="search" class="position-absolute start-50 border h-40px w-600px translate-middle-x rounded-3 border-1 border-black">
-          <input
-            type="text"
-            placeholder="검색어를 입력하세요"
-            class="w-290px h-38px ms-3 border-0 position-absolute start-0 top-50 translate-middle-y" />
-          <i class="fa-solid fa-magnifying-glass position-absolute end-0 top-50 translate-middle"></i>
+        <div id="search" class="position-absolute start-50 border h-40px w-600px translate-middle-x rounded-1 border-2 border-primary">
+          <form action="/np/search" id="search_form" method="get">
+            <input
+              name="keyword"
+              id="search_input"
+              type="text"
+              placeholder="검색어를 입력하세요"
+              class="w-580px h-38px ms-3 border-0 position-absolute start-0 top-50 translate-middle-y" />
+            <input type="submit" value="" class="d-none" />
+            <i id="search_button" class="fa-solid fa-magnifying-glass position-absolute end-0 top-50 translate-middle text-primary"></i>
+          </form>
         </div>
         <div id="icons" class="fs-5 position-absolute end-0 w-300px d-flex align-items-end flex-row-reverse">
           <a href="/user/cart">

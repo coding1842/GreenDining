@@ -10,9 +10,9 @@ import java.util.List;
 public interface ImgurDAO
 {
 
-        int insertImageList(@Param("list") List<ImgurDTO> imgurDTOList,@Param("max_group_id") int max_group_id);
+        int insertImageList(@Param("list") List<ImgurDTO> imgurDTOList);
 
-        Integer selectMaxGroupId();
+        int selectMaxGroupId();
 
         List<ImgurDTO> selectImageList(@Param("group_id") int group_id);
 

@@ -102,8 +102,8 @@
         <div class="sale_flex" id="submit-data-div">
           <button type="reset" id="sale_reset">다시쓰기</button>
           <input class="submit-data" type="button" id="imgur_push" value="상품 등록하기" />
-          <input type="hidden" name="merchant_id" value="lhj9979" />
-          <input type="hidden" name="group_id" value="${sale.image_group_id}" />
+          <input type="hidden" name="merchant_id" value="${ssKey.id}" />
+          <input type="hidden" name="image_group_id" value="${sale.image_group_id}" />
           <input type="hidden" id="url" value="/imgur/update" />
         </div>
       </form>

@@ -103,7 +103,7 @@ public class ProductController {
         @PostMapping("/write")
         public String insertProduct(HttpServletRequest req,
 			      HttpServletResponse resp,
-			      Model model , ProductDTO productDTO,HttpSession session) {
+			      Model model , ProductDTO productDTO,HttpSession session,@RequestParam(required = false) int image_group_id) {
 
 	      String url = null;
 	      int r = 0;
@@ -112,6 +112,7 @@ public class ProductController {
 	      {
 		   try
 		   {
+			 productDTO.setImage_group_id(image_group_id);
 			 r = productService.insertProduct(productDTO);
 		   }
 		   catch(Exception e)
@@ -157,12 +158,13 @@ public class ProductController {
 	        return "Index";
 	}
 //	상품 수정 요청
-	@PatchMapping("/write/{product-id}")
-	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO ) {
+	@PostMapping("/write/{product-id}")
+	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO, @PathVariable("product-id") int product_id ) {
 	        String main = null;
 	        String url = null;
 	        int r = 0;
 
+	        productDTO.setId(product_id);
 	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	        {
 		      r = productService.updateProduct(productDTO);
@@ -178,7 +180,7 @@ public class ProductController {
 	}
 
 //	상품 삭제
-	@GetMapping("/delete/{product-id}")
+	@PostMapping("/delete/{product-id}")
 	public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
 	        String url = null;
 	        int r = 0;

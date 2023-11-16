@@ -59,8 +59,8 @@
               <td class="product_puch_space">
                 <button type="reset" id="product_reset">다시쓰기</button>
                 <input class="submit1" type="button" id="imgur_push" value="상품 등록하기" />
-                <input type="hidden" name="merchant_id" value="lhj9979" />
-                <input type="hidden" name="group_id" value="${product.image_group_id}" />
+                <input type="hidden" name="merchant_id" value="${ssKey.id}" />
+                <input type="hidden" name="image_group_id" value="${product.image_group_id}" />
                 <input type="hidden" id="imgurUrl" value="/imgur/update" />
               </td>
             </tr>

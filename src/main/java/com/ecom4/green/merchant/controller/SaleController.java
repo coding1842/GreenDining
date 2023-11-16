@@ -9,6 +9,8 @@ import com.ecom4.green.merchant.service.ProductService;
 import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.merchant.wrapper.SaleForm;
 import com.ecom4.green.user.dto.UserDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ import java.util.Map;
 @RequestMapping("/item")
 public class SaleController
 {
+        private static final Logger logger = LoggerFactory.getLogger(SaleController.class);
         @Autowired
         AuthService authService;
         @Autowired
@@ -35,23 +39,52 @@ public class SaleController
 
         @Autowired
         ProductService productService;
+
+//        public 권한
+        @GetMapping("/{sale_id}")
+        public String getSaleDetail(@PathVariable("sale_id") int sale_id,
+                    HttpSession session,HttpServletRequest req, HttpServletResponse resp,Model model)
+        {
+                String main = "smartstore/view/SaleDetail";
+                SaleDTO sale = new SaleDTO();
+                List<SaleProductDTO> saleProductList_MAIN = new ArrayList<>();
+                List<SaleProductDTO> saleProductList_SUB = new ArrayList<>();
+
+                sale = saleService.getSale(sale_id);
+                saleProductList_MAIN = saleService.selectSaleProductListMain(sale_id);
+                saleProductList_SUB = saleService.selectSaleProductListSUB(sale_id);
+
+
+                model.addAttribute("sale",sale);
+                model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
+                model.addAttribute("saleProductList_SUB", saleProductList_SUB);
+                model.addAttribute("main",main);
+                return "Index";
+        }
+
+//        권한 - 사업자로 제한
         @GetMapping("/list")
-        public String getProductList(HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ,@RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable) {
+        public String getSaleList(@RequestParam(required = false , defaultValue = "0") int category,
+                                  @RequestParam(required = false , defaultValue = "0") int region,
+                                  @RequestParam(required = false,defaultValue = "")  String keyword ,
+                                  @PageableDefault(size = 10,page = 0) Pageable pageable,
+                    HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ) {
 
 
                 String main = null;
                 String url = null;
-                Page<SaleDTO> saleList = null;
+                Page<SaleDTO> salePage = null;
 
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
                 {
-                        Map<String, Object> dataMap = null;
+                        Map<String,Object> dataMap = new HashMap<>();
                         dataMap.put("category", category);
+                        dataMap.put("region",region);
                         dataMap.put("keyword", keyword);
                         dataMap.put("pageable", pageable);
-                        dataMap.put("merchant_id", authService.getCurrentUser(session).getRole());
+                        dataMap.put("merchant_id",authService.getCurrentUser(session).getId());
 
-                        saleList = saleService.getSaleList(dataMap);
+                        salePage = saleService.getSalePage(dataMap);
                 }
                 else
                 {
@@ -61,7 +94,7 @@ public class SaleController
 
 
                 main = "smartstore/view/SaleList";
-                model.addAttribute("saleList",saleList);
+                model.addAttribute("salePage",salePage);
                 model.addAttribute("main", main);
                 return "Index";
         }
@@ -85,17 +118,18 @@ public class SaleController
 
                 model.addAttribute("main", main);
                 model.addAttribute("productList",productDTOList);
-//                model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
+                model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
                 return "Index";
         }
         //	상품 등록
         @PostMapping("/write")
         public String insertSale(HttpServletRequest req,
                                  HttpServletResponse resp,
-                                 Model model ,@ModelAttribute SaleForm saleForm, HttpSession session) {
+                                 Model model ,@ModelAttribute SaleForm saleForm, HttpSession session, @RequestParam("image_group_id") int image_group_id) {
                 String url = null;
 
                 SaleDTO saleDTO = saleForm.getSaleDTO();
+                saleDTO.setImage_group_id(image_group_id);
                 List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
 
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
@@ -103,7 +137,7 @@ public class SaleController
                         try
                         {
                                 saleService.insertSale(saleDTO);
-                                saleService.insertSaleProductList(saleProductDTOList);
+                                saleService.insertSaleProductList(saleProductDTOList,saleService.selectMaxSaleId());
                         }
                         catch(Exception e)
                         {
@@ -140,13 +174,13 @@ public class SaleController
 
 
                 model.addAttribute("sale" , saleDTO );
-//	        테스트에서는 비활성화
-//	        model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
+
+                model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
                 model.addAttribute("main", main);
                 return "Index";
         }
         //	상품 수정 요청
-        @PatchMapping("/write/{sale-id}")
+        @PostMapping("/write/{sale-id}")
         public String updateSale(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, SaleDTO saleDTO ) throws Exception
         {
 
@@ -192,5 +226,9 @@ public class SaleController
 
                 return url;
         }
+
+
+
+
 
 }
