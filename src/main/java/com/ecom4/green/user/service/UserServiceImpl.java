@@ -3,6 +3,8 @@ package com.ecom4.green.user.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ecom4.green.user.dao.UserDAO;
@@ -30,6 +32,16 @@ public class UserServiceImpl implements UserService
 
 	@Override
 	public List<AddressDTO> selectAddressList(String id) {
-		return userDao.selectAddressList(addressDTO);
+		return userDao.selectAddressList(id);
+	}
+
+	@Override
+	public int updateAddress(AddressDTO addressDTO){
+		return userDao.updateAddress(addressDTO);
+	}
+
+	@Override
+	public int deleteAddress(AddressDTO addressDTO) {
+		return userDao.deleteAddress(addressDTO);
 	}
 }
