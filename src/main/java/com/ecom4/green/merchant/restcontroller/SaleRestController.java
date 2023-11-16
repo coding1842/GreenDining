@@ -1,10 +1,19 @@
 package com.ecom4.green.merchant.restcontroller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ecom4.green.authentication.service.AuthService;
@@ -21,10 +30,12 @@ public class SaleRestController {
 	@Autowired
 	AuthService authService;
 	@GetMapping("/sale/list")
-    public List<SaleDTO> selectSaleList() {
+	public List<SaleDTO> getSaleList(HttpServletRequest request,
+			HttpServletResponse response,
+			Model model,
+			SaleDTO saledto) {
 		
-		return null;
-        
+        return saleService.selectSaleList(new SaleDTO());
     }
-
+	
 }

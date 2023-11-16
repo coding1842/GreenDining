@@ -1,5 +1,9 @@
 @charset "UTF-8";
-*{
+.my_page_box *{
+	margin: 0;
+	padding: 0;
+}
+.merchant_page_box *{
 	margin: 0;
 	padding: 0;
 }

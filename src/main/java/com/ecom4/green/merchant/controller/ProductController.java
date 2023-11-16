@@ -27,6 +27,7 @@ import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.merchant.service.ProductService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -197,6 +198,9 @@ public class ProductController {
 
 	        return url;
 	}
+	
+	
+	
 	
 	
 }
