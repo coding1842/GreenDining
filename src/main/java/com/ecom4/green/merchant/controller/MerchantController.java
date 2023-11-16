@@ -25,6 +25,7 @@ public class MerchantController {
 			         HttpServletResponse resp , Model model, HttpSession session) {
 
 	        String main = "";
+	        
 	        RoleStatus currentStatus = authService.checkRoleStatus(session);
 
 	        if(currentStatus == RoleStatus.MERCHANT)

@@ -22,7 +22,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           </span>
         </button>
         <ul class="w-100 h-100 mb-0 mt-2 d-flex flex-column ps-0 fs-14px justify-content-around">
-          <li class="w-100 text-center">
+          <li class="w-100 h-60px text-center">
             <c:choose>
 	            <c:when test="${ssKey!=null}">
 	            <a href="/auth/logoutProc">

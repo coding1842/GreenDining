@@ -28,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         @Override
-        public Page<ProductDTO> getProductList(Map<String, Object> dataMap)
+        public Page<ProductDTO> getProductPage(Map<String, Object> dataMap)
         {
         	  RequestPageList<?> requestPageList = RequestPageList.builder()
                       .data(dataMap.get("category"))
@@ -37,10 +37,17 @@ public class ProductServiceImpl implements ProductService {
                       .pageable((Pageable)dataMap.get("pageable"))
                       .build();
 
-          List<ProductDTO> content = productDAO.getProductList(requestPageList);
+          List<ProductDTO> content = productDAO.getProductPage(requestPageList);
           int total = productDAO.getProductListCount(dataMap);
 
           return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
+        }
+
+        @Override
+        public List<ProductDTO> getProductList(String merchant_id)
+        {
+
+	      return productDAO.getProductList(merchant_id);
         }
 
         @Override
