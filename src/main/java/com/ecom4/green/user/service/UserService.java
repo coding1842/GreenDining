@@ -10,5 +10,9 @@ public interface UserService
 	void insertAddress(AddressDTO addressDTO) throws Exception;
 
 	List<AddressDTO> selectAddressList(String id);
-	
+
+	int updateAddress(AddressDTO addressDTO);
+
+	int deleteAddress(AddressDTO addressDTO);
+
 }

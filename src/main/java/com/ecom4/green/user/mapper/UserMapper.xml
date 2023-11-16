@@ -3,8 +3,13 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ecom4.green.user.dao.UserDAO">
-	<insert id="insertAddress" parameterMap="addressDTO">
+	<insert id="insertAddress" parameterType="addressDTO">
+		<selectKey keyProperty="id" order="BEFORE"
+	        resultType="int">
+	      SELECT NVL(MAX(id),0)+1 FROM ADDRESS
+	    </selectKey>
 		INSERT INTO ADDRESS(USER_ID,
+							ID,
 							NAME,
 							ADDRESS,
 							ADDRESS2,
@@ -12,6 +17,7 @@
 							REQUEST_OPTION,
 							REQUEST_TEXT)
 		VALUES( #{user_id},
+				#{id},
 				#{name},
 				#{address},
 				#{address2},
@@ -19,9 +25,29 @@
 				#{request_option},
 				#{request_text})
 	</insert>
-	<select id="selectAddressList" parameterMap="addressDTO">
-		SELECT USER_ID, NAME, ADDRESS, ADDRESS2, ZIPCODE, REQUEST_OPTION, REQUEST_TEXT
+	
+	<select id="selectAddressList" resultType="addressDTO">
+		SELECT USER_ID,ID, NAME, ADDRESS, ADDRESS2, ZIPCODE, REQUEST_OPTION, REQUEST_TEXT
 		FROM ADDRESS
 		WHERE USER_ID = #{user_id}
 	</select>
+	
+	<update id="updateAddress" parameterType="addressDTO">
+		UPDATE ADDRESS SET
+		USER_ID = #{user_id},
+		NAME = #{name},
+		ADDRESS = #{address},
+		ADDRESS2 = #{address2},
+		ZIPCODE = #{zipcode},
+		REQUEST_OPTION = #{request_option},
+		REQUEST_TEXT = #{request_text}
+		WHERE USER_ID = #{user_id}
+		AND ID = #{id}
+	</update>
+	
+	<delete id="deleteAddress" parameterType="addressDTO">
+		DELETE FROM ADDRESS
+		WHERE USER_ID = #{user_id}
+		AND ID = #{id}
+	</delete>
 </mapper>
