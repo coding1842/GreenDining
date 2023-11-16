@@ -43,5 +43,30 @@ public class MerchantController {
 	        model.addAttribute("main", main);
 		return "Index";
 	}
-
+	
+	@RequestMapping("/my-page/delivery/list")
+	public String getdeliverylist(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/view/DeliveryList";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	@RequestMapping("/my-page/product/list")
+	public String getProductList(HttpServletRequest req, HttpServletResponse resp , Model model, HttpSession session)
+	{
+		
+		String main = "merchant/view/ProductList";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	@RequestMapping("/my-page/item/list")
+	public String getitemList(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "merchant/view/Item";
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
+	
 }
