@@ -3,12 +3,12 @@
 
 <mapper namespace="com.ecom4.green.merchant.dao.ProductDAO">
 
-	<select id="getProduct">
+	<select id="getProduct" resultType="productDTO">
 		select * from product
 		where id= #{id}
 	</select>
 	
-	<select id="getProductList" parameterType="productDTO">
+	<select id="getProductPage" parameterType="productDTO">
 		select * from product
 	 <where>
             <if test="data.category != null and data.category != ''">
@@ -20,6 +20,10 @@
             and merchant_id = #{data.merchant_id}
         </where>
         OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+	</select>
+	<select id="getProductList" parameterType="String" resultType="productDTO">
+		select * from product
+		where merchant_id = #{merchant_id}
 	</select>
 	<select id="getProductListCount" parameterType="map" resultType="int">
 		select count(*) as cnt
@@ -38,18 +42,15 @@
 		<selectKey keyProperty="id" order="BEFORE" resultType="int">
 			SELECT NVL(MAX(ID),0)+1 FROM PRODUCT
 		</selectKey>
-			insert into product (NAME, PRICE, WEIGHT, STOCK, IMAGE_ID, STATUS, merchant_id)
-			VALUES(#{name}, #{price}, #{weight}, #{stock}, #{image_id}, #{status}, #{merchant_id})
-		</insert>
+			insert into product (id,NAME, PRICE, WEIGHT, STOCK, IMAGE_GROUP_ID, created_at,STATUS, merchant_id,category_code)
+			VALUES(#{id},#{name}, #{price}, #{weight}, #{stock}, #{image_group_id}, sysdate, #{status}, #{merchant_id},#{category_code})
+	</insert>
 	<update id="updateProduct" parameterType="productDTO">
 		update product set
 		name = #{name},
 		price = #{price},
 		weight = #{weight},
 		stock = #{stock},
-		<if test="image_id != null">
-		image_id = #{image_id},
-		</if>
 		status = #{status}
 	</update>
 	<delete id="deleteProduct" >

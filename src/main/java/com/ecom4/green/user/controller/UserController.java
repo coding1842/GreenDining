@@ -109,6 +109,16 @@ public class UserController {
 		return "Index";
 	}
 	
+
+	@RequestMapping("/OrderPaymentForm")
+	public String OrderPaymentForm(HttpServletRequest req, HttpServletResponse resp , Model model)
+	{
+		String main = "user/form/OrderPaymentForm";
+		model.addAttribute("main", main);
+		return "Index";
+	}
+	
+	
 }
 
 
