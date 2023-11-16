@@ -67,7 +67,7 @@
                 <li><button class="dropdown-item" value="">${sale_product.name} </li>
               </c:forEach>
             </ul>
-            </c:forEach>
+            
           </div>
           <p class="mb-0">추가상품</p>
           <div class="dropdown">

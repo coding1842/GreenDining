@@ -29,13 +29,6 @@ public class SaleRestController {
 	
 	@Autowired
 	AuthService authService;
-	@GetMapping("/sale/list")
-	public List<SaleDTO> getSaleList(HttpServletRequest request,
-			HttpServletResponse response,
-			Model model,
-			SaleDTO saledto) {
-		
-        return saleService.selectSaleList(new SaleDTO());
-    }
+	
 	
 }
