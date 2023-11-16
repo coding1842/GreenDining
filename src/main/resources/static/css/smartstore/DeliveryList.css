@@ -1,0 +1,83 @@
+@charset "UTF-8";
+#delivery_box *{
+	margin: 0;
+	padding: 0;
+}
+
+#delivery_main_box{
+	width: 1050px;
+}
+
+#delivery_top{
+	text-align: center;
+		
+}
+
+#deliveryT_it_box{
+	margin: 1rem;
+	text-align: center;
+}
+
+#deliveryT_it{
+	width: 1035px;
+	padding-top: 5px;
+	border: 1px solid black;
+	border-radius: 10px;
+}
+
+#delivery_table{
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+#conter_check{
+	text-align: center;
+    vertical-align: middle;
+}
+#col1{
+	width: 50px;
+	text-align: center;
+	vertical-align: middle;
+}
+#col2{
+	width: 150px;
+	text-align: center;
+	vertical-align: middle;
+}
+#col3{
+	width: 100px;
+	text-align: center;
+	vertical-align: middle;
+}
+#col4{
+	text-align: center;
+	vertical-align: middle;
+}
+#col5{
+	text-align: center;
+	vertical-align: middle;
+}
+#col6{
+	width: 80px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#del_btn{
+	text-align: right;
+}
+#del_btn input{
+	width: 80px;
+	height: 30px;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+#del_btn input:hover{
+	background-color: #BDB181;
+	color: white;
+}
+#del_btn input:active {
+	color: black;
+}

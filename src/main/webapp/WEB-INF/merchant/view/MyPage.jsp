@@ -11,7 +11,7 @@
 		<div class="dropdown">
 		  <button>상품관리</button>
 			  <div class="dropdown-options">
-			    <a href="/product/list">상품 리스트</a><br>
+			    <a href="/merchant/my-page/product/list">상품 리스트</a><br>
 			    <a href="/product/write">상품 등록</a><br>
 			    <a href="/product/write/{product-id}">상품 수정</a><br>
 			  </div>
@@ -19,9 +19,18 @@
     </li>
 	<li class="list-group-item">
 		<div class="dropdown">
+		  <button>판매글</button>
+		  	<div class="dropdown-options">
+			    <a href="/merchant/my-page/item/list">판매글 리스트</a><br>
+			    <a href="#">판매글 등록</a><br>
+		 	</div>
+		</div>
+    </li>
+	<li class="list-group-item">
+		<div class="dropdown">
 		  <button>주문/배송</button>
 		  	<div class="dropdown-options">
-			    <a href="#">배송 관리</a><br>
+			    <a href="/merchant/my-page/delivery/list">배송 관리</a><br>
 			    <a href="#">주문 조회</a><br>
 		 	</div>
 		</div>
@@ -57,7 +66,7 @@
           <p>지금 바로 상품을 등록, 판매해 보세요</p>
         </div>
         <div class="product_btn">
-          <button>상품 등록하기</button>
+          <button onclick="location.href='/product/write'">상품 등록하기</button>
         </div>
       </div>
       <div id="merchant_box_right1">
