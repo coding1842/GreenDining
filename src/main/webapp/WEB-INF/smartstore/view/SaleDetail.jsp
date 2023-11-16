@@ -119,7 +119,7 @@
 				<img alt="상세정보 펼처보기 기능넣기" src="">
 			</div>
 			
-			<!-- 리뷰 1 -->
+			<!-- 리뷰  -->
 				<div class="fingForm" id="2" style="display: none;">
 					<h4 id="title" class="mt-5">리뷰</h4>
 					<p>상품을 구매하신 분들이 작성하신 리뷰입니다. 리뷰 작성시 포인트가 적립됩니다.</p>
