@@ -78,230 +78,50 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <section id="search_items" class="float-start border border-1">
       <!-- ! 상단 나열 옵션 -->
       <div id="product_option" class="ms-4 mt-4">
-        <h5>''에 대한 검색 결과</h5>
+        <h5>'${keyword}'에 대한 검색 결과</h5>
         <div id="product_option_list" class="bg-secondary">
           <label for="" class="ms-3">랭킹순</label>
           <label for="">낮은가격순</label>
           <label for="">높은가격순</label>
           <label for="">판매량순</label>
-
           <label for="">최신순</label>
         </div>
       </div>
 
       <!-- ! 상품 카드 목록 -->
       <div id="product_list" class="ms-2 me-2 mb-5 mt-5 row row-cols-lg-4 row-cols-md-3 row-cols-sm-2 h-100 row-gap-5">
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-        <div class="col h-460px">
-          <div class="card h-100">
-            <img
-              src="https://images.pexels.com/photos/3804878/pexels-photo-3804878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">17%</span>24,800원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                산지직송 13brix 프리미엄 유라조생 감귤 5kg 3kg
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">4.8</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">제주도 강지헌</small>
-              <img
-                src="https://images.pexels.com/photos/1482101/pexels-photo-1482101.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-       <!-- 필터링 연습 -->
-       <div class="col h-460px" v-for="item in filteredItems" :key="item.id">
-          <div class="card h-100">
-            <img
-              :src="item.imageUrl1"
-              class="card-img-top w-220px h-220px"
-              alt="..." />
-            <div class="card-body">
-              <h5 class="card-title"><span id="percent" class="text-danger me-2">{{ item.discount }}</span>{{ item.price }}원</h5>
-              <p class="card-text fw-lighter fs-14px">
-                {{ item.name }}
-                <br />
-                <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                <span id="star_score" class="fs-11px mt-3">{{ item.rating }}</span>
-                <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 {{ item.reviews }}</span>
-              </p>
-            </div>
-            <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-              <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">{{ item.seller }}</small>
-              <img
-                :src="item.imageUrl2"
-                alt=""
-                srcset=""
-                class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
-            </div>
-          </div>
-        </div>
-        <!-- 연습 끝 -->
+        <c:choose>
+          <c:when test="${fn:length(salePage.content) > 0}">
+            <c:forEach var="sale" items="${salePage.content}" varStatus="i">
+              <div class="col h-460px">
+                <div class="card h-100">
+                  <img src="${sale.image_path}" class="card-img-top w-220px h-220px" alt="..." />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <span id="percent" class="text-danger me-2">${sale.discount}%</span>
+                      <c:set var="discountedPrice" value="${sale.min_price*(1-sale.discount/100)}" />
+                      <fmt:formatNumber value="${discountedPrice}" pattern="#,##0" />원
+                    </h5>
+                    <p class="card-text fw-lighter fs-14px">
+                      ${sale.title}
+                      <br />
+                      <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
+                      <span id="star_score" class="fs-11px mt-3">4.8</span>
+                      <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
+                    </p>
+                  </div>
+                  <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
+                    <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">${sale.store_name}</small>
+                    <img src="${sale.image_path}" alt="" srcset="" class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
+                  </div>
+                </div>
+              </div>
+            </c:forEach>
+          </c:when>
+          <c:when test="${fn:length(salePage.content) == 0}">
+            <h6>검색한 상품이 없습니다.</h6>
+          </c:when>
+        </c:choose>
       </div>
       </div>
     </section>

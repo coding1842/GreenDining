@@ -13,6 +13,7 @@ import lombok.ToString;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -32,4 +33,10 @@ public class SaleDTO
         private String merchant_id;
         private int category_code;
         private int region_code;
+
+//        DB없는 필드
+        private String image_path;
+        private int min_price;
+        private String store_name;
+        private List<String> image_group_path;
 }

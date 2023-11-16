@@ -71,7 +71,7 @@ public class SmartStoreController
         {
 
 
-                Page<SaleDTO> saleList =  null;
+                Page<SaleDTO> salePage =  null;
                 String main = null;
                 
                 Map<String, Object> dataMap = null;
@@ -79,12 +79,12 @@ public class SmartStoreController
                 dataMap.put("category", category);
                 dataMap.put("keyword", keyword);
                 dataMap.put("pageable", pageable);
-                saleList = saleService.getSaleList(dataMap);
+                salePage = saleService.getSalePage(dataMap);
                
                  
                 main = "smartstore/view/ItemList";
 
-                model.addAttribute("saleList",saleList);
+                model.addAttribute("salePage",salePage);
                 model.addAttribute("main", main);
                 return "Index";
         }

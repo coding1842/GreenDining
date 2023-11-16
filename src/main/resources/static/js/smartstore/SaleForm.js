@@ -5,7 +5,9 @@ $(document).ready(function () {
     var newField = $(".saleProductDTO:first").clone(true); // 첫 번째 .saleProductDTO 요소를 복사합니다.
 
     // 복사된 요소의 각 입력 필드의 name 속성을 변경합니다.
-    newField.find("select").attr("name", "saleProductDTO[" + index + "].product_id");
+    newField.find("select#product_id").attr("name", "saleProductDTOList[" + index + "].product_id");
+    newField.find("select#sale_type").attr("name", "saleProductDTOList[" + index + "].sale_type");
+
     newField.find("input").each(function (i) {
       var inputName = $(this)
         .attr("name")

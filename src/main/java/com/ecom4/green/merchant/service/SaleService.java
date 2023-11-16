@@ -3,14 +3,13 @@ package com.ecom4.green.merchant.service;
 import com.ecom4.green.merchant.dto.SaleDTO;
 import com.ecom4.green.merchant.dto.SaleProductDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Map;
 
 public interface SaleService
 {
-        Page<SaleDTO > getSaleList(Map<String, Object> dataMap);
+        Page<SaleDTO > getSalePage(Map<String, Object> dataMap);
 
 
         void insertSale(SaleDTO saleDTO) throws Exception;
@@ -21,5 +20,11 @@ public interface SaleService
 
         void deleteSale(int saleID) throws Exception;
 
-        void insertSaleProductList(List<SaleProductDTO> saleProductDTOList) throws Exception;
+        void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id) throws Exception;
+
+        int selectMaxSaleId();
+
+        List<SaleProductDTO> selectSaleProductListMain(int saleId);
+
+        List<SaleProductDTO> selectSaleProductListSUB(int saleId);
 }

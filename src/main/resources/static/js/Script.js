@@ -89,11 +89,14 @@ function scrollToTop() {
   $("html, body").animate({scrollTop: 300}, "fast");
 }
 
-function checkedCategory(ele, category) {
-  $(".checkbox-input").prop("checked", false);
-  $(ele).prop("checked", true);
-}
+function checkedCategory(ele) {
+  // $(".checkbox-input").prop("checked", false);
+  // $(ele).prop("checked", true);
 
+  var url = $("#redirect_url").val() + "?category=" + ele.value;
+
+  window.location.href = url;
+}
 
 function uploadImageTest() {
   var bodyData = new FormData();
@@ -114,8 +117,6 @@ function uploadImageTest() {
   }
 }
 
-
 //============================사업자 마이페이지 드롭다운 버튼
-const dropdownElementList = document.querySelectorAll('.dropdown-toggle')
-const dropdownList = [...dropdownElementList].map(dropdownToggleEl => new bootstrap.Dropdown(dropdownToggleEl))
-
+const dropdownElementList = document.querySelectorAll(".dropdown-toggle");
+const dropdownList = [...dropdownElementList].map((dropdownToggleEl) => new bootstrap.Dropdown(dropdownToggleEl));

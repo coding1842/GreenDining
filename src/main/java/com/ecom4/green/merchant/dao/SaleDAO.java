@@ -12,18 +12,32 @@ import java.util.Map;
 @Mapper
 public interface SaleDAO
 {
-        List<SaleDTO> getSaleList(RequestPageList<?> requestPageList);
+        List<SaleDTO> getSalePage(RequestPageList<?> requestPageList);
 
         int getSaleListCount(@Param("map") Map<String, Object> dataMap);
 
 
         int insertSale(SaleDTO saleDTO);
 
-        SaleDTO getSale(int saleID);
+        SaleDTO getSale(@Param("id") int sale_id);
 
         int updateSale(SaleDTO saleDTO);
 
         int deleteSale(int saleID);
 
-        int insertSaleProductList(List<SaleProductDTO> saleProductDTOList);
+        int insertSaleProductList(@Param("list") List<SaleProductDTO> saleProductDTOList,@Param("sale_id") int sale_id);
+
+        int selectMaxSaleId();
+
+        String selectImagePath(@Param("image_group_id") int image_group_id);
+
+        int selectMinPrice(int id);
+
+        String selectStoreName(@Param("merchant_id") String merchant_id);
+
+        List<String> selectImageGroupPath(int image_group_id);
+
+        List<SaleProductDTO> selectSaleProductListMain(int sale_id);
+
+        List<SaleProductDTO> selectSaleProductListSub(int sale_id);
 }
