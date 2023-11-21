@@ -14,4 +14,7 @@ public class SaleProductDTO
         private String name;
         private String sale_option;
         private String sale_type;
+
+        private int before_price;
+        private int after_price;
 }

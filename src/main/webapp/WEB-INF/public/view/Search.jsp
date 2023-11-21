@@ -12,11 +12,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       rel="stylesheet"
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous" />
-    <link rel="stylesheet" href="/css/Search.css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-  	<script type="module" src="/js/auth/Search.js"></script>
   </head>
   <body>
   <div id="searchF">

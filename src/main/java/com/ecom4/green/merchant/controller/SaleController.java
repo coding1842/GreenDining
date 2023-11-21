@@ -52,7 +52,7 @@ public class SaleController
 
                 sale = saleService.getSale(sale_id);
                 saleProductList_MAIN = saleService.selectSaleProductListMain(sale_id);
-                saleProductList_SUB = saleService.selectSaleProductListSUB(sale_id);
+                saleProductList_SUB = saleService.selectSaleProductListSub(sale_id);
 
 
                 model.addAttribute("sale",sale);

@@ -204,4 +204,5 @@
         where sale_id = #{sale_id}
         and sale_type = #{sale_type}
     </select>
+
 </mapper>

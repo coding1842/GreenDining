@@ -37,9 +37,9 @@ public class ImgurServiceImpl implements ImgurService
         @Override
         public int deleteImageList(int group_id)
         {
-	      int result = 0;
-	       result = imgurDAO.deleteImageList(group_id);
-	      return 0;
+
+	      int result = imgurDAO.deleteImageList(group_id);
+	      return result;
         }
 
         @Override
