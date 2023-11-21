@@ -2,6 +2,7 @@ package com.ecom4.green.merchant.service;
 
 
 import com.ecom4.green.data.RequestPageList;
+import com.ecom4.green.merchant.dao.ProductDAO;
 import com.ecom4.green.merchant.dao.SaleDAO;
 import com.ecom4.green.merchant.dto.SaleDTO;
 import com.ecom4.green.merchant.dto.SaleProductDTO;
@@ -21,6 +22,9 @@ public class SaleServiceImpl implements SaleService
 
         @Autowired
         SaleDAO saleDAO;
+
+        @Autowired
+        ProductDAO productDAO;
 
         @Override
         public  Page<SaleDTO>  getSalePage(Map<String, Object> dataMap )
@@ -103,13 +107,25 @@ public class SaleServiceImpl implements SaleService
         @Override
         public List<SaleProductDTO> selectSaleProductListMain(int saleId)
         {
-                return saleDAO.selectSaleProductListMain(saleId);
+                List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListMain(saleId);
+                for(SaleProductDTO ele : saleProductList)
+                {
+                        ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
+                }
+
+                return saleProductList;
         }
 
         @Override
-        public List<SaleProductDTO> selectSaleProductListSUB(int saleId)
+        public List<SaleProductDTO> selectSaleProductListSub(int saleId)
         {
-                return saleDAO.selectSaleProductListSub(saleId);
+                List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListSub(saleId);
+                for(SaleProductDTO ele : saleProductList)
+                {
+                        ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
+                }
+
+                return saleProductList;
 
         }
 

@@ -26,5 +26,6 @@ public interface ProductDAO
 
 	int getProductListCount(@Param("map") Map<String, Object> dataMap);
 
+	int getProductPrice(int product_id);
         List<ProductDTO> getProductList(@Param("merchant_id") String merchant_id);
 }

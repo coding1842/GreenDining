@@ -26,5 +26,5 @@ public interface SaleService
 
         List<SaleProductDTO> selectSaleProductListMain(int saleId);
 
-        List<SaleProductDTO> selectSaleProductListSUB(int saleId);
+        List<SaleProductDTO> selectSaleProductListSub(int saleId);
 }

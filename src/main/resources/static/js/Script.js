@@ -79,6 +79,22 @@ $(function () {
     },
   });
 
+  const swiper3 = new Swiper(".detailSwiper", {
+    slidesPerView: 1, // 한 화면에 보이는 슬라이드 개수
+    spaceBetween: 50, // 슬라이드 사이의 간격 (px)
+    speed: 600,
+    parallax: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    loop: true,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  });
+
   swiper.update();
   swiper2.update();
 });
