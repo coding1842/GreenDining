@@ -3,7 +3,7 @@
 /**
  * 
  */
-
+//address
 function validate(){
 		var flen = $("form[name=addressForm] .addressChk").length;
 		for(var i=0; i<flen; i++){
@@ -18,7 +18,7 @@ function validate(){
 		 }
 }
 
-
+//address
 function controlAddress(ele,type){
 		
 	var data = $(ele).closest("form")[0];
@@ -71,7 +71,6 @@ function controlAddress(ele,type){
 		}
 	});
 }
-
 
 
 

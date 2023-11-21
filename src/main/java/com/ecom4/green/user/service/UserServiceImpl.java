@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.ecom4.green.user.dao.UserDAO;
 import com.ecom4.green.user.dto.AddressDTO;
+import com.ecom4.green.user.dto.ReviewDTO;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -44,4 +45,28 @@ public class UserServiceImpl implements UserService
 	public int deleteAddress(AddressDTO addressDTO) {
 		return userDao.deleteAddress(addressDTO);
 	}
+	
+	
+	//review
+	@Override
+	public int insertReview(ReviewDTO reviewDTO) {
+		return userDao.insertReview(reviewDTO);
+	}
+
+	@Override
+	public List<ReviewDTO> selectReviewList(String id) {
+		return userDao.selectReviewList(id);
+	}
+
+	@Override
+	public int updateReview(ReviewDTO reviewDTO) {
+		return userDao.updateReview(reviewDTO);
+	}
+
+	@Override
+	public int deleteReview(ReviewDTO reviewDTO) {
+		return userDao.deleteReview(reviewDTO);
+	}
+
+
 }
