@@ -1,5 +1,6 @@
 $().ready(function()
 {
+<<<<<<< main
    $(".update_cart").click(function()
    {
       if(confirm("수량 수정하시겠습니까?"))
@@ -25,6 +26,30 @@ $().ready(function()
 
 
 
+=======
+	$(".update_cart").click(function()
+	{
+		if(confirm("수량 수정하시겠습니까?"))
+		{
+		var form = $(this).closest("form");	 
+		form.attr("action","/cart/list/update");
+		
+		form.submit();
+		}
+	})
+	
+	$(".delete_cart").click(function()
+	{
+		if(confirm("장바구니에서 삭제하시겠습니까?"))
+		{
+		var form = $(this).closest("form");	 
+		form.attr("action","/cart/list/delete");
+		
+		form.submit();
+		}
+	})
+})
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 ///**
 // * 
 // */
@@ -39,8 +64,12 @@ $().ready(function()
 ////   $('.inprice').on('change',function(){
 ////     var p1=$(input[name=price]).val()
 ////   })
+<<<<<<< main
 // 
 //  
+=======
+//   
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 //   $('.cartAdd').on('click', function(){
 //      var q = $('input[name=quantity]').val();
 //      var s = $('input[name=stock]').val();
@@ -50,7 +79,10 @@ $().ready(function()
 //         return false
 //         }
 //         
+<<<<<<< main
 //         
+=======
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 //      if(q>s){   //if(parseInt(p)>parseInt(s)) 안되면 이걸로
 //         alert('재고가 부족합니다.')
 //         return false;
@@ -172,3 +204,7 @@ $().ready(function()
   
   // ------------------------------------
 
+<<<<<<< main
+=======
+
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료

@@ -21,6 +21,7 @@
 		where user_id = #{user_id}
 	</select>
 	<!-- 카트확인 -->
+<<<<<<< main
 
     <insert id="insertCart" parameterType="list">
         BEGIN
@@ -36,4 +37,6 @@
         from cart
         where sale_id = #{sale_id}
     </select>
+=======
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 </mapper>

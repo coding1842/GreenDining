@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.ecom4.green.user.dao.UserDAO;
 import com.ecom4.green.user.dto.AddressDTO;
+<<<<<<< main
 import com.ecom4.green.user.dto.ReviewDTO;
+=======
+import com.ecom4.green.user.dto.CartDTO;
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 
 @Service
 public class UserServiceImpl implements UserService
@@ -45,6 +49,7 @@ public class UserServiceImpl implements UserService
 	public int deleteAddress(AddressDTO addressDTO) {
 		return userDao.deleteAddress(addressDTO);
 	}
+<<<<<<< main
 	
 	
 	//review
@@ -68,5 +73,7 @@ public class UserServiceImpl implements UserService
 		return userDao.deleteReview(reviewDTO);
 	}
 
+=======
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 
 }

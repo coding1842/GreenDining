@@ -2543,7 +2543,6 @@ div#sale_button .btn-group a button {
 @charset "UTF-8";
 #my_cart_box{
 	width: 850px;
-	height: 500px;
     padding-left: 1rem;	
     border: 1px solid black;
 }

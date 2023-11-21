@@ -37,5 +37,8 @@ public class CartDTO {
 		this.after_price = (int) (this.price * (1-discount));
 		this.total_price = this.after_price * this.quantity;
 	}
+<<<<<<< main
 
+=======
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 }
