@@ -16,9 +16,11 @@ public interface SaleService
 
         SaleDTO getSale(int saleID);
 
-        void updateSale(SaleDTO saleDTO) throws Exception;
+        int updateSale(SaleDTO saleDTO);
+//        void updateSale(SaleDTO saleDTO) throws Exception;
 
-        void deleteSale(int saleID) throws Exception;
+        int deleteSale(SaleDTO saleDTO);
+//        void deleteSale(int saleID) throws Exception;
 
         void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id) throws Exception;
 
@@ -26,5 +28,11 @@ public interface SaleService
 
         List<SaleProductDTO> selectSaleProductListMain(int saleId);
 
-        List<SaleProductDTO> selectSaleProductListSub(int saleId);
+        List<SaleProductDTO> selectSaleProductListSUB(int saleId);
+
+
+		void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id);
+
+
+		
 }

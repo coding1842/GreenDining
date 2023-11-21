@@ -22,7 +22,7 @@
 		  <button>판매글</button>
 		  	<div class="dropdown-options">
 			    <a href="/merchant/my-page/item/list">판매글 리스트</a><br>
-			    <a href="#">판매글 등록</a><br>
+			    <a href="/item/write">판매글 등록</a><br>
 		 	</div>
 		</div>
     </li>
