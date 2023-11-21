@@ -19,4 +19,10 @@ public class CartServiceImpl implements CartService
         {
 	      return cartDAO.insertCart(cartDTOList,user_id);
         }
+
+        @Override
+        public int checkDuplication(int sale_id)
+        {
+                return cartDAO.checkDuplication(sale_id);
+        }
 }

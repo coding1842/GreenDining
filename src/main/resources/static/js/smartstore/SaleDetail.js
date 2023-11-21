@@ -116,10 +116,15 @@ function cartADD() {
         window.location.href = data;
       }
     },
-    error: function (error) {
+    error: function (xhr, status, error) {
       // 에러 처리
-      alert("로그인 후 이용해 주시길 바랍니다.");
-      window.location.href = error;
+      if (xhr.status === 401) {
+        alert("로그인 후 이용해 주시길 바랍니다.");
+        window.location.href = error;
+      } else xhr.status === 400;
+      {
+        alert("이미 장바구니에 추가한 항목입니다.");
+      }
     },
   });
 }

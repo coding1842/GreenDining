@@ -32,13 +32,17 @@ public class CartController
 
 	      if(authService.checkRoleStatus(session) == RoleStatus.USER)
 	      {
+		    if(cartService.checkDuplication(cartDTOList.get(0).getSale_id()) > 0)
+		    {
+			  return new ResponseEntity<>("",HttpStatus.BAD_REQUEST);
+		    }
 		    cartService.insertCart(cartDTOList,authService.getCurrentUser(session).getId());
 		    url = "/cart/list";
 	      }
 	      else if(authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
 	      {
 		    url = "redirect:/auth/login";
-		    return new ResponseEntity<>(url, HttpStatus.BAD_REQUEST);
+		    return new ResponseEntity<>(url, HttpStatus.UNAUTHORIZED);
 	      }
 
 	      return new ResponseEntity<>(url, HttpStatus.OK);

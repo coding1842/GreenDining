@@ -11,4 +11,5 @@ public interface CartDAO
 {
         public int insertCart(@Param("list") List<CartDTO> cartDTOList,@Param("user_id") String user_id);
 
+        int checkDuplication(@Param("sale_id") int sale_id);
 }

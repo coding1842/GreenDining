@@ -10,4 +10,10 @@
         </foreach>
         END;
     </insert>
+
+    <select id="checkDuplication" parameterType="int" resultType="int">
+        select count(*) as cnt
+        from cart
+        where sale_id = #{sale_id}
+    </select>
 </mapper>

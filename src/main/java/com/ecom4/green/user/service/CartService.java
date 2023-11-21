@@ -7,4 +7,6 @@ import java.util.List;
 public interface CartService
 {
         int insertCart(List<CartDTO> cartDTOList,String user_id);
+
+        int checkDuplication(int sale_id);
 }
