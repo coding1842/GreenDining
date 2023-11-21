@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,7 @@ public class ProductServiceImpl implements ProductService {
         public Page<ProductDTO> getProductPage(Map<String, Object> dataMap)
         {
         	  RequestPageList<?> requestPageList = RequestPageList.builder()
-                      .data(dataMap.get("category"))
-                      .data(dataMap.get("keyword"))
-                      .data(dataMap.get("merchant_id"))
+                      .data(dataMap)
                       .pageable((Pageable)dataMap.get("pageable"))
                       .build();
 
@@ -64,11 +63,16 @@ public class ProductServiceImpl implements ProductService {
 	      return productDAO.updateProduct(productDTO);
         }
 
-        @Override
-        public int deleteProduct(int productID)
-        {
-	      return productDAO.deleteProduct(productID);
-        }
+		@Override
+		public int deleteProduct(ProductDTO productDTO) {
+			return productDAO.deleteProduct(productDTO);
+		}
+
+//        @Override
+//        public int deleteProduct(int productID)
+//        {
+//	      return productDAO.deleteProduct(productID);
+//        }
 
 		
 }

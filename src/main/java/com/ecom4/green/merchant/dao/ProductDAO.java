@@ -18,7 +18,7 @@ public interface ProductDAO
 
 	int updateProduct(ProductDTO productDTO);
 
-	int deleteProduct(@Param("id") int productID);
+//	int deleteProduct(@Param("id") int productID);
 
 	ProductDTO getProduct(@Param("id") int productID);
 
@@ -26,6 +26,8 @@ public interface ProductDAO
 
 	int getProductListCount(@Param("map") Map<String, Object> dataMap);
 
+    List<ProductDTO> getProductList(@Param("merchant_id") String merchant_id);
+
+	int deleteProduct(ProductDTO productDTO);
 	int getProductPrice(int product_id);
-        List<ProductDTO> getProductList(@Param("merchant_id") String merchant_id);
 }

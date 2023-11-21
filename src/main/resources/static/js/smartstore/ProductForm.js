@@ -43,4 +43,12 @@ $().ready(function(){
 		}
 			$("form[name=pForm]").submit();
 		});
+		
+		$("[id^='updateBtn']").click(function() {
+			var con = confirm("상품을 수정하시겠습니까?");
+			if (con){
+				var id = this.id.replace("updateBtn", "");
+    			$("#upDateForm" + id).submit();
+			}
+	});
 });

@@ -39,4 +39,6 @@ public class SaleDTO
         private int min_price;
         private String store_name;
         private List<String> image_group_path;
+        
+        
 }

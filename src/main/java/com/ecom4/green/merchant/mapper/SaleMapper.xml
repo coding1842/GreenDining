@@ -141,8 +141,10 @@
         </foreach>
         END;
     </insert>
-
-
+	<delete id="deleteSaleProduct" parameterType="int">
+		delete from sale_product
+		where sale_id = #{sale_id}
+	</delete>
 
 
     <update id="updateSale" parameterType="saleDTO">
@@ -151,13 +153,16 @@
         content = #{content},
         status = #{status},
         discount = #{discount},
-        started_at = #{started_at},
-        ended_at = #{ended_at},
+        started_at = TO_DATE(#{started_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
+        ended_at = TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
         category_code = #{category_code},
         region_code = #{region_code}
+        where merchant_id = #{merchant_id}
+        and id = #{id}
     </update>
-    <delete id="deleteSale" >
-        delete from product
+    
+    <delete id="deleteSale" parameterType="saleDTO">
+        delete from sale
         where id = #{id}
     </delete>
     <select id="selectImagePath" parameterType="int" resultType="String">
@@ -179,6 +184,8 @@
         order by p.price asc
         ) where rn = 1
     </select>
+	
+
     <select id="selectStoreName" parameterType="String" resultType="String">
         select store_name
         from merchant

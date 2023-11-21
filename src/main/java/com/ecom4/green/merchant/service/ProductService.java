@@ -17,7 +17,9 @@ public interface ProductService {
 
         int updateProduct(ProductDTO productDTO);
 
-        int deleteProduct(int productID);
+		int deleteProduct(ProductDTO productDTO);
+
+//        int deleteProduct(int productID);
 
 		
 }

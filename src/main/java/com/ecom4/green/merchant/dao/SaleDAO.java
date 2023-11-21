@@ -23,7 +23,8 @@ public interface SaleDAO
 
         int updateSale(SaleDTO saleDTO);
 
-        int deleteSale(int saleID);
+        int deleteSale(SaleDTO saleDTO);
+//        int deleteSale(int saleID);
 
         int insertSaleProductList(@Param("list") List<SaleProductDTO> saleProductDTOList,@Param("sale_id") int sale_id);
 
@@ -31,7 +32,8 @@ public interface SaleDAO
 
         String selectImagePath(@Param("image_group_id") int image_group_id);
 
-        int selectMinPrice(int id);
+//        int selectMinPrice(int id);
+        Integer selectMinPrice(int id);
 
         String selectStoreName(@Param("merchant_id") String merchant_id);
 
@@ -40,4 +42,8 @@ public interface SaleDAO
         List<SaleProductDTO> selectSaleProductListMain(int sale_id);
 
         List<SaleProductDTO> selectSaleProductListSub(int sale_id);
+
+		int deleteSaleProduct(int sale_id);
+
+		
 }
