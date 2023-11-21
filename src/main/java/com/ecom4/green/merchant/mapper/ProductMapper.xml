@@ -59,4 +59,9 @@
 		delete from product
 		where id = #{id}
 	</delete>
+	<select id="getProductPrice" parameterType="int" resultType="int">
+		select price
+		from product
+		where id = #{product_id}
+	</select>
 </mapper>

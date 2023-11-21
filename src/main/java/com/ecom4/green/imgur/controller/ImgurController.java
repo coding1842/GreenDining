@@ -183,8 +183,7 @@ public class ImgurController
         }
 
 //        단일 삭제  현재 사용안함 보류중
-        @DeleteMapping("/delete/{image_id}")
-        @Deprecated
+        /*@GetMapping("/delete/{image_id}")
         public ResponseEntity<?> deleteImage(@PathVariable("image_id") int image_id) {
 
 	      RestTemplate restTemplate = new RestTemplate();
@@ -198,9 +197,9 @@ public class ImgurController
 
 	      return new ResponseEntity<>("이미지 단일 삭제",HttpStatus.OK);
 
-        }
+        }*/
 //        다중 삭제
-        @DeleteMapping("/delete/{image_group_id}")
+        @GetMapping("/delete/{image_group_id}")
         public  ResponseEntity<?> deleteImageList(@PathVariable("image_group_id") int image_group_id) {
 
 	      RestTemplate restTemplate = new RestTemplate();
@@ -224,8 +223,9 @@ public class ImgurController
 
         }
 
-        @DeleteMapping("/delete/all")
-        public  ResponseEntity<?> deleteImageAll() {
+        // s
+        @DeleteMapping("/delete/sale-clear")
+        public  ResponseEntity<?> deleteImageSaleClear() {
 
 	      RestTemplate restTemplate = new RestTemplate();
 

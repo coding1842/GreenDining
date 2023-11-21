@@ -30,7 +30,7 @@
     </select>
     <delete id="deleteImageList">
         delete from image
-        where group = #{group_id}
+        where group_id = #{group_id}
     </delete>
 
     <select id="selectImageAll" resultType="imgurDTO">

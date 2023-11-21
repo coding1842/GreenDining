@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecom4.green.user.dao.CartDAO">
+    <insert id="insertCart" parameterType="list">
+        BEGIN
+        <foreach collection="list" item="cartDTO" separator=" ">
+            insert into cart (user_id,product_id,sale_id,quantity,store_name)
+            values (#{user_id},#{cartDTO.product_id},#{cartDTO.sale_id},#{cartDTO.quantity},#{cartDTO.store_name});
+        </foreach>
+        END;
+    </insert>
+</mapper>
