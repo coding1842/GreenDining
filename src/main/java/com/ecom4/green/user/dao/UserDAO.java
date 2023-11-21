@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.ecom4.green.user.dto.AddressDTO;
+import com.ecom4.green.user.dto.ReviewDTO;
 @Mapper
 public interface UserDAO {
 
@@ -15,7 +16,16 @@ public interface UserDAO {
 
 	int updateAddress(AddressDTO addressDTO);
 
-
 	int deleteAddress(AddressDTO addressDTO);
+	
+	//review
+	int insertReview(ReviewDTO reviewDTO);
+
+	List<ReviewDTO> selectReviewList(String id);
+
+	int updateReview(ReviewDTO reviewDTO);
+
+	int deleteReview(ReviewDTO reviewDTO);
+
 
 }

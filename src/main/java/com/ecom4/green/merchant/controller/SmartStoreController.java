@@ -70,7 +70,6 @@ public class SmartStoreController
                                          @RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable)
         {
 
-
                 Page<SaleDTO> salePage =  null;
                 String main = null;
                 
@@ -90,4 +89,5 @@ public class SmartStoreController
         }
 
 
+        
 }
