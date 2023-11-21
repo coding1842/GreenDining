@@ -1,17 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%> <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" errorPage="" isErrorPage="false" 
+ import="java.util.Date" 
+ %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
+
     <!-- CSS -->
     <link rel="stylesheet" href="/css/smartstore/view/SaleItemDetail.css" />
     <!-- JS -->
     <script src="/jquery/jquery-3.7.0.min.js"></script>
     <script src="/js/user/Review.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    <script src="/js/smartstore/view/SaleItemDetail.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
   </head>
   <body>
     <!-- 상품이미지 -->
@@ -59,16 +65,32 @@
         
         <div id="sale_product_select">
           <div class="dropdown">
-            <input type="hidden" name="">
             <button class="rounded-0 border-1 btn-secondary dropdown-toggle w-100 h-40px text-start ps-4 bg-transparent" type="button" data-bs-toggle="dropdown" aria-expanded="false">
               선택
             </button>
             <ul class="dropdown-menu border-1 rounded-0 w-100">
               <c:forEach var="sale_product" items="${saleProductList_MAIN}" varStatus="i">
-                <li><button class="dropdown-item" value="">${sale_product.name} </li>
+                <li>
+                  <div class="dropdown-item main_type">
+                    <span class="selected_name">${sale_product.name}
+                      <br>
+                      <input type="number" class="checked_quantity visually-hidden w-25" name="cartDTOList[].quantity" value="1" min="1" id="">
+                      <span class="float-end selected_price visually-hidden">
+                        <input type="hidden" class="before_price" value="${sale_product.before_price*(1-sale.discount/100)}"/>
+                        <input type="hidden" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
+                        <span class="total_price">
+                          <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원
+                        </span> 
+                      </span>
+                    </span>
+                    <input type="hidden" name="cartDTOList[].product_id" value="${sale_product.product_id}">
+                    <input type="hidden" name="cartDTOList[].sale_id" value="${sale_product.sale_id}">
+                    <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
+                  </div>
+                </li>
               </c:forEach>
             </ul>
-            
+      
           </div>
           <p class="mb-0">추가상품</p>
           <div class="dropdown">
@@ -78,23 +100,57 @@
             </button>
             <ul class="dropdown-menu border-1 rounded-0 w-100">
               <c:forEach var="sale_product" items="${saleProductList_SUB}" varStatus="i">
-                <li><a class="dropdown-item" href="#">Action</a></li>
+               <li>
+                  <div class="dropdown-item sub_type">
+                    <span class="selected_name">${sale_product.name}
+                      <br>
+                      <input type="number" class="checked_quantity visually-hidden w-25" name="cartDTOList[].quantity" value="1" min="1" id="">
+                      <span class="float-end selected_price visually-hidden">
+                        <input type="hidden" class="before_price" value="${sale_product.before_price*(1-sale.discount/100)}"/>
+                        <input type="hidden" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
+                        <span class="total_price">
+                          <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원
+                        </span> 
+                      </span>
+                    </span>
+                    <input type="hidden" name="cartDTOList[].product_id" value="${sale_product.product_id}">
+                    <input type="hidden" name="cartDTOList[].sale_id" value="${sale_product.sale_id}">
+                    <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
+                  </div>
+                </li>
               </c:forEach>
             </ul>
           </div>
-          
         </div>
-        <div>
+        <!-- !!! 매우 중요한 부분 -->
+            <hr>
+
+        <div id="selected_sale_product">
+
+          <form action="" method="post" id="sale_product_form">
+            <div id="main_type">
+              
+            </div>
+            <hr>
+
+            <div id="sub_type"></div>
+          </form>
+        </div>
+            <hr>
+
+        <!-- !!! 매우 중요한 부분 -->
+        <div id="total_div">
           <span>총 상품 금액</span>
-          <span style="text-align: right">총 수량 '기능'개</span>
-          <span style="font-weight: bold">'기능'원</span>
+          <span style="text-align: right" class="float-end total_count"> </span>
+          <span style="font-weight: bold" class="fs-3 total_price"></span>
+         
         </div>
-        <div>
-          <a><img alt="구매하기" src="" /></a>
-          <div style="flex-wrap: nowrap">
-            <a><img alt="문의" src="" /></a>
-            <a><img alt="찜하기" src="" /></a>
-            <a><img alt="장바구니" src="" /></a>
+        <div id="sale_button">
+          <button type="button" class="btn btn-success w-100 h-50px" id="buy_now">구매하기</button>
+          <div class="btn-group mt-2 w-100" role="group">
+            <a><button type="button" class="btn btn-danger">문의하기</button></a>
+            <a><button type="button" class="btn btn-primary">찜하기</button></a>
+            <button type="button" class="btn btn-info" id="cart_add">장바구니</button>
           </div>
         </div>
       </div>
@@ -226,16 +282,16 @@
           <c:choose>
             <c:when test="${fn:length(nList)>0}">
               <c:forEach var="notice" items="${nList}"> 
-		<tr>
-			<td class="co1">${notice.rr}</td> 
-			<td><input type="hidden" value="${notice.noti_no}"></td>
-			<td class="co2"><a href="/noticeDetail?noti_no=${notice.noti_no}">${notice.subject}</a></td>
-			<td class="price">${notice.writer}</td>
-			<td class="co4">${notice.readcount}</td>
-			<td class="co5">${notice.regdate}</td>
-			<td class="co5">${notice.vdate}</td>
-		</tr>
-	      </c:forEach>
+              <tr>
+                <td class="co1">${notice.rr}</td> 
+                <td><input type="hidden" value="${notice.noti_no}"></td>
+                <td class="co2"><a href="/noticeDetail?noti_no=${notice.noti_no}">${notice.subject}</a></td>
+                <td class="price">${notice.writer}</td>
+                <td class="co4">${notice.readcount}</td>
+                <td class="co5">${notice.regdate}</td>
+                <td class="co5">${notice.vdate}</td>
+              </tr>
+              </c:forEach>
             </c:when>
             <c:when test="${fn:length(nList)==0}">
               <tr style="text-align: center; height: 30px">

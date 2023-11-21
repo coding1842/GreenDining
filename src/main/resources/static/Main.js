@@ -16,13 +16,11 @@ import "./css/auth/SignUp.css";
 // ! 공용 접근 가능한 페이지
 import "./css/public/Search.css";
 // ! 스마트 스토어
-import "./css/smartstore/ItemDetail.css";
-import "./css/smartstore/ItemList.css";
+import "./css/smartstore/SaleDetail.css";
+import "./css/smartstore/SaleList.css";
 import "./css/smartstore/Main.css";
 import "./css/smartstore/ProductForm.css";
 import "./css/smartstore/SaleForm.css";
-
-
 
 // ! 일반 유저
 import "./css/user/Cart.css";
@@ -33,15 +31,18 @@ import "./css/user/QnaWriteForm.css";
 // JS 파일 import ===========================================================
 // JS 파일 import
 import "./jquery/jquery-3.7.0.min.js";
-
 import "./js/Script.js";
 
 // ! 인증 관련
 import "./js/auth/Auth.js";
+import "./js/auth/SignUp.js";
+
 
 // ! 스마트 스토어
 import "./js/smartstore/ProductForm.js"; // Update, Insert 관련 폼 컨트롤
-import "./js/smartstore/ItemDetail.js";
+import "./js/smartstore/SaleDetail.js";
+import "./js/smartstore/SaleForm.js";
+
 
 // ! 일반 유저 관련
 import "./js/user/ReturnProductForm.js";

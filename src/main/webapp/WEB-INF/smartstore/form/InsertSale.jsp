@@ -142,5 +142,4 @@
       </form>
     </div>
   </body>
-  <script src="/js/smartstore/SaleForm.js"></script>
 </html>
