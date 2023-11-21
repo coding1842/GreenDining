@@ -9,6 +9,13 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/css/smartstore/view/SaleItemDetail.css" />
+    <!-- JS -->
+    <script src="/jquery/jquery-3.7.0.min.js"></script>
+    <script src="/js/user/Review.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
   </head>
@@ -194,32 +201,69 @@
 
       <!-- 리뷰 1 -->
       <div class="fingForm" id="2" style="display: none">
-        <h4 id="title" class="mt-5">리뷰</h4>
-        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. 리뷰 작성시 포인트가 적립됩니다.</p>
-        <p>전체리뷰 수 : '기능'개</p>
-        <a href="/reviewWriteForm" style="border: solid 1px #dddddd; border-radius: 5px; background-color: skyblue; padding: 3px"
-          >상품 리뷰 작성하기</a
-        >
-        <br /><br />
-        <table style="">
-          <tr style="border: none">
-            <th style="border: none">평점</th>
-            <th style="border: none">제목</th>
-            <th style="border: none">작성자</th>
-            <th style="border: none">내용</th>
-            <th style="border: none">이미지</th>
-            <th style="border: none">작성일</th>
-          </tr>
-          <tr>
-            <td style="border: none"></td>
-            <td style="border: none"></td>
-            <td style="border: none"></td>
-            <td style="border: none"></td>
-            <td style="border: none"></td>
-            <td style="border: none"></td>
-          </tr>
-        </table>
+      <c:choose>
+      	<c:when test="${fn:length(reviewDTOList) > 0}">
+      		<c:forEach var="review" items="${reviewDTOList}" varStatus="index">
+		        <h4 id="title" class="mt-5">리뷰</h4>
+		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
+		        <p>전체리뷰 수 : '기능'개</p>
+		        <a href="/user/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
+		        	 background-color: skyblue; padding: 3px">상품 리뷰 작성하기</a>
+		        <br /><br />
+		        <table style="">
+		          <tr style="border: none">
+		            <th style="border: none">평점</th>
+		            <th style="border: none">제목</th>
+		            <th style="border: none">작성자</th>
+		            <th style="border: none">내용</th>
+		            <th style="border: none">이미지</th>
+		            <th style="border: none">작성일</th>
+		          </tr>
+		          <tr>
+		            <td style="border: none">${review.star}</td>
+		            <td style="border: none">${review.title}</td>
+		            <td style="border: none">${review.user_id}</td>
+		            <td style="border: none">${review.content}</td>
+		            <td style="border: none">${review.image_group_id}</td>
+		            <td style="border: none">${review.created_at}</td>
+		          </tr>
+		        </table>
+		        <div style="text-align: center;">
+						<div style="display: inline-block;">
+							<button onclick="controlReview(this,'update')" id="updateReview"
+									type="button" style="border: 1px solid #eaeaea;
+									background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 수정하기</button>
+							<button onclick="controlReview(this,'delete')" id="deleteReview"
+							type="button" style="border: 1px solid #eaeaea;
+							background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 삭제하기</button>
+						</div>
+					</div>
+	       </c:forEach>
+        </c:when>
+        <c:when test="${fn:length(reviewDTOList) == 0}">
+        	<h4 id="title" class="mt-5">리뷰</h4>
+		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
+		        <p>전체리뷰 수 : '기능'개</p>
+		        <a href="/user/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
+		        	 background-color: skyblue; padding: 3px">상품 리뷰 작성하기</a>
+		        <br /><br />
+		        <table style="">
+		          <tr style="border: none">
+		            <th style="border: none">평점</th>
+		            <th style="border: none">제목</th>
+		            <th style="border: none">작성자</th>
+		            <th style="border: none">내용</th>
+		            <th style="border: none">이미지</th>
+		            <th style="border: none">작성일</th>
+		          </tr>
+		          <tr>
+		            <td colspan="6" style="border: none">리뷰가 없습니다. 리뷰를 작성해주세요.</td>
+		          </tr>
+		        </table>
+        </c:when>
+	</c:choose>
       </div>
+
 
       <!-- Q&A -->
       <div class="fingForm" id="3" style="display: none">
@@ -275,7 +319,6 @@
               </td>
             </tr>
           </tfoot>
-          --%>
         </table>
       </div>
       <!-- 반품/교환 정보 -->

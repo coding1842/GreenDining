@@ -4,7 +4,7 @@
 <mapper namespace="com.ecom4.green.imgur.dao.ImgurDAO">
 
     <select id="selectMaxGroupId" resultType="int">
-          select NVL(max(group_id),1) from image
+          select NVL(max(group_id), 1) from image
     </select>
 
     <insert id="insertImageList" parameterType="list">

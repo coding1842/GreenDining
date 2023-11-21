@@ -15,14 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.user.dto.AddressDTO;
-import com.ecom4.green.user.dto.UserDTO;
+import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.service.UserService;
 
 
@@ -35,6 +35,9 @@ public class UserController {
 	
 	@Autowired
 	AuthService authService;
+	
+	@Autowired
+	SaleService saleService;
 	
 	@RequestMapping("/my-page")
 	public String mypage(HttpServletRequest req, HttpServletResponse resp , Model model)
@@ -123,7 +126,7 @@ public class UserController {
 //		return "success";
 //	}
 	
-	 @PostMapping("/updateAddress")
+	 @PostMapping("/update/address")
 	 public ResponseEntity<String> updateAddress(AddressDTO addressDTO)
 	 {
 		 	int r = userService.updateAddress(addressDTO);
@@ -135,7 +138,7 @@ public class UserController {
 	        return new ResponseEntity<>("정상적으로 배송 정보 수정 되었습니다.", HttpStatus.OK);
 	    }
 	 
-	 @PostMapping("/deleteAddress")
+	 @PostMapping("/delete/address")
 	 public ResponseEntity<String> deleteAddress( HttpServletRequest req, HttpServletResponse res, AddressDTO addressDTO)
 	 {
 		 	int r = userService.deleteAddress(addressDTO);
@@ -147,18 +150,96 @@ public class UserController {
 	        return new ResponseEntity<>("정상적으로 배송 정보 삭제 되었습니다.", HttpStatus.OK);
 	 }
 	 
-//	 @PostMapping("/deleteAddress")
-//	 public ResponseEntity<String> deleteAddress(@RequestParam String id)
+	 //리뷰는 마이페이지로 가서 리뷰, Q&A 작성할거니까 user에 작성
+	 //REVIEW 컨트롤러
+	 
+	 @GetMapping("/review/write")
+     public String reviewForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
+     {
+     	String main = "user/form/ReviewWriteForm";
+     	
+     	model.addAttribute("main",main);
+     	model.addAttribute("sale_id",sale_id);
+     	return "Index";
+     }	 
+	 
+//	 @RequestMapping("/review")
+//	 public String review(HttpServletRequest req,
+//							HttpServletResponse res,
+//							Model model)
 //	 {
-//		 boolean isDeleted = userService.deleteAddress(id);
 //		 
-//		 if(isDeleted) {
-//			 return new ResponseEntity<>("정상적으로 배송 정보가 삭제 되었습니다.", HttpStatus.OK);
-//		 }else {
-//			 return new ResponseEntity<>("배송 정보 삭제 실패. 다시 수정 해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
-//		 }
+//		 return null;
 //	 }
 	 
+	 @PostMapping("/review/insert")
+	 public String insertReview(@RequestParam(required=false, defaultValue = "0") int image_group_id,
+			 					HttpServletRequest req,
+			 					HttpServletResponse res,
+			 					Model model,
+			 					ReviewDTO reviewDTO)
+	 {
+		 String url = "redirect:/";
+//		 int id = reviewDTO.getSale_id();
+		 try {
+			 int id = Integer.valueOf(reviewDTO.getSale_id());
+			 if(image_group_id != 0)
+			 {
+			  reviewDTO.setImage_group_id(image_group_id);
+			 }
+			 int r = userService.insertReview(reviewDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 
+		 return url;
+	 }
+	 
+	 @GetMapping("/review/list")
+		public String reviewList(HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session)
+		{
+			String main = "smartstore/view/SaleDetail";
+			String url = "";
+			List<ReviewDTO> reviewDTOList = null;
+			
+			if(authService.checkRoleStatus(session) == RoleStatus.USER)
+			{
+			  reviewDTOList = userService.selectReviewList(authService.getCurrentUser(session).getId());
+			}
+			else
+			{
+				url = "redirect:/auth/login";
+				return url;
+			}
+			
+			model.addAttribute("reviewDTOList",reviewDTOList);
+			model.addAttribute("main",main);
+			return "Index";
+		}
+	 
+	 @PostMapping("/update/review")
+	 public ResponseEntity<String> updateReview(ReviewDTO reviewDTO)
+	 {
+		 	int r = userService.updateReview(reviewDTO);
+	        
+	        if(r < 1)
+	        {
+	        	return new ResponseEntity<>("리뷰 정보 수정 실패. 다시 수정 해주십시오",HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>("정상적으로 리뷰 정보가 수정 되었습니다.", HttpStatus.OK);
+	    }
+	 
+	 @PostMapping("/delete/review")
+	 public ResponseEntity<String> deleteReiew( HttpServletRequest req, HttpServletResponse res, ReviewDTO reviewDTO)
+	 {
+		 	int r = userService.deleteReview(reviewDTO);
+	        
+	        if(r < 1)
+	        {
+	        	return new ResponseEntity<>("리뷰 정보 삭제 실패. 다시 삭제 해주십시오",HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>("정상적으로 리뷰 정보가 삭제 되었습니다.", HttpStatus.OK);
+	 }
 	 
 }
 
