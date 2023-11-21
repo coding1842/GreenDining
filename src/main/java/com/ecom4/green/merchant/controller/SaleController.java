@@ -160,11 +160,13 @@ public class SaleController
                 String main = null;
                 String url = null;
                 SaleDTO saleDTO = new SaleDTO();
+                List<ProductDTO> productDTOList = new ArrayList<>();
 
                 if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
                 {
                         saleDTO = saleService.getSale(saleID);
                         main = "smartstore/form/UpdateSale";
+                        productDTOList = productService.getProductList(authService.getCurrentUser(session).getId());
                 }
                 else
                 {
@@ -174,58 +176,108 @@ public class SaleController
 
 
                 model.addAttribute("sale" , saleDTO );
-
+                model.addAttribute("productList",productDTOList);
                 model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
                 model.addAttribute("main", main);
                 return "Index";
         }
         //	상품 수정 요청
+//        @PostMapping("/write/{sale-id}")
+//        public String updateSale(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@ModelAttribute SaleForm saleForm, @PathVariable("sale-id") int sale_id ) 
+//        {
+//
+//        	String url = null;
+//
+//            SaleDTO saleDTO = saleForm.getSaleDTO();
+//            saleDTO.setImage_group_id(image_group_id);
+//            List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
+//
+//            if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
+//            {
+//                    try
+//                    {
+//                            saleService.updateSale(saleDTO);
+//                            saleService.insertSaleProductList(saleProductDTOList,saleService.selectMaxSaleId());
+//                    }
+//                    catch(Exception e)
+//                    {
+//                            e.printStackTrace();
+//                    }
+//                    url = "redirect:/merchant/my-page/item/list";
+//            }
+//            else
+//            {
+//                    url = "redirect:/";
+//            }
+//
+//            return url;
+//        }
         @PostMapping("/write/{sale-id}")
-        public String updateSale(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, SaleDTO saleDTO ) throws Exception
+        public String updateSale(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@ModelAttribute SaleForm saleForm, @PathVariable("sale-id") int sale_id ) 
         {
-
-                String main = null;
-                String url = null;
-
-
-
-
-                if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
-                {
-                        saleService.updateSale(saleDTO);
-                        url = "redirect:/item/list";
-                }
-                else
-                {
-                        url = "redirect:/";
-                        return url;
-                }
-
-                return url;
+        	
+        	String url = null;
+        	int r = 0;
+        	
+        	  SaleDTO saleDTO = saleForm.getSaleDTO();
+        	
+              List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
+              
+        	RoleStatus status = authService.checkRoleStatus(session);
+        	if(status == RoleStatus.MERCHANT) {
+        		
+        		saleService.updateSale(saleDTO);
+        		saleService.updateSaleProduct(saleProductDTOList,saleDTO.getId());
+        		
+        		url = "redirect:/merchant/my-page/item/list";
+        	} else {
+        		url = "redirect:/";
+        	}
+        	
+        	return url;
         }
 
         //	상품 삭제
         @PostMapping("/delete/{sale-id}")
-        public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("sale-id") int saleID ) throws Exception
-        {
+        public String deleteSale(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, @PathVariable("sale-id") int saleID) {
+    	    String url = null;
+    	    int r = 0;
 
+    	    RoleStatus status = authService.checkRoleStatus(session); // status 변수 추가
+    	    System.out.println("Role Status: " + status); // 이 라인을 추가하여 현재 RoleStatus 값 출력
 
-                String url = null;
+    	    if(status == RoleStatus.MERCHANT) {
+    	    	SaleDTO sdto = new SaleDTO();
+    	    	sdto.setId(saleID);
+    	        r = saleService.deleteSale(sdto);
+    	        url = "redirect:/merchant/my-page/item/list";
+    	    } else {
+    	        url = "redirect:/";
+    	    }
 
-
-
-                if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
-                {
-                        saleService.deleteSale(saleID);
-                        url = "redirect:/sale/list";
-                }
-                else
-                {
-                        url = "redirect:/";
-                }
-
-                return url;
-        }
+    	    return url;
+    	}
+//        @PostMapping("/delete/{sale-id}")
+//        public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("sale-id") int saleID ) throws Exception
+//        {
+//        	
+//        	
+//        	String url = null;
+//        	
+//        	
+//        	
+//        	if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
+//        	{
+//        		saleService.deleteSale(saleID);
+//        		url = "redirect:/sale/list";
+//        	}
+//        	else
+//        	{
+//        		url = "redirect:/";
+//        	}
+//        	
+//        	return url;
+//        }
 
 
 

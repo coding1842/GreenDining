@@ -35,18 +35,27 @@ public class SaleServiceImpl implements SaleService
                             .build();
 
                 List<SaleDTO> content = saleDAO.getSalePage(requestPageList);
+                int total = saleDAO.getSaleListCount(dataMap);
+                
+                for (SaleDTO ele : content) {
+                    ele.setImage_path(saleDAO.selectImagePath(ele.getImage_group_id()));
 
-                for(SaleDTO ele : content)
-                {
-                         ele.setImage_path(saleDAO.selectImagePath(ele.getImage_group_id()));
-                         ele.setMin_price(saleDAO.selectMinPrice(ele.getId()));
-                         ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
+                    // SelectMinPrice를 호출하는 부분
+                    Integer result = saleDAO.selectMinPrice(ele.getId());
+                    int minPrice;
+                    if (result != null) {
+                        minPrice = result;
+                    } else {
+                        // 적절한 기본값 할당 또는 오류 처리
+                        minPrice = 0;  // 예시입니다. 실제로는 적절한 기본값 또는 오류 처리를 해야합니다.
+                    }
+                    ele.setMin_price(minPrice);
+
+                    ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
                 }
 
-                int total = saleDAO.getSaleListCount(dataMap);
-
-                return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
-        }
+                return new PageImpl<>(content, (Pageable) dataMap.get("pageable"), total);
+            }
 
         @Override
         public void insertSale(SaleDTO saleDTO) throws Exception
@@ -67,25 +76,35 @@ public class SaleServiceImpl implements SaleService
         }
 
         @Override
-        public void updateSale(SaleDTO saleDTO) throws Exception
+        public int updateSale(SaleDTO saleDTO) 
         {
-                int r = saleDAO.updateSale(saleDTO);
-                if(r < 1)
-                {
-                        throw new Exception("정상적으로 판매글 정보가 수정 되지 않았습니다.");
-                }
+                return saleDAO.updateSale(saleDTO);
         }
+//        @Override
+//        public void updateSale(SaleDTO saleDTO) throws Exception
+//        {
+//        	int r = saleDAO.updateSale(saleDTO);
+//        	if(r < 1)
+//        	{
+//        		throw new Exception("정상적으로 판매글 정보가 수정 되지 않았습니다.");
+//        	}
+//        }
 
         @Override
-        public void deleteSale(int saleID) throws Exception
+        public int deleteSale(SaleDTO saleDTO)
         {
-                int r = saleDAO.deleteSale(saleID);
-
-                if(r<1)
-                {
-                        throw new Exception("정상적으로 판매글 정보가 삭제 되지 않았습니다.");
-                }
+                return saleDAO.deleteSale(saleDTO);
         }
+//        @Override
+//        public void deleteSale(int saleID) throws Exception
+//        {
+//        	int r = saleDAO.deleteSale(saleID);
+//        	
+//        	if(r<1)
+//        	{
+//        		throw new Exception("정상적으로 판매글 정보가 삭제 되지 않았습니다.");
+//        	}
+//        }
 
         @Override
         public void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id) throws Exception
@@ -128,6 +147,15 @@ public class SaleServiceImpl implements SaleService
                 return saleProductList;
 
         }
+
+		@Override
+		public void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id) {
+			
+			saleDAO.deleteSaleProduct(sale_id);
+			saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
+			// TODO Auto-generated method stub
+			
+		}
 
 
 }

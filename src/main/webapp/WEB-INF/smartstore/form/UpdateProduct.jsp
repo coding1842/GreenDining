@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<script src="/js/smartstore/ProductForm.js"></script>
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,9 +9,9 @@
   <!-- 사업자로 로그인 된상태임 -->
   <body>
     <div id="product_all">
-      <a href="#" id="product_top">상품등록</a>
+      <a href="#" id="product_top">상품수정</a>
       <div id="product_box">
-        <form action="/product/write/${product.id}" method="post" id="ajaxForm" enctype="multipart/form-data" autocomplete="off">
+        <form id="upDataForm${product.id}" action="/product/write/${product.id}" method="post" enctype="multipart/form-data" autocomplete="off">
           <table id="product_table">
             <tr>
               <th>상품명</th>
@@ -58,7 +59,7 @@
               <th class="product_puch_space"></th>
               <td class="product_puch_space">
                 <button type="reset" id="product_reset">다시쓰기</button>
-                <input class="submit1" type="button" id="imgur_push" value="상품 등록하기" />
+                <input class="submit1" type="submit" id="updateBtn" value="상품 수정하기" />
                 <input type="hidden" name="merchant_id" value="${ssKey.id}" />
                 <input type="hidden" name="image_group_id" value="${product.image_group_id}" />
                 <input type="hidden" id="imgurUrl" value="/imgur/update" />

@@ -2,11 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<link rel="stylesheet" href="/css/smartstore/productList.css" />
 <link rel="stylesheet" href="/css/user/MyPage.css" />
- <script src="/js/smartstore/ProductPrice.js"></script>
-<body>
-<div id="pList_box">
+<link rel="stylesheet" href="/css/smartstore/ProductList.css" />
 <div class="merchant_page_box">
   <div class="merchant_aside_box">
     <div id="mer_aside"> 
@@ -62,39 +59,39 @@
     </div>
   </div>
   <div id="productPage_main_box">
-   	<div>
-		<p style="text-align: center; font-size: 30px;">상품 목록</p>
+    <div>
+		<p style="text-align: center; font-size: 30px;">판매글 목록</p>
 		
 	</div>
 <table class="table table-hover" id="pList_table">
   <thead>
     <tr>
-      <th scope="col">번호</th>
-      <th scope="col">상품 이름</th>
-      <th scope="col">무게</th>
-      <th scope="col">상품 가격</th>
-      <th scope="col">재고 수량</th>
-      <th scope="col">수정/삭제</th>
+      <th scope="col" id="col1">번호</th>
+      <th scope="col" id="col2">판매 제목</th>
+      <th scope="col" id="col3">게시글 상태</th>
+      <th scope="col" id="col4">판매 시작 시간</th>
+      <th scope="col" id="col5">판매 종료 시간</th>
+      <th scope="col" id="col6">수정/삭제</th>
     </tr>
   </thead>
   <tbody class="table-group-divider">
   <c:choose>
-  	<c:when test="${fn:length(productPage.content)>0 }">
-        <c:forEach var="product" items="${productPage.content}">
+  	<c:when test="${fn:length(salePage.content)>0 }">
+        <c:forEach var="sale" items="${salePage.content}">
             <tr>
-           <form id="dProductForm${product.id}" method="post" action="/product/delete/${product.id}">
-              <th scope="row">${product.id}</th>
-              <td><a href="#">${product.name}</a></td>
-              <td>${product.weight}&nbsp;g</td>
-              <td class="price11">${product.price}&nbsp;원</td>
-              <td>${product.stock}&nbsp;개</td>
-              <td id="del_btn">
-              	<input id="updataForm" onclick="location.href='/product/write/${product.id}'" type="button" value="수정">&nbsp;
-<!--               	<input id="deleteBtn" type="button" value="삭제"> -->
-				<input id="deleteBtn${product.id}" type="button" value="삭제">
+            <form id="dsaleForm${sale.id}" method="post" action="/item/delete/${sale.id}">
+	            <th scope="row">${sale.id}</th>
+	            <td>${sale.title}</td>
+	            <td>${sale.status}</td>
+	            <td>${sale.started_at}</td>
+	            <td>${sale.ended_at}</td>
+	            <td id="del_btn">
+              	<input id="updataForm" onclick="location.href='/item/write/${sale.id}'" type="button" value="수정">&nbsp;
+<%--               	<input id="deleteBtn" onclick="location.href='/item/delete/${sale-id}'" type="button" value="삭제"> --%>
+				<input id="deleteBtn${sale.id}" type="button" value="삭제">
               </td>
             </form>
-            </tr>
+	        </tr>  
         </c:forEach>
         <div class="pagination">
 		  <div class="size-selector">
@@ -104,15 +101,15 @@
 		      <option value="20">20</option>
 		    </select>
 		  </div>
-		  <c:if test="${productPage.first == false}">
+		  <c:if test="${salePage.first == false}">
 <%-- 		    <a href="?page=0&size=${size}"><<</a> --%>
 <%-- 		    <a href="?page=${productPage.number - 1}&size=${size}"><</a> --%>
 		    	<a href="javascript:changePage(0)"><<</a>
-				<a href="javascript:changePage(${productPage.number - 1})"><</a>
+				<a href="javascript:changePage(${salePage.number - 1})"><</a>
 		  </c:if>
-		  <c:forEach begin="0" end="${productPage.totalPages -1}" step="1" var="page">
+		  <c:forEach begin="0" end="${salePage.totalPages -1}" step="1" var="page">
 		    <c:choose>
-		      <c:when test="${page == productPage.number}">
+		      <c:when test="${page == salePage.number}">
 		        <span class="current">${page + 1}</span>
 		      </c:when>
 		      <c:otherwise>
@@ -120,15 +117,15 @@
 		      </c:otherwise>
 		    </c:choose>
 		  </c:forEach>
-		  <c:if test="${productPage.last == false}">
+		  <c:if test="${salePage.last == false}">
 <%-- 		    <a href="?page=${productPage.number + 1}&size=${size}">></a> --%>
 <%-- 		    <a href="?page=${productPage.totalPages - 1}&size=${size}">>></a> --%>
-		  		<a href="javascript:changePage(${productPage.number + 1})">></a>
-				<a href="javascript:changePage(${productPage.totalPages - 1})">>></a>
+		  		<a href="javascript:changePage(${salePage.number + 1})">></a>
+				<a href="javascript:changePage(${salePage.totalPages - 1})">>></a>
 		  </c:if>
 		</div>
     </c:when>
-    <c:when test="${fn:length(productPage.content)==0}">
+    <c:when test="${fn:length(salePage.content)==0}">
     	<tr style="text-align:center; height: 30px;">
 			<th colspan="6">등록된 상품이 없습니다.</th></tr>
     </c:when>
@@ -137,12 +134,13 @@
   </tbody>
 </table>
 	<div id="addProductBtn">
-		<input type="button" onclick="location.href='/product/write'" value="상품 등록">
-	</div>
-	</div>
-	  </div>
-	</div>
-</body>
+		<input type="button" onclick="location.href='/item/write'" value="상품 등록">
+	</div>	
+</div>
+  
+</div>
+
+
 <script>
 window.onload = function() {
     // URL에서 'size' 파라미터를 가져옵니다.
@@ -159,7 +157,7 @@ function changeSize() {
 }
 </script>
 <script>
-var currentPage = ${productPage.number};  // 현재 페이지 번호 초기화
+var currentPage = ${salePage.number};  // 현재 페이지 번호 초기화
 var currentSize = ${size};  // 현재 페이지 사이즈 초기화
 
 window.onload = function() {
@@ -180,8 +178,7 @@ $("[id^='deleteBtn']").click(function() {
     var con = confirm("정말로 삭제하시겠습니까?");
     if (con) {
         var id = this.id.replace("deleteBtn", "");
-        $("#dProductForm" + id).submit();
+        $("#dsaleForm" + id).submit();
     }
 });
 </script>
-	

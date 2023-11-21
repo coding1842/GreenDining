@@ -18,6 +18,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -46,37 +48,7 @@ public class ProductController {
 	@Autowired
         	UserService userService;
 
-//	상품관리 리스트 확인
-        @GetMapping("/list")
-        public String getProductList(HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ,@RequestParam("category") int category, @RequestParam("keyword")  String keyword , @PageableDefault(size = 10,page = 0) Pageable pageable) {
 
-
-	      String main = null;
-	      String url = null;
-	      Page<ProductDTO> productList = null;
-
-	      if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
-	      {
-		    Map<String, Object> dataMap = null;
-		    dataMap.put("category", category);
-		    dataMap.put("keyword", keyword);
-		    dataMap.put("pageable", pageable);
-		    dataMap.put("merchant_id", authService.getCurrentUser(session).getRole());
-
-		    productList = productService.getProductPage(dataMap);
-	      }
-	      else
-	      {
-		    url = "redirect:/";
-		    return url;
-	      }
-
-
-	      main = "smartstore/view/ProductList";
-	      model.addAttribute("productList",productList);
-	      model.addAttribute("main", main);
-	      return "Index";
-        }
 //	상품 등록폼
 	@GetMapping("/write")
 	public String insertProductForm(HttpServletRequest req,
@@ -161,47 +133,75 @@ public class ProductController {
 //	상품 수정 요청
 	@PostMapping("/write/{product-id}")
 	public String updateProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO, @PathVariable("product-id") int product_id ) {
-	        String main = null;
 	        String url = null;
 	        int r = 0;
+	        
+	        RoleStatus status = authService.checkRoleStatus(session);
+//	        productDTO.setId(product_id);
+	        if(status == RoleStatus.MERCHANT) {
+	        	ProductDTO pdto = productDTO;
+		    	pdto.setId(product_id);
+		        r = productService.updateProduct(pdto);
+		        url = "redirect:/merchant/my-page/product/list";
+		    } else {
+		        url = "redirect:/";
+		    }
 
-	        productDTO.setId(product_id);
-	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
-	        {
-		      r = productService.updateProduct(productDTO);
-		      url = "redirect:/product/list";
-	        }
-	        else
-	        {
-		      url = "redirect:/";
-		      return url;
-	        }
-
-	        return url;
+		    return url;
 	}
 
 //	상품 삭제
-	@PostMapping("/delete/{product-id}")
-	public String deleteProduct(HttpSession session,HttpServletRequest req, HttpServletResponse resp, Model model,@PathVariable("product-id") int productID ) {
-	        String url = null;
-	        int r = 0;
+//	@PostMapping("/delete/{product-id}")
+//	public String deleteProduct(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, @PathVariable("productId") int productID) {
+//	        String url = null;
+//	        int r = 0;
+//
+//	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
+//	        {
+//		      r = productService.deleteProduct(productID);
+//		      url = "redirect:/merchant/my-page/product/list";
+//	        }
+//	        else
+//	        {
+//		      url = "redirect:/";
+//	        }
+//	        
+//	        return url;
+//	}	
+	
+//	@PostMapping("/delete/{product-id}")
+//	public ResponseEntity<String> deleteProduct(HttpServletRequest req, HttpServletResponse res, ProductDTO productDTO)
+//	{
+//		int r = productService.deleteProduct(productDTO);
+//		
+//		if (r < 1) {
+//			return new ResponseEntity<>("상품 삭제 실패. 다시 삭제해 주세요.", HttpStatus.BAD_REQUEST);
+//		}
+//		return new ResponseEntity<>("상품 삭제 성공. 상품이 삭제되었습니다.", HttpStatus.OK);
+//	}
+	
+// 	상품삭제	
+	@PostMapping("/delete/{productId}")
+	public String deleteProduct(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, @PathVariable("productId") int productID) {
+	    String url = null;
+	    int r = 0;
 
-	        if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
-	        {
-		      r = productService.deleteProduct(productID);
-		      url = "redirect:/product/list";
-	        }
-	        else
-	        {
-		      url = "redirect:/";
-	        }
+	    RoleStatus status = authService.checkRoleStatus(session); // status 변수 추가
+	    System.out.println("Role Status: " + status); // 이 라인을 추가하여 현재 RoleStatus 값 출력
 
-	        return url;
+	    if(status == RoleStatus.MERCHANT) {
+	    	ProductDTO pdto = new ProductDTO();
+	    	pdto.setId(productID);
+	        r = productService.deleteProduct(pdto);
+	        url = "redirect:/merchant/my-page/product/list";
+	    } else {
+	        url = "redirect:/";
+	    }
+
+	    return url;
 	}
 	
-	
-	
-	
+
 	
 }
 

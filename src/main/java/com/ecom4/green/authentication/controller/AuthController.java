@@ -46,12 +46,12 @@ public class AuthController {
 		
 		if(authService.getCurrentUser(session) != null)
 		{
-			if(authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
+			if(authService.checkRoleStatus(session) == RoleStatus.USER)
 			{
 				main = "user/view/MyPage";
 		
 			}
-			else if (authService.checkRoleStatus(session) == RoleStatus.USER)
+			else if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 			{
 				main = "merchant/view/MyPage";
 
