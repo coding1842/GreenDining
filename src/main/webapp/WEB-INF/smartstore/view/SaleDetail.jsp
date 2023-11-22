@@ -79,11 +79,12 @@
                         <input type="hidden" class="before_price" value="${sale_product.before_price*(1-sale.discount/100)}"/>
                         <input type="hidden" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
                         <span class="total_price">
-                          <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원
+                          <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원                          
                         </span> 
+                          <span class="sale_product_delete material-symbols-outlined">close</span>
                       </span>
                     </span>
-                    <input type="hidden" name="cartDTOList[].product_id" value="${sale_product.product_id}">
+                    <input type="hidden" class="product_id" name="cartDTOList[].product_id" value="${sale_product.product_id}">
                     <input type="hidden" name="cartDTOList[].sale_id" value="${sale_product.sale_id}">
                     <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
                   </div>
@@ -111,9 +112,10 @@
                         <span class="total_price">
                           <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원
                         </span> 
+                        <span class="sale_product_delete material-symbols-outlined">close</span>
                       </span>
                     </span>
-                    <input type="hidden" name="cartDTOList[].product_id" value="${sale_product.product_id}">
+                    <input type="hidden" class="product_id" name="cartDTOList[].product_id" value="${sale_product.product_id}">
                     <input type="hidden" name="cartDTOList[].sale_id" value="${sale_product.sale_id}">
                     <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
                   </div>

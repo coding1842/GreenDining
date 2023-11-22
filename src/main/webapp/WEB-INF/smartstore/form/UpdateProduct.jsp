@@ -37,24 +37,23 @@
               <td><input class="chk1" type="text" name="stock" title="재고수량" placeholder="숫자만 입력" value="${product.stock}" />&nbsp;개</td>
             </tr>
             <tr>
-              <!-- 메인페이지에서 제일먼저 보이는 사진 한장 -->
-              <th>상품 대표 이미지</th>
-              <td>
-                <input class="chk1" type="file" name="fileList" title="대표 이미지" />
-                <br />
-                <small>*(하나만 선택 가능합니다.)</small>
-              </td>
-            </tr>
-            <tr>
               <th>상품 타입</th>
               <td>
                 <select name="status" id="product_status" value="${product.status}">
                   <option value="PREPARE">준비중</option>
-                  <option value="SALE">판매중</option>
+                  <option value="READY">판매중</option>
                   <option value="CLOSE">판매종료</option>
                 </select>
               </td>
             </tr>
+            <tr>
+                        <th>상품 설명 이미지</th>
+                        <td>
+                          <input type="file" name="fileList" />
+                          <br />
+                          <small>*(여러개 선택 가능합니다.)</small>
+                        </td>
+                      </tr>
             <tr>
               <th class="product_puch_space"></th>
               <td class="product_puch_space">

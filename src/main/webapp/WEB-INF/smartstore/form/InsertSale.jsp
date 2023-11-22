@@ -88,9 +88,9 @@
           <tr>
             <th>상태</th>
             <td class="sale_flex">
-              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="PREPARED" /><span>판매 대기</span></label>
-              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="SALE" /><span>판매중</span></label>
-              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="SOLD_OUT" /><span>판매 종료</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="PREPARE" /><span>판매 대기</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="READY" /><span>판매중</span></label>
+              <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="CLOSE" /><span>판매 종료</span></label>
             </td>
           </tr>
           <tr>
@@ -104,11 +104,11 @@
               </div>
               <div id="sale-discount-text" style="display: none">
                 <br />
-                <input type="number" placeholder="숫자만 입력" value="0" name="discount" class="sale-discount-text" />&nbsp;%
+                <input type="number" placeholder="숫자만 입력" value="0" name="saleDTO.discount" class="sale-discount-text" />&nbsp;%
               </div>
               <div id="sale-discount-total" style="display: none">
                 <br />
-                <input type="text" placeholder="총 금액" class="sale-discount-text" />&nbsp;원(총 금액)
+                <!-- <input type="text" placeholder="총 금액" class="sale-discount-text" />&nbsp;원(총 금액) -->
               </div>
             </td>
           </tr>

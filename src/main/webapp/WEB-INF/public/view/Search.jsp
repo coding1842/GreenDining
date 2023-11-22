@@ -91,6 +91,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <c:choose>
           <c:when test="${fn:length(salePage.content) > 0}">
             <c:forEach var="sale" items="${salePage.content}" varStatus="i">
+              <a href="/item/${sale.id}">
               <div class="col h-460px">
                 <div class="card h-100">
                   <img src="${sale.image_path}" class="card-img-top w-220px h-220px" alt="..." />
@@ -114,6 +115,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                   </div>
                 </div>
               </div>
+              </a>
+            </c:forEach>
+            <c:forEach begin="${fn:length(salePage.content) % 5}" end="5">
+              <div class="col" h-460px></div>
             </c:forEach>
           </c:when>
           <c:when test="${fn:length(salePage.content) == 0}">

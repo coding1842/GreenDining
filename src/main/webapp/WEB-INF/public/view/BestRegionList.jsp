@@ -110,29 +110,34 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <c:choose>
           <c:when test="${fn:length(salePage.content) > 0}">
             <c:forEach var="sale" items="${salePage.content}" varStatus="i">
-              <div class="col h-460px">
-                <div class="card h-100">
-                  <img src="${sale.image_path}" class="card-img-top w-220px h-220px" alt="..." />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <span id="percent" class="text-danger me-2">${sale.discount}%</span>
-                      <c:set var="discountedPrice" value="${sale.min_price*(1-sale.discount/100)}" />
-                      <fmt:formatNumber value="${discountedPrice}" pattern="#,##0" />원
-                    </h5>
-                    <p class="card-text fw-lighter fs-14px">
-                      ${sale.title}
-                      <br />
-                      <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                      <span id="star_score" class="fs-11px mt-3">4.8</span>
-                      <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
-                    </p>
-                  </div>
-                  <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
-                    <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">${sale.store_name}</small>
-                    <img src="${sale.image_path}" alt="" srcset="" class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
+              <a href="/item/${sale.id}">
+                <div class="col h-460px">
+                  <div class="card h-100">
+                    <img src="${sale.image_path}" class="card-img-top w-220px h-220px" alt="..." />
+                    <div class="card-body">
+                      <h5 class="card-title">
+                        <span id="percent" class="text-danger me-2">${sale.discount}%</span>
+                        <c:set var="discountedPrice" value="${sale.min_price*(1-sale.discount/100)}" />
+                        <fmt:formatNumber value="${discountedPrice}" pattern="#,##0" />원
+                      </h5>
+                      <p class="card-text fw-lighter fs-14px">
+                        ${sale.title}
+                        <br />
+                        <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
+                        <span id="star_score" class="fs-11px mt-3">4.8</span>
+                        <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
+                      </p>
+                    </div>
+                    <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
+                      <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">${sale.store_name}</small>
+                      <img src="${sale.image_path}" alt="" srcset="" class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
+                    </div>
                   </div>
                 </div>
-              </div>
+              </a>
+            </c:forEach>
+            <c:forEach begin="${fn:length(salePage.content) % 5}" end="5">
+              <div class="col" h-460px></div>
             </c:forEach>
           </c:when>
           <c:when test="${fn:length(salePage.content) == 0}">

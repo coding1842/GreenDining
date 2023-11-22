@@ -89,15 +89,15 @@
             <th>상태</th>
             <td class="sale_flex">
 			    <label class="sale-type-label">
-			        <input type="radio" id="status_PREPARED" name="saleDTO.status" value="PREPARED" />
+			        <input type="radio" id="status_PREPARED" name="saleDTO.status" value="PREPARE" />
 			        <span>판매 대기</span>
 			    </label>
 			    <label class="sale-type-label">
-			        <input type="radio" id="status_SALE" name="saleDTO.status" value="SALE" />
+			        <input type="radio" id="status_SALE" name="saleDTO.status" value="READY" />
 			        <span>판매중</span>
 			    </label>
 			    <label class="sale-type-label">
-			        <input type="radio" id="status_SOLD_OUT" name="saleDTO.status" value="SOLD_OUT" />
+			        <input type="radio" id="status_SOLD_OUT" name="saleDTO.status" value="CLOSE" />
 			        <span>판매 종료</span>
 			    </label>
 			</td>

@@ -90,6 +90,8 @@
                         title LIKE '%' || #{data.keyword} || '%'
                     </if>
                     AND systimestamp between started_at and ended_at
+                    <bind name="status" value="'READY'"/>
+                    AND status = #{status}
                 </where>
                 OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
             </otherwise>
@@ -176,15 +178,13 @@
 
     <select id="selectMinPrice" resultType="int">
         <bind name="sale_type" value="'MAIN'"/>
-        select * from (
-        select p.price, rownum as rn
+        select min(p.price)
         from product p
         join sale_product sp on p.id = sp.product_id
         where sp.sale_id = #{id} and sp.sale_type = #{sale_type}
-        order by p.price asc
-        ) where rn = 1
     </select>
-	
+
+
 
     <select id="selectStoreName" parameterType="String" resultType="String">
         select store_name
@@ -200,9 +200,11 @@
     <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'MAIN'"/>
         select *
-        from sale_product
-        where sale_id = #{sale_id}
-        and sale_type = #{sale_type}
+        from sale_product sp
+        join product p on p.id = sp.product_id
+        where sp.sale_id = #{sale_id}
+        and sp.sale_type = #{sale_type}
+        order by p.price asc
     </select>
     <select id="selectSaleProductListSub" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'SUB'"/>

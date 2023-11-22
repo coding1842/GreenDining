@@ -41,12 +41,18 @@ $(function () {
   });
 
   $("#sale_product_select .dropdown-item.main_type").click(function (e) {
-    var product_id = $(this).find("input:first").val();
-
+    var product_id = $(this).find(".product_id").val();
+    var duplication = false;
     // 이미 선택한 항목인지 확인
-    if ($("#selected_sale_product #main_type .cartDTO input:first[value='" + product_id + "']").length > 0) {
-      alert("이미 선택한 항목입니다.");
-      return false;
+    $("#selected_sale_product #main_type .cartDTO .product_id").each(function () {
+      if (product_id == $(this).val()) {
+        alert("이미 선택한 항목입니다.");
+        duplication = true;
+        return false;
+      }
+    });
+    if (duplication) {
+      return;
     }
 
     var newField = $(this).clone(true);
@@ -60,14 +66,19 @@ $(function () {
   });
 
   $("#sale_product_select .dropdown-item.sub_type").click(function (e) {
-    var product_id = $(this).find("input:first").val();
-
+    var product_id = $(this).find(".product_id").val();
+    var duplication = false;
     // 이미 선택한 항목인지 확인
-    if ($("#selected_sale_product #sub_type .cartDTO input:first[value='" + product_id + "']").length > 0) {
-      alert("이미 선택한 항목입니다.");
-      return false;
+    $("#selected_sale_product #sub_type .cartDTO .product_id").each(function () {
+      if (product_id == $(this).val()) {
+        alert("이미 선택한 항목입니다.");
+        duplication = true;
+        return false;
+      }
+    });
+    if (duplication) {
+      return;
     }
-
     var newField = $(this).clone(true);
 
     newField.removeClass().addClass("cartDTO w-100");
@@ -78,7 +89,16 @@ $(function () {
     checkTotal();
   });
 
+  $(".sale_product_delete").click(function (e) {
+    $(this).closest(".cartDTO").remove();
+    checkTotal();
+  });
+
   $("#cart_add").click(function (e) {
+    if ($("#selected_sale_product .cartDTO").length < 1) {
+      alert("선택한 상품이 없습니다.");
+      return false;
+    }
     cartADD();
   });
 });
