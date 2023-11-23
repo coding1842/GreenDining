@@ -10,12 +10,12 @@
   <head>
     <meta charset="UTF-8" />
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/smartstore/view/SaleItemDetail.css" />
+
     <!-- JS -->
     <script src="/jquery/jquery-3.7.0.min.js"></script>
-    <script src="/js/user/Review.js"></script>
 
+    <script src="/js/user/Review.js"></script>
+	
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
   </head>
@@ -91,7 +91,7 @@
                 </li>
               </c:forEach>
             </ul>
-      
+
           </div>
           <p class="mb-0">추가상품</p>
           <div class="dropdown">
@@ -135,7 +135,9 @@
             </div>
             <hr>
 
-            <div id="sub_type"></div>
+            <div id="sub_type">
+            	
+            </div>
           </form>
         </div>
             <hr>
@@ -148,7 +150,7 @@
          
         </div>
         <div id="sale_button">
-          <button type="button" class="btn btn-success w-100 h-50px" id="buy_now">구매하기</button>
+          <button type="button" onclick="location.href='/order/orderForm'" class="btn btn-success w-100 h-50px" id="buy_now">구매하기</button>
           <div class="btn-group mt-2 w-100" role="group">
             <a><button type="button" class="btn btn-danger">문의하기</button></a>
             <a><button type="button" class="btn btn-primary">찜하기</button></a>
@@ -388,4 +390,5 @@
     </section>
     <div class="clear"></div>
   </body>
+
 </html>
