@@ -1,4 +1,4 @@
-package com.ecom4.green.user.service;
+package com.ecom4.green.order.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,34 +6,37 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ecom4.green.imgur.dao.ImgurDAO;
 import com.ecom4.green.merchant.dao.ProductDAO;
 import com.ecom4.green.merchant.dao.SaleDAO;
 import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.merchant.dto.SaleDTO;
 import com.ecom4.green.merchant.dto.SaleProductDTO;
-import com.ecom4.green.user.dao.CartDAO;
+import com.ecom4.green.order.dao.OrderDAO;
 import com.ecom4.green.user.dto.CartDTO;
 
 @Service
-public class CartServiceImpl implements CartService {
+public class OrderServiceImpl implements OrderService {
+
+	@Autowired
+	OrderDAO orderDao;
 	
-	@Autowired
-	CartDAO cartDao;
-	@Autowired
-	ProductDAO productDao;
-	
-	@Autowired
-	ImgurDAO imgurDAO;
 	@Autowired
 	SaleDAO saleDao;
 	
+	@Autowired
+	ProductDAO productDao;
+	
 	@Override
-	public List<CartDTO> selectCartList(String id) {
-		
+	public int insertOrder(List<CartDTO> cartDTOList, String user_id) {
+		return orderDao.insertOrder(cartDTOList, user_id);
+	}
+
+
+	@Override
+	public List<CartDTO> selectOrderList(String id) {
 		List<CartDTO> cartDTOList = new ArrayList<>();
 		
-		cartDTOList = cartDao.selectCartList(id);
+		cartDTOList = orderDao.selectOrderList(id);
 		
 		for(CartDTO cartDTO : cartDTOList)
 		{
@@ -49,35 +52,9 @@ public class CartServiceImpl implements CartService {
 			cartDTO.setName(saleProduct.getName());
 			cartDTO.setSale_type(saleProduct.getSale_type());
 			cartDTO.initSaleTotal();
-				
 		}
 		
 		return cartDTOList;
 	}
 
-	@Override
-	public int updateCart(CartDTO cartDto) {
-		return cartDao.updateCart(cartDto);
-	}
-
-	@Override
-	public int deleteCart(CartDTO cartDTO) {
-		
-		return cartDao.deleteCart(cartDTO);
-	}
-
-    @Override
-    public int insertCart(List<CartDTO> cartDTOList, String user_id)
-    {
-      return cartDao.insertCart(cartDTOList,user_id);
-    }
-
-    @Override
-    public int checkDuplication(int sale_id)
-    {
-            return cartDao.checkDuplication(sale_id);
-    }
 }
-
-
-
