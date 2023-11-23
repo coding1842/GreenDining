@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ecom4.green.order.dao.OrderDAO">
+	<insert id="insertOrder" parameterType="orderDTO">
+		<selectKey keyProperty="id" order="BEFORE" resultType="int">
+			SELECT NVL(MAX(id),0)+1 FROM ORDERS
+		</selectKey>
+		INSERT INTO ORDERS( ID,
+							USER_ID,
+							STATUS,
+							CREATED_AT,
+							ADDRESS_ID)
+		VALUES( #{id},
+				#{user_id},c
+				#{status},
+				SYSDATE,
+				#{address_id})
+	</insert>
+	
+	<select id="selectOrderList" parameterType="String" resultType="orderDTO">
+		select user_id, id, status, created_at, address_id
+		from orders
+		where user_id = #{user_id}
+	</select>
+	
+	<select id="selectUser" parameterType="String" resultType="userDTO">
+		select id, password, name, phone, email, role, created_at, country_code
+		from users
+		where id = #{id}
+	</select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

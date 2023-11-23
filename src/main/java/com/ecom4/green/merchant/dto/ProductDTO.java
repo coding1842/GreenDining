@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-@Getter
 @Setter
 @Scope(value = WebApplicationContext.SCOPE_SESSION,
 	   proxyMode = ScopedProxyMode.TARGET_CLASS)
@@ -26,7 +25,7 @@ public class ProductDTO {
 	private int price;
 	private int weight;
 	private String status;
-	private String stock;
+	private int stock;
 
 	private String created_at;
 	private int image_group_id;
