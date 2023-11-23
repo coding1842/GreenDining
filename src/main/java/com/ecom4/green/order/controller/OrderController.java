@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ecom4.green.user.dto.AddressDTO;
+import com.ecom4.green.user.service.UserService;
+import com.ecom4.green.user.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,20 +37,25 @@ public class OrderController {
 	
 	@Autowired
 	CartService cartService;
-	
-	@GetMapping("/orderForm")
-	public String orderForm(HttpServletRequest req,
-								HttpServletResponse res,
-								Model model)
+
+	@Autowired
+       	UserService userService;
+
+	@GetMapping("/checkout")
+	public String orderForm(@RequestBody List<CartDTO> cartDTOList,
+		  HttpServletRequest req,HttpServletResponse resp,Model model,HttpSession session)
 	{
 		String main = "user/form/OrderPaymentForm";
-		
+
+
+		model.addAttribute("cartDTOList",cartDTOList);
+		model.addAttribute("user",authService.getCurrentUser(session));
+		model.addAttribute("addressList",userService.selectAddressList(authService.getCurrentUser(session).getId()));
 		model.addAttribute("main", main);
-		
 		return "Index";
 	}
 	
-	@PostMapping("/add")
+	@PostMapping("/process")
 	public ResponseEntity<String> orderAdd(HttpServletRequest req,
 							HttpServletResponse res,
 							Model model, @RequestBody List<CartDTO> cartDTOList,
@@ -57,15 +65,15 @@ public class OrderController {
 		
 		if(authService.checkRoleStatus(session) == RoleStatus.USER)
 		{
-			orderService.insertOrder(cartDTOList, authService.getCurrentUser(session).getId());
-			url = "/order/list";
+			url = "/order/checkout";
 		}
 		else if(authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
 		{
 			url = "redirect:/auth/login";
 			return new ResponseEntity<>(url, HttpStatus.UNAUTHORIZED);
 		}
-		
+
+
 		return new ResponseEntity<>(url, HttpStatus.OK);
 	}
 	

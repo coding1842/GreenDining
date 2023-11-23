@@ -206,6 +206,7 @@
         and sp.sale_type = #{sale_type}
         order by p.price asc
     </select>
+
     <select id="selectSaleProductListSub" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'SUB'"/>
         select *

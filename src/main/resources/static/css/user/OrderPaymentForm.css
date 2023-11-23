@@ -1,0 +1,8 @@
+#orderPaymentForm table tr th {
+  width: 130px;
+  height: 37.5px;
+  font-size: 13px;
+  text-align: end;
+  padding-right: 0.5rem;
+  background-color: rgb(244, 244, 244);
+}

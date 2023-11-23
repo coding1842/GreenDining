@@ -149,6 +149,47 @@ function cartADD() {
   });
 }
 
+function orderProcess() {
+  var cartDTOList = []; // CartDTO 객체를 저장할 배열
+
+  $("#main_type .cartDTO").each(function () {
+    var cartDTO = {};
+    cartDTO.product_id = $(this).find("input[name='cartDTOList[].product_id']").val();
+    cartDTO.sale_id = $(this).find("input[name='cartDTOList[].sale_id']").val();
+    cartDTO.store_name = $(this).find("input[name='cartDTOList[].store_name']").val();
+    cartDTO.quantity = $(this).find("input[name='cartDTOList[].quantity']").val();
+    cartDTOList.push(cartDTO);
+  });
+
+  $("#sub_type .cartDTO").each(function () {
+    var cartDTO = {};
+    cartDTO.product_id = $(this).find("input[name='cartDTOList[].product_id']").val();
+    cartDTO.sale_id = $(this).find("input[name='cartDTOList[].sale_id']").val();
+    cartDTO.store_name = $(this).find("input[name='cartDTOList[].store_name']").val();
+    cartDTO.quantity = $(this).find("input[name='cartDTOList[].quantity']").val();
+    cartDTOList.push(cartDTO);
+  });
+
+  $.ajax({
+    type: "POST",
+    url: "/order/process",
+    success: function (response) {
+      $.ajax({
+        type: "GET",
+        url: response,
+        data: JSON.stringify(cartDTOList),
+        contentType: "application/json",
+      });
+    },
+    error: function (xhr, status, error) {
+      if (xhr.status === 401) {
+        alert("로그인 후 이용해 주시길 바랍니다.");
+        window.location.href = error;
+      }
+    },
+  });
+}
+
 function checkTotal() {
   var total_count = 0;
   var total_price = 0;

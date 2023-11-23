@@ -127,6 +127,7 @@ public class SaleServiceImpl implements SaleService
         public List<SaleProductDTO> selectSaleProductListMain(int saleId)
         {
                 List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListMain(saleId);
+
                 for(SaleProductDTO ele : saleProductList)
                 {
                         ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
@@ -148,14 +149,14 @@ public class SaleServiceImpl implements SaleService
 
         }
 
-		@Override
-		public void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id) {
-			
-			saleDAO.deleteSaleProduct(sale_id);
-			saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
-			// TODO Auto-generated method stub
-			
-		}
+            @Override
+            public void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id) {
+
+                      saleDAO.deleteSaleProduct(sale_id);
+                      saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
+                      // TODO Auto-generated method stub
+
+            }
 
 
 }
