@@ -34,6 +34,7 @@ public class SaleController
         private static final Logger logger = LoggerFactory.getLogger(SaleController.class);
         @Autowired
         AuthService authService;
+        
         @Autowired
         SaleService saleService;
 
