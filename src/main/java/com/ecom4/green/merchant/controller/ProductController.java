@@ -76,7 +76,7 @@ public class ProductController {
         @PostMapping("/write")
         public String insertProduct(HttpServletRequest req,
 			      HttpServletResponse resp,
-			      Model model , ProductDTO productDTO,HttpSession session,@RequestParam(required = false) int image_group_id) {
+			      Model model , ProductDTO productDTO,HttpSession session,@RequestParam(required = false,defaultValue = "0") int image_group_id) {
 
 	      String url = null;
 	      int r = 0;

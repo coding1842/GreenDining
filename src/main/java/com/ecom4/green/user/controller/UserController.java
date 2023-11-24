@@ -47,10 +47,10 @@ public class UserController {
 		return "Index";
 	}
 	
-	@RequestMapping("/cart")
+	@GetMapping("/cart")
 	public String cart(HttpServletRequest req, HttpServletResponse resp , Model model)
 	{
-		String main = "user/Cart";
+		String main = "user/view/Cart";
 		model.addAttribute("main" , main);
 		return "Index";
 	}
