@@ -18,17 +18,11 @@
 		<typeAlias alias="userDTO" type="com.ecom4.green.user.dto.UserDTO"/>
 		<typeAlias alias="imgurDTO" type="com.ecom4.green.imgur.dto.ImgurDTO" />
 		<typeAlias alias="saleProductDTO" type="com.ecom4.green.merchant.dto.SaleProductDTO" />
-
 		<typeAlias alias="addressDTO" type="com.ecom4.green.user.dto.AddressDTO" />
-<<<<<<< main
 		<typeAlias alias="reviewDTO" type="com.ecom4.green.user.dto.ReviewDTO" />
 		<typeAlias alias="cartDTO" type="com.ecom4.green.user.dto.CartDTO" />
 		<typeAlias alias="ordersDTO" type="com.ecom4.green.order.dto.OrdersDTO" />
 		<typeAlias alias="orderItemDTO" type="com.ecom4.green.order.dto.OrderItemDTO" />
-		<typeAlias alias="orderDTO" type="com.ecom4.green.order.dto.OrderDTO" />
-
-=======
 		<typeAlias alias="cartDTO" type="com.ecom4.green.user.dto.CartDTO" />
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
      </typeAliases>
 </configuration>

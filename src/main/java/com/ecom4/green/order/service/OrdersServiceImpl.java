@@ -1,5 +1,6 @@
 package com.ecom4.green.order.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -72,6 +73,20 @@ public class OrdersServiceImpl implements OrdersService {
 	@Override
 	public int countInDelivery(String userId) {
 	    return ordersDAO.countInDelivery(userId);
+	}
+
+	@Override
+	public int insertOrder(String userId, int addressId) {
+
+		ordersDAO.insertOrder(userId,addressId);
+		int r = ordersDAO.selectMaxOrderId();
+		return r;
+	}
+
+	@Override
+	public int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId) {
+
+		return ordersDAO.insertOrderItemList(orderItemDTOList,orderId);
 	}
 }
 	

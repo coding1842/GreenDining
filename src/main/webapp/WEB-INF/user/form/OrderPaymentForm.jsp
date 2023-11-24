@@ -71,8 +71,8 @@
         </div>
         <div id="delivery_list" class="w-100 mt-3">
           <h5>배송 1건 중 ${fn:length(cartDTOList)}</h5>
-          <form action="" id="orderForm">
-          <div id="delivery_container" class="border rounded-3 text-">
+          <form action="" id="orderForm" >
+          <div id="delivery_container" class="border rounded-3">
             <div id="delivery_time" class="p-3 rounded-top-3 h-40px" style="color:rgb(0, 137, 30); background-color: rgb(244, 244, 244);">
               <p class="m-0"><b>내일(토) 11/25 새벽 7시 전</b> 도착 보장 </p>
             </div>
@@ -83,7 +83,7 @@
                 </c:if>
                 <div class="item_info fs-14px d-flex">
                   <p class="w-300px text-start m-0">${cart.name}</p>
-                  <span>수량 ${cart.quantity}개</span>
+                  <span class="fs-12px">수량 ${cart.quantity}개</span>
                 </div>
                 <div class="hidden_info">
                   <input type="hidden" class="before_price" name="orderItemDTOList[${i.index}].before_price" value="${cart.before_price}">
@@ -114,7 +114,7 @@
                 </tr>
                 <tr>
                   <th style="border: solid 1px #ddd">배송비</th>
-                  <td>2,500&nbsp;원</td>
+                  <td>3,000&nbsp;원</td>
                 </tr>
                 <tr>
                   <th style="border: solid 1px #ddd">총결제금액</th>
@@ -198,7 +198,7 @@
             </table>
             <br /><br />
             <div class="d-grid gap-2 col-6 mx-auto">
-              <button class="btn btn-primary" id="order_add" onclick="location.href='/order/list'" type="submit" style="height: 65px">
+              <button class="btn btn-primary" id="orderRequest"  type="button" style="height: 65px">
                 결제하기
               </button>
             </div>
