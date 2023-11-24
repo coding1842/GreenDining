@@ -26,20 +26,16 @@ public class CartDTO {
 	private int product_id;
 	private int sale_id;
 	private int quantity;
-	private String store_name;	
-	
+	private String store_name;
+
 	// no DB
 	private String image_path;
 	private int before_price;
 	private int after_price; //할인가격
 	private int total_price; //총 금액 
-	
+
 	public void initSaleTotal() {
-		this.after_price = (int) (this.price * (1-discount));
+		this.after_price = (int) (this.price * (1 - discount));
 		this.total_price = this.after_price * this.quantity;
 	}
-<<<<<<< main
-
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 }

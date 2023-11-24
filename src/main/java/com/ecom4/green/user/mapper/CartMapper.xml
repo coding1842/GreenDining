@@ -36,6 +36,4 @@
         from cart
         where sale_id = #{sale_id}
     </select>
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 </mapper>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ecom4.green.order.service.OrdersService;
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
-import com.ecom4.green.order.service.OrderService;
 import com.ecom4.green.user.dto.CartDTO;
 import com.ecom4.green.user.service.CartService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -32,7 +32,7 @@ public class OrderController {
 	AuthService authService;
 	
 	@Autowired
-	OrderService orderService;
+	OrdersService orderService;
 	
 	@Autowired
 	CartService cartService;
