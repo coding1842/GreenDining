@@ -58,7 +58,7 @@ public class CartController {
       }
       else if(authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
       {
-	    url = "redirect:/auth/login";
+	    url = "/auth/login";
 	    return new ResponseEntity<>(url, HttpStatus.UNAUTHORIZED);
       }
 

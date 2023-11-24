@@ -131,6 +131,25 @@
 	
 
 	<build>
+		<resources>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.properties</include>
+					<include>static/**/bundle/*.css</include>
+					<include>static/**/bundle/*.js</include>
+					<include>static/**/gulp/**/*.css</include>
+					<include>static/**</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -184,6 +203,7 @@
 					</execution>
 				</executions>-->
 			</plugin>
+
 		</plugins>
 	</build>
 
