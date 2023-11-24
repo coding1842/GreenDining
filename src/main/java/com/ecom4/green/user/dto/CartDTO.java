@@ -30,6 +30,7 @@ public class CartDTO {
 	
 	// no DB
 	private String image_path;
+	private int before_price;
 	private int after_price; //할인가격
 	private int total_price; //총 금액 
 	

@@ -6,11 +6,13 @@
     <script src="/jquery/jquery-3.7.0.min.js"></script>
     <script src="/js/smartstore/view/SaleItemDetail.js"></script>
     <script src="/js/user/OrderPaymentForm.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
     <meta charset="UTF-8" />
     <title>주문/결제폼</title>
   </head>
   <body>
-    <section class="w-800px" id="orderPaymentForm">
+    <section class="w-800px fs-12px" id="orderPaymentForm">
       <h2 style="border-bottom: solid 2px black; padding-bottom: 8px">주문/결제</h2>
       <form action="/order/add" method="post">
         <!-- 구매자정보 -->
@@ -29,7 +31,11 @@
               </tr>
               <tr>
                 <th style="border: solid 1px #ddd">휴대폰 번호</th>
-                <td>${user.phone}</td>
+                <td>
+                  <input type="text" value="${user.phone}" class="w-150px h-30px" />
+                  <button class="h-30px w-40px">수정</button>
+                  <span>쿠폰/티켓정보는 구매한 분의 번호로 전송됩니다.</span>
+                </td>
               </tr>
             </table>
           </form>
@@ -42,50 +48,78 @@
             <button type="button" onclick="" style="margin-bottom: 4px">배송지변경</button>
           </div>
           <form action="" method="post">
+            <input type="hidden" name="address_id" value="${addressList[0].id}" />
             <table style="border: solid 1px #eeeeee">
               <tr>
                 <th style="border: solid 1px #ddd">이름</th>
-                <td>${user.name}</td>
+                <td>${addressList[0].name}</td>
               </tr>
               <tr>
                 <th style="border: solid 1px #ddd">배송 주소</th>
-                <td>${user.email}</td>
+                <td>${addressList[0].address} , ${addressList[0].address2}</td>
               </tr>
               <tr>
                 <th style="border: solid 1px #ddd">연락처</th>
-                <td>${user.email}</td>
+                <td>${addressList[0].phone}</td>
               </tr>
               <tr>
-                <th style="border: solid 1px #ddd">휴대폰 번호</th>
-                <td>${user.phone}</td>
+                <th style="border: solid 1px #ddd">배송 요청사항</th>
+                <td>${addressList[0].request_option}</td>
               </tr>
             </table>
           </form>
         </div>
+        <div id="delivery_list" class="w-100 mt-3">
+          <h5>배송 1건 중 ${fn:length(cartDTOList)}</h5>
+          <form action="" id="orderForm">
+          <div id="delivery_container" class="border rounded-3 text-">
+            <div id="delivery_time" class="p-3 rounded-top-3 h-40px" style="color:rgb(0, 137, 30); background-color: rgb(244, 244, 244);">
+              <p class="m-0"><b>내일(토) 11/25 새벽 7시 전</b> 도착 보장 </p>
+            </div>
+            <div id="delivery_info" class="p-3">
+              <c:forEach var="cart" items="${cartDTOList}" varStatus="i">
+                <c:if test="${i.index >= 1}">
+                <hr>
+                </c:if>
+                <div class="item_info fs-14px d-flex">
+                  <p class="w-300px text-start m-0">${cart.name}</p>
+                  <span>수량 ${cart.quantity}개</span>
+                </div>
+                <div class="hidden_info">
+                  <input type="hidden" class="before_price" name="orderItemDTOList[${i.index}].before_price" value="${cart.before_price}">
+                  <input type="hidden" class="after_price" name="orderItemDTOList[${i.index}].after_price" value="${cart.after_price}">
+                  <input type="hidden" class="store_name" name="orderItemDTOList[${i.index}].store_name" value="${cart.store_name}">
+                  <input type="hidden" class="sale_id" name="orderItemDTOList[${i.index}].sale_id" value="${cart.sale_id}">
+                  <input type="hidden" class="product_id" name="orderItemDTOList[${i.index}].product_id" value="${cart.product_id}">
+                  <input type="hidden" class="quantity" name="orderItemDTOList[${i.index}].quantity" value="${cart.quantity}">
+                </div>
+              </c:forEach>
+            </div>
+          </div>
+          </form>
+        </div>
         <!-- 결제정보 -->
-        <div>
+        <div id="payment_info">
           <br />
           <h5>결제정보</h5>
           <form action="" method="post">
             <table>
-              <c:forEach var="cart" items="${cartDTOList}">
                 <tr>
                   <th style="border: solid 1px #ddd">총상품가격</th>
-                  <td>${cart.total_price}&nbsp;원</td>
+                  <td id="total_price">&nbsp;원</td>
                 </tr>
                 <tr>
                   <th style="border: solid 1px #ddd">즉시할인</th>
-                  <td>-${cart.discount}&nbsp;원</td>
+                  <td id="discount_price"></td>
                 </tr>
                 <tr>
                   <th style="border: solid 1px #ddd">배송비</th>
-                  <td>-2,500&nbsp;원</td>
+                  <td>2,500&nbsp;원</td>
                 </tr>
                 <tr>
                   <th style="border: solid 1px #ddd">총결제금액</th>
-                  <td>${cart.total_price}-${cart.after_price}&nbsp;원</td>
+                  <td class="fs-15px" id="total_payment_price"></td>
                 </tr>
-              </c:forEach>
               <tr>
                 <th style="border: solid 1px #ddd">결제방법</th>
                 <td>
