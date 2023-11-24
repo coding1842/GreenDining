@@ -114,4 +114,12 @@
 		WHERE USER_ID = #{user_id}
 		AND ID = #{id}
 	</delete>
+	
+	 <select id="getOrderUser" parameterType="String" resultType="UserDTO">
+        SELECT * FROM Users WHERE id = #{id}
+    </select>
+	 <select id="getOrderAddress" parameterType="String" resultType="AddressDTO">
+	    SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name FROM address WHERE "USER_ID" = #{value}
+	</select>
+	
 </mapper>

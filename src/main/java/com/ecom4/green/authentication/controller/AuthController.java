@@ -38,25 +38,30 @@ public class AuthController {
 	@GetMapping("/login")	
 	public String loginView(HttpSession session, HttpServletRequest req,HttpServletResponse resp,Model model) {
 		
-		String main = null;
+		String main = "";
 		String url = null;
 		String msg = "";
-		main = "auth/view/Login";
+	
 		
 		
-		if(authService.getCurrentUser(session) != null)
-		{
+		
 			if(authService.checkRoleStatus(session) == RoleStatus.USER)
 			{
-				main = "user/view/MyPage";
+				url = "redirect:/user/my-page";
+				return url;
 		
 			}
 			else if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 			{
-				main = "merchant/view/MyPage";
+				url = "redirect:/merchant/my-page";
+				return url;
 
 			}
-		}
+			else if(authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+			{
+				main = "auth/view/Login";
+			}
+		
 		
 		model.addAttribute("main",main);
 		return "Index";
