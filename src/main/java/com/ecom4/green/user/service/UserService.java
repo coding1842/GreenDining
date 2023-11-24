@@ -5,9 +5,8 @@ import java.util.List;
 import com.ecom4.green.user.dto.AddressDTO;
 <<<<<<< main
 import com.ecom4.green.user.dto.ReviewDTO;
-=======
+import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 
 public interface UserService
 {
@@ -29,7 +28,12 @@ public interface UserService
 
 	int deleteReview(ReviewDTO reviewDTO);
 
+	UserDTO getOrderUser(String userId);
 
+	AddressDTO getOrderAddress(String userId);
+
+
+	
 
 
 }

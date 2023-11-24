@@ -30,4 +30,6 @@ public interface ProductDAO
 
 	int deleteProduct(ProductDTO productDTO);
 	int getProductPrice(int product_id);
+	
+	String selectImagePath(int product_id);
 }

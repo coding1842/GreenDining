@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="/css/user/MyPage.css" />
+<script src="/jquery/jquery-3.7.0.min.js"></script>
+<script src="/js/smartstore/ProductPrice.js"></script>
 <title>mypage</title>
 <div class="my_page_box">
 	<div class="my_page_aside_box">
@@ -51,7 +54,7 @@
 			</div>
 			<div class="m_top1">
 				<p>배송중</p>
-				<a href=""><span class="top1_num">0</span><span style="font-weight: 100; color: white;">개</span></a>
+				<a href=""><span class="top1_num">${inDeliveryCount}</span><span style="font-weight: 100; color: white;">개</span></a>
 			</div>
 			<div class="m_top1">
 				<p>할인 쿠폰</p>
@@ -83,48 +86,97 @@
 			</div>
 		</div>
 		<div id="my_order_box">
-			<div class="my_order">
-				<div class="my_order_title">
-					<div class="order_day">
-						2023. 3. 23 주문
-					</div>
-					<div class="order_d">
-						<a>주문 상세 보기</a>
-					</div>
-				</div>
-				<div class="order_body">
-					<div class="or_body_left">
-						<div class="or_body_title">
-							<div class="or_progress">배송완료</div>
-							<div class="or_day">3/25(월) 도착</div>
+			<c:choose>
+				<c:when test="${fn:length(ordersPage.content)>0 }">
+				 <c:forEach var="order" items="${ordersPage.content}" >
+					<div class="my_order">
+						    <div class="my_order_title">
+						        <div class="order_day">
+						       
+						        	<fmt:parseDate var="parsedDate" value="${order.created_at}" pattern="yyyy-MM-dd HH:mm:ss"/>
+						            <fmt:formatDate pattern="yyyy.MM.dd" value="${parsedDate}" /> 주문
+						        </div>
+						        <div class="order_d">
+						            <a href="/user/my-page/order/${order.id}">주문 상세 보기</a>
+						        </div>
+						    </div>
+						    <c:forEach var="orderItem" items="${orderItemList}">
+						    <c:if test="${order.id == orderItem.order_id}">
+							    <div class="order_body">
+							        <div class="or_body_left">
+							            <div class="or_body_title">
+							                <div class="or_progress">
+							                    ${order.status}
+							                </div>
+							                <div class="or_day">
+							                    3/25(월) 도착
+							                </div>
+							            </div>
+							            <div class="or_it_box">
+							                <div class="or_img_box">
+							                	<img alt="" class="w-80px h-80px" src="${orderItem.image_path}">
+							                </div>
+							                <div class="or_it">
+							                    <div class="or_name">
+							                        ${orderItem.name}
+							                    </div>
+							                    <div class="or_price">
+							                    	<div>
+							                        	<span class="price11">${orderItem.after_price}&nbsp;원 ·</span>
+							                       		<span>${orderItem.quantity}&nbsp;개</span>
+							                    	</div>
+							                    </div>
+							                </div>
+							            </div>
+							        </div>
+							        <div class="or_body_right">
+							            <div id="or_right_btn">
+							                <button style="margin-bottom: 1rem;">배송 조회</button>
+							                <button>교환, 반품 신청</button>
+							            </div>
+							        </div>
+							    </div>
+						    </c:if>
+						   </c:forEach>
 						</div>
-						<div class="or_it_box">
-							<div class="or_img_box">
-								<div class="or_img"></div>
+				    </c:forEach>
+				    	<div id="page_box">
+				    	  <div class="pagination">
+							  <div class="size-selector">
+							    <select id="size" onchange="changeSize()">
+							      <option value="5">5</option>
+							      <option value="10">10</option>
+							      <option value="20">20</option>
+							    </select>
+							  </div>
+							  <c:if test="${ordersPage.first == false}">
+<!-- 							    	<a href="javascript:changePage(0)">처음</a> -->
+									<a href="javascript:changePage(${ordersPage.number - 1})">이전</a>
+							  </c:if>
+							  <c:forEach begin="0" end="${ordersPage.totalPages -1}" step="1" var="page">
+							    <c:choose>
+							      <c:when test="${page == ordersPage.number}">
+							        <span class="current">${page + 1}</span>
+							      </c:when>
+							      <c:otherwise>
+							        <a href="?page=${page}&size=${size}">${page + 1}</a>
+							      </c:otherwise>
+							    </c:choose>
+							  </c:forEach>
+							  <c:if test="${ordersPage.last == false}">
+							  		<a href="javascript:changePage(${ordersPage.number + 1})">다음</a>
+<%-- 									<a href="javascript:changePage(${ordersPage.totalPages - 1})">마지막</a> --%>
+							  </c:if>
 							</div>
-							<div class="or_it">
-								<div class="or_name">
-									곰곰 당도선별 사과 1kg (3입)
-								</div>
-								<div class="or_price">
-									15,400원
-									<button>장바구니 담기</button>
-								</div>
-							</div>
 						</div>
-					</div>
-					<div class="or_body_right">
-						<div class="or_right_btn">
-							<button style="margin-bottom: 1rem;">배송 조회</button>
-							<button>교환, 반품 신청</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="or_btn">
-				<button>이전</button>
-				<button>다음</button>
-			</div>
+			    </c:when>
+			    <c:when test="${fn:length(ordersPage.content)  == 0 }">
+			      <h6>NO ORDER NOT YET</h6>
+			    </c:when>
+		    </c:choose>
+		
+
+			
 		<div class="or_guide_box">
 			<div class="or_guide_up">
 				<div class="or_guide_1">
@@ -175,4 +227,37 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+window.onload = function() {
+    // URL에서 'page'와 'size' 파라미터를 가져옵니다.
+    var urlParams = new URLSearchParams(window.location.search);
+    var size = urlParams.get('size');
+    var page = urlParams.get('page');
+
+    // 'page'와 'size' 파라미터를 전역 변수로 설정합니다.
+    window.currentPage = page ? parseInt(page) : 0;
+    window.currentSize = size ? parseInt(size) : 5;
+
+    // 'size' 파라미터를 select box의 선택 값으로 설정합니다.
+    var selectBox = document.getElementById('size');
+    selectBox.value = window.currentSize;
+};
+
+// function changeSize() {
+//     window.currentSize = document.getElementById("size").value;  // 페이지 사이즈 변경 시 사이즈 업데이트
+//     window.location.href = "?page=" + window.currentPage + "&size=" + window.currentSize;
+// }
+
+function changePage(page) {
+    window.currentPage = page;  // 페이지 이동할 때마다 페이지 번호 업데이트
+    window.location.href = "?page=" + window.currentPage + "&size=" + window.currentSize;
+}
+function changeSize() {
+    window.currentSize = document.getElementById("size").value;  // 페이지 사이즈 변경 시 사이즈 업데이트
+    window.currentPage = 0;  // 페이지 번호 초기화
+    window.location.href = "?page=" + window.currentPage + "&size=" + window.currentSize;
+}
+</script>
 

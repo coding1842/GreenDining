@@ -144,16 +144,23 @@
   display: flex;
   align-items: center;
 }
-.or_right_btn {
+#or_right_btn {
   width: 200px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.or_right_btn button {
+#or_right_btn button {
   width: 150px;
   height: 36px;
+  border: 1px solid black;
+  border-radius: 5px;
   background-color: white;
+}
+
+#or_right_btn button:active{
+	border: 2px solid black;
+	background-color: #B8B8B8;
 }
 .or_body_title {
   display: flex;
@@ -222,6 +229,9 @@
 .or_guide_2 {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+  
 }
 .or_guide_img {
   width: 100px;
@@ -396,6 +406,22 @@ width: 95px;
 	border-radius: 10px;
 }
 
+
+/* orderDetail */
+
+#orderer_box{
+	margin-top: 2rem;
+}
+#order_day{	
+  	font-size: 20px;
+  	font-weight: bold;
+	margin-top: 2rem;
+	margin-left: 1rem;
+}
+#page_box{
+	display: flex;
+    justify-content: space-around;
+}
 
 
 #exchange_it span{

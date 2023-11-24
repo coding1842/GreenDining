@@ -19,6 +19,8 @@ public interface ImgurDAO
         int deleteImageList(@Param("group_id") int groupId);
 
         List<ImgurDTO> selectImageAll();
+        
+        String selectImagePath(@Param("group_id") int group_id);
 
 
 }
