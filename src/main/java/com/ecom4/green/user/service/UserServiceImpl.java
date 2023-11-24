@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ecom4.green.user.dao.UserDAO;
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
+import com.ecom4.green.user.dto.UserDTO;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -19,6 +20,7 @@ public class UserServiceImpl implements UserService
 	
 	@Autowired
 	UserDAO userDao;
+	
 
 	@Override
 	public void insertAddress(AddressDTO addressDTO) throws Exception {
@@ -68,5 +70,20 @@ public class UserServiceImpl implements UserService
 		return userDao.deleteReview(reviewDTO);
 	}
 
+	@Override
+	public UserDTO getOrderUser(String userId) {
+		// TODO Auto-generated method stub
+		return userDao.getOrderUser(userId);
+	}
+
+	@Override
+	public AddressDTO getOrderAddress(String userId) {
+		// TODO Auto-generated method stub
+		return userDao.getOrderAddress(userId);
+	}
+
+	
+	
+	
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
+import com.ecom4.green.user.dto.UserDTO;
 
 public interface UserService
 {
@@ -25,6 +26,12 @@ public interface UserService
 
 	int deleteReview(ReviewDTO reviewDTO);
 
+	UserDTO getOrderUser(String userId);
+
+	AddressDTO getOrderAddress(String userId);
+
+
+	
 
 
 }

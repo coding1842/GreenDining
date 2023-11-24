@@ -1,28 +1,41 @@
 package com.ecom4.green.user.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.merchant.service.SaleService;
+import com.ecom4.green.order.dto.OrderItemDTO;
+import com.ecom4.green.order.dto.OrdersDTO;
+import com.ecom4.green.order.service.OrdersService;
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
+import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
 
 
@@ -39,13 +52,91 @@ public class UserController {
 	@Autowired
 	SaleService saleService;
 	
+	@Autowired
+	OrdersService ordersService;
+	
+//	@Autowired
+//	UserDTO userDTO;
+	
 	@RequestMapping("/my-page")
-	public String mypage(HttpServletRequest req, HttpServletResponse resp , Model model)
+	public String mypage(HttpServletRequest req, 
+							HttpServletResponse resp , 
+							Model model,
+							HttpSession session, 
+							OrdersDTO ordersDTO,
+							@PageableDefault(page=0,size=5) Pageable pageable )
 	{
 		String main = "user/view/MyPage";
+		String url = "";
+		Page<OrdersDTO> ordersPage = null;
+		List<OrderItemDTO> orderItemList = new ArrayList<>();
+		
+		
+		if(authService.checkRoleStatus(session) == RoleStatus.USER){
+			Map<String,Object> dataMap = new HashMap<>();
+			dataMap.put("user_id",authService.getCurrentUser(session).getId());
+			dataMap.put("pageable", pageable);
+			ordersPage = ordersService.getOrdersPage(dataMap);
+			UserDTO ssKey = (UserDTO) session.getAttribute("ssKey");
+			 
+			int inDeliveryCount = ordersService.countInDelivery(ssKey.getId());
+		        model.addAttribute("inDeliveryCount", inDeliveryCount);
+			for(OrdersDTO ele : ordersPage)
+			{
+				List<OrderItemDTO> tempOrderItemList = ordersService.getOrderItemList(ele.getId());
+				orderItemList.addAll(tempOrderItemList);
+			}	
+		}else {
+			url = "redirect:/auth/login";
+			return url;
+		}
+		model.addAttribute("ordersPage", ordersPage);
+		model.addAttribute("orderItemList",orderItemList);
 		model.addAttribute("main" , main);
 		return "Index";
 	}
+
+	@RequestMapping("/my-page/order/{order_id}")
+	public String orderDetail(HttpSession session,
+								@PathVariable("order_id") int order_id, 
+								HttpServletRequest req, 
+								HttpServletResponse resp , 
+								Model model)
+	{
+		String main = "user/view/OrderDetail";
+		String url = "";
+		OrdersDTO ordersDTO = new OrdersDTO();
+		List<OrderItemDTO> orderItemList = new ArrayList<>();
+		AddressDTO addressDTO = new AddressDTO();
+		UserDTO userDTO = new UserDTO();
+		
+		 if(authService.checkRoleStatus(session) == RoleStatus.USER)
+	        {
+		      ordersDTO = ordersService.getOrderDetail(order_id);
+		      orderItemList = ordersService.getOrderItemList(order_id);
+		      UserDTO ssKey = (UserDTO) session.getAttribute("ssKey");
+		      
+		      
+		      userDTO = userService.getOrderUser(ssKey.getId());
+		      addressDTO = userService.getOrderAddress(ssKey.getId());
+		      main = "user/view/OrderDetail";
+		      
+		      int inDeliveryCount = ordersService.countInDelivery(ssKey.getId());
+		        model.addAttribute("inDeliveryCount", inDeliveryCount);
+	        }
+	        else
+	        {
+		      url = "redirect:/";
+		      return url;
+	        }
+		model.addAttribute("order", ordersDTO);
+		model.addAttribute("orderItemList",orderItemList);
+		model.addAttribute("addressDTO", addressDTO);
+	    model.addAttribute("userDTO", userDTO);
+		model.addAttribute("main" , main);
+		return "Index";
+	}
+	
 	
 	@RequestMapping("/cart")
 	public String cart(HttpServletRequest req, HttpServletResponse resp , Model model)
@@ -153,15 +244,15 @@ public class UserController {
 	 //리뷰는 마이페이지로 가서 리뷰, Q&A 작성할거니까 user에 작성
 	 //REVIEW 컨트롤러
 	 
-	 @GetMapping("/review/write")
-     public String reviewForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
-     {
-     	String main = "user/form/ReviewWriteForm";
-     	
-     	model.addAttribute("main",main);
-     	model.addAttribute("sale_id",sale_id);
-     	return "Index";
-     }	 
+//	 @GetMapping("/review/write")
+//     public String reviewForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
+//     {
+//     	String main = "user/form/ReviewWriteForm";
+//     	
+//     	model.addAttribute("main",main);
+//     	model.addAttribute("sale_id",sale_id);
+//     	return "Index";
+//     }	 
 	 
 //	 @RequestMapping("/review")
 //	 public String review(HttpServletRequest req,
@@ -241,6 +332,14 @@ public class UserController {
 	        return new ResponseEntity<>("정상적으로 리뷰 정보가 삭제 되었습니다.", HttpStatus.OK);
 	 }
 	 
+	 @PostMapping("/my-page/order/{order_id}/retuen")
+	 public String returnProductFrom(HttpServletRequest req, HttpServletResponse res, Model model)
+	 {
+		 String main = "/user/form/ReturnProductForm";
+		 model.addAttribute("main",main);
+		 return "index";
+	 }
+	
 }
 
 

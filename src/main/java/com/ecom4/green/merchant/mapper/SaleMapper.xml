@@ -197,6 +197,12 @@
         where group_id = #{image_group_id}
         order by id asc
     </select>
+    <select id="selectSaleProduct" parameterType="int" resultType="saleProductDTO">
+        select *
+        from sale_product
+        where sale_id = #{sale_id}
+        and product_id = #{product_id}
+    </select>
     <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'MAIN'"/>
         select *

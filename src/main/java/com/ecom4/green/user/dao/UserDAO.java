@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
+import com.ecom4.green.user.dto.UserDTO;
 @Mapper
 public interface UserDAO {
 
@@ -27,5 +28,10 @@ public interface UserDAO {
 
 	int deleteReview(ReviewDTO reviewDTO);
 
+	UserDTO getOrderUser(String userId);
+
+	AddressDTO getOrderAddress(String userId);
+
+	
 
 }

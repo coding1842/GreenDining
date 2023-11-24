@@ -22,6 +22,8 @@
 		<typeAlias alias="addressDTO" type="com.ecom4.green.user.dto.AddressDTO" />
 		<typeAlias alias="reviewDTO" type="com.ecom4.green.user.dto.ReviewDTO" />
 		<typeAlias alias="cartDTO" type="com.ecom4.green.user.dto.CartDTO" />
+		<typeAlias alias="ordersDTO" type="com.ecom4.green.order.dto.OrdersDTO" />
+		<typeAlias alias="orderItemDTO" type="com.ecom4.green.order.dto.OrderItemDTO" />
 
      </typeAliases>
 </configuration>
