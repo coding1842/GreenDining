@@ -206,6 +206,13 @@
     <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'MAIN'"/>
         select *
+        from sale_product
+        where sale_id = #{sale_id}
+        and product_id = #{product_id}
+    </select>
+    <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
+        <bind name="sale_type" value="'MAIN'"/>
+        select *
         from sale_product sp
         join product p on p.id = sp.product_id
         where sp.sale_id = #{sale_id}

@@ -44,10 +44,7 @@ public interface SaleDAO
         List<SaleProductDTO> selectSaleProductListMain(int sale_id);
 
         List<SaleProductDTO> selectSaleProductListSub(int sale_id);
-        
         SaleProductDTO selectSaleProduct(@Param("sale_id") int sale_id, @Param("product_id") int product_id);
-        
-
 
             int deleteSaleProduct(int sale_id);
 
