@@ -34,5 +34,4 @@ public interface CartDAO {
 	public int updateCart(CartDTO cartDto);
 
 	public int deleteCart(CartDTO cartDto);
-
 }

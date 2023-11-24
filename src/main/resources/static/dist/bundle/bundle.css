@@ -2543,16 +2543,15 @@ div#sale_button .btn-group a button {
 @charset "UTF-8";
 #my_cart_box{
 	width: 850px;
-	height: 500px;
     padding-left: 1rem;	
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .my_cart_top{
 	width: 834px;
 	display: flex;
 	justify-content: space-between;
     align-items: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 .my_cart_it{
 	width: 834px;
@@ -2560,6 +2559,7 @@ div#sale_button .btn-group a button {
 	padding: 1rem 1rem 0 1rem;
 	border: 1px solid black;
 	border-radius: 10px;
+	margin-bottom: 25px;
 }
 .my_cart_title{
 	width: 802px;
