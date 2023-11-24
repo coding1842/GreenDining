@@ -19,6 +19,7 @@
 							REQUEST_TEXT)
 		VALUES( #{user_id},
 				#{id},
+				#{phone},
 				#{name},
 				#{phone},
 				#{address},
