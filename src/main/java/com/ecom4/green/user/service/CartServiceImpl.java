@@ -65,7 +65,6 @@ public class CartServiceImpl implements CartService {
 		
 		return cartDao.deleteCart(cartDTO);
 	}
-<<<<<<< main
 
     @Override
     public int insertCart(List<CartDTO> cartDTOList, String user_id)
@@ -82,6 +81,3 @@ public class CartServiceImpl implements CartService {
 
 
 
-=======
-}
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료

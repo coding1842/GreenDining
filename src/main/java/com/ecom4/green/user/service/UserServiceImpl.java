@@ -13,7 +13,7 @@ import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 =======
 import com.ecom4.green.user.dto.CartDTO;
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
+import com.ecom4.green.user.dto.ReviewDTO;
 
 @Service
 public class UserServiceImpl implements UserService
@@ -73,7 +73,7 @@ public class UserServiceImpl implements UserService
 		return userDao.deleteReview(reviewDTO);
 	}
 
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
+	
+
 
 }

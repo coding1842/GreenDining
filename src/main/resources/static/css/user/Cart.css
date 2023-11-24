@@ -2,14 +2,14 @@
 #my_cart_box{
 	width: 850px;
     padding-left: 1rem;	
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 .my_cart_top{
 	width: 834px;
 	display: flex;
 	justify-content: space-between;
     align-items: center;
-	border: 1px solid black;
+	/* border: 1px solid black; */
 }
 .my_cart_it{
 	width: 834px;
@@ -65,3 +65,5 @@
 	display: flex;
 	justify-content: space-between;
 }
+    
+

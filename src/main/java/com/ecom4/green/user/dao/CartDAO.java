@@ -1,8 +1,5 @@
-<<<<<<< main
 
 
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 package com.ecom4.green.user.dao;
 
 import java.util.List;
@@ -14,12 +11,9 @@ import com.ecom4.green.user.dto.CartDTO;
 
 @Mapper
 public interface CartDAO {
-<<<<<<< main
 	public int insertCart(@Param("list") List<CartDTO> cartDTOList,@Param("user_id") String user_id);
 
     int checkDuplication(@Param("sale_id") int sale_id);
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 	//카트 추가
 	public int addCart(CartDTO cart);
 	
@@ -40,8 +34,4 @@ public interface CartDAO {
 	public int updateCart(CartDTO cartDto);
 
 	public int deleteCart(CartDTO cartDto);
-<<<<<<< main
-
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 }

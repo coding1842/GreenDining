@@ -1,7 +1,4 @@
-<<<<<<< main
 
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 package com.ecom4.green.user.controller;
 
 import java.util.List;
@@ -13,7 +10,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-<<<<<<< main
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -21,13 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-=======
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ecom4.green.authentication.service.AuthService;
@@ -52,7 +41,7 @@ public class CartController {
 	@Autowired
 	CartService cartService;
 
-<<<<<<< main
+
 //    장바구니에 상품 추가
     @PostMapping("/add")
     public ResponseEntity<String> cartAdd(@RequestBody List<CartDTO> cartDTOList, HttpSession session)
@@ -77,8 +66,6 @@ public class CartController {
       return new ResponseEntity<>(url, HttpStatus.OK);
     }
 
-=======
->>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 	@GetMapping("/list")
 	public String CartList(HttpServletRequest req, HttpServletResponse resp, Model model, HttpSession session, CartDTO cartDTO)
 	{
