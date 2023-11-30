@@ -11,6 +11,7 @@
 		INSERT INTO ADDRESS(USER_ID,
 							ID,
 							NAME,
+							PHONE,
 							ADDRESS,
 							ADDRESS2,
 							ZIPCODE,
@@ -18,7 +19,9 @@
 							REQUEST_TEXT)
 		VALUES( #{user_id},
 				#{id},
+				#{phone},
 				#{name},
+				#{phone},
 				#{address},
 				#{address2},
 				#{zipcode},
@@ -27,7 +30,7 @@
 	</insert>
 	
 	<select id="selectAddressList" resultType="addressDTO">
-		SELECT USER_ID,ID, NAME, ADDRESS, ADDRESS2, ZIPCODE, REQUEST_OPTION, REQUEST_TEXT
+		SELECT USER_ID,ID, NAME,PHONE, ADDRESS, ADDRESS2, ZIPCODE, REQUEST_OPTION, REQUEST_TEXT
 		FROM ADDRESS
 		WHERE USER_ID = #{user_id}
 	</select>
@@ -36,6 +39,7 @@
 		UPDATE ADDRESS SET
 		USER_ID = #{user_id},
 		NAME = #{name},
+		PHONE = #{phone},
 		ADDRESS = #{address},
 		ADDRESS2 = #{address2},
 		ZIPCODE = #{zipcode},
@@ -86,15 +90,16 @@
 				#{sale_id})
 	</insert>
 	
-	<select id="selectReviewList" resultType="reviewDTO">
+	<select id="selectReviewList" resultType="reviewDTO" parameterType="reviewDTO">
 		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, STAR, TITLE, CONTENT,
 				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
 		FROM REVIEW
 		WHERE USER_ID = #{user_id}
+		AND SALE_ID = #{sale_id}
 	</select>
 	
 	<update id="updateReview" parameterType="reviewDTO">
-		UPDATE ADDRESS SET
+		UPDATE REVIEW SET
 		USER_ID = #{user_id},
 		ID = #{id},
 		ORDER_ID = #{order_id},

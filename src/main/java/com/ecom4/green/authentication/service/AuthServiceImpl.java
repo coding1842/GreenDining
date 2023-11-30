@@ -63,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDTO getCurrentUser(HttpSession session)
     {
-      UserDTO currentUser = (UserDTO) session.getAttribute("ssKey");
+      UserDTO currentUser = authDao.getUser((UserDTO) session.getAttribute("ssKey"));
 
       return currentUser;
     }

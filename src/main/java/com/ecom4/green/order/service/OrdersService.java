@@ -1,5 +1,6 @@
 package com.ecom4.green.order.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,8 @@ public interface OrdersService {
 
 	int countInDelivery(String userId);
 
-	
-	
 
+	int insertOrder(String userId, int addressId);
+
+	int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
 }

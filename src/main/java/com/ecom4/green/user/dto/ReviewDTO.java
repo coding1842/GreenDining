@@ -20,10 +20,9 @@ public class ReviewDTO {
 	private int star;
 	private String title;
 	private String content;
-	private int created_at;
+	private String created_at;
 	private int child_id;
 	private int image_group_id;
-	
 	
 //	DB 필드 아님
 	

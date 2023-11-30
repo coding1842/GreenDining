@@ -6,3 +6,7 @@
   padding-right: 0.5rem;
   background-color: rgb(244, 244, 244);
 }
+
+#delivery_time {
+  width: 100%;
+}
