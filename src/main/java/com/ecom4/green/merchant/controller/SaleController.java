@@ -8,7 +8,10 @@ import com.ecom4.green.merchant.dto.SaleProductDTO;
 import com.ecom4.green.merchant.service.ProductService;
 import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.merchant.wrapper.SaleForm;
+import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
+import com.ecom4.green.user.service.UserService;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +40,9 @@ public class SaleController
         
         @Autowired
         SaleService saleService;
+        
+        @Autowired
+        UserService userService;
 
         @Autowired
         ProductService productService;
@@ -55,11 +61,19 @@ public class SaleController
                 saleProductList_MAIN = saleService.selectSaleProductListMain(sale_id);
                 saleProductList_SUB = saleService.selectSaleProductListSub(sale_id);
 
-
+//                List<ReviewDTO> reviewDTOList = userService.selectReviewList(sale_id);
+                ReviewDTO review = new ReviewDTO();
+				review.setSale_id(sale_id);
+//				review.setId(Integer.parseInt(authService.getCurrentUser(session).getId()));
+				review.setUser_id(authService.getCurrentUser(session).getId());
+				List<ReviewDTO> reviewDTOList = userService.selectReviewList(review);
+                
                 model.addAttribute("sale",sale);
                 model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
                 model.addAttribute("saleProductList_SUB", saleProductList_SUB);
                 model.addAttribute("main",main);
+                model.addAttribute("sale_id", sale_id);
+                model.addAttribute("reviewDTOList", reviewDTOList);
                 return "Index";
         }
 
@@ -69,8 +83,7 @@ public class SaleController
                                   @RequestParam(required = false , defaultValue = "0") int region,
                                   @RequestParam(required = false,defaultValue = "")  String keyword ,
                                   @PageableDefault(size = 10,page = 0) Pageable pageable,
-                    HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ) {
-
+                HttpSession session ,HttpServletRequest req,HttpServletResponse resp, Model model ) {
 
                 String main = null;
                 String url = null;

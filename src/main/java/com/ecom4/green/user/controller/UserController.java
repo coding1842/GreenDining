@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
-import com.ecom4.green.merchant.dto.ProductDTO;
+
 import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
@@ -266,7 +266,7 @@ public class UserController {
 			 					Model model,
 			 					ReviewDTO reviewDTO)
 	 {
-		 String url = "redirect:/";
+		 String url = "redirect:/item/" + req.getParameter("sale_id");
 //		 int id = reviewDTO.getSale_id();
 		 try {
 			 int id = Integer.valueOf(reviewDTO.getSale_id());
@@ -283,15 +283,20 @@ public class UserController {
 	 }
 	 
 	 @GetMapping("/review/list")
-		public String reviewList(HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session)
+		public String reviewList(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session, ReviewDTO reviewDTO)
 		{
-			String main = "smartstore/view/SaleDetail";
+//			String main = "smartstore/view/SaleDetail";
 			String url = "";
-			List<ReviewDTO> reviewDTOList = null;
+			List<ReviewDTO> reviewDTOList = new ArrayList<>();
 			
 			if(authService.checkRoleStatus(session) == RoleStatus.USER)
 			{
-			  reviewDTOList = userService.selectReviewList(authService.getCurrentUser(session).getId());
+				ReviewDTO review = new ReviewDTO();
+				review.setSale_id(sale_id);
+//				review.setId(Integer.parseInt(authService.getCurrentUser(session).getId()));
+				review.setUser_id(authService.getCurrentUser(session).getId());
+				reviewDTOList = userService.selectReviewList(review);
+			  url = "forward:/item/" + sale_id;
 			}
 			else
 			{
@@ -300,9 +305,55 @@ public class UserController {
 			}
 			
 			model.addAttribute("reviewDTOList",reviewDTOList);
+			model.addAttribute("sale_id", sale_id);
+//			model.addAttribute("main",main);
+			return url;
+		}
+	 
+	 @RequestMapping("/update/review/{sale_id}")
+		public String updateReviewForm(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session, ReviewDTO reviewDTO)
+		{
+			String main = "user/form/ReviewUpdateForm";
+			String url = "";
+			List<ReviewDTO> reviewDTOList = new ArrayList<>();
+			
+			if(authService.checkRoleStatus(session) == RoleStatus.USER)
+			{
+//				reviewDTOList = userService.selectReviewList(sale_id);
+				ReviewDTO review = new ReviewDTO();
+				review.setSale_id(sale_id);
+				review.setUser_id(authService.getCurrentUser(session).getId());
+			  reviewDTOList = userService.selectReviewList(review);
+			}
+			else
+			{
+				url = "redirect:/auth/login";
+				return url;
+			}
+			
+			model.addAttribute("reviewDTOList",reviewDTOList);
+			model.addAttribute("sale_id", sale_id);
 			model.addAttribute("main",main);
 			return "Index";
 		}
+	 
+//	 @GetMapping("/update/review/{sale_id}")
+//	 public String updateReviewForm(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
+//	 {
+//		 String main = "user/form/ReviewUpdateForm";
+//		 SaleDTO sale = new SaleDTO();
+//		 List<ReviewDTO> reviewDTOList = new ArrayList<>();
+//		 
+////		 List<ReviewDTO> reviewDTOList = new ArrayList<>();
+//		 sale = saleService.getSale(sale_id);
+//		 reviewDTOList = userService.selectReviewList(sale_id);
+//		 model.addAttribute("sale",sale);
+//		 model.addAttribute("main",main);
+//         model.addAttribute("sale_id", sale_id);
+//         model.addAttribute("reviewDTOList", reviewDTOList);
+//         System.out.println("====>" +sale_id);
+//		 return "Index";
+//	 }
 	 
 	 @PostMapping("/update/review")
 	 public ResponseEntity<String> updateReview(ReviewDTO reviewDTO)

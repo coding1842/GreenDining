@@ -58,8 +58,8 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public List<ReviewDTO> selectReviewList(String id) {
-		return userDao.selectReviewList(id);
+	public List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO) {
+		return userDao.selectReviewList(reviewDTO);
 	}
 
 	@Override
@@ -81,7 +81,9 @@ public class UserServiceImpl implements UserService
 	@Override
 	public AddressDTO getOrderAddress(String userId) {
 		// TODO Auto-generated method stub
-		return userDao.getOrderAddress(userId);
+		return null;
 	}
+
+	
 
 }

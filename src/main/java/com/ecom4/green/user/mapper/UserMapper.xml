@@ -90,15 +90,16 @@
 				#{sale_id})
 	</insert>
 	
-	<select id="selectReviewList" resultType="reviewDTO">
+	<select id="selectReviewList" resultType="reviewDTO" parameterType="reviewDTO">
 		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, STAR, TITLE, CONTENT,
 				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
 		FROM REVIEW
 		WHERE USER_ID = #{user_id}
+		AND SALE_ID = #{sale_id}
 	</select>
 	
 	<update id="updateReview" parameterType="reviewDTO">
-		UPDATE ADDRESS SET
+		UPDATE REVIEW SET
 		USER_ID = #{user_id},
 		ID = #{id},
 		ORDER_ID = #{order_id},

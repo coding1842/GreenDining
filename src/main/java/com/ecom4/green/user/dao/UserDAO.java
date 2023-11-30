@@ -23,7 +23,8 @@ public interface UserDAO {
 	//review
 	int insertReview(ReviewDTO reviewDTO);
 
-	List<ReviewDTO> selectReviewList(String id);
+//	List<ReviewDTO> selectReviewList(int id);
+	List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO);
 
 	int updateReview(ReviewDTO reviewDTO);
 
@@ -31,5 +32,5 @@ public interface UserDAO {
 
 	UserDTO getOrderUser(String userId);
 
-	AddressDTO getOrderAddress(String userId);
+
 }

@@ -209,17 +209,18 @@
       </div>
 
       <!-- 리뷰 1 -->
-      <div class="fingForm" id="2" style="display: none">
-      <c:choose>
-      	<c:when test="${fn:length(reviewDTOList) > 0}">
-      		<c:forEach var="review" items="${reviewDTOList}" varStatus="index">
+      <form action="/user/update/review/${sale_id}" method="post">
+      	<div class="fingForm" id="2" style="display: none;">
 		        <h4 id="title" class="mt-5">리뷰</h4>
 		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
 		        <p>전체리뷰 수 : '기능'개</p>
 		        <a href="/user/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
 		        	 background-color: skyblue; padding: 3px">상품 리뷰 작성하기</a>
 		        <br /><br />
-		        <table style="">
+		      <c:choose>
+		      	<c:when test="${fn:length(reviewDTOList) > 0}">
+	      		<c:forEach var="review" items="${reviewDTOList}" varStatus="index">
+		        <table style="margin:  10px 10px;">
 		          <tr style="border: none">
 		            <th style="border: none">평점</th>
 		            <th style="border: none">제목</th>
@@ -237,10 +238,10 @@
 		            <td style="border: none">${review.created_at}</td>
 		          </tr>
 		        </table>
-		        <div style="text-align: center;">
-						<div style="display: inline-block;">
-							<button onclick="controlReview(this,'update')" id="updateReview"
-									type="button" style="border: 1px solid #eaeaea;
+		        <div style="text-align: center; padding: 15px;">
+						<div style="display: inline-block; gap:10px">
+							<button  id="updateReview"
+									type="submit" style="border: 1px solid #eaeaea;
 									background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 수정하기</button>
 							<button onclick="controlReview(this,'delete')" id="deleteReview"
 							type="button" style="border: 1px solid #eaeaea;
@@ -270,9 +271,9 @@
 		          </tr>
 		        </table>
         </c:when>
-	</c:choose>
+		</c:choose>
       </div>
-
+	</form>
 
       <!-- Q&A -->
       <div class="fingForm" id="3" style="display: none">
