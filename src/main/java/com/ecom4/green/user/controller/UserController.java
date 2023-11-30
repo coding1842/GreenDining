@@ -54,7 +54,10 @@ public class UserController {
 	
 	@Autowired
 	OrdersService ordersService;
-
+	
+//	@Autowired
+//	UserDTO userDTO;
+	
 	@RequestMapping("/my-page")
 	public String mypage(HttpServletRequest req, 
 							HttpServletResponse resp , 

@@ -143,7 +143,6 @@
         </foreach>
         END;
     </insert>
-
 	<delete id="deleteSaleProduct" parameterType="int">
 		delete from sale_product
 		where sale_id = #{sale_id}
@@ -198,6 +197,19 @@
         where group_id = #{image_group_id}
         order by id asc
     </select>
+    <select id="selectSaleProduct" parameterType="int" resultType="saleProductDTO">
+        select *
+        from sale_product
+        where sale_id = #{sale_id}
+        and product_id = #{product_id}
+    </select>
+    <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
+        <bind name="sale_type" value="'MAIN'"/>
+        select *
+        from sale_product
+        where sale_id = #{sale_id}
+        and product_id = #{product_id}
+    </select>
     <select id="selectSaleProductListMain" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'MAIN'"/>
         select *
@@ -207,6 +219,7 @@
         and sp.sale_type = #{sale_type}
         order by p.price asc
     </select>
+
     <select id="selectSaleProductListSub" parameterType="int" resultType="saleProductDTO">
         <bind name="sale_type" value="'SUB'"/>
         select *
@@ -214,10 +227,16 @@
         where sale_id = #{sale_id}
         and sale_type = #{sale_type}
     </select>
+<<<<<<< main
+
+=======
+    
+    
     <select id="selectSaleProduct" parameterType="int" resultType="saleProductDTO">
     	select *
     	from sale_product
     	where sale_id = #{sale_id}
     	and product_id = #{product_id}
     </select>
+>>>>>>> #62 - 장바구니 수정,삭제 기능구현 완료
 </mapper>
