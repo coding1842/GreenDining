@@ -14,12 +14,10 @@
 		select count(ID) from users
 		where ID = #{id}
 	</select>
-	
 	<select id="getUser" parameterType="userDTO" resultType="userDTO">
 		SELECT ID, PASSWORD, NAME, PHONE, EMAIL, ROLE, CREATED_AT, COUNTRY_CODE
 		FROM USERS
 		WHERE ID = #{id} and PASSWORD = #{password}
 	</select>
-
 </mapper>
 

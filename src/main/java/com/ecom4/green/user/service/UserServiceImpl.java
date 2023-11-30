@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.ecom4.green.user.dao.UserDAO;
 import com.ecom4.green.user.dto.AddressDTO;
-<<<<<<< main
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
@@ -50,7 +49,6 @@ public class UserServiceImpl implements UserService
 	public int deleteAddress(AddressDTO addressDTO) {
 		return userDao.deleteAddress(addressDTO);
 	}
-<<<<<<< main
 	
 	
 	//review
@@ -60,8 +58,8 @@ public class UserServiceImpl implements UserService
 	}
 
 	@Override
-	public List<ReviewDTO> selectReviewList(String id) {
-		return userDao.selectReviewList(id);
+	public List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO) {
+		return userDao.selectReviewList(reviewDTO);
 	}
 
 	@Override
@@ -83,7 +81,9 @@ public class UserServiceImpl implements UserService
 	@Override
 	public AddressDTO getOrderAddress(String userId) {
 		// TODO Auto-generated method stub
-		return userDao.getOrderAddress(userId);
+		return null;
 	}
+
+	
 
 }

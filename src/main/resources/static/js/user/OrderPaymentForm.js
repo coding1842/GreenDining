@@ -1,158 +1,59 @@
 $(function () {
-  $("#btnradio1").click(function (e) {
-    $("#1").attr("style", "display:block");
-    $("#2").attr("style", "display:none");
-    $("#3").attr("style", "display:none");
-    $("#4").attr("style", "display:none");
-  });
+  checkOrderTotal();
 
-  $("#btnradio2").click(function (e) {
-    $("#2").attr("style", "display:block");
-    $("#1").attr("style", "display:none");
-    $("#3").attr("style", "display:none");
-    $("#4").attr("style", "display:none");
-  });
-
-  $("#btnradio3").click(function (e) {
-    $("#3").attr("style", "display:block");
-    $("#2").attr("style", "display:none");
-    $("#1").attr("style", "display:none");
-    $("#4").attr("style", "display:none");
-  });
-
-  $("#btnradio4").click(function (e) {
-    $("#4").attr("style", "display:block");
-    $("#2").attr("style", "display:none");
-    $("#3").attr("style", "display:none");
-    $("#1").attr("style", "display:none");
-  });
-
-  $(".checked_quantity").on("click", function () {
-    var quantity = $(this).val();
-    var before_price = $(this).next().find(".before_price").val();
-    var total_price = quantity * before_price;
-    $(this).next().find(".after_price").val(total_price);
-
-    $(this)
-      .next()
-      .find(".total_price")
-      .text(total_price.toLocaleString("en-US") + "원");
-    checkTotal();
-  });
-
-  $("#sale_product_select .dropdown-item.main_type").click(function (e) {
-    var product_id = $(this).find("input:first").val();
-
-    // 이미 선택한 항목인지 확인
-    if ($("#selected_sale_product #main_type .cartDTO input:first[value='" + product_id + "']").length > 0) {
-      alert("이미 선택한 항목입니다.");
-      return false;
-    }
-
-    var newField = $(this).clone(true);
-
-    newField.removeClass().addClass("cartDTO w-100");
-    newField.find(".checked_quantity").removeClass("visually-hidden");
-    newField.find(".selected_price").removeClass("visually-hidden");
-    newField.off("click");
-    $("form#sale_product_form #main_type").append(newField);
-    checkTotal();
-  });
-
-  $("#sale_product_select .dropdown-item.sub_type").click(function (e) {
-    var product_id = $(this).find("input:first").val();
-
-    // 이미 선택한 항목인지 확인
-    if ($("#selected_sale_product #sub_type .cartDTO input:first[value='" + product_id + "']").length > 0) {
-      alert("이미 선택한 항목입니다.");
-      return false;
-    }
-
-    var newField = $(this).clone(true);
-
-    newField.removeClass().addClass("cartDTO w-100");
-    newField.find(".checked_quantity").removeClass("visually-hidden");
-    newField.find(".selected_price").removeClass("visually-hidden");
-    newField.off("click");
-    $("form#sale_product_form #sub_type").append(newField);
-    checkTotal();
-  });
-
-  $("#order_add").click(function (e) {
-    orderADD();
+  $("#orderRequest").click(function (e) {
+    requestOrder();
   });
 });
 
-function orderADD() {
-  var cartDTOList = []; // CartDTO 객체를 저장할 배열
+function checkOrderTotal() {
+  var total_price = 0;
+  var discount_price = 0;
+  var total_payment_price = 0;
 
-  $("#main_type .cartDTO").each(function () {
-    var cartDTO = {};
-    cartDTO.product_id = $(this).find("input[name='cartDTOList[].product_id']").val();
-    cartDTO.sale_id = $(this).find("input[name='cartDTOList[].sale_id']").val();
-    cartDTO.store_name = $(this).find("input[name='cartDTOList[].store_name']").val();
-    cartDTO.quantity = $(this).find("input[name='cartDTOList[].quantity']").val();
-    cartDTOList.push(cartDTO);
+  $(".hidden_info").each(function () {
+    var before_price = parseInt($(this).find(".before_price").val());
+    var quantity = parseInt($(this).find(".quantity").val());
+
+    total_price += before_price * quantity;
+
+    var after_price = parseInt($(this).find(".after_price").val());
+
+    discount_price += (before_price - after_price) * quantity;
+
+    total_payment_price += after_price * quantity;
   });
 
-  $("#sub_type .cartDTO").each(function () {
-    var cartDTO = {};
-    cartDTO.product_id = $(this).find("input[name='cartDTOList[].product_id']").val();
-    cartDTO.sale_id = $(this).find("input[name='cartDTOList[].sale_id']").val();
-    cartDTO.store_name = $(this).find("input[name='cartDTOList[].store_name']").val();
-    cartDTO.quantity = $(this).find("input[name='cartDTOList[].quantity']").val();
-    cartDTOList.push(cartDTO);
-  });
+  total_payment_price += 2500;
+  $("#payment_info #total_price").text(total_price.toLocaleString("en-US") + "원");
+  $("#payment_info #discount_price").text("-" + discount_price.toLocaleString("en-US") + "원");
+  $("#payment_info #total_payment_price").text(total_payment_price.toLocaleString("en-US") + "원");
+}
 
-  // 서버로 전송
+function requestOrder() {
+  var form = $("form#orderForm").get(0);
+  var formData = new FormData(form);
+  var address_id = $("input[name='address_id'").val();
+  formData.append("address_id", address_id);
+
   $.ajax({
-    url: "/order/add",
     type: "POST",
-    data: JSON.stringify(cartDTOList),
-    contentType: "application/json",
-    success: function (data) {
-      // 성공 처리
-      if (confirm("구매하시겠습니까??")) {
-        window.location.href = data;
-      }
+    url: "/order/request",
+    data: formData,
+    dataType: "json",
+    processData: false, // FormData 객체를 직렬화하지 않음
+    contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
+    success: function (response) {
+      alert(response);
+      alert("구매 완료 되었습니다.");
+      location.href = response;
     },
     error: function (xhr, status, error) {
       // 에러 처리
       if (xhr.status === 401) {
         alert("로그인 후 이용해 주시길 바랍니다.");
-        window.location.href = error;
-      } else xhr.status === 400;
-      {
-        alert("이미 구매한 항목입니다.");
+        location.href = xhr.responseText;
       }
     },
   });
 }
-
-function checkTotal() {
-  var total_count = 0;
-  var total_price = 0;
-  $("#selected_sale_product .checked_quantity").each(function () {
-    total_count += parseInt($(this).val());
-  });
-
-  $("#selected_sale_product .after_price").each(function () {
-    total_price += parseInt($(this).val());
-  });
-
-  $("#total_div .total_count").text("총 수량 " + total_count.toLocaleString("en-US") + " 개");
-  $("#total_div .total_price").text(total_price.toLocaleString("en-US") + "원");
-}
-
-
-
-  
-
-
-
-
-
-
-
-
-

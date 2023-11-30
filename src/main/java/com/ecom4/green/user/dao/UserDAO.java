@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.ecom4.green.user.dto.AddressDTO;
-<<<<<<< main
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
@@ -24,7 +23,8 @@ public interface UserDAO {
 	//review
 	int insertReview(ReviewDTO reviewDTO);
 
-	List<ReviewDTO> selectReviewList(String id);
+//	List<ReviewDTO> selectReviewList(int id);
+	List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO);
 
 	int updateReview(ReviewDTO reviewDTO);
 
@@ -32,5 +32,5 @@ public interface UserDAO {
 
 	UserDTO getOrderUser(String userId);
 
-	AddressDTO getOrderAddress(String userId);
+
 }

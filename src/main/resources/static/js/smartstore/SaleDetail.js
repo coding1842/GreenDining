@@ -29,14 +29,17 @@ $(function () {
 
   $(".checked_quantity").on("click", function () {
     var quantity = $(this).val();
-    var before_price = $(this).next().find(".before_price").val();
-    var total_price = quantity * before_price;
-    $(this).next().find(".after_price").val(total_price);
+    var after_price = $(this).next().find(".after_price").val();
+
+    var total_price = quantity * after_price;
+
+    $(this).next().find(".total_price").val(total_price);
 
     $(this)
       .next()
       .find(".total_price")
       .text(total_price.toLocaleString("en-US") + "원");
+
     checkTotal();
   });
 
@@ -101,6 +104,14 @@ $(function () {
     }
     cartADD();
   });
+
+  $("#buy_now").click(function (e) {
+    if ($("#selected_sale_product .cartDTO").length < 1) {
+      alert("선택한 상품이 없습니다.");
+      return false;
+    }
+    orderProcess();
+  });
 });
 
 function cartADD() {
@@ -140,9 +151,8 @@ function cartADD() {
       // 에러 처리
       if (xhr.status === 401) {
         alert("로그인 후 이용해 주시길 바랍니다.");
-        window.location.href = error;
-      } else xhr.status === 400;
-      {
+        window.location.href = xhr.responseText;
+      } else if (xhr.status === 400) {
         alert("이미 장바구니에 추가한 항목입니다.");
       }
     },
@@ -158,6 +168,9 @@ function orderProcess() {
     cartDTO.sale_id = $(this).find("input[name='cartDTOList[].sale_id']").val();
     cartDTO.store_name = $(this).find("input[name='cartDTOList[].store_name']").val();
     cartDTO.quantity = $(this).find("input[name='cartDTOList[].quantity']").val();
+    cartDTO.name = $(this).find("input[name='cartDTOList[].name']").val();
+    cartDTO.before_price = parseInt($(this).find("input[name='cartDTOList[].before_price']").val());
+    cartDTO.after_price = parseInt($(this).find("input[name='cartDTOList[].after_price']").val());
     cartDTOList.push(cartDTO);
   });
 
@@ -167,24 +180,24 @@ function orderProcess() {
     cartDTO.sale_id = $(this).find("input[name='cartDTOList[].sale_id']").val();
     cartDTO.store_name = $(this).find("input[name='cartDTOList[].store_name']").val();
     cartDTO.quantity = $(this).find("input[name='cartDTOList[].quantity']").val();
+    cartDTO.name = $(this).find("input[name='cartDTOList[].name']").val();
+    cartDTO.before_price = parseInt($(this).find("input[name='cartDTOList[].before_price']").val());
+    cartDTO.after_price = parseInt($(this).find("input[name='cartDTOList[].after_price']").val());
     cartDTOList.push(cartDTO);
   });
 
   $.ajax({
     type: "POST",
     url: "/order/process",
+    data: JSON.stringify(cartDTOList),
+    contentType: "application/json",
     success: function (response) {
-      $.ajax({
-        type: "GET",
-        url: response,
-        data: JSON.stringify(cartDTOList),
-        contentType: "application/json",
-      });
+      window.location.href = response;
     },
     error: function (xhr, status, error) {
       if (xhr.status === 401) {
         alert("로그인 후 이용해 주시길 바랍니다.");
-        window.location.href = error;
+        window.location.href = xhr.responseText;
       }
     },
   });
@@ -197,7 +210,7 @@ function checkTotal() {
     total_count += parseInt($(this).val());
   });
 
-  $("#selected_sale_product .after_price").each(function () {
+  $("#selected_sale_product .total_price").each(function () {
     total_price += parseInt($(this).val());
   });
 

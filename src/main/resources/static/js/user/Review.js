@@ -5,7 +5,7 @@
  */
 
 function controlReview(ele,type){
-		
+	
 	var data = $(ele).closest("form")[0];
 	var formdata = new FormData(data);
 	
@@ -14,7 +14,7 @@ function controlReview(ele,type){
 	{
 		if(confirm("정말 수정 하시겠습니까?"))
 		{
-			url = "/user/updateReview";
+			url = "/user/update/review";
 		}
 		else
 		{
@@ -26,7 +26,7 @@ function controlReview(ele,type){
 	{
 		if(confirm("정말 삭제 하시겠습니까?"))
 		{
-			url = "/user/deleteReview";
+			url = "/user/delete/review";
 		}
 		else
 		{
