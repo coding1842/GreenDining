@@ -76,9 +76,11 @@
                       <br>
                       <input type="number" class="checked_quantity visually-hidden w-25" name="cartDTOList[].quantity" value="1" min="1" id="">
                       <span class="float-end selected_price visually-hidden">
-                        <input type="hidden" class="before_price" value="${sale_product.before_price*(1-sale.discount/100)}"/>
-                        <input type="hidden" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
-                        <span class="total_price">
+                        <input type="hidden" name="cartDTOList[].name" value="${sale_product.name}">
+                        <input type="hidden" name="cartDTOList[].before_price" class="before_price" value="${sale_product.before_price}"/>
+                        <input type="hidden" name="cartDTOList[].after_price" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
+                         <input type="hidden" class="total_price" value="${sale_product.before_price*(1-sale.discount/100)}">
+                        <span class="total_price_text">
                           <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원                          
                         </span> 
                           <span class="sale_product_delete material-symbols-outlined">close</span>
@@ -108,9 +110,11 @@
                       <br>
                       <input type="number" class="checked_quantity visually-hidden w-25" name="cartDTOList[].quantity" value="1" min="1" id="">
                       <span class="float-end selected_price visually-hidden">
-                        <input type="hidden" class="before_price" value="${sale_product.before_price*(1-sale.discount/100)}"/>
-                        <input type="hidden" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
-                        <span class="total_price">
+                        <input type="hidden" name="cartDTOList[].name" value="${sale_product.name}">
+                        <input type="hidden" name="cartDTOList[].before_price" class="before_price" value="${sale_product.before_price}"/>
+                        <input type="hidden" name="cartDTOList[].after_price" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
+                         <input type="hidden" class="total_price" value="${sale_product.before_price*(1-sale.discount/100)}">
+                        <span class="total_price_text">
                           <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원
                         </span> 
                         <span class="sale_product_delete material-symbols-outlined">close</span>
@@ -151,7 +155,7 @@
          
         </div>
         <div id="sale_button">
-          <button type="button" onclick="location.href='/order/orderForm'" class="btn btn-success w-100 h-50px" id="buy_now">구매하기</button>
+          <button type="button"  class="btn btn-success w-100 h-50px" id="buy_now">구매하기</button>
           <div class="btn-group mt-2 w-100" role="group">
             <a><button type="button" class="btn btn-danger">문의하기</button></a>
             <a><button type="button" class="btn btn-primary">찜하기</button></a>

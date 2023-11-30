@@ -18,6 +18,7 @@ public class OrdersDTO {
         private int id;
         private String status;
         private String user_id;
+        private int address_id;
         private String created_at;
         
         

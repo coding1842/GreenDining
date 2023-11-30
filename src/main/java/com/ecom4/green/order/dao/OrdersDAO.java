@@ -1,5 +1,6 @@
 package com.ecom4.green.order.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,4 +26,9 @@ public interface OrdersDAO {
 
 	int countInDelivery(String userId);
 
+    int insertOrder(@Param("user_id") String userId,@Param("address_id") int addressId);
+
+	int insertOrderItemList(@Param("list") List<OrderItemDTO> orderItemDTOList, @Param("order_id") int orderId);
+
+	int selectMaxOrderId();
 }
