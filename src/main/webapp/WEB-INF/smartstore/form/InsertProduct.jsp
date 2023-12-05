@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
@@ -47,13 +46,13 @@
               </td>
             </tr>
             <tr>
-                        <th>상품 설명 이미지</th>
-                        <td>
-                          <input type="file" name="fileList" />
-                          <br />
-                          <small>*(여러개 선택 가능합니다.)</small>
-                        </td>
-                      </tr>
+              <th>상품 설명 이미지</th>
+              <td>
+                <input type="file" name="fileList" />
+                <br />
+                <small>*(여러개 선택 가능합니다.)</small>
+              </td>
+            </tr>
             <tr>
               <th class="product_puch_space"></th>
               <td class="product_puch_space">
