@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
 %> <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
   <head>
     <script src="/jquery/jquery-3.7.0.min.js"></script>
     <script src="/js/smartstore/view/SaleItemDetail.js"></script>
@@ -157,6 +158,7 @@
                         <li>카드선택</li>
                         <li>할부기간</li>
                       </ul>
+                      
                     </div>
                   </div>
                   <!-- 무통장입금 -->
@@ -197,12 +199,37 @@
               </tr>
             </table>
             <br /><br />
-            <div class="d-grid gap-2 col-6 mx-auto">
-              <button class="btn btn-primary" id="orderRequest"  type="button" style="height: 65px">
-                결제하기
-              </button>
-            </div>
+<!--             <div class="d-grid gap-2 col-6 mx-auto"> -->
+<!--               <button class="btn btn-primary" id="orderRequest"  type="button" style="height: 65px"> -->
+<!--                 결제하기 -->
+<!--               </button> -->
+<!--             </div> -->
           </form>
+         <form id="payForm" name="payForm" action="/payment/pay" >
+						<div class="container">
+						    <table class="table table-hover table table-striped">
+						        <tr>
+						            <td>카드번호: <input type="text" id="" name="cardNo"></td>
+						        </tr>
+						        <tr>
+						            <td>유효기간(월): <input type="text" id="" name="expireMonth"></td>
+						        </tr>
+						        <tr>
+						            <td>유효기간(년): <input type="text" id="" name="expireYear"></td>
+						        </tr>
+						        <tr>
+						            <td>생일: <input type="text" id="" name="birthday"></td>
+						        </tr>
+						        <tr>
+						            <td>비밀번호 앞 2자리: <input type="text" id="" name="cardPw"></td>
+						        </tr>
+						        
+						        <tr>
+						        	<td><input type="submit" value="결제하기"></td>
+						        </tr>
+						    </table>
+						</div>
+					 </form>
         </div>
         <br />
       </form>

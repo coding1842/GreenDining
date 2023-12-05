@@ -22,85 +22,94 @@ public class PaymentController
         @Autowired
         ApiService apiService;
 
-
-
-        @RequestMapping("/checkoutForm")
-        public ModelAndView paymentForm()
-        {
-	      ModelAndView mav = new ModelAndView();
-
-	      mav.setViewName("payment/form/PaymentForm");
-	      return mav;
-        }
-
-
-
-
-        @RequestMapping("/checkout")
-        public ModelAndView paymentCheckout(@RequestParam Map<String,String> paramMap) throws NoSuchAlgorithmException
-        {
-	      String merchantId = "himedia";
-	      String orderNumber = "1234";
-	      String cardNo = paramMap.get("cardNo");
-	      String expireMonth = paramMap.get("expireMonth");
-	      String expireYear = paramMap.get("expireYear");
-	      String birthday = "970227";
-	      String cardPw = paramMap.get("cardPw");
-	      String amount = paramMap.get("amount");
-	      String quota = "0";
-	      String itemName = "몬스긱 M3W 풀 알루 키보드";
-	      String userName = "테스트 유저";
-	      String signature = "Please WRITE ME";
-	      String timestamp = "systimestamp";
-
-	      String requestPaymentEnc = merchantId+"|"+orderNumber+"|"+amount+"|"+authenticationKey+"|"+timestamp;
-	      signature = apiService.getSHA256Hash(requestPaymentEnc);
-
-
-	      String url = "";
-	      url = "https://api.testpayup.co.kr/v2/api/payment/"+ merchantId+"/keyin2";
-	      Map<String,String> map = new HashMap<>();
-	      map.put("orderNumber",orderNumber);
-	      map.put("cardNo",cardNo);
-	      map.put("expireMonth",expireMonth);
-	      map.put("expireYear",expireYear);
-	      map.put("birthday",birthday);
-	      map.put("cardPw",cardPw);
-	      map.put("amount",amount);
-	      map.put("quota",quota);
-	      map.put("itemName",itemName);
-	      map.put("userName",userName);
-	      map.put("signature",signature);
-	      map.put("timestamp",timestamp);
-
-
-
-	     Map<String,Object> resultMap =  apiService.JsonApi(url,map);
-	     ModelAndView mav = new ModelAndView();
-	     mav.addObject("resultMap",resultMap);
-	     mav.addObject("test","테스트값입니다.");
-
-	     if("0000".equals(resultMap.get("responseCode")))
-	     {
-
-	     }
-	     else
-	     {
-
-	     }
-	     mav.setViewName("payment/view/PaymentDone");
-	     return mav;
-        }
-
-        @RequestMapping("/done")
-        public String paymentDone()
-        {
-	      return "payment/view/PaymentDone";
-        }
-
-
-
-
+        @RequestMapping("/payForm")
+    	public ModelAndView payForm(@RequestParam Map<String, String> param) {
+    		
+    		ModelAndView mav = new ModelAndView();
+    		
+    		mav.setViewName("/payment/form/PaymentDone");
+    		
+    		return mav;
+    	}
+        
+        @RequestMapping("/pay")
+    	public ModelAndView pay(@RequestParam Map<String, String> param) {
+    		
+        	
+    		ModelAndView mav = new ModelAndView();
+    		
+    		System.out.println(param.toString());
+    		//화면에서 받아온 값으로 결제 진행하기
+    System.out.println("잘있는지 확인");
+    		
+    		//결제정보가 온다고 가정 결제정보는 하드코딩
+//    		String merchantId = "himedia";
+//    		String cardNo = param.get("cardNo");
+//    		String orderNumber = "1";
+//    		String expireMonth = param.get("expireMonth");
+//    		String expireYear = param.get("expireYear");
+//    		String birthday = param.get("birthday");
+//    		String cardPw = param.get("cardPw");
+//    		String amount = param.get("total_payment_price");
+//    		String quota = "0";
+//    		String itemName = "${cart.name}";
+//    		String userName = "${user.name}";
+//    		String mobileNumber = "${user.phone}";
+//    		String signature = "";	//아래서 생성
+//    		String timestamp = "systimestamp";
+		    String merchantId = "himedia";
+			String orderNumber = "514";
+			String cardNo = param.get("cardNo");
+			String expireMonth = param.get("expireMonth");
+			String expireYear = param.get("expireYear");
+			String birthday = param.get("birthday");
+			String cardPw = param.get("cardPw");
+			String amount = param.get("amount");
+			String quota = "0";
+			String itemName = "test 상품";
+			String userName = "sum";
+			String mobileNumber = "01012341234";
+			String signature = "";	//아래서 생성
+			String timestamp = "20231129011111";
+    
+    
+    		//api 통신 서비스 만들기
+    		String url = "https://api.testpayup.co.kr/v2/api/payment/himedia/keyin2";
+    		Map<String, String> map = new HashMap<>();
+    		map.put("cardNo", cardNo);
+    		map.put("orderNumber", orderNumber);
+    		map.put("expireMonth", expireMonth);
+    		map.put("expireYear", expireYear);
+    		map.put("birthday", birthday);
+    		map.put("cardPw", cardPw);
+    		map.put("amount", amount);
+    		map.put("quota", quota);
+    		map.put("itemName", itemName);
+    		map.put("userName", userName);
+    		map.put("mobileNumber", mobileNumber);
+    		
+    		map.put("timestamp", timestamp);
+    		
+    		try {
+    			signature = apiService.getSHA256Hash(merchantId + "|" + orderNumber +"|" + amount + "|" + "ac805b30517f4fd08e3e80490e559f8e" + "|" + timestamp);
+    		}catch (NoSuchAlgorithmException e) {
+    			e.printStackTrace();
+    		}
+    		map.put("signature", signature);
+    		Map<String,Object> payResult = apiService.JsonApi(url,map);
+    		
+    		mav.addObject("payResult",payResult);
+    		mav.addObject("test","테스트 값입니다");
+    		
+    		apiService.JsonApi(url,map);
+    		
+    		mav.setViewName("/payment/view/PaymentDone");
+    		
+    		return mav;
+    	}
+    	
+    	
+        
 
 //        TEST_CASE LINE =============================================================================================================================================
 

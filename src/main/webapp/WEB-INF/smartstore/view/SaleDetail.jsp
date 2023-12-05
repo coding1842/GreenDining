@@ -36,6 +36,7 @@
       </div>
     </section>
     <!-- 상품대표 설명 -->
+    <form></form>
     <section id="product_detail" class="w-50 float-end">
       <div class="product_info" >
         <h3>${sale.title}</h3>

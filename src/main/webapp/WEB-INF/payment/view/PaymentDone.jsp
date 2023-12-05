@@ -5,19 +5,31 @@
 <html lang="ko">
   <body>
     <div class="container">
-      <h3>결제완료</h3>
-      ${resultMap}
-      <h5>응답 코드 : ${resultMap.responseCode}</h5>
-      <h5>응답 메시지: ${resultMap.responseMsg}</h5>
-      <h5>거래번호 : ${resultMap.transactionId}</h5>
-      <h5>승인일시 : ${resultMap.authDateTime}</h5>
-      <h5>승인번호 : ${resultMap.authNumber}</h5>
-      <h5>주문번호 : ${resultMap.orderNumber}</h5>
-      <h5>결제금액 : ${resultMap.amount}</h5>
-      <h5>카드사명 : ${resultMap.cardName}</h5>
-      <h5>카카오 알림 결과 코드 : ${resultMap.kakaoResultCode}</h5>
-      <h5>무이자 할부 적용 여부 : ${resultMap.noinf}</h5>
+<!--       <h3>결제완료</h3> -->
+<%--       ${resultMap} --%>
+<%--       <h5>응답 코드 : ${resultMap.responseCode}</h5> --%>
+<%--       <h5>응답 메시지: ${resultMap.responseMsg}</h5> --%>
+<%--       <h5>거래번호 : ${resultMap.transactionId}</h5> --%>
+<%--       <h5>승인일시 : ${resultMap.authDateTime}</h5> --%>
+<%--       <h5>승인번호 : ${resultMap.authNumber}</h5> --%>
+<%--       <h5>주문번호 : ${resultMap.orderNumber}</h5> --%>
+<%--       <h5>결제금액 : ${resultMap.amount}</h5> --%>
+<%--       <h5>카드사명 : ${resultMap.cardName}</h5> --%>
+<%--       <h5>카카오 알림 결과 코드 : ${resultMap.kakaoResultCode}</h5> --%>
+<%--       <h5>무이자 할부 적용 여부 : ${resultMap.noinf}</h5> --%>
 
+			<h3>결제완료</h3>
+      ${payResult}
+      <h5>응답 코드 : ${payResult.responseCode}</h5>
+      <h5>응답 메시지: ${payResult.responseMsg}</h5>
+      <h5>거래번호 : ${payResult.transactionId}</h5>
+      <h5>승인일시 : ${payResult.authDateTime}</h5>
+      <h5>승인번호 : ${payResult.authNumber}</h5>
+      <h5>주문번호 : ${payResult.orderNumber}</h5>
+      <h5>결제금액 : ${payResult.amount}</h5>
+      <h5>카드사명 : ${payResult.cardName}</h5>
+      <h5>카카오 알림 결과 코드 : ${payResult.kakaoResultCode}</h5>
+      <h5>무이자 할부 적용 여부 : ${payResult.noinf}</h5>
       <!-- 복합과세 결제만 전달 -->
       <!-- <h5>과세금액 : ${resultMap.taxAmount}</h5>
       <h5>부가세 : ${resultMap.varAmount}</h5>
