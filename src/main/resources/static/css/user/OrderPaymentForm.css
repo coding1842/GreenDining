@@ -10,3 +10,7 @@
 #delivery_time {
   width: 100%;
 }
+
+#payForm table tr {
+  height: 30px;
+}

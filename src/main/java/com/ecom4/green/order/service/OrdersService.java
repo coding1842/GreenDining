@@ -1,6 +1,5 @@
 package com.ecom4.green.order.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -9,20 +8,28 @@ import org.springframework.data.domain.Page;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
 
-public interface OrdersService {
-
-	
-
-	Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap);
-
-	List<OrderItemDTO> getOrderItemList(int order_id);
-
-	OrdersDTO getOrderDetail(int order_id);
-
-	int countInDelivery(String userId);
+public interface OrdersService
+{
 
 
-	int insertOrder(String userId, int addressId);
+        Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap);
 
-	int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
+        List<OrderItemDTO> getOrderItemList(int order_id);
+
+        OrdersDTO getOrderDetail(int order_id);
+
+        int countInDelivery(String userId);
+
+
+        int insertOrder(String userId, int addressId);
+
+        int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
+
+        void deleteOrder(int orderId);
+
+        void updateOrderTransactionId(Map<String, Object> orderMap);
+
+        int getOrderMaxId();
+
+        void cancelOrder(int orderId);
 }

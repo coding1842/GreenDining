@@ -1,60 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecom4.green.order.dao.OrdersDAO">
-	<select id="getOrdersPage" parameterType="RequestPageList" resultType="ordersDTO">
-		select *
-		from orders
-		<where>
-			user_id = #{data.user_id}
-		</where>
-		OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
-	</select>
-	
-	<select id="getOrdersCount" parameterType="map" resultType="int">
-		select count(*) as cnt
-		from orders
-		where user_id = #{map.user_id}
-	</select>
-	<select id="getOrderItemList" parameterType="int" resultType="orderItemDTO" >
-		select *
-		from order_item
-		where order_id = #{order_id}
-	</select>
-	<select id="getOrderDetail" parameterType="int" resultType="ordersDTO">
-		select *
-		from orders
-		<where>
-			id = #{order_id}
-		</where>
-	</select>
-	
-	<select id="countInDelivery" resultType="int">
-	    SELECT COUNT(*)
-	    FROM orders
-	    WHERE user_id = #{userId} AND status = '배송중'
-	</select>
+    <select id="getOrdersPage" parameterType="RequestPageList" resultType="ordersDTO">
+        select *
+        from orders
+        <where>
+            user_id = #{data.user_id}
+        </where>
+        OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+    </select>
 
-	<insert id="insertOrder">
-		<bind name="status" value="'결제완료'"/>
-		<selectKey keyProperty="id" order="BEFORE" resultType="int">
-			SELECT NVL(MAX(ID),0)+1 FROM orders
-		</selectKey>
-		insert into orders(id,address_id,user_id,status,created_at)
-		values(#{id},#{address_id},#{user_id},#{status},sysdate)
-	</insert>
+    <select id="getOrdersCount" parameterType="map" resultType="int">
+        select count(*) as cnt
+        from orders
+        where user_id = #{map.user_id}
+    </select>
+    <select id="getOrderItemList" parameterType="int" resultType="orderItemDTO">
+        select *
+        from order_item
+        where order_id = #{order_id}
+    </select>
+    <select id="getOrderDetail" parameterType="int" resultType="ordersDTO">
+        select *
+        from orders
+        <where>
+            id = #{order_id}
+        </where>
+    </select>
 
-	<select id="selectMaxOrderId" resultType="int">
-		select nvl(max(id),0) from orders
-	</select>
+    <select id="countInDelivery" resultType="int">
+        SELECT COUNT(*)
+        FROM orders
+        WHERE user_id = #{userId} AND status = '배송중'
+    </select>
 
-	<insert id="insertOrderItemList" parameterType="list">
-		<bind name="status" value="'구매완료'"/>
-		BEGIN
-		<foreach item="orderItemDTO" collection="list" separator=" ">
-			INSERT INTO order_item (order_id, product_id,sale_id,quantity,status,store_name,before_price,after_price)
-			VALUES (#{order_id}, #{orderItemDTO.product_id}, #{orderItemDTO.sale_id}, #{orderItemDTO.quantity},#{status},#{orderItemDTO.store_name},#{orderItemDTO.before_price},#{orderItemDTO.after_price});
-		</foreach>
-		END;
-	</insert>
+    <insert id="insertOrder">
+        <bind name="status" value="'결제완료'"/>
+        <selectKey keyProperty="id" order="BEFORE" resultType="int">
+            SELECT NVL(MAX(ID),0)+1 FROM orders
+        </selectKey>
+        insert into orders(id,address_id,user_id,status,created_at)
+        values(#{id},#{address_id},#{user_id},#{status},sysdate)
+    </insert>
 
+    <select id="selectMaxOrderId" resultType="int">
+        select nvl(max(id),0) from orders
+    </select>
+
+    <insert id="insertOrderItemList" parameterType="list">
+        <bind name="status" value="'구매완료'"/>
+        BEGIN
+        <foreach item="orderItemDTO" collection="list" separator=" ">
+            INSERT INTO order_item (order_id, product_id,sale_id,quantity,status,store_name,before_price,after_price)
+            VALUES (#{order_id}, #{orderItemDTO.product_id}, #{orderItemDTO.sale_id},
+            #{orderItemDTO.quantity},#{status},#{orderItemDTO.store_name},#{orderItemDTO.before_price},#{orderItemDTO.after_price});
+        </foreach>
+        END;
+    </insert>
+    <delete id="deleteOrder" parameterType="int">
+        delete from orders
+        where id = #{order_id}
+    </delete>
+    <delete id="deleteOrderItem" parameterType="int">
+        delete from order_item
+        where order_id = #{order_id}
+    </delete>
+    <update id="updateOrderTransactionId" parameterType="map">
+        UPDATE orders
+        SET transaction_id = #{map.transaction_id}, payment = #{map.payment}
+        WHERE id = #{map.order_id}
+    </update>
+    <update id="cancelOrder">
+        <bind name="status_cancel" value="'취소완료'"/>
+        UPDATE orders
+        SET status = #{status_cancel}
+        where id = #{order_id}
+    </update>
 </mapper>
