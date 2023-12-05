@@ -12,74 +12,87 @@ import com.ecom4.green.user.dto.UserDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImpl implements AuthService {
+public class AuthServiceImpl implements AuthService
+{
 
-	@Autowired
-	AuthDAO authDao;
-	
-	@Override
-	public int signUpUser(UserDTO userDto) throws Exception {
-		return authDao.signUpUser(userDto);
-	}
+        @Autowired
+        AuthDAO authDao;
 
-	@Override
-	public int idCheck(String id) {
-		return authDao.idCheck(id);
-	}
-	
-	@Override
-	public UserDTO getUser(UserDTO udto) {
-		return authDao.getUser(udto);
-	}
-	
-	
-	@Override
-    public RoleStatus checkRoleStatus(HttpSession session)
-    {
-      UserDTO currentUser = (UserDTO) session.getAttribute("ssKey");
+        @Override
+        public int signUpUser(UserDTO userDto) throws Exception
+        {
+	      return authDao.signUpUser(userDto);
+        }
+
+        @Override
+        public int idCheck(String id)
+        {
+	      return authDao.idCheck(id);
+        }
+
+        @Override
+        public UserDTO getUser(UserDTO udto)
+        {
+	      return authDao.getUser(udto);
+        }
 
 
+        @Override
+        public RoleStatus checkRoleStatus(HttpSession session)
+        {
+	      UserDTO currentUser = (UserDTO) session.getAttribute("ssKey");
 
-      if(currentUser == null)
-      {
-	    return RoleStatus.NOT_LOGGED_IN;
-      }
-      else if(currentUser.getRole().equals(RoleStatus.USER))
-      {
-	    return RoleStatus.USER;
-      }
-      else if(currentUser.getRole().equals(RoleStatus.MERCHANT))
-      {
-	    return RoleStatus.MERCHANT;
-      }
-      else if(currentUser.getRole().equals(RoleStatus.ADMIN))
-      {
-	    return RoleStatus.ADMIN;
-      }
 
-      return RoleStatus.NOT_FOUND;
-    }
+	      if (currentUser == null)
+	      {
+		    return RoleStatus.NOT_LOGGED_IN;
+	      }
+	      else if (currentUser.getRole().equals(RoleStatus.USER))
+	      {
+		    return RoleStatus.USER;
+	      }
+	      else if (currentUser.getRole().equals(RoleStatus.MERCHANT))
+	      {
+		    return RoleStatus.MERCHANT;
+	      }
+	      else if (currentUser.getRole().equals(RoleStatus.ADMIN))
+	      {
+		    return RoleStatus.ADMIN;
+	      }
 
-    @Override
-    public UserDTO getCurrentUser(HttpSession session)
-    {
-      UserDTO currentUser = authDao.getUser((UserDTO) session.getAttribute("ssKey"));
+	      return RoleStatus.NOT_FOUND;
+        }
 
-      return currentUser;
-    }
+        @Override
+        public UserDTO getCurrentUser(HttpSession session)
+        {
+	      UserDTO currentUser = authDao.getUser((UserDTO) session.getAttribute("ssKey"));
 
-	@Override
-	public int signUpBusiness(UserDTO userDto,MerchantDTO merchantDto) {
-		// TODO Auto-generated method stub
-		
-		userDto.setRole(RoleStatus.MERCHANT);
-		merchantDto.setId(userDto.getId());
-		authDao.signUpUser(userDto);	
-		return authDao.signUpBusiness(merchantDto);
-	}
+	      return currentUser;
+        }
 
-	
+        @Override
+        public int signUpBusiness(UserDTO userDto, MerchantDTO merchantDto)
+        {
+	      // TODO Auto-generated method stub
 
-	
+	      userDto.setRole(RoleStatus.MERCHANT);
+	      merchantDto.setId(userDto.getId());
+	      authDao.signUpUser(userDto);
+	      return authDao.signUpBusiness(merchantDto);
+        }
+
+        @Override
+        public String selectSalt(UserDTO userDto)
+        {
+	      return authDao.selectSalt(userDto);
+        }
+
+        @Override
+        public int phoneCheck(String phone)
+        {
+	      return authDao.phoneCheck(phone);
+        }
+
 
 }
