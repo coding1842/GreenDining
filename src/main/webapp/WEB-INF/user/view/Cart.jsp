@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/js/user/Cart.js"></script>
 <div id="my_cart_box">
 	<div class="all_check_input_div">
-		<input id="all_check_input" type="checkbox" checked="checked"><span class="all_chceck_span">전체선택</span>
+		<input name="selectall" value='selectall' id="all_check_input" type="checkbox" checked="checked"><span class="all_chceck_span">전체선택</span>
 	</div>
 	<c:choose>
 		<c:when test="${fn:length(cartDTOList) > 0}">

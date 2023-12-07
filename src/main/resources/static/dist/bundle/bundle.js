@@ -14777,7 +14777,8 @@ function imgurProcess() {
     });
   }
   // 없으면 데이터만 전달
-  else {
+   else {
+	   alert("이미지 없이 작업 처리");
     $.ajax({
       type: "post",
       url: formUrl,

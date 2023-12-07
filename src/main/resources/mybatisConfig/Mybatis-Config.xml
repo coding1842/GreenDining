@@ -24,5 +24,6 @@
 		<typeAlias alias="ordersDTO" type="com.ecom4.green.order.dto.OrdersDTO" />
 		<typeAlias alias="orderItemDTO" type="com.ecom4.green.order.dto.OrderItemDTO" />
 		<typeAlias alias="cartDTO" type="com.ecom4.green.user.dto.CartDTO" />
+		<typeAlias alias="QnaDTO" type="com.ecom4.green.user.dto.QnaDTO" />
      </typeAliases>
 </configuration>

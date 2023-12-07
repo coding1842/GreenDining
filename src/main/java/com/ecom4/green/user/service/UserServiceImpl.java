@@ -4,25 +4,36 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.ecom4.green.user.dao.UserDAO;
 import com.ecom4.green.user.dto.AddressDTO;
+import com.ecom4.green.user.dto.QnaDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
-import com.ecom4.green.user.dto.CartDTO;
-import com.ecom4.green.user.dto.ReviewDTO;
 
 @Service
 public class UserServiceImpl implements UserService
 {
-        @Autowired
-        AddressDTO addressDTO;
-
-        @Autowired
-        UserDAO userDao;
+	@Autowired
+	AddressDTO addressDTO;
+	
+	@Autowired
+	UserDAO userDao;
+	
+	@Autowired
+	QnaDTO qnaDTO;
+	
+	@Override
+	public void insertAddress(AddressDTO addressDTO) throws Exception {
+		int r = userDao.insertAddress(addressDTO);
+		
+		if(r < 1)
+		{
+			throw new Exception("주소가 정상적으로 삽입 되지 않았습니다.");
+		}
+		
+	}
 
 
         @Override
@@ -36,7 +47,7 @@ public class UserServiceImpl implements UserService
 	}
 	
 	
-	//review
+	//review ----------------------------------------------------
 	@Override
 	public int insertReview(ReviewDTO reviewDTO) {
 		return userDao.insertReview(reviewDTO);
@@ -63,12 +74,23 @@ public class UserServiceImpl implements UserService
         }
 
 
-        //review
-        @Override
-        public int insertReview(ReviewDTO reviewDTO)
-        {
-	      return userDao.insertReview(reviewDTO);
-        }
+	// QnA ----------------------------------------------------
+	@Override
+	public int insertQna(QnaDTO qnaDTO) {
+		return userDao.insertQna(qnaDTO);
+	}
+
+	@Override
+	public List<QnaDTO> selectQnaList(QnaDTO qnaDTO) {
+		return userDao.selectQnaList(qnaDTO);
+	}
+
+	@Override
+	public int deleteQna(QnaDTO qnaDTO) {
+		return userDao.deleteQna(qnaDTO);
+	}
+
+	
 
         @Override
         public List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO)

@@ -7,6 +7,7 @@ import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
+import com.ecom4.green.user.dto.QnaDTO;
 
 public interface UserService
 {
@@ -30,8 +31,15 @@ public interface UserService
 
         UserDTO getOrderUser(String userId);
 
-        AddressDTO getOrderAddress(String userId);
+	//Qna -----------------------------
+	int insertQna(QnaDTO qnaDTO);
 
+	List<QnaDTO> selectQnaList(QnaDTO qna);
+
+	int deleteQna(QnaDTO qnaDTO);
+
+
+	
 
         AddressDTO selectAddress(Map<String, Object> map);
 }

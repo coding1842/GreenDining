@@ -10,7 +10,6 @@ import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
-
 @Mapper
 public interface UserDAO
 {
@@ -21,7 +20,10 @@ public interface UserDAO
 
         int updateAddress(AddressDTO addressDTO);
 
-        int deleteAddress(AddressDTO addressDTO);
+	int deleteAddress(AddressDTO addressDTO);
+	
+	//review
+	int insertReview(ReviewDTO reviewDTO);
 
         //review
         int insertReview(ReviewDTO reviewDTO);
@@ -33,7 +35,12 @@ public interface UserDAO
 
         int deleteReview(ReviewDTO reviewDTO);
 
-        UserDTO getOrderUser(String userId);
+	//QnA ----------------------------------------------------------------
+	int insertQna(QnaDTO qnaDTO);
+
+	List<QnaDTO> selectQnaList(QnaDTO qnaDTO);
+
+	int deleteQna(QnaDTO qnaDTO);
 
 
         AddressDTO selectAddress(@Param("map") Map<String, Object> map);
