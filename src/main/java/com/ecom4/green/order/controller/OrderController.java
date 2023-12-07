@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.ecom4.green.merchant.service.ProductService;
+import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.order.data.OrderItemList;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
@@ -53,6 +55,12 @@ public class OrderController
 
         @Autowired
         OrdersService orderService;
+
+        @Autowired
+        SaleService saleService;
+
+        @Autowired
+        ProductService productService;
 
         @Autowired
         CartService cartService;
@@ -191,11 +199,31 @@ public class OrderController
         {
 	      String url = "";
 	      int order_id = 0;
+
+	      List<OrderItemDTO> orderItemDTOList = orderItemList.getOrderItemDTOList();
+
+
 	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
 	      {
 		    String user_id = authService.getCurrentUser(session).getId();
 		    order_id = orderService.insertOrder(user_id, address_id);
-		    int r = orderService.insertOrderItemList(orderItemList.getOrderItemDTOList(), order_id);
+		    int r = orderService.insertOrderItemList(orderItemDTOList, order_id);
+
+		    // 판매글의 판매량 증가 및 상품정보의 재고 감소
+		    for (OrderItemDTO ele : orderItemDTOList)
+		    {
+
+			  int sale_rate = ele.getQuantity();
+			  int sale_id = ele.getSale_id();
+			  int product_id = ele.getProduct_id();
+			  Map<String, Object> hashMap = new HashMap<>();
+			  hashMap.put("sale_rate", sale_rate);
+			  hashMap.put("sale_id", sale_id);
+			  hashMap.put("product_id", product_id);
+			  saleService.updateTotalRate(hashMap);
+			  productService.updateStock(hashMap);
+		    }
+		    
 		    url = "/user/my-page";
 	      }
 	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)

@@ -17,4 +17,7 @@ public class SaleProductDTO
 
         private int before_price;
         private int after_price;
+
+        // NO DB
+        private int stock;
 }

@@ -26,7 +26,7 @@
             <tr>
               <th>무게</th>
               <td>
-                <input type="text" name="weight" title="무게" placeholder="숫자만 입력" />&nbsp;kg
+                <input type="text" name="weight" title="무게" placeholder="숫자만 입력" />&nbsp;g
                 <br />
                 <small>*(순수 상품무게만 포함입니다.)</small>
               </td>

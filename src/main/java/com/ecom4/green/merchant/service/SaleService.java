@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface SaleService
 {
-        Page<SaleDTO > getSalePage(Map<String, Object> dataMap);
+        Page<SaleDTO> getSalePage(Map<String, Object> dataMap);
 
 
         void insertSale(SaleDTO saleDTO) throws Exception;
@@ -31,8 +31,8 @@ public interface SaleService
         List<SaleProductDTO> selectSaleProductListSub(int saleId);
 
 
-		void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id);
+        void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id);
 
 
-		
+        void updateTotalRate(Map<String, Object> hashMap);
 }
