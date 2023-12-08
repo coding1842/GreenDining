@@ -346,16 +346,19 @@
 		            <th style="border: none">작성자</th>
 		            <th style="border: none">이미지</th>
 		            <th style="border: none">작성일</th>
+		            <th style="display: none">아이디</th>
+		      
 		          </tr>
         	   <c:choose>
 	          	<c:when test="${fn:length(qnaDTOList) > 0}">
       			<c:forEach var="qna" items="${qnaDTOList}">
 		          <tr>
-		            <td style="border: none">${qna.title}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.title}</td>
 		            <td style="border: none">${qna.content}</td>
 		            <td style="border: none">${qna.user_id}</td>
 		            <td style="border: none">${qna.image_group_id}</td>
 		            <td style="border: none">${qna.created_at}</td>
+		            <td style="display: none">${qna.id}</td>
 	          	  </tr>
 			   </c:forEach>
 	           </c:when>

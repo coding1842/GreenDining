@@ -178,11 +178,31 @@
 		</if>
 	</select>
 	
-	<!-- 카트삭제 -->
-	<delete id="deleteQna" parameterType="QnaDTO">
-		delete from qna
-		where sale_id = #{sale_id} 
-		and user_id = #{user_id}
-	</delete>
+	 <select id="selectQnaDetail" resultType="QnaDTO" parameterType="int">
+		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
+		FROM qna
+		WHERE id = #{id}
+	</select>
+	
+	<update id="updateProc" parameterType="QnaDTO">
+		UPDATE QNA SET
+		USER_ID = #{user_id},
+		ID = #{id},
+		ORDER_ID = #{order_id},
+		PRODUCT_ID = #{product_id},
+		TITLE = #{title},
+		CONTENT = #{content}
+		CREATED_AT = #{created_at}
+		CHILD_ID = #{child_id}
+		IMAGE_GROUP_ID = #{image_group_id}
+		SALE_ID = #{sale_id}
+		WHERE ID = #{id}
+   </update>
+   
+   <update id="deleteProc" parameterType="QnaDTO">
+	UPDATE QNA SET STATE = 'D'
+	WHERE ID = #{id}
+   </update>
 	
 </mapper>

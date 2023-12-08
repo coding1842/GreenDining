@@ -36,8 +36,11 @@ public interface UserService
 
 	List<QnaDTO> selectQnaList(QnaDTO qna);
 
-	int deleteQna(QnaDTO qnaDTO);
+	QnaDTO selectQnaDetail(int qna_id);
 
+	int updateQna(QnaDTO qnaDTO);
+
+	int deleteQna(QnaDTO qnaDTO);
 
 	
 

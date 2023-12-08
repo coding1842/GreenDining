@@ -85,11 +85,21 @@ public class UserServiceImpl implements UserService
 		return userDao.selectQnaList(qnaDTO);
 	}
 
+
+	@Override
+	public QnaDTO selectQnaDetail(int qna_id) {
+		return userDao.selectQnaDetail(qna_id);
+	}
+
+	@Override
+	public int updateQna(QnaDTO qnaDTO) {
+		return userDao.updateQna(qnaDTO);
+	}
+
 	@Override
 	public int deleteQna(QnaDTO qnaDTO) {
 		return userDao.deleteQna(qnaDTO);
 	}
-
 	
 
         @Override

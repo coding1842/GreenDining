@@ -460,7 +460,6 @@ public class UserController
 			 					QnaDTO qnaDTO)
 	 {
 		 String url = "/item/" + req.getParameter("sale_id");
-//		 int id = reviewDTO.getSale_id();
 		 try {
 			 int id = Integer.valueOf(qnaDTO.getSale_id());
 			 if(image_group_id != 0)
@@ -478,7 +477,6 @@ public class UserController
 	 @GetMapping("/qna/list")
 		public String qnaList(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session, QnaDTO qnaDTO)
 		{
-//			String main = "smartstore/view/SaleDetail";
 			String url = "";
 			List<QnaDTO> qnaDTOList = new ArrayList<>();
 			
@@ -486,7 +484,6 @@ public class UserController
 			{
 				QnaDTO qna = new QnaDTO();
 				qna.setSale_id(sale_id);
-//				review.setId(Integer.parseInt(authService.getCurrentUser(session).getId()));
 				qna.setUser_id(authService.getCurrentUser(session).getId());
 				qnaDTOList = userService.selectQnaList(qna);
 				url = "forward:/item/" + sale_id;
@@ -499,7 +496,6 @@ public class UserController
 			
 			model.addAttribute("qnaDTOList", qnaDTOList);
 			model.addAttribute("sale_id", sale_id);
-//			model.addAttribute("main",main);
 			return url;
 		}
 	 
@@ -516,21 +512,86 @@ public class UserController
      	return "Index";
      }
 	 
-	 @PostMapping("/qna/delete")
-	 public String qnaDelete(HttpSession session, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
-		 String url = null;
-		 int r = 0;
+		
+	  @GetMapping("/qna/detail") public String qnaDetailForm(@RequestParam int qna_id, HttpServletRequest req, HttpServletResponse res, Model model) { 
+		  
+		HttpSession session = req.getSession(); 
+		UserDTO custom = (UserDTO)
+		session.getAttribute("ssKey");
+		String main = "user/form/QnaDetailForm";
+		
+		QnaDTO qnaDTO = userService.selectQnaDetail(qna_id);
+	  
+	
+	  model.addAttribute("sskey", custom); 
+	  model.addAttribute("main",main);
+	  model.addAttribute("qna",qnaDTO); 
+	  
+	  
+	  return "Index"; 
+	  }
 		 
-		 RoleStatus status = authService.checkRoleStatus(session);
-		 if(status == RoleStatus.USER) {
-			 r = userService.deleteQna(qnaDTO);
-			 url = "redirect:/item/" + qnaDTO.getSale_id();
-		 } else {
-			 url = "redirect:/auth/login";
+	 @RequestMapping("/qnaProc")
+	 public String qnaProc(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
+		 String flag = req.getParameter("flag");
+		 HttpSession session = req.getSession();
+		 String contentsJsp = null;
+		 String page = null;
+		 
+		 QnaDTO qnaDto = (QnaDTO) session.getAttribute("ssKey");
+		 if(qnaDto != null && qnaDto.getUser_id() == authService.getCurrentUser(session).getId()) {
+			 String msg = null;
+			 String url = null;
+			 
+			 switch (flag) {
+			 case "update": {
+				 page = "MsgPage";
+				 int r = userService.updateQna(qnaDTO);
+				 if(r>0) msg = "수정이 완료되었습니다.";
+				 else msg = "수정을 실패했습니다.";
+				 url = "item/" + sale_id;
+				 break;
+			 }
+			 case "delete": {
+				 page = "MsgPage";
+                 int r = userService.deleteQna(qnaDTO);
+                 if(r>0) msg = "삭제가 완료되었습니다.";
+                 else msg = "삭제를 실패했습니다.";
+                 url = "item/" + sale_id;
+                 break;
+			 }
+			 }
+			 url = "redirect:/item/" + sale_id;
+			 if(url != null) model.addAttribute("url", url);
+			 if(msg != null) model.addAttribute("msg", msg);
 		 }
+		 else {
+			 page = "redirect:/auth/login";
+			 contentsJsp = "";
+		 }
+		 session.setAttribute("ssKey", qnaDto);
+		 model.addAttribute("contentsJsp", contentsJsp);
 		 
-		 return url;
+		 
+		 return page;
 	 }
+	  
+	  
+//	 @PostMapping("/qna/delete")
+//	 public String qnaDelete(HttpSession session, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
+//		 String url = null;
+//		 int r = 0;
+//		 
+//		 RoleStatus status = authService.checkRoleStatus(session);
+//		 if(status == RoleStatus.USER) {
+//			 r = userService.deleteQna(qnaDTO);
+//			 url = "redirect:/item/" + qnaDTO.getSale_id();
+//		 } else {
+//			 url = "redirect:/auth/login";
+//		 }
+//		 
+//		 return url;
+//	 }
 	
 }
 

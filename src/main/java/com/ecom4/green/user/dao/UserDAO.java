@@ -40,7 +40,13 @@ public interface UserDAO
 
 	List<QnaDTO> selectQnaList(QnaDTO qnaDTO);
 
+	QnaDTO selectQnaDetail(@Param("id") int qna_id);
+
+	int updateQna(QnaDTO qnaDTO);
+
 	int deleteQna(QnaDTO qnaDTO);
+	
+	
 
 
         AddressDTO selectAddress(@Param("map") Map<String, Object> map);
