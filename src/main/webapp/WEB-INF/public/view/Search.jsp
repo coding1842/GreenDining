@@ -26,26 +26,26 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <button class="bg-white" @click="resetFilters"><span class="fs-16px material-symbols-outlined align-middle"> restart_alt </span>전체해제</button>
       </div>
       <!-- ! 배송 옵션 -->
-      <div id="delivery_option" class="d-flex flex-column mt-2">
+      <div id="delivery_option" class="d-flex flex-column mt-2 w-100">
         <label><input type="checkbox" name="s_addr" value="오늘출발" v-model="filters.delivery" /> 오늘출발</label>
         <label><input type="checkbox" name="s_addr" value="무료배송" v-model="filters.delivery" /> 무료배송</label>
       </div>
       <!-- ! 보관방법 옵션 -->
-      <div id="keep_option" class="d-flex flex-column">
+      <div id="keep_option" class="d-flex flex-column w-100">
         <h6 class="fw-bold">보관방법</h6>
         <label><input type="checkbox" name="s_addr" value="냉동" v-model="filters.keep" /> 냉동</label>
         <label><input type="checkbox" name="s_addr" value="냉장" v-model="filters.keep" /> 냉장</label>
         <label><input type="checkbox" name="s_addr" value="실온" v-model="filters.keep" /> 실온</label>
       </div>
       <!-- ! 브랜드 옵션 -->
-      <div id="brand_option" class="d-flex flex-column">
+      <div id="brand_option" class="d-flex flex-column w-100">
         <h6 class="fw-bold">브랜드</h6>
         <label><input type="checkbox" name="s_addr" value="풀무원" v-model="filters.brand" /> 풀무원</label>
         <label><input type="checkbox" name="s_addr" value="그리닝 스텐다드" v-model="filters.brand" /> 그리닝 스텐다드</label>
         <label><input type="checkbox" name="s_addr" value="안성 인삼조합" v-model="filters.brand" /> 안성 인삼조합</label>
       </div>
       <!-- ! 중량 옵션 -->
-      <div id="weight_option" class="d-flex flex-column">
+      <div id="weight_option" class="d-flex flex-column w-100">
         <h6 class="fw-bold">총 중량</h6>
         <label><input type="checkbox" name="s_addr" value="500g 이하" v-model="filters.weight" /> 500g 이하</label>
         <label><input type="checkbox" name="s_addr" value="500g~1kg" v-model="filters.weight" /> 500g~1kg</label>
@@ -55,7 +55,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <label><input type="checkbox" name="s_addr" value="10kg 이상" v-model="filters.weight" /> 10kg 이상</label>
       </div>
       <!-- ! 별점 옵션 -->
-      <div id="star_option" class="d-flex flex-column">
+      <div id="star_option" class="d-flex flex-column w-100">
         <h6 class="fw-bold">별점</h6>
         <label><span>별점 전체</span></label>
         <label><span>별점 4점 이상</span></label>

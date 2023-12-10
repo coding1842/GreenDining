@@ -23,6 +23,7 @@ public class OrdersDTO
         private String created_at;
         private String transaction_id;
         private String payment;
+        
         // NO DB
         private int total_price;
         private int discount_price;

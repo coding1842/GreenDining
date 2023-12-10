@@ -88,7 +88,7 @@
 		</c:choose>
 		<div style="text-align: center;">
 		<div style="display: inline-block;">
-				<button onclick="location.href='/user/address'" type="button" style="border: 1px solid #eaeaea;
+				<button onclick="location.href='/address/form'" type="button" style="border: 1px solid #eaeaea;
 						background-color: white; width: 150px; font-size: 20px; margin-top: 20px;">주소 등록하기</button>
 		</div>
 		</div>

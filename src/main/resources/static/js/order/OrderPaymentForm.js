@@ -41,6 +41,12 @@ $(function () {
       return false;
     }
   });
+
+  $("#address_change_btn").click(function (e) {
+    let popupOption = "width = 550px, height = 650px, top=300px,left=500px,scrollbars=yes";
+    let url = "/address/popup/list";
+    window.open(url, "배송지 선택", popupOption);
+  });
 });
 
 function checkOrderTotal() {

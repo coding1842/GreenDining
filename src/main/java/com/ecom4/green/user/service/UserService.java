@@ -1,6 +1,7 @@
 package com.ecom4.green.user.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
@@ -9,30 +10,28 @@ import com.ecom4.green.user.dto.CartDTO;
 
 public interface UserService
 {
-	void insertAddress(AddressDTO addressDTO) throws Exception;
+        void insertAddress(AddressDTO addressDTO);
 
-	List<AddressDTO> selectAddressList(String id);
+        List<AddressDTO> selectAddressList(String id);
 
-	int updateAddress(AddressDTO addressDTO);
+        int updateAddress(AddressDTO addressDTO);
 
-	int deleteAddress(AddressDTO addressDTO);
-	
-	//review
-	int insertReview(ReviewDTO reviewDTO);
+        int deleteAddress(AddressDTO addressDTO);
 
-//	List<ReviewDTO> selectReviewList(int sale_id);
-	List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO);
+        //review
+        int insertReview(ReviewDTO reviewDTO);
 
-	int updateReview(ReviewDTO reviewDTO);
+        //	List<ReviewDTO> selectReviewList(int sale_id);
+        List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO);
 
-	int deleteReview(ReviewDTO reviewDTO);
+        int updateReview(ReviewDTO reviewDTO);
 
-	UserDTO getOrderUser(String userId);
+        int deleteReview(ReviewDTO reviewDTO);
 
-	AddressDTO getOrderAddress(String userId);
+        UserDTO getOrderUser(String userId);
 
-
-	
+        AddressDTO getOrderAddress(String userId);
 
 
+        AddressDTO selectAddress(Map<String, Object> map);
 }

@@ -42,7 +42,9 @@ $(function () {
 
     checkTotal();
   });
-
+  $("#sale_product_select .dropdown-item.sold_out").click(function (e) {
+    alert("품절된 상품은 주문할 수 없습니다.");
+  });
   $("#sale_product_select .dropdown-item.main_type").click(function (e) {
     var product_id = $(this).find(".product_id").val();
     var duplication = false;

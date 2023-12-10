@@ -20,7 +20,7 @@ import java.util.List;
 @ToString
 public class SaleDTO
 {
-        private  int id;
+        private int id;
         private String title;
         private String content;
         private String status;
@@ -34,11 +34,14 @@ public class SaleDTO
         private int category_code;
         private int region_code;
 
-//        DB없는 필드
+        //        판매량
+        private int total_rate;
+
+        //        DB없는 필드
         private String image_path;
         private int min_price;
         private String store_name;
         private List<String> image_group_path;
-        
-        
+
+
 }

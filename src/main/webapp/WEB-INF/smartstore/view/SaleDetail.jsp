@@ -70,6 +70,8 @@
             </button>
             <ul class="dropdown-menu border-1 rounded-0 w-100">
               <c:forEach var="sale_product" items="${saleProductList_MAIN}" varStatus="i">
+                <c:choose>
+                <c:when test="${sale_product.stock > 0}">             
                 <li>
                   <div class="dropdown-item main_type">
                     <span class="selected_name">${sale_product.name}
@@ -91,6 +93,31 @@
                     <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
                   </div>
                 </li>
+                </c:when>   
+                <c:when test="${sale_product.stock <= 0}">
+                  <li>
+                  <div class="dropdown-item sold_out">
+                    <span class="selected_name text-secondary">${sale_product.name} - 품절
+                      <br>
+                      <input type="number" class="checked_quantity visually-hidden w-25" name="cartDTOList[].quantity" value="1" min="1" id="">
+                      <span class="float-end selected_price visually-hidden">
+                        <input type="hidden" name="cartDTOList[].name" value="${sale_product.name}">
+                        <input type="hidden" name="cartDTOList[].before_price" class="before_price" value="${sale_product.before_price}"/>
+                        <input type="hidden" name="cartDTOList[].after_price" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
+                         <input type="hidden" class="total_price" value="${sale_product.before_price*(1-sale.discount/100)}">
+                        <span class="total_price_text">
+                          <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원                          
+                        </span> 
+                          <span class="sale_product_delete material-symbols-outlined">close</span>
+                      </span>
+                    </span>
+                    <input type="hidden" class="product_id" name="cartDTOList[].product_id" value="${sale_product.product_id}">
+                    <input type="hidden" name="cartDTOList[].sale_id" value="${sale_product.sale_id}">
+                    <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
+                  </div>
+                </li>
+                </c:when>
+                </c:choose>
               </c:forEach>
             </ul>
 
@@ -104,7 +131,32 @@
             </button>
             <ul class="dropdown-menu border-1 rounded-0 w-100">
               <c:forEach var="sale_product" items="${saleProductList_SUB}" varStatus="i">
+                <c:choose>
+                <c:when test="${sale_product.stock > 0}">
                <li>
+                  <div class="dropdown-item sub_type">
+                    <span class="selected_name text-secondary">${sale_product.name} - 품절
+                      <br>
+                      <input type="number" class="checked_quantity visually-hidden w-25" name="cartDTOList[].quantity" value="1" min="1" id="">
+                      <span class="float-end selected_price visually-hidden">
+                        <input type="hidden" name="cartDTOList[].name" value="${sale_product.name}">
+                        <input type="hidden" name="cartDTOList[].before_price" class="before_price" value="${sale_product.before_price}"/>
+                        <input type="hidden" name="cartDTOList[].after_price" class="after_price" value="${sale_product.before_price*(1-sale.discount/100)}" name="">
+                         <input type="hidden" class="total_price" value="${sale_product.before_price*(1-sale.discount/100)}">
+                        <span class="total_price_text">
+                          <fmt:formatNumber value="${sale_product.before_price*(1-sale.discount/100)}" pattern="#,##0" />원
+                        </span> 
+                        <span class="sale_product_delete material-symbols-outlined">close</span>
+                      </span>
+                    </span>
+                    <input type="hidden" class="product_id" name="cartDTOList[].product_id" value="${sale_product.product_id}">
+                    <input type="hidden" name="cartDTOList[].sale_id" value="${sale_product.sale_id}">
+                    <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
+                  </div>
+                </li>
+                </c:when>
+                <c:when test="${sale_product.stock <= 0}">
+                <li>
                   <div class="dropdown-item sub_type">
                     <span class="selected_name">${sale_product.name}
                       <br>
@@ -125,6 +177,9 @@
                     <input type="hidden" name="cartDTOList[].store_name" value="${sale.store_name}">
                   </div>
                 </li>
+                </c:when>
+                </c:choose>
+
               </c:forEach>
             </ul>
           </div>

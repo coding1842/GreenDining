@@ -42,12 +42,12 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
           </form>
         </div>
         <div id="icons" class="fs-5 position-absolute end-0 w-300px d-flex align-items-end flex-row-reverse">
-          <a href="/cart/list">
+          <a href="/cart/list" class="m-0">
             <div class="d-flex align-items-center h-40px">
               <img src="/icon/image__header-cart.svg" alt="" />
             </div>
           </a>
-          <a href="/auth/login">
+          <a href="/auth/login" class="m-0">
             <div class="d-flex align-items-center h-40px">
               <img src="/icon/image__header-mypage.svg" alt="" srcset="" />
             </div>

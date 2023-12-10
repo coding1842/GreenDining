@@ -6,20 +6,23 @@ import com.ecom4.green.constant.RoleStatus;
 import com.ecom4.green.merchant.dto.MerchantDTO;
 import com.ecom4.green.user.dto.UserDTO;
 
-public interface AuthService {
+public interface AuthService
+{
 
-	int signUpUser(UserDTO userDto) throws Exception;
+        int signUpUser(UserDTO userDto) throws Exception;
 
-	int idCheck(String id);
+        int idCheck(String id);
 
-	UserDTO getUser(UserDTO udto);
+        UserDTO getUser(UserDTO udto);
 
-	 RoleStatus checkRoleStatus(HttpSession session);
-	 
-     UserDTO getCurrentUser(HttpSession session);
+        RoleStatus checkRoleStatus(HttpSession session);
 
-	int signUpBusiness(UserDTO userDto, MerchantDTO merchantDto);
+        UserDTO getCurrentUser(HttpSession session);
 
-	
+        int signUpBusiness(UserDTO userDto, MerchantDTO merchantDto);
 
+
+        String selectSalt(UserDTO userDto);
+
+        int phoneCheck(String phone);
 }

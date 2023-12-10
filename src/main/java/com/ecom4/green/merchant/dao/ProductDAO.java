@@ -14,22 +14,25 @@ import com.ecom4.green.merchant.dto.SaleDTO;
 public interface ProductDAO
 {
 
-	int insertProduct(ProductDTO productDTO);
+        int insertProduct(ProductDTO productDTO);
 
-	int updateProduct(ProductDTO productDTO);
+        int updateProduct(ProductDTO productDTO);
 
 //	int deleteProduct(@Param("id") int productID);
 
-	ProductDTO getProduct(@Param("id") int productID);
+        ProductDTO getProduct(@Param("id") int productID);
 
-	List<ProductDTO> getProductPage(RequestPageList<?> requestPageList);
+        List<ProductDTO> getProductPage(RequestPageList<?> requestPageList);
 
-	int getProductListCount(@Param("map") Map<String, Object> dataMap);
+        int getProductListCount(@Param("map") Map<String, Object> dataMap);
 
-    List<ProductDTO> getProductList(@Param("merchant_id") String merchant_id);
+        List<ProductDTO> getProductList(@Param("merchant_id") String merchant_id);
 
-	int deleteProduct(ProductDTO productDTO);
-	int getProductPrice(int product_id);
-	
-	String selectImagePath(int product_id);
+        int deleteProduct(ProductDTO productDTO);
+
+        int getProductPrice(int product_id);
+
+        String selectImagePath(int product_id);
+
+        void updateStock(@Param("map") Map<String, Object> hashMap);
 }
