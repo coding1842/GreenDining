@@ -70,7 +70,7 @@
                   </span>
                 </div>
                 <div class="fw-bold mb-2 float-start border-0 border-white h-100" style="width: calc(100% - 50px)">
-                  <input type="text" placeholder="휴대폰 번호" name="phone" class="w-100 h-100" value="${address.phone}" />
+                  <input type="tel" placeholder="휴대폰 번호" name="phone" class="w-100 h-100" value="${address.phone}" />
                 </div>
               </div>
               <div id="icon_request_input" class="h-100px">
