@@ -5,8 +5,10 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
+import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
+import com.ecom4.green.user.dto.AddressDTO;
 
 public interface OrdersService
 {
@@ -20,6 +22,27 @@ public interface OrdersService
 
         int countInDelivery(String userId);
 
+	Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap);
+
+	AddressDTO getUserAddress(int address_id);
+
+	ProductDTO getProductByOrderId(int id);
+
+	Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap);
+
+	String getStoreNameByMerchantId(String merchantId);
+
+	int updateDelivery(OrdersDTO ordersDTO);
+
+
+	int deleteDelivery(List<OrdersDTO> orders);
+
+	int countOrdersByStatus(Map<String, Object> params);
+
+
+
+	
+	
 
         int insertOrder(String userId, int addressId);
 
