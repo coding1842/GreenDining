@@ -21,7 +21,6 @@ import com.ecom4.green.merchant.service.ProductService;
 import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
-import com.ecom4.green.order.service.OrderService;
 import com.ecom4.green.order.service.OrdersService;
 import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.CartDTO;
@@ -55,9 +54,6 @@ public class MerchantController {
         
         @Autowired
         OrdersService ordersService;
-        
-        @Autowired
-        OrderService orderService;
         
         @Autowired
         UserService userService;
