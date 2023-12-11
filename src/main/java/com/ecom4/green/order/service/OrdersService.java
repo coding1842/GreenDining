@@ -53,6 +53,25 @@ public interface OrdersService
         void updateOrderTransactionId(Map<String, Object> orderMap);
 
         int getOrderMaxId();
+	Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap);
 
         void cancelOrder(int orderId);
+	AddressDTO getUserAddress(int address_id);
+
+	ProductDTO getProductByOrderId(int id);
+
+	Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap);
+
+	String getStoreNameByMerchantId(String merchantId);
+
+	int updateDelivery(OrdersDTO ordersDTO);
+
+
+	int deleteDelivery(List<OrdersDTO> orders);
+
+	int countOrdersByStatus(Map<String, Object> params);
+
+	int insertOrder(String userId, int addressId);
+
+	int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
 }

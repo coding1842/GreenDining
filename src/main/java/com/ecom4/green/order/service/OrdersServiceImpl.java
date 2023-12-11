@@ -29,6 +29,18 @@ public class OrdersServiceImpl implements OrdersService
 	@Autowired
     private SqlSessionTemplate sqlSession;
 	
+	@Autowired
+	SaleDAO saleDAO;
+	
+	@Autowired
+	ImgurDAO imgurDAO;
+	
+	@Autowired
+	OrdersDAO ordersDAO;
+
+	@Autowired
+    private SqlSessionTemplate sqlSession;
+	
 	@Override
 	public Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap) {
 		
@@ -227,6 +239,72 @@ public class OrdersServiceImpl implements OrdersService
         {
 	      ordersDAO.cancelOrder(orderId);
         }
+
+	@Override
+	public Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap) {
+		RequestPageList<?> requestPageList = RequestPageList.builder()
+				.data(dataMap)
+				.pageable((Pageable)dataMap.get("pageable"))
+				.build();
+		
+		List<OrdersDTO> content = ordersDAO.getOrdersPage(requestPageList);
+		int total = ordersDAO.getOrdersCount(dataMap);
+		
+		return new PageImpl<>(content,(Pageable)dataMap.get("pageable"), total);
+	
+	}
+
+	@Override
+	public AddressDTO getUserAddress(int address_id) {
+		// TODO Auto-generated method stub
+		return ordersDAO.getUserAddress(address_id);
+	}
+
+	@Override
+	public ProductDTO getProductByOrderId(int id) {
+		// TODO Auto-generated method stub
+		return ordersDAO.getProductByOrderId(id);
+	}
+
+	@Override
+	public Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap) {
+		 RequestPageList<?> requestPageList = RequestPageList.builder()
+                 .data(dataMap)
+                 .pageable((Pageable)dataMap.get("pageable"))
+                 .build();
+
+     List<OrdersDTO> content = ordersDAO.getMOrdersPage(requestPageList);
+     int total = ordersDAO.getMOrdersListCount(dataMap);
+
+     return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
+	}
+
+	@Override
+	public String getStoreNameByMerchantId(String merchantId) {
+		return ordersDAO.getStoreNameByMerchantId(merchantId);
+	}
+
+	@Override
+	public int updateDelivery(OrdersDTO ordersDTO) {
+		return ordersDAO.updateDelivery(ordersDTO);
+	}
+
+
+	@Override
+	public int deleteDelivery(List<OrdersDTO> orders) {
+	    int count = 0;
+	    for (OrdersDTO order : orders) {
+	        sqlSession.delete("deleteOrderItem", order);
+	        sqlSession.delete("deleteOrder", order);
+	        count++;
+	    }
+	    return count;
+	}
+
+	@Override
+	public int countOrdersByStatus(Map<String, Object> params) {
+		return ordersDAO.countOrdersByStatus(params);
+	}
 }
 	
 	
