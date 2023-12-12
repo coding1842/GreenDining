@@ -58,11 +58,6 @@ public interface OrdersDAO
 
 
 
-	String getStoreNameByMerchantId(String merchantId);
-
-	int updateDelivery(OrdersDTO ordersDTO);
-
-	int countOrdersByStatus(Map<String, Object> params);
 
 
 

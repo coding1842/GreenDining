@@ -10,6 +10,7 @@ import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
+import com.ecom4.green.user.dto.QnaDTO;
 @Mapper
 public interface UserDAO
 {
@@ -25,8 +26,7 @@ public interface UserDAO
 	//review
 	int insertReview(ReviewDTO reviewDTO);
 
-        //review
-        int insertReview(ReviewDTO reviewDTO);
+
 
         //	List<ReviewDTO> selectReviewList(int id);
         List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO);
@@ -52,4 +52,10 @@ public interface UserDAO
 
 
         AddressDTO selectAddress(@Param("map") Map<String, Object> map);
+
+		UserDTO getOrderUser(String userId);
+
+		AddressDTO getOrderAddress(@Param("address_id") int address_id);
+
+		int getAddressIdByOrderId(@Param("order_id") int order_id);
 }

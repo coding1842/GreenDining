@@ -129,9 +129,15 @@
         where id = #{map.address_id}
         and user_id = #{map.user_id}
     </select>
-
-	 <select id="getOrderAddress" parameterType="String" resultType="AddressDTO">
-	    SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name FROM address WHERE "USER_ID" = #{value}
+	<select id="getAddressIdByOrderId" parameterType="int" resultType="int">
+		select address_id
+		from orders
+		where id = #{order_id}
+	</select>
+	 <select id="getOrderAddress" parameterType="int" resultType="AddressDTO">
+	    SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name 
+	    FROM address 
+	    WHERE id = #{address_id}
 	</select>
 	
 	<!-- qna -->

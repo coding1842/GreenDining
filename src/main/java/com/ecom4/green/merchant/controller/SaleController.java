@@ -64,9 +64,6 @@ public class SaleController
         UserService userService;
 
         @Autowired
-        UserService userService;
-
-        @Autowired
         ProductService productService;
         
         @Autowired

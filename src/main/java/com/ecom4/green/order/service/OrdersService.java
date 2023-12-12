@@ -14,13 +14,13 @@ public interface OrdersService
 {
 
 
-        Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap);
+    Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap);
 
-        List<OrderItemDTO> getOrderItemList(int order_id);
+    List<OrderItemDTO> getOrderItemList(int order_id);
 
-        OrdersDTO getOrderDetail(int order_id);
+    OrdersDTO getOrderDetail(int order_id);
 
-        int countInDelivery(String userId);
+    int countInDelivery(String userId);
 
 	Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap);
 
@@ -34,42 +34,17 @@ public interface OrdersService
 
 	int updateDelivery(OrdersDTO ordersDTO);
 
-
 	int deleteDelivery(List<OrdersDTO> orders);
 
 	int countOrdersByStatus(Map<String, Object> params);
 
+	void deleteOrder(int orderId);
 
+    void updateOrderTransactionId(Map<String, Object> orderMap);
 
-	
-	
+    int getOrderMaxId();
 
-        int insertOrder(String userId, int addressId);
-
-        int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
-
-        void deleteOrder(int orderId);
-
-        void updateOrderTransactionId(Map<String, Object> orderMap);
-
-        int getOrderMaxId();
-	Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap);
-
-        void cancelOrder(int orderId);
-	AddressDTO getUserAddress(int address_id);
-
-	ProductDTO getProductByOrderId(int id);
-
-	Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap);
-
-	String getStoreNameByMerchantId(String merchantId);
-
-	int updateDelivery(OrdersDTO ordersDTO);
-
-
-	int deleteDelivery(List<OrdersDTO> orders);
-
-	int countOrdersByStatus(Map<String, Object> params);
+    void cancelOrder(int orderId);
 
 	int insertOrder(String userId, int addressId);
 

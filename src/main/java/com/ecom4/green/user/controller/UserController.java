@@ -122,7 +122,7 @@ public class UserController
 
 
 		    userDTO = userService.getOrderUser(ssKey.getId());
-		    addressDTO = userService.getOrderAddress(ssKey.getId());
+		    addressDTO = userService.getOrderAddress(order_id);
 		    main = "user/view/OrderDetail";
 
 		    int inDeliveryCount = ordersService.countInDelivery(ssKey.getId());
@@ -186,12 +186,12 @@ public class UserController
 //     	return "Index";
 //     }	 
 
-		String main = "user/form/AddressForm";
-		
-		model.addAttribute("main", main);
-		
-		return "Index";
-	}
+//		String main = "user/form/AddressForm";
+//		
+//		model.addAttribute("main", main);
+//		
+//		return "Index";
+//	}
 	
 	@PostMapping("/insertAddress")
 	public String insertAddress(HttpServletRequest request,
@@ -408,38 +408,6 @@ public class UserController
 	      return new ResponseEntity<>("정상적으로 리뷰 정보가 삭제 되었습니다.", HttpStatus.OK);
         }
 
-        @PostMapping("/my-page/order/{order_id}/retuen")
-        public String returnProductFrom(HttpServletRequest req, HttpServletResponse res, Model model)
-        {
-	      String main = "/user/form/ReturnProductForm";
-	      model.addAttribute("main", main);
-	      return "index";
-        }
-
-	 
-	 @PostMapping("/update/review")
-	 public ResponseEntity<String> updateReview(ReviewDTO reviewDTO)
-	 {
-		 	int r = userService.updateReview(reviewDTO);
-	        
-	        if(r < 1)
-	        {
-	        	return new ResponseEntity<>("리뷰 정보 수정 실패. 다시 수정 해주십시오",HttpStatus.BAD_REQUEST);
-	        }
-	        return new ResponseEntity<>("정상적으로 리뷰 정보가 수정 되었습니다.", HttpStatus.OK);
-	    }
-	 
-	 @PostMapping("/delete/review")
-	 public ResponseEntity<String> deleteReiew( HttpServletRequest req, HttpServletResponse res, ReviewDTO reviewDTO)
-	 {
-		 	int r = userService.deleteReview(reviewDTO);
-	        
-	        if(r < 1)
-	        {
-	        	return new ResponseEntity<>("리뷰 정보 삭제 실패. 다시 삭제 해주십시오",HttpStatus.BAD_REQUEST);
-	        }
-	        return new ResponseEntity<>("정상적으로 리뷰 정보가 삭제 되었습니다.", HttpStatus.OK);
-	 }
 	 
 	 @PostMapping("/my-page/order/{order_id}/retuen")
 	 public String returnProductFrom(HttpServletRequest req, HttpServletResponse res, Model model)

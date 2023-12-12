@@ -158,7 +158,7 @@
 		  		</c:forEach>
 		  			<div class="pagination">
 					  <div class="size-selector">
-					    <select id="size" onchange="changeSize()">
+					    <select id="size" onchange="changeSize()" value="5">
 					      <option value="5">5</option>
 					      <option value="10">10</option>
 					      <option value="20">20</option>

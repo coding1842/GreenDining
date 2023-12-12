@@ -47,4 +47,6 @@ public interface UserService
 	
 
         AddressDTO selectAddress(Map<String, Object> map);
+
+		AddressDTO getOrderAddress(int order_id);
 }

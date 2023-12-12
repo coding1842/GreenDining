@@ -23,17 +23,13 @@ public class OrdersDTO
 	private String transaction_id;
 	private String payment;
 	private String merchant_id;
-	//
-	private int order_id;
 	
-        private String created_at;
-        private String transaction_id;
-        private String payment;
         
-        // NO DB
-        private int total_price;
-        private int discount_price;
-        private int payment_price;
-
+    // NO DB
+    private int total_price;
+    private int discount_price;
+    private int payment_price;
+    private int order_id;
+    private String created_at;
 
 }

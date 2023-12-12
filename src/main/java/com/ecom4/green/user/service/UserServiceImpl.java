@@ -25,35 +25,19 @@ public class UserServiceImpl implements UserService
 	QnaDTO qnaDTO;
 	
 	@Override
-	public void insertAddress(AddressDTO addressDTO) throws Exception {
+	public void insertAddress(AddressDTO addressDTO) {
 		int r = userDao.insertAddress(addressDTO);
 		
-		if(r < 1)
-		{
-			throw new Exception("주소가 정상적으로 삽입 되지 않았습니다.");
-		}
 		
 	}
 
-
-        @Override
-        public void insertAddress(AddressDTO addressDTO)
-        {
-	      int r = userDao.insertAddress(addressDTO);
-
-	@Override
-	public int deleteAddress(AddressDTO addressDTO) {
-		return userDao.deleteAddress(addressDTO);
-	}
-	
-	
 	//review ----------------------------------------------------
 	@Override
 	public int insertReview(ReviewDTO reviewDTO) {
 		return userDao.insertReview(reviewDTO);
 	}
 
-        }
+        
 
         @Override
         public List<AddressDTO> selectAddressList(String id)
@@ -134,18 +118,20 @@ public class UserServiceImpl implements UserService
 	      return userDao.getOrderUser(userId);
         }
 
-        @Override
-        public AddressDTO getOrderAddress(String userId)
-        {
-	      // TODO Auto-generated method stub
-	      return null;
-        }
+      
 
         @Override
         public AddressDTO selectAddress(Map<String, Object> map)
         {
 	      return userDao.selectAddress(map);
         }
+
+		@Override
+		public AddressDTO getOrderAddress(int order_id) {
+			// TODO Auto-generated method stub
+			int address_id = userDao.getAddressIdByOrderId(order_id);
+			return userDao.getOrderAddress(address_id);
+		}
 
 
 }
