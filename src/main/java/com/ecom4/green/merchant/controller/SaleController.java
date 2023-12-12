@@ -8,6 +8,7 @@ import com.ecom4.green.merchant.dto.SaleProductDTO;
 import com.ecom4.green.merchant.service.ProductService;
 import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.merchant.wrapper.SaleForm;
+import com.ecom4.green.user.dto.QnaDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
@@ -61,12 +62,24 @@ public class SaleController
 	      saleProductList_MAIN = saleService.selectSaleProductListMain(sale_id);
 	      saleProductList_SUB = saleService.selectSaleProductListSub(sale_id);
 
-	      model.addAttribute("sale", sale);
-	      model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
-	      model.addAttribute("saleProductList_SUB", saleProductList_SUB);
-	      model.addAttribute("main", main);
-	      model.addAttribute("sale_id", sale_id);
-	      return "Index";
+
+                
+				List<QnaDTO> qnaDTOList = new ArrayList<>();
+				
+				QnaDTO qna = new QnaDTO();
+				qna.setSale_id(sale_id);
+				qnaDTOList = userService.selectQnaList(qna);
+				
+				
+				
+                model.addAttribute("sale",sale);
+                model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
+                model.addAttribute("saleProductList_SUB", saleProductList_SUB);
+                model.addAttribute("main",main);
+                model.addAttribute("sale_id", sale_id);
+             
+                model.addAttribute("qnaDTOList", qnaDTOList);
+                return "Index";
         }
 
         //        권한 - 사업자로 제한

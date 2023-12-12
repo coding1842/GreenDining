@@ -34,12 +34,33 @@ $(document).ready(function () {
   $("#cartOrder").click(function (e) {
     cartProcess();
   });
-});
+  
+
 
 /*체크여부에 따른 종합 정보 변화*/
 $(".individual_cart_checkbox").on("change", function () {
   setTotalInfo($(".cart_info"));
+	});  
+	
+	$("#all_check_input").click(function(){
+		selectAll(this);
+	})
+	
+	$(".individual_cart_checkbox").click(function()
+	{
+		checkSelectAll();
+	})
 });
+
+
+function selectAll(selectAll)  {
+  const checkboxes 
+     = document.getElementsByName('check_box');
+  
+  checkboxes.forEach((checkbox) => {
+    checkbox.checked = selectAll.checked
+  })
+}
 
 function setTotalInfo() {
   let product_price = 0; //상품금액
@@ -64,7 +85,7 @@ function setTotalInfo() {
   $(".order_price_span").text(order_price.toLocaleString());
 
   $(".individual_cart_checkbox").on("change", function () {
-    setTotalInfo();
+
   });
 }
 
@@ -98,4 +119,23 @@ function cartProcess() {
       }
     },
   });
+}
+
+  /* 체크박스 기능*/
+function checkSelectAll()  {
+  // 전체 체크박스
+  const checkboxes 
+    = document.querySelectorAll('input[name="check_box"]');
+  // 선택된 체크박스
+  const checked 
+    = document.querySelectorAll('input[name="check_box"]:checked');
+  // select all 체크박스
+  const selectAll 
+    = document.querySelector('input[name="selectall"]');
+  
+  if(checkboxes.length === checked.length)  {
+    selectAll.checked = true;
+  }else {
+    selectAll.checked = false;
+  }
 }

@@ -35,6 +35,7 @@ import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
 import com.ecom4.green.order.service.OrdersService;
 import com.ecom4.green.user.dto.AddressDTO;
+import com.ecom4.green.user.dto.QnaDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
@@ -184,6 +185,98 @@ public class UserController
 //     	return "Index";
 //     }	 
 
+		String main = "user/form/AddressForm";
+		
+		model.addAttribute("main", main);
+		
+		return "Index";
+	}
+	
+	@PostMapping("/insertAddress")
+	public String insertAddress(HttpServletRequest request,
+							HttpServletResponse response,
+							Model model,
+							AddressDTO addressDTO) 
+	{
+		String url = "redirect:/user/address/list";
+		
+		try {
+			userService.insertAddress(addressDTO);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return url;
+	}
+	
+	@GetMapping("/address/list")
+	public String AddressList(HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session)
+	{
+		String main = "user/view/AddressList";
+		String url = "";
+		List<AddressDTO> addressDTOList = null;
+		
+		if(authService.checkRoleStatus(session) == RoleStatus.USER)
+		{
+		  addressDTOList = userService.selectAddressList(authService.getCurrentUser(session).getId());
+		}
+		else
+		{
+			url = "redirect:/auth/login";
+			return url;
+		}
+		
+		model.addAttribute("addressDTOList",addressDTOList);
+		model.addAttribute("main",main);
+		return "Index";
+	}
+	
+//	@PostMapping("/updateAddress")
+//	public String updateAddress( AddressDTO addressDTO){
+//		
+//		AddressDTO updateAddress = userService.updateAddress(addressDTO);
+//		
+//		return "success";
+//	}
+	
+	 @PostMapping("/update/address")
+	 public ResponseEntity<String> updateAddress(AddressDTO addressDTO)
+	 {
+		 	int r = userService.updateAddress(addressDTO);
+	        
+	        if(r < 1)
+	        {
+	        	return new ResponseEntity<>("배송 정보 수정 실패. 다시 수정 해주십시오",HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>("정상적으로 배송 정보 수정 되었습니다.", HttpStatus.OK);
+	    }
+	 
+	 @PostMapping("/delete/address")
+	 public ResponseEntity<String> deleteAddress( HttpServletRequest req, HttpServletResponse res, AddressDTO addressDTO)
+	 {
+		 	int r = userService.deleteAddress(addressDTO);
+	        
+	        if(r < 1)
+	        {
+	        	return new ResponseEntity<>("배송 정보 삭제 실패. 다시 수정 해주십시오",HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>("정상적으로 배송 정보 삭제 되었습니다.", HttpStatus.OK);
+	 }
+	 
+	 //리뷰는 마이페이지로 가서 리뷰, Q&A 작성할거니까 user에 작성
+	 //REVIEW 컨트롤러
+	 
+	 @GetMapping("/review/write")
+     public String reviewForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
+     {
+     	String main = "user/form/ReviewWriteForm";
+     	
+     	model.addAttribute("main",main);
+     	model.addAttribute("sale_id",sale_id);
+     	return "Index";
+     }	 
+	 
 //	 @RequestMapping("/review")
 //	 public String review(HttpServletRequest req,
 //							HttpServletResponse res,
@@ -324,6 +417,188 @@ public class UserController
 	      return "index";
         }
 
+	 
+	 @PostMapping("/update/review")
+	 public ResponseEntity<String> updateReview(ReviewDTO reviewDTO)
+	 {
+		 	int r = userService.updateReview(reviewDTO);
+	        
+	        if(r < 1)
+	        {
+	        	return new ResponseEntity<>("리뷰 정보 수정 실패. 다시 수정 해주십시오",HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>("정상적으로 리뷰 정보가 수정 되었습니다.", HttpStatus.OK);
+	    }
+	 
+	 @PostMapping("/delete/review")
+	 public ResponseEntity<String> deleteReiew( HttpServletRequest req, HttpServletResponse res, ReviewDTO reviewDTO)
+	 {
+		 	int r = userService.deleteReview(reviewDTO);
+	        
+	        if(r < 1)
+	        {
+	        	return new ResponseEntity<>("리뷰 정보 삭제 실패. 다시 삭제 해주십시오",HttpStatus.BAD_REQUEST);
+	        }
+	        return new ResponseEntity<>("정상적으로 리뷰 정보가 삭제 되었습니다.", HttpStatus.OK);
+	 }
+	 
+	 @PostMapping("/my-page/order/{order_id}/retuen")
+	 public String returnProductFrom(HttpServletRequest req, HttpServletResponse res, Model model)
+	 {
+		 String main = "/user/form/ReturnProductForm";
+		 model.addAttribute("main",main);
+		 return "index";
+	 }
+	 
+	 //QnA-------------------------------------------------------------------------------------------
+	 
+	 @PostMapping("/qna/insert")
+	 public ResponseEntity<?> insertQna(@RequestParam(required=false, defaultValue = "0") int image_group_id,
+			 					HttpServletRequest req,
+			 					HttpServletResponse res,
+			 					Model model,
+			 					QnaDTO qnaDTO)
+	 {
+		 String url = "/item/" + req.getParameter("sale_id");
+		 try {
+			 int id = Integer.valueOf(qnaDTO.getSale_id());
+			 if(image_group_id != 0)
+			 {
+			  qnaDTO.setImage_group_id(image_group_id);
+			 }
+			 int r = userService.insertQna(qnaDTO);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 
+		 return new ResponseEntity<>(url,HttpStatus.OK);
+	 }
+	 
+	 @GetMapping("/qna/list")
+		public String qnaList(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse resp,Model model,HttpSession session, QnaDTO qnaDTO)
+		{
+			String url = "";
+			List<QnaDTO> qnaDTOList = new ArrayList<>();
+			
+			if(authService.checkRoleStatus(session) == RoleStatus.USER)
+			{
+				QnaDTO qna = new QnaDTO();
+				qna.setSale_id(sale_id);
+				qna.setUser_id(authService.getCurrentUser(session).getId());
+				qnaDTOList = userService.selectQnaList(qna);
+				url = "forward:/item/" + sale_id;
+			}
+			else
+			{
+				url = "redirect:/auth/login";
+				return url;
+			}
+			
+			model.addAttribute("qnaDTOList", qnaDTOList);
+			model.addAttribute("sale_id", sale_id);
+			return url;
+		}
+	 
+	 @GetMapping("/qna/write")
+     public String qnaForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
+     {
+		 HttpSession session = req.getSession();
+			UserDTO custom = (UserDTO) session.getAttribute("ssKey"); 
+     	String main = "user/form/QnaWriteForm";
+     	
+     	model.addAttribute("sskey", custom);
+     	model.addAttribute("main",main);
+     	model.addAttribute("sale_id",sale_id);
+     	return "Index";
+     }
+	 
+		
+	  @GetMapping("/qna/detail") public String qnaDetailForm(@RequestParam int qna_id, HttpServletRequest req, HttpServletResponse res, Model model) { 
+		  
+		HttpSession session = req.getSession(); 
+		UserDTO custom = (UserDTO) session.getAttribute("ssKey");
+		String main = "user/form/QnaDetailForm";
+		
+		QnaDTO qnaDTO = userService.selectQnaDetail(qna_id);
+	  
+	
+	  model.addAttribute("sskey", custom); 
+	  model.addAttribute("main",main);
+	  model.addAttribute("qna",qnaDTO); 
+	  
+	  
+	  return "Index"; 
+	  }
+		 
+	 @RequestMapping("/qnaProc")
+	 public String qnaProc(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
+		 String flag = req.getParameter("flag");
+		 HttpSession session = req.getSession();
+		 String contentsJsp = null;
+		 String page = null;
+		 
+		 QnaDTO qnaDto = (QnaDTO) session.getAttribute("ssKey");
+		 if(qnaDto != null && qnaDto.getUser_id() == authService.getCurrentUser(session).getId()) {
+			 String msg = null;
+			 String url = null;
+			 
+			 switch (flag) {
+			 case "update": {
+				 page = "MsgPage";
+				 int r = userService.updateQna(qnaDTO);
+				 if(r>0) msg = "수정이 완료되었습니다.";
+				 else msg = "수정을 실패했습니다.";
+				 url = "item/" + sale_id;
+				 break;
+			 }
+			 case "delete": {
+				 page = "MsgPage";
+                 int r = userService.deleteQna(qnaDTO);
+                 if(r>0) msg = "삭제가 완료되었습니다.";
+                 else msg = "삭제를 실패했습니다.";
+                 url = "item/" + sale_id;
+                 break;
+			 }
+			 }
+			 url = "redirect:/item/" + sale_id;
+			 if(url != null) model.addAttribute("url", url);
+			 if(msg != null) model.addAttribute("msg", msg);
+		 }
+		 else {
+			 page = "redirect:/auth/login";
+			 contentsJsp = "";
+		 }
+		 session.setAttribute("ssKey", qnaDto);
+		 model.addAttribute("contentsJsp", contentsJsp);
+		 
+		 
+		 return page;
+	 }
+	 
+	 @RequestMapping("/qna/qnaUpForm")
+		public String noticeUpForm(HttpServletRequest request, HttpServletResponse response, QnaDTO qnaDto, Model model) {
+			HttpSession session = request.getSession();
+			String main = "user/form/QnaUpForm";
+//			String page = null;
+			UserDTO userDto = (UserDTO) session.getAttribute("ssKey");
+//			main = "user/form/QnaUpForm";
+			
+//			if(userDto!=null && userDto.getRole().equals("USER")) {
+//				page = "Index";
+//				main = "user/form/QnaUpForm";
+//			}else {
+//				page = "Index";
+//				main = "redirect:/auth/login";
+//			}
+			QnaDTO qnaDTO = userService.qnaUp(qnaDto);
+			System.out.println("====="+qnaDto);
+			System.out.println("+++++"+qnaDTO);
+			session.setAttribute("ssKey", userDto);
+			session.setAttribute("qna", qnaDTO);
+			model.addAttribute("main", main);
+			return "Index";
+		}
+	
 }
 
 

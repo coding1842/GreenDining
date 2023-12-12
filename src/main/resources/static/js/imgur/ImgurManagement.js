@@ -55,10 +55,11 @@ function imgurProcess() {
       processData: false, // FormData 객체를 직렬화하지 않음
       contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
       dataType: "text",
-      success: function (resp) {
-        alert(resp.msg);
-        window.location.href = resp.url;
-      },
+      success: function success(resp)
+      {
+		  alert(resp);
+	  	  window.location.href = resp;  
+	  },
     });
   }
 }

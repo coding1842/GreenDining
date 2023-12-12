@@ -263,8 +263,7 @@
         <img alt="상세정보 펼처보기 기능넣기" src="" />
       </div>
 
-      <!-- 리뷰 1 -->
-      <form action="/user/update/review/${sale_id}" method="post">
+      <!-- 리뷰  -->
       	<div class="fingForm" id="2" style="display: none;">
 		        <h4 id="title" class="mt-5">리뷰</h4>
 		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
@@ -274,7 +273,7 @@
 		        <br /><br />
 		      <c:choose>
 		      	<c:when test="${fn:length(reviewDTOList) > 0}">
-	      		<c:forEach var="review" items="${reviewDTOList}" varStatus="index">
+	      		<c:forEach var="review" items="${reviewDTOList}">
 		        <table style="margin:  10px 10px;">
 		          <tr style="border: none">
 		            <th style="border: none">평점</th>
@@ -293,6 +292,7 @@
 		            <td style="border: none">${review.created_at}</td>
 		          </tr>
 		        </table>
+	       		</c:forEach>
 		        <div style="text-align: center; padding: 15px;">
 						<div style="display: inline-block; gap:10px">
 							<button  id="updateReview"
@@ -303,14 +303,8 @@
 							background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 삭제하기</button>
 						</div>
 					</div>
-	       </c:forEach>
         </c:when>
         <c:when test="${fn:length(reviewDTOList) == 0}">
-        	<h4 id="title" class="mt-5">리뷰</h4>
-		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
-		        <p>전체리뷰 수 : '기능'개</p>
-		        <a href="/user/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
-		        	 background-color: skyblue; padding: 3px">상품 리뷰 작성하기</a>
 		        <br /><br />
 		        <table style="">
 		          <tr style="border: none">
@@ -322,70 +316,75 @@
 		            <th style="border: none">작성일</th>
 		          </tr>
 		          <tr>
+		            <td style="border: none">${review.star}</td>
+		            <td style="border: none">${review.title}</td>
+		            <td style="border: none">${review.user_id}</td>
+		            <td style="border: none">${review.content}</td>
+		            <td style="border: none">${review.image_group_id}</td>
+		            <td style="border: none">${review.created_at}</td>
+		          </tr>
+		          <tr>
 		            <td colspan="6" style="border: none">리뷰가 없습니다. 리뷰를 작성해주세요.</td>
 		          </tr>
 		        </table>
         </c:when>
 		</c:choose>
       </div>
-	</form>
 
       <!-- Q&A -->
-      <div class="fingForm" id="3" style="display: none">
-        <h4 id="title" class="mt-5">Q&A</h4>
-        <p style="text-align: center; padding-right: 10px; font-size: 16px">총 질문 수: &nbsp;개</p>
-        <a href="/qnaWriteForm" style="border: solid 1px #dddddd; border-radius: 5px; background-color: skyblue; padding: 3px">상품 Q&A 작성하기</a>
-        <br /><br />
-        <table class="noticelist" style="">
-          <tr style="" class="headcolor">
-            <th>답변상태</th>
-            <th>제목</th>
-            <th>작성자</th>
-            <th>작성일</th>
-          </tr>
-          <!-- Q&A 리스트 받아오기 -->
-          <c:choose>
-            <c:when test="${fn:length(nList)>0}">
-              <c:forEach var="notice" items="${nList}"> 
-              <tr>
-                <td class="co1">${notice.rr}</td> 
-                <td><input type="hidden" value="${notice.noti_no}"></td>
-                <td class="co2"><a href="/noticeDetail?noti_no=${notice.noti_no}">${notice.subject}</a></td>
-                <td class="price">${notice.writer}</td>
-                <td class="co4">${notice.readcount}</td>
-                <td class="co5">${notice.regdate}</td>
-                <td class="co5">${notice.vdate}</td>
-              </tr>
-              </c:forEach>
-            </c:when>
-            <c:when test="${fn:length(nList)==0}">
-              <tr style="text-align: center; height: 30px">
-                <th colspan="5">공지사항이 없습니다.</th>
-              </tr>
-            </c:when>
-          </c:choose>
-          <tr style="text-align: right; height: 50px">
-            <th colspan="6" style="text-align: right; border: 1px solid #ffffff"></th>
-          </tr>
-          <tfoot>
-            <tr>
-              <td colspan="6" style="text-align: center; border: 1px solid #ffffff">
-                <c:if test="${pageDto.startPg>pBlock}">
-                  <a href="notice?curPage=${pageDto.startPg-pBlock}&curBlock=${pageDto.curBlock-1}"> [이전] </a>
-                </c:if>
-                <c:forEach begin="${pageDto.startPg}" end="${pageDto.endPg}" var="p" step="1">
-                  <a href="notice?curPage=${p}&curBlock=${pageDto.curBlock}">
-                    <span><c:out value="${p}"></c:out></span> </a
-                  >&nbsp;&nbsp;
-                </c:forEach>
-                <c:if test="${pageDto.endPg<pageDto.pgCnt}">
-                  <a href="notice?curPage=${pageDto.startPg+pBlock}&curBlock=${pageDto.curBlock+1}"> [다음] </a>
-                </c:if>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+           	<div class="fingForm" id="3" style="display: none;">
+		        <h4 id="title" class="mt-5">Q&A</h4>
+		        <p>작성하신 질문내역입니다. 문의사항이 있다면 질문을 작성해주세요.</p>
+		        <a href="/user/qna/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
+		        	 background-color: skyblue; padding: 3px">상품 질문 작성하기</a>
+		        <br />	
+	
+		        <table style="margin:  10px 10px;">
+		          <tr style="border: none">
+		            <th style="border: none">제목</th>
+		            <th style="border: none">내용</th>
+		            <th style="border: none">작성자</th>
+		            <th style="border: none">이미지</th>
+		            <th style="border: none">작성일</th>
+		            <th style="display: none">아이디</th>
+		      
+		          </tr>
+        	   <c:choose>
+	          	<c:when test="${fn:length(qnaDTOList) > 0}">
+      			<c:forEach var="qna" items="${qnaDTOList}">
+		          <tr>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.title}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.content}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.user_id}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.image_group_id}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.created_at}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="display: none">${qna.id}</td>
+	          	  </tr>
+			   </c:forEach>
+	           </c:when>
+	           <c:when test="${fn:length(qnaDTOList) == 0}">
+	           	  <tr>
+		            <td colspan="6" style="border: none">질문이 없습니다. 문의사항을 작성해주세요.</td>
+		          </tr>
+		        </c:when>
+        		</c:choose>
+		        </table>
+	       	
+		        <div style="text-align: center; padding: 15px;">
+						<div style="display: inline-block; gap:10px">
+							<button  id="updateQna"
+									type="submit" style="border: 1px solid #eaeaea;
+									background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">질문 수정하기</button>
+							<button onclick="controlQna(this,'delete')" id="deleteQna"
+							type="button" style="border: 1px solid #eaeaea;
+							background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">질문 삭제하기</button>
+						</div>
+					</div>
+       
+        
+
       </div>
+      
       <!-- 반품/교환 정보 -->
       <div class="fingForm" id="4" style="display: none">
         <h4 id="title" class="mt-5">반품/교환 정보</h4>
