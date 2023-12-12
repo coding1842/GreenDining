@@ -14,39 +14,42 @@ public interface OrdersService
 {
 
 
-    Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap);
+        Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap);
 
-    List<OrderItemDTO> getOrderItemList(int order_id);
+        List<OrderItemDTO> getOrderItemList(int order_id);
 
-    OrdersDTO getOrderDetail(int order_id);
+        OrdersDTO getOrderDetail(int order_id);
 
-    int countInDelivery(String userId);
+        int countInDelivery(String userId);
 
-	Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap);
+        Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap);
 
-	AddressDTO getUserAddress(int address_id);
+        AddressDTO getUserAddress(int address_id);
 
-	ProductDTO getProductByOrderId(int id);
+        ProductDTO getProductByOrderId(int id);
 
-	Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap);
+        Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap);
 
-	String getStoreNameByMerchantId(String merchantId);
+        String getStoreNameByMerchantId(String merchantId);
 
-	int updateDelivery(OrdersDTO ordersDTO);
+        int updateDelivery(OrdersDTO ordersDTO);
 
-	int deleteDelivery(List<OrdersDTO> orders);
+        int deleteDelivery(List<OrdersDTO> orders);
 
-	int countOrdersByStatus(Map<String, Object> params);
+        int countOrdersByStatus(Map<String, Object> params);
 
-	void deleteOrder(int orderId);
+        void deleteOrder(int orderId);
 
-    void updateOrderTransactionId(Map<String, Object> orderMap);
+        void updateOrderTransactionId(Map<String, Object> orderMap);
 
-    int getOrderMaxId();
+        int getOrderMaxId();
 
-    void cancelOrder(int orderId);
+        void cancelOrder(int orderId);
 
-	int insertOrder(String userId, int addressId);
+        int insertOrder(String userId, int addressId);
 
-	int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
+        int insertOrderItemList(List<OrderItemDTO> orderItemDTOList, int orderId);
+
+
+        OrdersDTO selectLastOrderByUserId(String userId);
 }

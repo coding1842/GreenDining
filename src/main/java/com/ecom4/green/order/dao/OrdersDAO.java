@@ -41,24 +41,21 @@ public interface OrdersDAO
         void updateOrderTransactionId(@Param("map") Map<String, Object> orderMap);
 
         void cancelOrder(@Param("order_id") int orderId);
-	AddressDTO getUserAddress(int address_id);
 
-	ProductDTO getProductByOrderId(int id);
+        AddressDTO getUserAddress(int address_id);
 
-	List<OrdersDTO> getMOrdersPage(RequestPageList<?> requestPageList);
+        ProductDTO getProductByOrderId(int id);
 
-	int getMOrdersListCount(@Param("map") Map<String, Object> dataMap);
+        List<OrdersDTO> getMOrdersPage(RequestPageList<?> requestPageList);
 
-	String getStoreNameByMerchantId(String merchantId);
+        int getMOrdersListCount(@Param("map") Map<String, Object> dataMap);
 
-	int updateDelivery(OrdersDTO ordersDTO);
+        String getStoreNameByMerchantId(String merchantId);
 
-	int countOrdersByStatus(Map<String, Object> params);
+        int updateDelivery(OrdersDTO ordersDTO);
 
-
-
+        int countOrdersByStatus(Map<String, Object> params);
 
 
-
-
+        OrdersDTO selectLastOrderByUserId(@Param("user_id") String userId);
 }
