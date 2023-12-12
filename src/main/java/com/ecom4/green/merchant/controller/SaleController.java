@@ -28,6 +28,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
@@ -170,16 +173,20 @@ public class SaleController
         }
 
         //	상품 등록
+        @ResponseBody
         @PostMapping("/write")
         public Map<String, Object> insertSale(HttpServletRequest req,
 				      HttpServletResponse resp,
-				      Model model, @ModelAttribute SaleForm saleForm, HttpSession session, @RequestParam("image_group_id") int image_group_id)
+				      Model model, @ModelAttribute SaleForm saleForm, HttpSession session, @RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String url = null;
 	      String msg = null;
 	      SaleDTO saleDTO = saleForm.getSaleDTO();
-	      saleDTO.setImage_group_id(image_group_id);
+	     
+    	  saleDTO.setImage_group_id(image_group_id);
+	      
+	     
 	      List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
 
 	      if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
@@ -267,8 +274,9 @@ public class SaleController
 //
 //            return url;
 //        }
+        @ResponseBody
         @PostMapping("/write/{sale-id}")
-        public Map<String, Object> updateSale(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, @ModelAttribute SaleForm saleForm, @PathVariable("sale-id") int sale_id)
+        public ResponseEntity<?> updateSale(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, @ModelAttribute SaleForm saleForm, @PathVariable("sale-id") int sale_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String msg = null;
@@ -287,16 +295,20 @@ public class SaleController
 		    saleService.updateSaleProduct(saleProductDTOList, saleDTO.getId());
 		    msg = "판매글 수정 완료";
 		    url = "/merchant/my-page/item/list";
+		    respMap.put("url", url);
+		      respMap.put("msg", msg);
 	      }
 	      else
 	      {
 		    msg = "사업자 로그인 이후 이용 바랍니다.";
 		    url = "/auth/login";
+		    respMap.put("url", url);
+		    respMap.put("msg", msg);
+		    return new ResponseEntity<>(respMap,HttpStatus.UNAUTHORIZED);
 	      }
 
-	      respMap.put("url", url);
-	      respMap.put("msg", msg);
-	      return respMap;
+	     
+	      return new ResponseEntity<>(respMap,HttpStatus.OK);
         }
 
         //	상품 삭제

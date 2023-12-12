@@ -95,8 +95,8 @@ public class ImgurController
 	      }
 
 
-	      Map<String,String> resp = new HashMap<>();
-	      resp.put("image_group_id", Integer.toString(imgurService.selectMaxGroupId()));
+	      Map<String,Object> resp = new HashMap<>();
+	      resp.put("image_group_id", imgurService.selectMaxGroupId());
 
 	      return new ResponseEntity<>(resp,HttpStatus.OK);
 

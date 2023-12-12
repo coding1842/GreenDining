@@ -12,7 +12,7 @@
   <body>
     <div id="sale-wrap">
       <h2 style="text-align: center; padding: 10px 0">상품 판매글 등록</h2>
-      <form action="/item/write/${sale.id}" method="post" id="upDateForm${sale.id}" enctype="multipart/form-data" autocomplete="off">
+      <form action="/item/write/${sale.id}" method="post" id="ajaxForm" enctype="multipart/form-data" autocomplete="off">
         <table>
           <tr>
             <th>판매글 제목</th>
@@ -89,15 +89,15 @@
             <th>상태</th>
             <td class="sale_flex">
 			    <label class="sale-type-label">
-			        <input type="radio" id="status_PREPARED" name="saleDTO.status" value="PREPARE" />
+			        <input type="radio" id="status_PREPARED" name="saleDTO.status" value="PREPARE" ${sale.status eq 'PREPARE' ? 'checked' : '' } />
 			        <span>판매 대기</span>
 			    </label>
 			    <label class="sale-type-label">
-			        <input type="radio" id="status_SALE" name="saleDTO.status" value="READY" />
+			        <input type="radio" id="status_SALE" name="saleDTO.status" value="READY" ${sale.status eq 'READY' ? 'checked' : '' }/>
 			        <span>판매중</span>
 			    </label>
 			    <label class="sale-type-label">
-			        <input type="radio" id="status_SOLD_OUT" name="saleDTO.status" value="CLOSE" />
+			        <input type="radio" id="status_SOLD_OUT" name="saleDTO.status" value="CLOSE" ${sale.status eq 'CLOSE' ? 'checked' : '' }/>
 			        <span>판매 종료</span>
 			    </label>
 			</td>
@@ -144,7 +144,7 @@
         </table>
         <div class="sale_flex" id="submit-data-div">
           <button type="reset" id="sale_reset">다시쓰기</button>
-          <button class="submit-data" type="submit" id="imgur_push" >상품 수정하기</button>
+          <button class="submit-data" type="button" id="imgur_push" >상품 수정하기</button>
           <input type="hidden" name="saleDTO.merchant_id" value="${ssKey.id}" />
           <input type="hidden" name="saleDTO.image_group_id" value="${sale.image_group_id}">
           <input type="hidden" name="saleDTO.id" value="${sale.id}" />
@@ -154,7 +154,7 @@
     </div>
   </body>
   
-  <script src="/js/smartstore/SaleForm.js"></script>
+
   <script>
    
 </script>

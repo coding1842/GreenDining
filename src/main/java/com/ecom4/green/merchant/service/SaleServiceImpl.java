@@ -111,14 +111,9 @@ public class SaleServiceImpl implements SaleService
 //        }
 
         @Override
-        public void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id) throws Exception
+        public void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id)
         {
 	      int r = saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
-
-	      if (r < 1)
-	      {
-		    throw new Exception("정상적으로 판매글상품정보가 삽입 되지 않았습니다.");
-	      }
         }
 
         @Override
