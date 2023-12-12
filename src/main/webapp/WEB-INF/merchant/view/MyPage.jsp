@@ -78,27 +78,27 @@
          <p id="latest_time_font">최근 14일 기준</p>
          <div id="sales_middle_box">
 	         <div id="sales_box1">
-	         	<p style="font-size: 18px; font-weight: 600;">25</p>
-	         	<p>결제중</p>
+	         	<p style="font-size: 18px; font-weight: 600;">${completedPaymentOrders}</p>
+	         	<p>결제완료</p>
 	         </div>
 	         <i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>
 	         <div id="sales_box1">
-	         	<p style="font-size: 18px; font-weight: 600;">25</p>
+	         	<p style="font-size: 18px; font-weight: 600;">${preparingOrders}</p>
 	         	<p>상품준비중</p>
 	         </div>
 	         <i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>
 	         <div id="sales_box1">
-	         	<p style="font-size: 18px; font-weight: 600;">25</p>
+	         	<p style="font-size: 18px; font-weight: 600;">${deliveryStartedOrders}</p>
 	         	<p>배송시작</p>
 	         </div>
 	         <i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>
 	         <div id="sales_box1">
-	         	<p style="font-size: 18px; font-weight: 600;">25</p>
+	         	<p style="font-size: 18px; font-weight: 600;">${deliveringOrders}</p>
 	         	<p>배송중</p>
 	         </div>
 	         <i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>
 	         <div id="sales_box1">
-	         	<p style="font-size: 18px; font-weight: 600;">25</p>
+	         	<p style="font-size: 18px; font-weight: 600;">${deliveredOrders}</p>
 	         	<p>배송완료</p>
 	         </div>
          </div>

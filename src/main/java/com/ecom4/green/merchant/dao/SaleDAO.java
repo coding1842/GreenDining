@@ -1,13 +1,14 @@
 package com.ecom4.green.merchant.dao;
 
-import com.ecom4.green.data.RequestPageList;
-import com.ecom4.green.merchant.dto.SaleDTO;
-import com.ecom4.green.merchant.dto.SaleProductDTO;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
-import java.util.Map;
+import com.ecom4.green.data.RequestPageList;
+import com.ecom4.green.merchant.dto.SaleDTO;
+import com.ecom4.green.merchant.dto.SaleProductDTO;
 
 @Mapper
 public interface SaleDAO

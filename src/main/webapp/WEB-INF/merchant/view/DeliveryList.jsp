@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <link rel="stylesheet" href="/css/smartstore/DeliveryList.css" />
 <link rel="stylesheet" href="/css/user/MyPage.css" />
+<script src="/js/smartstore/DeliveryList.js"></script>
 <div id="delivery_box">
 <div class="merchant_page_box">
   <div class="merchant_aside_box">
@@ -66,7 +69,7 @@
 						<div class="or_guide_img">
 							<i class="fa-solid fa-money-bill-1-wave" style="color: #8a8a8a;"></i>
 							<p style="margin: 0;">결제완료</p>
-							<p style="font-size: 20px;">0</p>
+							<p style="font-size: 20px;">${completedPaymentOrders}</p>
 						</div>
 					<div class="or_guide_right">
 						<i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>					
@@ -74,7 +77,7 @@
 					<div class="or_guide_img">
 						<i class="fa-solid fa-box-open" style="color: #8a8a8a;"></i>
 						<p style="margin: 0;">상품준비중</p>
-						<p style="font-size: 20px;">3</p>
+						<p style="font-size: 20px;">${preparingOrders}</p>
 					</div>
 					<div class="or_guide_right">
 						<i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>					
@@ -82,7 +85,7 @@
 					<div class="or_guide_img">
 						<i class="fa-solid fa-gift" style="color: #8a8a8a;"></i>
 						<p style="margin: 0;">배송시작</p>
-						<p style="font-size: 20px;">1</p>
+						<p style="font-size: 20px;">${deliveryStartedOrders}</p>
 					</div>
 					<div class="or_guide_right">
 						<i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>					
@@ -90,7 +93,7 @@
 					<div class="or_guide_img">
 						<i class="fa-solid fa-truck" style="color: #8a8a8a;"></i>
 						<p style="margin: 0;">배송중</p>
-						<p style="font-size: 20px;">0</p>
+						<p style="font-size: 20px;">${deliveringOrders}</p>
 					</div>
 					<div class="or_guide_right">
 						<i class="fa-solid fa-chevron-right" style="color: #8a8a8a;"></i>					
@@ -98,7 +101,7 @@
 					<div class="or_guide_img">
 						<i class="fa-solid fa-truck-ramp-box" style="color: #8a8a8a;"></i>
 						<p style="margin: 0;">배송완료</p>
-						<p style="font-size: 20px;">2</p>
+						<p style="font-size: 20px;">${deliveredOrders}</p>
 					</div>
 				</div>
 			</div>
@@ -113,52 +116,129 @@
 		      <th scope="col" id="col3">수취인</th>
 		      <th scope="col" id="col4">수취인 연락처</th>
 		      <th scope="col" id="col5">진행상태</th>
-		      <th scope="col" id="col6">주문<br>취소/반품</th>
 		    </tr>
 		  </thead>
+		  <c:choose>
+			<c:when test="${fn:length(ordersPage.content)>0 }">
+				<c:forEach var="order" items="${ordersPage.content}" varStatus="i">
+            		<c:set var="address" value="${addressDTOList[i.index]}" />
+            		<c:set var="orderitemList" value="${orderItemDTOList_[i.index]}" />
 		  <tbody>
 		    <tr>
-		      <th scope="row" rowspan="3" id="conter_check"><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></th>
-		      <td style="text-align: center;"><a href="#">20012</a></td>
-		      <td style="text-align: center;">aaa</td>
-		      <td style="text-align: center;">010-1234-5678</td>
-		      <td style="text-align: center;">상품준비중</td>
-		      <td rowspan="3" id="conter_check">없음</td>
+		      <th scope="row" rowspan="3" id="conter_check"><input class="form-check-input" type="checkbox" name="ck" id="checkboxNoLabel" value="${i.index}" readonly="readonly" aria-label="..."></th>
+		      <td style="text-align: center;"><a href="#">${order.id}</a></td>
+		      <td style="text-align: center;">${address.name}</td>
+		      <td style="text-align: center;">${address.phone}</td>
+		      <td style="text-align: center;">
+				<select name="status${order.id}" id="order_status" data-status="${order.status}">
+	                 <option value="결제완료">결제완료</option>
+	                 <option value="상품준비중">상품준비중</option>
+	                 <option value="배송시작">배송시작</option>
+	                 <option value="배송중">배송중</option>
+	                 <option value="배송완료">배송완료</option>
+	                 <option value="취소완료">취소완료</option>
+	                 <option value="반품완료">반품완료</option>
+	            </select>
+			  </td>
 		    </tr>
 		    <tr>
 		      <td>상품명</td>
-		      <td colspan="3">삼겹살 3kg</td>
+		     
+		      <td colspan="3">
+		      <c:forEach var="orderitem" items="${orderitemList}" varStatus="i">
+		      	${orderitem.name}, ${orderitem.quantity}개 ,
+		      </c:forEach>
+		      </td>
 		    </tr>
 		    <tr>
 		      <td>배송지</td>
-		      <td colspan="3">광주 광산구 2순환로 2474</td>
+		      <td colspan="3">${address.address} ${address.address2} ${address.zipcode}</td>
 		    </tr>
 		  </tbody>
+		  		</c:forEach>
+		  			<div class="pagination">
+					  <div class="size-selector">
+					    <select id="size" onchange="changeSize()">
+					      <option value="5">5</option>
+					      <option value="10">10</option>
+					      <option value="20">20</option>
+					    </select>
+					  </div>
+					  <c:if test="${ordersPage.first == false}">
+			<%-- 		    <a href="?page=0&size=${size}"><<</a> --%>
+			<%-- 		    <a href="?page=${productPage.number - 1}&size=${size}"><</a> --%>
+					    	<a href="javascript:changePage(0)"><<</a>
+							<a href="javascript:changePage(${ordersPage.number - 1})"><</a>
+					  </c:if>
+					  <c:forEach begin="0" end="${ordersPage.totalPages -1}" step="1" var="page">
+					    <c:choose>
+					      <c:when test="${page == ordersPage.number}">
+					        <span class="current">${page + 1}</span>
+					      </c:when>
+					      <c:otherwise>
+					        <a href="?page=${page}&size=${size}">${page + 1}</a>
+					      </c:otherwise>
+					    </c:choose>
+					  </c:forEach>
+					  <c:if test="${ordersPage.last == false}">
+			<%-- 		    <a href="?page=${productPage.number + 1}&size=${size}">></a> --%>
+			<%-- 		    <a href="?page=${productPage.totalPages - 1}&size=${size}">>></a> --%>
+					  		<a href="javascript:changePage(${ordersPage.number + 1})">></a>
+							<a href="javascript:changePage(${ordersPage.totalPages - 1})">>></a>
+					  </c:if>
+					</div>
+		  </c:when>
+		  <c:when test="${fn:length(ordersPage.content)==0}">
+			<tbody>
+				<tr style="text-align:center; height: 30px;">
+					<th colspan="5">등록된 상품이 없습니다.</th></tr>
+			</tbody>
+		  </c:when>
+		 </c:choose>
 		  
-		  <tbody>
-		    <tr>
-		      <th scope="row" rowspan="3" id="conter_check"><input class="form-check-input" type="checkbox" id="checkboxNoLabel" value="" aria-label="..."></th>
-		      <td style="text-align: center;"><a href="#">20012</a></td>
-		      <td style="text-align: center;">aaa</td>
-		      <td style="text-align: center;">010-1234-5678</td>
-		      <td style="text-align: center;">상품준비중</td>
-		      <td rowspan="3" id="conter_check">없음</td>
-		    </tr>
-		    <tr>
-		      <td>상품명</td>
-		      <td colspan="3">삼겹살 3kg</td>
-		    </tr>
-		    <tr>
-		      <td>배송지</td>
-		      <td colspan="3">광주 광산구 2순환로 2474</td>
-		    </tr>
-		  </tbody>
 		</table>
 		<div id="del_btn">
-			<input type="button" value="삭제">
+			<input name="s" type ="button" class="selectBtn" value="상태수정">
+			<input type="button" class="deleteBtn" value="삭제">
 		</div>
 	</div>
 </div>
   </div>
 </div>
 	
+	
+<script>
+window.onload = function() {
+    // URL에서 'size' 파라미터를 가져옵니다.
+    var urlParams = new URLSearchParams(window.location.search);
+    var size = urlParams.get('size');
+
+    // 'size' 파라미터를 select box의 선택 값으로 설정합니다.
+    var selectBox = document.getElementById('size');
+    selectBox.value = size;
+};
+function changeSize() {
+  var size = document.getElementById("size").value;
+  window.location.href = "?page=0&size=" + size;
+}
+</script>
+<script>
+var currentPage = ${ordersPage.number};  // 현재 페이지 번호 초기화
+var currentSize = ${size};  // 현재 페이지 사이즈 초기화
+
+window.onload = function() {
+  document.getElementById("size").value = currentSize;  // 페이지 로드 시 선택된 사이즈로 설정
+};
+
+function changeSize() {
+  currentSize = document.getElementById("size").value;  // 페이지 사이즈 변경 시 사이즈 업데이트
+  window.location.href = "?page=" + currentPage + "&size=" + currentSize;
+}
+
+function changePage(page) {
+  currentPage = page;  // 페이지 이동할 때마다 페이지 번호 업데이트
+  window.location.href = "?page=" + currentPage + "&size=" + currentSize;
+}
+
+});
+</script>

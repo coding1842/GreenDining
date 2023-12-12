@@ -3,6 +3,7 @@ package com.ecom4.green.order.service;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,18 +19,135 @@ import com.ecom4.green.merchant.dto.SaleProductDTO;
 import com.ecom4.green.order.dao.OrdersDAO;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
+import com.ecom4.green.user.dto.AddressDTO;
 
 @Service
 public class OrdersServiceImpl implements OrdersService
 {
 
 
+	@Autowired
+    private SqlSessionTemplate sqlSession;
+	
+	@Autowired
+	SaleDAO saleDAO;
+	
+	@Autowired
+	ImgurDAO imgurDAO;
+	
+	@Autowired
+	OrdersDAO ordersDAO;
+
+	@Autowired
+    private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public Page<OrdersDTO> getOrdersPage(Map<String, Object> dataMap) {
+		
+		RequestPageList<?> requestPageList = RequestPageList.builder()
+				.data(dataMap)
+				.pageable((Pageable)dataMap.get("pageable"))
+				.build();
+		
+		List<OrdersDTO> content = ordersDAO.getOrdersPage(requestPageList);
+		int total = ordersDAO.getOrdersCount(dataMap);
+		
+		return new PageImpl<>(content,(Pageable)dataMap.get("pageable"), total);
+	}
         @Autowired
         ProductDAO productDAO;
 
         @Autowired
         SaleDAO saleDAO;
 
+	@Override
+	public OrdersDTO getOrderDetail(int order_id) {
+		
+		return ordersDAO.getOrderDetail(order_id);
+	}
+	
+	@Override
+	public int countInDelivery(String userId) {
+	    return ordersDAO.countInDelivery(userId);
+	}
+
+	@Override
+	public Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap) {
+		RequestPageList<?> requestPageList = RequestPageList.builder()
+				.data(dataMap)
+				.pageable((Pageable)dataMap.get("pageable"))
+				.build();
+		
+		List<OrdersDTO> content = ordersDAO.getOrdersPage(requestPageList);
+		int total = ordersDAO.getOrdersCount(dataMap);
+		
+		return new PageImpl<>(content,(Pageable)dataMap.get("pageable"), total);
+	
+	}
+
+	@Override
+	public AddressDTO getUserAddress(int address_id) {
+		// TODO Auto-generated method stub
+		return ordersDAO.getUserAddress(address_id);
+	}
+
+	@Override
+	public ProductDTO getProductByOrderId(int id) {
+		// TODO Auto-generated method stub
+		return ordersDAO.getProductByOrderId(id);
+	}
+
+	@Override
+	public Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap) {
+		 RequestPageList<?> requestPageList = RequestPageList.builder()
+                 .data(dataMap)
+                 .pageable((Pageable)dataMap.get("pageable"))
+                 .build();
+
+     List<OrdersDTO> content = ordersDAO.getMOrdersPage(requestPageList);
+     int total = ordersDAO.getMOrdersListCount(dataMap);
+
+     return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
+	}
+
+	@Override
+	public String getStoreNameByMerchantId(String merchantId) {
+		return ordersDAO.getStoreNameByMerchantId(merchantId);
+	}
+
+	@Override
+	public int updateDelivery(OrdersDTO ordersDTO) {
+		return ordersDAO.updateDelivery(ordersDTO);
+	}
+
+
+	@Override
+	public int deleteDelivery(List<OrdersDTO> orders) {
+	    int count = 0;
+	    for (OrdersDTO order : orders) {
+	        sqlSession.delete("deleteOrderItem", order);
+	        sqlSession.delete("deleteOrder", order);
+	        count++;
+	    }
+	    return count;
+	}
+
+	@Override
+	public int countOrdersByStatus(Map<String, Object> params) {
+		return ordersDAO.countOrdersByStatus(params);
+	}
+
+//	@Override
+//	public int countOrdersByStatus(String storeName) {
+//		return ordersDAO.countOrdersByStatus(storeName);
+//	}
+
+	
+
+	
+
+
+	
         @Autowired
         ImgurDAO imgurDAO;
 
@@ -121,6 +239,72 @@ public class OrdersServiceImpl implements OrdersService
         {
 	      ordersDAO.cancelOrder(orderId);
         }
+
+	@Override
+	public Page<OrdersDTO> getOrdersPageByMId(Map<String, Object> dataMap) {
+		RequestPageList<?> requestPageList = RequestPageList.builder()
+				.data(dataMap)
+				.pageable((Pageable)dataMap.get("pageable"))
+				.build();
+		
+		List<OrdersDTO> content = ordersDAO.getOrdersPage(requestPageList);
+		int total = ordersDAO.getOrdersCount(dataMap);
+		
+		return new PageImpl<>(content,(Pageable)dataMap.get("pageable"), total);
+	
+	}
+
+	@Override
+	public AddressDTO getUserAddress(int address_id) {
+		// TODO Auto-generated method stub
+		return ordersDAO.getUserAddress(address_id);
+	}
+
+	@Override
+	public ProductDTO getProductByOrderId(int id) {
+		// TODO Auto-generated method stub
+		return ordersDAO.getProductByOrderId(id);
+	}
+
+	@Override
+	public Page<OrdersDTO> getMOrdersPage(Map<String, Object> dataMap) {
+		 RequestPageList<?> requestPageList = RequestPageList.builder()
+                 .data(dataMap)
+                 .pageable((Pageable)dataMap.get("pageable"))
+                 .build();
+
+     List<OrdersDTO> content = ordersDAO.getMOrdersPage(requestPageList);
+     int total = ordersDAO.getMOrdersListCount(dataMap);
+
+     return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
+	}
+
+	@Override
+	public String getStoreNameByMerchantId(String merchantId) {
+		return ordersDAO.getStoreNameByMerchantId(merchantId);
+	}
+
+	@Override
+	public int updateDelivery(OrdersDTO ordersDTO) {
+		return ordersDAO.updateDelivery(ordersDTO);
+	}
+
+
+	@Override
+	public int deleteDelivery(List<OrdersDTO> orders) {
+	    int count = 0;
+	    for (OrdersDTO order : orders) {
+	        sqlSession.delete("deleteOrderItem", order);
+	        sqlSession.delete("deleteOrder", order);
+	        count++;
+	    }
+	    return count;
+	}
+
+	@Override
+	public int countOrdersByStatus(Map<String, Object> params) {
+		return ordersDAO.countOrdersByStatus(params);
+	}
 }
 	
 	

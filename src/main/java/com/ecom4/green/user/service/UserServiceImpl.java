@@ -30,6 +30,17 @@ public class UserServiceImpl implements UserService
         {
 	      int r = userDao.insertAddress(addressDTO);
 
+	@Override
+	public int deleteAddress(AddressDTO addressDTO) {
+		return userDao.deleteAddress(addressDTO);
+	}
+	
+	
+	//review
+	@Override
+	public int insertReview(ReviewDTO reviewDTO) {
+		return userDao.insertReview(reviewDTO);
+	}
 
         }
 

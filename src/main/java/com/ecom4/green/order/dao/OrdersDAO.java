@@ -8,8 +8,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.ecom4.green.data.RequestPageList;
+import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.order.dto.OrderItemDTO;
 import com.ecom4.green.order.dto.OrdersDTO;
+import com.ecom4.green.user.dto.AddressDTO;
 
 @Mapper
 public interface OrdersDAO
@@ -39,4 +41,29 @@ public interface OrdersDAO
         void updateOrderTransactionId(@Param("map") Map<String, Object> orderMap);
 
         void cancelOrder(@Param("order_id") int orderId);
+	AddressDTO getUserAddress(int address_id);
+
+	ProductDTO getProductByOrderId(int id);
+
+	List<OrdersDTO> getMOrdersPage(RequestPageList<?> requestPageList);
+
+	int getMOrdersListCount(@Param("map") Map<String, Object> dataMap);
+
+	String getStoreNameByMerchantId(String merchantId);
+
+	int updateDelivery(OrdersDTO ordersDTO);
+
+	int countOrdersByStatus(Map<String, Object> params);
+
+
+
+
+	String getStoreNameByMerchantId(String merchantId);
+
+	int updateDelivery(OrdersDTO ordersDTO);
+
+	int countOrdersByStatus(Map<String, Object> params);
+
+
+
 }
