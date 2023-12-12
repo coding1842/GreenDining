@@ -1,6 +1,9 @@
 package com.ecom4.green.user.dto;
 
+import java.util.List;
+
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.imgur.dto.ImgurDTO;
 
 import lombok.Data;
 import lombok.Getter;
@@ -24,6 +27,8 @@ public class ReviewDTO {
 	private int child_id;
 	private int image_group_id;
 	
-//	DB 필드 아님
 	
+	
+//	DB 필드 아님
+	private List<ImgurDTO> imgurList;
 }

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.merchant.dto.SaleDTO;
 
 import com.ecom4.green.merchant.service.SaleService;
 import com.ecom4.green.order.dto.OrderItemDTO;
@@ -264,8 +265,6 @@ public class UserController
 	        return new ResponseEntity<>("정상적으로 배송 정보 삭제 되었습니다.", HttpStatus.OK);
 	 }
 	 
-	 //리뷰는 마이페이지로 가서 리뷰, Q&A 작성할거니까 user에 작성
-	 //REVIEW 컨트롤러
 	 
 	 @GetMapping("/review/write")
      public String reviewForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
