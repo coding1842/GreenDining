@@ -13,6 +13,15 @@ import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,15 +30,24 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.ecom4.green.authentication.service.AuthService;
+import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.merchant.dto.ProductDTO;
+import com.ecom4.green.merchant.dto.SaleDTO;
+import com.ecom4.green.merchant.dto.SaleProductDTO;
+import com.ecom4.green.merchant.service.ProductService;
+import com.ecom4.green.merchant.service.SaleService;
+import com.ecom4.green.merchant.wrapper.SaleForm;
+import com.ecom4.green.user.dto.ReviewDTO;
+import com.ecom4.green.user.service.ReviewService;
+import com.ecom4.green.user.service.UserService;
 
 @Controller
 @RequestMapping("/item")
@@ -41,44 +59,54 @@ public class SaleController
 
         @Autowired
         SaleService saleService;
+        
+        @Autowired
+        UserService userService;
 
         @Autowired
         UserService userService;
 
         @Autowired
         ProductService productService;
+        
+        @Autowired
+        ReviewService reviewService;
 
         //        public 권한
         @GetMapping("/{sale_id}")
         public String getSaleDetail(@PathVariable("sale_id") int sale_id,
 			      HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model)
         {
-	      String main = "smartstore/view/SaleDetail";
-	      SaleDTO sale = new SaleDTO();
-	      List<SaleProductDTO> saleProductList_MAIN = new ArrayList<>();
-	      List<SaleProductDTO> saleProductList_SUB = new ArrayList<>();
+                String main = "smartstore/view/SaleDetail";
+                SaleDTO sale = new SaleDTO();
+                
+                List<SaleProductDTO> saleProductList_MAIN = new ArrayList<>();
+                List<SaleProductDTO> saleProductList_SUB = new ArrayList<>();
 
 	      sale = saleService.getSale(sale_id);
 	      saleProductList_MAIN = saleService.selectSaleProductListMain(sale_id);
 	      saleProductList_SUB = saleService.selectSaleProductListSub(sale_id);
 
-
+                ReviewDTO review = new ReviewDTO();
                 
-				List<QnaDTO> qnaDTOList = new ArrayList<>();
-				
-				QnaDTO qna = new QnaDTO();
-				qna.setSale_id(sale_id);
-				qnaDTOList = userService.selectQnaList(qna);
-				
-				
+                if(authService.checkRoleStatus(session) == RoleStatus.USER)
+                {
+                	review.setSale_id(sale_id);
+					review.setUser_id(authService.getCurrentUser(session).getId());
+                }
+                else
+                {
+                	review.setSale_id(sale_id);
+                }
+                
+				List<ReviewDTO> reviewDTOList = reviewService.selectReviewList(review);
 				
                 model.addAttribute("sale",sale);
                 model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
                 model.addAttribute("saleProductList_SUB", saleProductList_SUB);
                 model.addAttribute("main",main);
                 model.addAttribute("sale_id", sale_id);
-             
-                model.addAttribute("qnaDTOList", qnaDTOList);
+                model.addAttribute("reviewDTOList", reviewDTOList);
                 return "Index";
         }
 
