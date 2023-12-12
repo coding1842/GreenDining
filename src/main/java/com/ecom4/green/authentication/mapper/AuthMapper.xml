@@ -2,22 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ecom4.green.authentication.dao.AuthDAO">
 
-	<insert id="signUpUser" parameterType="userDTO">
-		INSERT INTO USERS(ID, PASSWORD, NAME, PHONE, EMAIL, ROLE, CREATED_AT, COUNTRY_CODE)
-		VALUES(#{id}, #{password}, #{name}, #{phone}, #{email}, #{role}, systimestamp, #{country_code} )
-	</insert>
-	<insert id="signUpBusiness" parameterType="merchantDTO">
-		INSERT INTO  MERCHANT(ID,BUSINESS_NAME , BUSINESS_NUMBER)
-		VALUES(#{id},#{business_name},#{business_number})
-	</insert>
-	<select id="idCheck" resultType="int">
-		select count(ID) from users
-		where ID = #{id}
-	</select>
-	<select id="getUser" parameterType="userDTO" resultType="userDTO">
-		SELECT ID, PASSWORD, NAME, PHONE, EMAIL, ROLE, CREATED_AT, COUNTRY_CODE
-		FROM USERS
-		WHERE ID = #{id} and PASSWORD = #{password}
-	</select>
+    <insert id="signUpUser" parameterType="userDTO">
+        INSERT INTO USERS(ID, PASSWORD, SALT, NAME, PHONE, EMAIL, ROLE, CREATED_AT, COUNTRY_CODE)
+        VALUES(#{id}, #{password},#{salt}, #{name}, #{phone}, #{email}, #{role}, systimestamp, #{country_code} )
+    </insert>
+    <insert id="signUpBusiness" parameterType="merchantDTO">
+        INSERT INTO MERCHANT(ID,BUSINESS_NAME , BUSINESS_NUMBER)
+        VALUES(#{id},#{business_name},#{business_number})
+    </insert>
+    <select id="idCheck" resultType="int">
+        select count(ID) from users
+        where ID = #{id}
+    </select>
+    <select id="phoneCheck" resultType="int">
+        select count(phone) from users
+        where phone = #{phone}
+    </select>
+    <select id="getUser" parameterType="userDTO" resultType="userDTO">
+        SELECT ID, PASSWORD, NAME, PHONE, EMAIL, ROLE, CREATED_AT, COUNTRY_CODE
+        FROM USERS
+        WHERE ID = #{id} and PASSWORD = #{password}
+    </select>
+    <select id="selectSalt" parameterType="userDTO" resultType="String">
+        select salt
+        from users
+        where id = #{id}
+    </select>
 </mapper>
 

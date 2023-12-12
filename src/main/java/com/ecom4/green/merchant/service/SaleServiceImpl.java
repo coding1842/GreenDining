@@ -27,40 +27,44 @@ public class SaleServiceImpl implements SaleService
         ProductDAO productDAO;
 
         @Override
-        public  Page<SaleDTO>  getSalePage(Map<String, Object> dataMap )
+        public Page<SaleDTO> getSalePage(Map<String, Object> dataMap)
         {
-                RequestPageList<?> requestPageList = RequestPageList.builder()
-                            .data(dataMap)
-                            .pageable((Pageable)dataMap.get("pageable"))
-                            .build();
+	      RequestPageList<?> requestPageList = RequestPageList.builder()
+		        .data(dataMap)
+		        .pageable((Pageable) dataMap.get("pageable"))
+		        .build();
 
-                List<SaleDTO> content = saleDAO.getSalePage(requestPageList);
-                int total = saleDAO.getSaleListCount(dataMap);
-                
-                for (SaleDTO ele : content) {
-                    ele.setImage_path(saleDAO.selectImagePath(ele.getImage_group_id()));
+	      List<SaleDTO> content = saleDAO.getSalePage(requestPageList);
+	      int total = saleDAO.getSaleListCount(dataMap);
 
-                    // SelectMinPrice를 호출하는 부분
-                    Integer result = saleDAO.selectMinPrice(ele.getId());
-                    int minPrice;
-                    if (result != null) {
-                        minPrice = result;
-                    } else {
-                        // 적절한 기본값 할당 또는 오류 처리
-                        minPrice = 0;  // 예시입니다. 실제로는 적절한 기본값 또는 오류 처리를 해야합니다.
-                    }
-                    ele.setMin_price(minPrice);
+	      for (SaleDTO ele : content)
+	      {
+		    ele.setImage_path(saleDAO.selectImagePath(ele.getImage_group_id()));
 
-                    ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
-                }
+		    // SelectMinPrice를 호출하는 부분
+		    Integer result = saleDAO.selectMinPrice(ele.getId());
+		    int minPrice;
+		    if (result != null)
+		    {
+			  minPrice = result;
+		    }
+		    else
+		    {
+			  // 적절한 기본값 할당 또는 오류 처리
+			  minPrice = 0;  // 예시입니다. 실제로는 적절한 기본값 또는 오류 처리를 해야합니다.
+		    }
+		    ele.setMin_price(minPrice);
 
-                return new PageImpl<>(content, (Pageable) dataMap.get("pageable"), total);
-            }
+		    ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
+	      }
+
+	      return new PageImpl<>(content, (Pageable) dataMap.get("pageable"), total);
+        }
 
         @Override
         public void insertSale(SaleDTO saleDTO) throws Exception
         {
-                int r = saleDAO.insertSale(saleDTO);
+	      int r = saleDAO.insertSale(saleDTO);
 
 
         }
@@ -68,17 +72,17 @@ public class SaleServiceImpl implements SaleService
         @Override
         public SaleDTO getSale(int saleID)
         {
-                SaleDTO saleDTO = saleDAO.getSale(saleID);
-                saleDTO.setMin_price(saleDAO.selectMinPrice(saleDTO.getId()));
-                saleDTO.setStore_name(saleDAO.selectStoreName(saleDTO.getMerchant_id()));
-                saleDTO.setImage_group_path(saleDAO.selectImageGroupPath(saleDTO.getImage_group_id()));
-                return saleDTO;
+	      SaleDTO saleDTO = saleDAO.getSale(saleID);
+	      saleDTO.setMin_price(saleDAO.selectMinPrice(saleDTO.getId()));
+	      saleDTO.setStore_name(saleDAO.selectStoreName(saleDTO.getMerchant_id()));
+	      saleDTO.setImage_group_path(saleDAO.selectImageGroupPath(saleDTO.getImage_group_id()));
+	      return saleDTO;
         }
 
         @Override
-        public int updateSale(SaleDTO saleDTO) 
+        public int updateSale(SaleDTO saleDTO)
         {
-                return saleDAO.updateSale(saleDTO);
+	      return saleDAO.updateSale(saleDTO);
         }
 //        @Override
 //        public void updateSale(SaleDTO saleDTO) throws Exception
@@ -93,7 +97,7 @@ public class SaleServiceImpl implements SaleService
         @Override
         public int deleteSale(SaleDTO saleDTO)
         {
-                return saleDAO.deleteSale(saleDTO);
+	      return saleDAO.deleteSale(saleDTO);
         }
 //        @Override
 //        public void deleteSale(int saleID) throws Exception
@@ -109,54 +113,61 @@ public class SaleServiceImpl implements SaleService
         @Override
         public void insertSaleProductList(List<SaleProductDTO> saleProductDTOList, int sale_id) throws Exception
         {
-                int r = saleDAO.insertSaleProductList(saleProductDTOList,sale_id);
+	      int r = saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
 
-                if(r<1)
-                {
-                        throw new Exception("정상적으로 판매글상품정보가 삽입 되지 않았습니다.");
-                }
+	      if (r < 1)
+	      {
+		    throw new Exception("정상적으로 판매글상품정보가 삽입 되지 않았습니다.");
+	      }
         }
 
         @Override
         public int selectMaxSaleId()
         {
-                return saleDAO.selectMaxSaleId();
+	      return saleDAO.selectMaxSaleId();
         }
 
         @Override
         public List<SaleProductDTO> selectSaleProductListMain(int saleId)
         {
-                List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListMain(saleId);
+	      List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListMain(saleId);
 
-                for(SaleProductDTO ele : saleProductList)
-                {
-                        ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
-                }
+	      for (SaleProductDTO ele : saleProductList)
+	      {
+		    ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
+	      }
 
-                return saleProductList;
+	      return saleProductList;
         }
 
         @Override
         public List<SaleProductDTO> selectSaleProductListSub(int saleId)
         {
-                List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListSub(saleId);
-                for(SaleProductDTO ele : saleProductList)
-                {
-                        ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
-                }
+	      List<SaleProductDTO> saleProductList = saleDAO.selectSaleProductListSub(saleId);
+	      for (SaleProductDTO ele : saleProductList)
+	      {
+		    ele.setBefore_price(productDAO.getProductPrice(ele.getProduct_id()));
+	      }
 
-                return saleProductList;
+	      return saleProductList;
 
         }
 
-            @Override
-            public void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id) {
+        @Override
+        public void updateSaleProduct(List<SaleProductDTO> saleProductDTOList, int sale_id)
+        {
 
-                      saleDAO.deleteSaleProduct(sale_id);
-                      saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
-                      // TODO Auto-generated method stub
+	      saleDAO.deleteSaleProduct(sale_id);
+	      saleDAO.insertSaleProductList(saleProductDTOList, sale_id);
+	      // TODO Auto-generated method stub
 
-            }
+        }
+
+        @Override
+        public void updateTotalRate(Map<String, Object> hashMap)
+        {
+	      saleDAO.updateTotalRate(hashMap);
+        }
 
 
 }

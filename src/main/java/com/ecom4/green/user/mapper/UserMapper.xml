@@ -1,130 +1,136 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.ecom4.green.user.dao.UserDAO">
-	<insert id="insertAddress" parameterType="addressDTO">
-		<selectKey keyProperty="id" order="BEFORE"
-	        resultType="int">
-	      SELECT NVL(MAX(id),0)+1 FROM ADDRESS
-	    </selectKey>
-		INSERT INTO ADDRESS(USER_ID,
-							ID,
-							NAME,
-							PHONE,
-							ADDRESS,
-							ADDRESS2,
-							ZIPCODE,
-							REQUEST_OPTION,
-							REQUEST_TEXT)
-		VALUES( #{user_id},
-				#{id},
-				#{phone},
-				#{name},
-				#{phone},
-				#{address},
-				#{address2},
-				#{zipcode},
-				#{request_option},
-				#{request_text})
-	</insert>
-	
-	<select id="selectAddressList" resultType="addressDTO">
-		SELECT USER_ID,ID, NAME,PHONE, ADDRESS, ADDRESS2, ZIPCODE, REQUEST_OPTION, REQUEST_TEXT
-		FROM ADDRESS
-		WHERE USER_ID = #{user_id}
-	</select>
-	
-	<update id="updateAddress" parameterType="addressDTO">
-		UPDATE ADDRESS SET
-		USER_ID = #{user_id},
-		NAME = #{name},
-		PHONE = #{phone},
-		ADDRESS = #{address},
-		ADDRESS2 = #{address2},
-		ZIPCODE = #{zipcode},
-		REQUEST_OPTION = #{request_option},
-		REQUEST_TEXT = #{request_text}
-		WHERE USER_ID = #{user_id}
-		AND ID = #{id}
-	</update>
-	
-	<delete id="deleteAddress" parameterType="addressDTO">
-		DELETE FROM ADDRESS
-		WHERE USER_ID = #{user_id}
-		AND ID = #{id}
-	</delete>
-	
-	<!-- review -->
-	<insert id="insertReview" parameterType="reviewDTO">
-		<selectKey keyProperty="id" order="BEFORE"
-	        resultType="int">
-	      SELECT NVL(MAX(id),0)+1 FROM REVIEW
-	    </selectKey>
-		INSERT INTO REVIEW( ID,
-							USER_ID,
-							ORDER_ID,
-							PRODUCT_ID,
-							STAR,
-							TITLE,
-							CONTENT,
-							CREATED_AT,
-							CHILD_ID,
-							IMAGE_GROUP_ID,
-							SALE_ID)
-		VALUES( #{id},
-				#{user_id},
-				#{order_id},
-				#{product_id},
-				#{star},
-				#{title},
-				#{content},
-				SYSDATE,
-				#{child_id},
-				<if test="image_group_id != 0">
-				#{image_group_id},
-				</if>
-				<if test="image_group_id == 0">
-				0,
-				</if>
-				#{sale_id})
-	</insert>
-	
-	<select id="selectReviewList" resultType="reviewDTO" parameterType="reviewDTO">
-		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, STAR, TITLE, CONTENT,
-				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
-		FROM REVIEW
-		WHERE USER_ID = #{user_id}
-		AND SALE_ID = #{sale_id}
-	</select>
-	
-	<update id="updateReview" parameterType="reviewDTO">
-		UPDATE REVIEW SET
-		USER_ID = #{user_id},
-		ID = #{id},
-		ORDER_ID = #{order_id},
-		PRODUCT_ID = #{product_id},
-		STAR = #{star},
-		TITLE = #{title},
-		CONTENT = #{content},
-		CREATED_AT = SYSDATE,
-		CHILD_ID = #{child_id},
-		IMAGE_GROUP_ID = #{image_group_id},
-		SALE_ID = #{sale_id}
-		WHERE USER_ID = #{user_id}
-	</update>
-	
-	<delete id="deleteReview" parameterType="reviewDTO">
-		DELETE FROM REVIEW
-		WHERE USER_ID = #{user_id}
-		AND ID = #{id}
-	</delete>
-	
-	 <select id="getOrderUser" parameterType="String" resultType="UserDTO">
+    <insert id="insertAddress" parameterType="addressDTO">
+        <selectKey keyProperty="id" order="BEFORE"
+                   resultType="int">
+            SELECT NVL(MAX(id),0)+1 FROM ADDRESS
+        </selectKey>
+        INSERT INTO ADDRESS(USER_ID,
+        ID,
+        NAME,
+        PHONE,
+        ADDRESS,
+        ADDRESS2,
+        ZIPCODE,
+        REQUEST_OPTION,
+        REQUEST_TEXT)
+        VALUES( #{user_id},
+        #{id},
+        #{name},
+        #{phone},
+        #{address},
+        #{address2},
+        #{zipcode},
+        #{request_option},
+        #{request_text})
+    </insert>
+
+    <select id="selectAddressList" resultType="addressDTO">
+        SELECT USER_ID,ID, NAME,PHONE, ADDRESS, ADDRESS2, ZIPCODE, REQUEST_OPTION, REQUEST_TEXT
+        FROM ADDRESS
+        WHERE USER_ID = #{user_id}
+    </select>
+
+    <update id="updateAddress" parameterType="addressDTO">
+        UPDATE ADDRESS SET
+        USER_ID = #{user_id},
+        NAME = #{name},
+        PHONE = #{phone},
+        ADDRESS = #{address},
+        ADDRESS2 = #{address2},
+        ZIPCODE = #{zipcode},
+        REQUEST_OPTION = #{request_option},
+        REQUEST_TEXT = #{request_text}
+        WHERE USER_ID = #{user_id}
+        AND ID = #{id}
+    </update>
+
+    <delete id="deleteAddress" parameterType="addressDTO">
+        DELETE FROM ADDRESS
+        WHERE USER_ID = #{user_id}
+        AND ID = #{id}
+    </delete>
+
+    <!-- review -->
+    <insert id="insertReview" parameterType="reviewDTO">
+        <selectKey keyProperty="id" order="BEFORE"
+                   resultType="int">
+            SELECT NVL(MAX(id),0)+1 FROM REVIEW
+        </selectKey>
+        INSERT INTO REVIEW( ID,
+        USER_ID,
+        ORDER_ID,
+        PRODUCT_ID,
+        STAR,
+        TITLE,
+        CONTENT,
+        CREATED_AT,
+        CHILD_ID,
+        IMAGE_GROUP_ID,
+        SALE_ID)
+        VALUES( #{id},
+        #{user_id},
+        #{order_id},
+        #{product_id},
+        #{star},
+        #{title},
+        #{content},
+        SYSDATE,
+        #{child_id},
+        <if test="image_group_id != 0">
+            #{image_group_id},
+        </if>
+        <if test="image_group_id == 0">
+            0,
+        </if>
+        #{sale_id})
+    </insert>
+
+    <select id="selectReviewList" resultType="reviewDTO" parameterType="reviewDTO">
+        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, STAR, TITLE, CONTENT,
+        CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
+        FROM REVIEW
+        WHERE USER_ID = #{user_id}
+        AND SALE_ID = #{sale_id}
+    </select>
+
+    <update id="updateReview" parameterType="reviewDTO">
+        UPDATE REVIEW SET
+        USER_ID = #{user_id},
+        ID = #{id},
+        ORDER_ID = #{order_id},
+        PRODUCT_ID = #{product_id},
+        STAR = #{star},
+        TITLE = #{title},
+        CONTENT = #{content},
+        CREATED_AT = SYSDATE,
+        CHILD_ID = #{child_id},
+        IMAGE_GROUP_ID = #{image_group_id},
+        SALE_ID = #{sale_id}
+        WHERE USER_ID = #{user_id}
+    </update>
+
+    <delete id="deleteReview" parameterType="reviewDTO">
+        DELETE FROM REVIEW
+        WHERE USER_ID = #{user_id}
+        AND ID = #{id}
+    </delete>
+
+    <select id="getOrderUser" parameterType="String" resultType="UserDTO">
         SELECT * FROM Users WHERE id = #{id}
     </select>
-	 <select id="getOrderAddress" parameterType="String" resultType="AddressDTO">
-	    SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name FROM address WHERE "USER_ID" = #{value}
-	</select>
-	
+    <select id="getOrderAddress" parameterType="String" resultType="AddressDTO">
+        SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name FROM address WHERE "USER_ID" = #{value}
+    </select>
+
+    <select id="selectAddress" parameterType="map" resultType="AddressDTO">
+        select *
+        from address
+        where id = #{map.address_id}
+        and user_id = #{map.user_id}
+    </select>
+
 </mapper>

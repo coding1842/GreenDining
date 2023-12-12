@@ -7,19 +7,24 @@ import java.util.Map;
 
 import org.springframework.data.domain.Page;
 
-public interface ProductService {
+public interface ProductService
+{
 
         ProductDTO getProduct(int productID);
 
         Page<ProductDTO> getProductPage(Map<String, Object> dataMap);
+
         List<ProductDTO> getProductList(String merchant_id);
+
         int insertProduct(ProductDTO productDTO);
 
         int updateProduct(ProductDTO productDTO);
 
-		int deleteProduct(ProductDTO productDTO);
+        int deleteProduct(ProductDTO productDTO);
+
+        void updateStock(Map<String, Object> hashMap);
 
 //        int deleteProduct(int productID);
 
-		
+
 }

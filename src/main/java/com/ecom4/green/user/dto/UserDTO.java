@@ -13,10 +13,12 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class UserDTO {
+public class UserDTO
+{
 
         private String id;
         private String password;
+        private String salt;
         private String name;
         private String phone;
         private String email;

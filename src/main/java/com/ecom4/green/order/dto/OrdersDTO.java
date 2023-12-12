@@ -13,13 +13,27 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
-public class OrdersDTO {
+public class OrdersDTO
+{
 
-        private int id;
-        private String status;
-        private String user_id;
-        private int address_id;
+	private int id;
+	private String status;
+	private String user_id;
+	private int address_id;
+	private String transaction_id;
+	private String payment;
+	private String merchant_id;
+	//
+	private int order_id;
+	
         private String created_at;
+        private String transaction_id;
+        private String payment;
         
-        
+        // NO DB
+        private int total_price;
+        private int discount_price;
+        private int payment_price;
+
+
 }

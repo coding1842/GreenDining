@@ -17,7 +17,7 @@
 	<div id="green-delivery" style="width: 700px; display: inline-block;">
 		<div>
 		<h2 style="text-align: center;">배송 관련 폼 테스트</h2>
-		<form action="/user/insertAddress" name="addressForm" enctype="multipart/form-data" method="post" onsubmit="return validate()">
+		<form action="/address/insert" name="addressForm" enctype="multipart/form-data" method="post" onsubmit="return validate()">
 			<table>	
 				<input type="hidden" name="user_id" value="${ssKey.id}">	
 				<tr>

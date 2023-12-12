@@ -3,68 +3,75 @@
 
 <mapper namespace="com.ecom4.green.merchant.dao.ProductDAO">
 
-	<select id="getProduct" resultType="productDTO">
-		select * from product
-		where id= #{id}
-	</select>
-	
-	<select id="getProductPage" parameterType="RequestPageList" resultType="productDTO">
-		select * from product
-	 <where>
+    <select id="getProduct" resultType="productDTO">
+        select * from product
+        where id= #{id}
+    </select>
+
+    <select id="getProductPage" parameterType="RequestPageList" resultType="productDTO">
+        select * from product
+        <where>
             <if test="data.category != null and data.category != 0">
-				category_code = #{data.category}
+                category_code = #{data.category}
             </if>
             <if test="data.keyword != null and data.keyword != ''">
-				name LIKE '%' || #{data.keyword} || '%'
+                name LIKE '%' || #{data.keyword} || '%'
             </if>
             and merchant_id = #{data.merchant_id}
         </where>
         OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
-	</select>
-	<select id="getProductList" parameterType="String" resultType="productDTO">
-		select * from product
-		where merchant_id = #{merchant_id}
-	</select>
-	<select id="getProductListCount" parameterType="map" resultType="int">
-		select count(*) as cnt
-		FROM product
+    </select>
+    <select id="getProductList" parameterType="String" resultType="productDTO">
+        select * from product
+        where merchant_id = #{merchant_id}
+    </select>
+    <select id="getProductListCount" parameterType="map" resultType="int">
+        select count(*) as cnt
+        FROM product
         <where>
             <if test="map.category != null and map.category != 0">
                 category_code = #{map.category}
             </if>
             <if test="map.keyword != null and map.keyword != ''">
-                name  LIKE '%' || #{map.keyword} || '%'
+                name LIKE '%' || #{map.keyword} || '%'
             </if>
             and merchant_id = #{map.merchant_id}
         </where>
-	</select>
+    </select>
 
-	<insert id="insertProduct" parameterType="productDTO">
-		<selectKey keyProperty="id" order="BEFORE" resultType="int">
-			SELECT NVL(MAX(ID),0)+1 FROM PRODUCT
-		</selectKey>
-			insert into product (id,NAME, PRICE, WEIGHT, STOCK, IMAGE_GROUP_ID, created_at,STATUS, merchant_id,category_code)
-			VALUES(#{id},#{name}, #{price}, #{weight}, #{stock}, #{image_group_id}, sysdate, #{status}, #{merchant_id},#{category_code})
-	</insert>
-	<update id="updateProduct" parameterType="productDTO">
-		update product set
-		name = #{name},
-		price = #{price},
-		weight = #{weight},
-		stock = #{stock},
-		status = #{status}
+    <insert id="insertProduct" parameterType="productDTO">
+        <selectKey keyProperty="id" order="BEFORE" resultType="int">
+            SELECT NVL(MAX(ID),0)+1 FROM PRODUCT
+        </selectKey>
+        insert into product (id,NAME, PRICE, WEIGHT, STOCK, IMAGE_GROUP_ID, created_at,STATUS,
+        merchant_id,category_code)
+        VALUES(#{id},#{name}, #{price}, #{weight}, #{stock}, #{image_group_id}, sysdate, #{status},
+        #{merchant_id},#{category_code})
+    </insert>
+    <update id="updateProduct" parameterType="productDTO">
+        update product set
+        name = #{name},
+        price = #{price},
+        weight = #{weight},
+        stock = #{stock},
+        status = #{status}
         where merchant_id = #{merchant_id}
-		and id = #{id}
-	</update>
-	<delete id="deleteProduct" parameterType="productDTO">
-		delete from product
-		where id = #{id}
-	</delete>
-	<select id="getProductPrice" parameterType="int" resultType="int">
-		select price
-		from product
-		where id = #{product_id}
-	</select>
-	
-	
+        and id = #{id}
+    </update>
+    <delete id="deleteProduct" parameterType="productDTO">
+        delete from product
+        where id = #{id}
+    </delete>
+    <select id="getProductPrice" parameterType="int" resultType="int">
+        select price
+        from product
+        where id = #{product_id}
+    </select>
+    <update id="updateStock" parameterType="map">
+        update product
+        set stock = stock - #{map.sale_rate}
+        where id = #{map.product_id}
+    </update>
+
+
 </mapper>

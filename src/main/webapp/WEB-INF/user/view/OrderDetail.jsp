@@ -5,6 +5,8 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" href="/css/user/MyPage.css" />
 <script src="/jquery/jquery-3.7.0.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="/js/smartstore/ProductPrice.js"></script>
 <div class="my_page_box">
 	<div class="my_page_aside_box">
@@ -118,31 +120,95 @@
 					        <div class="or_body_right">
 					            <div id="or_right_btn">
 					                <button style="margin-bottom: 1rem;">배송 조회</button>
-					                <button>교환, 반품 신청</button>
+					                <button class="mb-3">교환, 반품 신청</button>
+									<c:if test="${order.status == '결제완료'}">
+										<button id="order_cancel">결제 취소</button>
+										<form id="orderCancelForm" action="">
+												<input type="hidden" name="order_id" value="${order.id}">
+												<input type="hidden" name="transactionId" value="${order.transaction_id}">
+										</form>
+									</c:if>
 					            </div>
 					        </div>
 					    </div>
 		
 
 			<div id="orderer_box">
-				<h5>받는사람 정보</h5>
-				<ul class="list-group list-group-flush">
-				  <li class="list-group-item">받는사람&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${userDTO.name}</li>
-				  <li class="list-group-item">연락처&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${userDTO.phone}</li>
-				  <li class="list-group-item">받는주소&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${addressDTO.address} ${addressDTO.address2}</li>
-				  <li class="list-group-item">배송요청사항&nbsp; ${addressDTO.request_option}</li>
-				</ul>
+				<h5 class="mb-3">받는사람 정보</h5>
+				<table class="table table-borderless border-top border-2 border-black">
+				<tbody>
+					<tr>
+						<th scope="row">받는사람</th>
+						<td>${userDTO.name}</td>
+					</tr>
+					<tr>
+						<th scope="row">연락처</th>
+						<td colspan="2">${userDTO.phone}</td>
+					</tr>
+					<tr>
+						<th scope="row">받는주소</th>
+						<td colspan="2">${addressDTO.address} ${addressDTO.address2}</td>
+					</tr>
+					<tr>
+						<th scope="row">배송요청사항</th>
+						<td colspan="2">${addressDTO.request_option}</td>
+					</tr>
+				</tbody>
+				</table>
 			</div>
 			<div id="orderer_box">
-				<h5>결제 정보</h5>
-				  <c:forEach items="${orderItemList}" var="orderItem">
-					<ul class="list-group list-group-flush">
-					  <li class="list-group-item price11">가격&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${orderItem.after_price}&nbsp;원</li>
-					  <li class="list-group-item">개수&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${orderItem.quantity}&nbsp;개</li>
-					  <c:set var="totalPrice" value="${orderItem.after_price * orderItem.quantity}" />
-					  <li class="list-group-item price11">총가격&nbsp;&nbsp;&nbsp;&nbsp; ${totalPrice}&nbsp;원</li>
-					</ul>
-				</c:forEach>
+				<h5 class="mb-3">결제 정보</h5>
+				  <table class="table table-borderless border-top border-2 border-black w-100">
+					<tbody>
+						<tr rowspan="2" class="border-bottom border-1" >
+							<th class="w-50">
+								결제수단
+								<br>
+							<span class="fw-light">${order.payment}</span>
+							</th>
+							<th class="w-50 bg-secondary-subtle">
+								<div class="d-flex">
+									<div class="w-50 fw-light">총 상품가격</div>
+									 <div class="w-50 text-end">
+										<fmt:formatNumber value="${order.total_price}" pattern="#,##0"/> 원
+									 </div>
+								</div>
+								
+								<div class="d-flex fw-light">
+									<div class="w-50">총 할인금액</div>
+									 <div class="w-50 text-end">
+										<fmt:formatNumber value="${order.discount_price}" pattern="#,##0"/> 원
+									</div>
+								</div>
+								<div class="d-flex fw-light">
+									<div class="w-50">배송비</div>
+									 <div class="w-50 text-end">3,000 원</div>
+								</div>
+								
+							</th>
+						</tr>
+						<tr rowspan="2">
+
+							<th>
+							
+							</th>
+							<td>
+								<div class="d-flex fw-light">
+									<div class="w-50">${order.payment}</div>
+									 <div class="w-50 text-end">
+										<fmt:formatNumber value="${order.payment_price + 3000}" pattern="#,##0"/> 원
+									</div>
+								</div>
+								<div class="d-flex fw-light">
+									<div class="w-50">총 결제금액</div>
+									 <div class="w-50 text-end">
+										<fmt:formatNumber value="${order.payment_price + 3000}" pattern="#,##0"/> 원
+									</div>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				  </table>
 			</div>
 			
 		<div class="or_guide_box">

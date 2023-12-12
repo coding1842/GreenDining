@@ -16,30 +16,31 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService
+{
 
-	@Autowired
-	ProductDAO productDAO;
+        @Autowired
+        ProductDAO productDAO;
 
         @Override
         public ProductDTO getProduct(int productID)
         {
-        	
+
 	      return productDAO.getProduct(productID);
         }
 
         @Override
         public Page<ProductDTO> getProductPage(Map<String, Object> dataMap)
         {
-        	  RequestPageList<?> requestPageList = RequestPageList.builder()
-                      .data(dataMap)
-                      .pageable((Pageable)dataMap.get("pageable"))
-                      .build();
+	      RequestPageList<?> requestPageList = RequestPageList.builder()
+		        .data(dataMap)
+		        .pageable((Pageable) dataMap.get("pageable"))
+		        .build();
 
-          List<ProductDTO> content = productDAO.getProductPage(requestPageList);
-          int total = productDAO.getProductListCount(dataMap);
+	      List<ProductDTO> content = productDAO.getProductPage(requestPageList);
+	      int total = productDAO.getProductListCount(dataMap);
 
-          return new PageImpl<>(content,(Pageable)dataMap.get("pageable"),total);
+	      return new PageImpl<>(content, (Pageable) dataMap.get("pageable"), total);
         }
 
         @Override
@@ -52,21 +53,28 @@ public class ProductServiceImpl implements ProductService {
         @Override
         public int insertProduct(ProductDTO productDTO)
         {
-          
+
 	      return productDAO.insertProduct(productDTO);
         }
 
         @Override
         public int updateProduct(ProductDTO productDTO)
         {
-        	
+
 	      return productDAO.updateProduct(productDTO);
         }
 
-		@Override
-		public int deleteProduct(ProductDTO productDTO) {
-			return productDAO.deleteProduct(productDTO);
-		}
+        @Override
+        public int deleteProduct(ProductDTO productDTO)
+        {
+	      return productDAO.deleteProduct(productDTO);
+        }
+
+        @Override
+        public void updateStock(Map<String, Object> hashMap)
+        {
+	      productDAO.updateStock(hashMap);
+        }
 
 //        @Override
 //        public int deleteProduct(int productID)
@@ -74,5 +82,5 @@ public class ProductServiceImpl implements ProductService {
 //	      return productDAO.deleteProduct(productID);
 //        }
 
-		
+
 }
