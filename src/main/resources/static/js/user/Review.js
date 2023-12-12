@@ -14,19 +14,18 @@ function controlReview(ele,type){
 	{
 		if(confirm("정말 수정 하시겠습니까?"))
 		{
-			url = "/user/update/review";
+			url = "/review/update";
 		}
 		else
 		{
 			return false;
 		}
-		
 	}
 	else if(type == "delete")
 	{
 		if(confirm("정말 삭제 하시겠습니까?"))
 		{
-			url = "/user/delete/review";
+			url = "/review/delete";
 		}
 		else
 		{
@@ -40,9 +39,10 @@ function controlReview(ele,type){
 		data: formdata,
 		processData: false,
     	contentType: false,  
-		success: function(data){
-			alert(data);
-			location.reload();
+    	dataType:"json",
+		success: function(resp){
+			alert(resp.msg);
+			window.location.href = resp.url;
 		},
 		error: function(jqXHR, textStatus, errorThrown){
 		    console.log('Error: ' + errorThrown);

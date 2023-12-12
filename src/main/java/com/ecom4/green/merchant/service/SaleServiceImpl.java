@@ -169,5 +169,7 @@ public class SaleServiceImpl implements SaleService
 	      saleDAO.updateTotalRate(hashMap);
         }
 
+	
+
 
 }
