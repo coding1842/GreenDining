@@ -100,6 +100,13 @@ public class UserServiceImpl implements UserService
 	public int deleteQna(QnaDTO qnaDTO) {
 		return userDao.deleteQna(qnaDTO);
 	}
+
+	@Override
+	public QnaDTO qnaUp(QnaDTO qnaDto) {
+		System.err.println(qnaDto);
+		return userDao.qnaUp(qnaDto);
+	}
+
 	
 
         @Override

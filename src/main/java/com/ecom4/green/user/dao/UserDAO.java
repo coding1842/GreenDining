@@ -45,6 +45,8 @@ public interface UserDAO
 	int updateQna(QnaDTO qnaDTO);
 
 	int deleteQna(QnaDTO qnaDTO);
+
+	QnaDTO qnaUp(QnaDTO qnaDto);
 	
 	
 

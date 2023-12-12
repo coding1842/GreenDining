@@ -516,8 +516,7 @@ public class UserController
 	  @GetMapping("/qna/detail") public String qnaDetailForm(@RequestParam int qna_id, HttpServletRequest req, HttpServletResponse res, Model model) { 
 		  
 		HttpSession session = req.getSession(); 
-		UserDTO custom = (UserDTO)
-		session.getAttribute("ssKey");
+		UserDTO custom = (UserDTO) session.getAttribute("ssKey");
 		String main = "user/form/QnaDetailForm";
 		
 		QnaDTO qnaDTO = userService.selectQnaDetail(qna_id);
@@ -575,23 +574,30 @@ public class UserController
 		 
 		 return page;
 	 }
-	  
-	  
-//	 @PostMapping("/qna/delete")
-//	 public String qnaDelete(HttpSession session, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
-//		 String url = null;
-//		 int r = 0;
-//		 
-//		 RoleStatus status = authService.checkRoleStatus(session);
-//		 if(status == RoleStatus.USER) {
-//			 r = userService.deleteQna(qnaDTO);
-//			 url = "redirect:/item/" + qnaDTO.getSale_id();
-//		 } else {
-//			 url = "redirect:/auth/login";
-//		 }
-//		 
-//		 return url;
-//	 }
+	 
+	 @RequestMapping("/qna/qnaUpForm")
+		public String noticeUpForm(HttpServletRequest request, HttpServletResponse response, QnaDTO qnaDto, Model model) {
+			HttpSession session = request.getSession();
+			String main = "user/form/QnaUpForm";
+//			String page = null;
+			UserDTO userDto = (UserDTO) session.getAttribute("ssKey");
+//			main = "user/form/QnaUpForm";
+			
+//			if(userDto!=null && userDto.getRole().equals("USER")) {
+//				page = "Index";
+//				main = "user/form/QnaUpForm";
+//			}else {
+//				page = "Index";
+//				main = "redirect:/auth/login";
+//			}
+			QnaDTO qnaDTO = userService.qnaUp(qnaDto);
+			System.out.println("====="+qnaDto);
+			System.out.println("+++++"+qnaDTO);
+			session.setAttribute("ssKey", userDto);
+			session.setAttribute("qna", qnaDTO);
+			model.addAttribute("main", main);
+			return "Index";
+		}
 	
 }
 

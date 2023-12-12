@@ -354,11 +354,11 @@
       			<c:forEach var="qna" items="${qnaDTOList}">
 		          <tr>
 		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.title}</td>
-		            <td style="border: none">${qna.content}</td>
-		            <td style="border: none">${qna.user_id}</td>
-		            <td style="border: none">${qna.image_group_id}</td>
-		            <td style="border: none">${qna.created_at}</td>
-		            <td style="display: none">${qna.id}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.content}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.user_id}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.image_group_id}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="border: none">${qna.created_at}</td>
+		            <td onclick="location.href='/user/qna/detail?qna_id=${qna.id}'" style="display: none">${qna.id}</td>
 	          	  </tr>
 			   </c:forEach>
 	           </c:when>

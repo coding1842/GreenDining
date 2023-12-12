@@ -7,7 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <script src="/js/user/Qna.js"></script> -->
 <style type="text/css">
 
 /* table{
@@ -72,11 +71,7 @@ td{
 	<tfoot>
 		<tr style="text-align: center">
 			<td colspan="2">
-				<input type="button" value="글수정" id="update" onclick="location.href='/user/qna/qnaUpForm'">
-				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="글삭제" id="delete">
-				&nbsp;&nbsp;&nbsp;
-				<input type="button" value="답글" id="reply">
+				<input type="button" value="글수정" id="update">
 				&nbsp;&nbsp;&nbsp;
 				<input type="button" value="글목록" onclick="location.href ='/item/${qna.sale_id}'">
 			</td>

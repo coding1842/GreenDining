@@ -42,6 +42,8 @@ public interface UserService
 
 	int deleteQna(QnaDTO qnaDTO);
 
+	QnaDTO qnaUp(QnaDTO qnaDto);
+
 	
 
         AddressDTO selectAddress(Map<String, Object> map);

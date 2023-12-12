@@ -204,5 +204,12 @@
 	UPDATE QNA SET STATE = 'D'
 	WHERE ID = #{id}
    </update>
+   
+   <select id="qnaUp" parameterType="QnaDTO" resultType="QnaDTO">
+		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
+		FROM QNA
+		WHERE id = #{id}
+	</select>
 	
 </mapper>
