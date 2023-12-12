@@ -9,13 +9,11 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-
-
+    
     <!-- JS -->
     <script src="/jquery/jquery-3.7.0.min.js"></script>
-
     <script src="/js/user/Review.js"></script>
-	
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
   </head>
@@ -233,6 +231,7 @@
         <label class="btn btn-outline-primary" for="btnradio4">반품/교환정보</label>
       </div>
       <!-- 상세정보 -->
+     <div style="">
       <div class="fingForm" id="1">
         <h4 id="title" class="mt-5">상세정보</h4>
         <table class="product_info" style="text-align: center; display: inline">
@@ -263,48 +262,64 @@
         <img alt="상세정보 펼처보기 기능넣기" src="" />
       </div>
 
-      <!-- 리뷰  -->
-      	<div class="fingForm" id="2" style="display: none;">
+      <!-- 리뷰 1 -->
+    
+      <div class="fingForm" id="2" style="display: none">
+      
+      <c:choose>
+      	<c:when test="${fn:length(reviewDTOList) > 0}">
 		        <h4 id="title" class="mt-5">리뷰</h4>
 		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
 		        <p>전체리뷰 수 : '기능'개</p>
-		        <a href="/user/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
+		        <a href="/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
 		        	 background-color: skyblue; padding: 3px">상품 리뷰 작성하기</a>
-		        <br /><br />
-		      <c:choose>
-		      	<c:when test="${fn:length(reviewDTOList) > 0}">
-	      		<c:forEach var="review" items="${reviewDTOList}">
-		        <table style="margin:  10px 10px;">
-		          <tr style="border: none">
-		            <th style="border: none">평점</th>
-		            <th style="border: none">제목</th>
-		            <th style="border: none">작성자</th>
-		            <th style="border: none">내용</th>
-		            <th style="border: none">이미지</th>
-		            <th style="border: none">작성일</th>
-		          </tr>
-		          <tr>
-		            <td style="border: none">${review.star}</td>
-		            <td style="border: none">${review.title}</td>
-		            <td style="border: none">${review.user_id}</td>
-		            <td style="border: none">${review.content}</td>
-		            <td style="border: none">${review.image_group_id}</td>
-		            <td style="border: none">${review.created_at}</td>
-		          </tr>
-		        </table>
-	       		</c:forEach>
-		        <div style="text-align: center; padding: 15px;">
-						<div style="display: inline-block; gap:10px">
-							<button  id="updateReview"
-									type="submit" style="border: 1px solid #eaeaea;
-									background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 수정하기</button>
+      			<c:forEach var="review" items="${reviewDTOList}">
+			        <br /><br />
+			        <form id="reviewForm" method="post">
+			        <table style="width: 600px;">
+			          <tr style="border: none">
+			            <th style="border: none">리뷰 번호</th>
+			            <th style="border: none">이미지</th>
+			            <th style="border: none">평점</th>
+			            <th style="border: none">제목</th>
+			            <th style="border: none">작성자</th>
+			            <th style="border: none">내용</th>
+			            <th style="border: none">작성일</th>
+			          </tr>
+			          <tr>
+			            <td style="border: none">${review.id}</td>
+			            <td style="border: none">
+		            		<img style=" width: 130px;" src="${review.imgurList[0].path}">
+			            </td>
+			            <td style="border: none">${review.star}</td>
+			            <td style="border: none">${review.title}</td>
+			            <td style="border: none">${review.user_id}</td>
+			            <td style="border: none; width: 800px; ">${review.content}</td>
+			            <td style="border: none; width: 400px;">${review.created_at}</td>
+			          </tr>
+			        </table>
+			        <input type="hidden" name="id" value="${review.id}">
+			        <input type="hidden" name="user_id" value="${review.user_id}">
+			        <div style="text-align: center;">
+						<div style="display: inline-block;">
+<!-- 							<button onclick="controlReview(this,'update')" id="updateReview" -->
+<%-- 									type="button" style="border: 1px solid #eaeaea; --%>
+<%-- <!-- 									background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 수정하기</button> --> --%>
+							<a href="/review/update/form/${review.id}">리뷰 수정하기</a>
 							<button onclick="controlReview(this,'delete')" id="deleteReview"
 							type="button" style="border: 1px solid #eaeaea;
 							background-color: white; width: 150px; font-size: 20px; margin-bottom: 20px;">리뷰 삭제하기</button>
 						</div>
 					</div>
+					</form>
+	       		</c:forEach>
         </c:when>
         <c:when test="${fn:length(reviewDTOList) == 0}">
+        	<h4 id="title" class="mt-5">리뷰</h4>
+		        <p>상품을 구매하신 분들이 작성하신 리뷰입니다. <br>리뷰 작성시 포인트가 적립됩니다.</p>
+		        <p>전체리뷰 수 : '기능'개</p>
+		        <a href="/review/write?sale_id=${sale.id}" style="border: solid 1px #dddddd; border-radius: 5px;
+		        	 background-color: skyblue; padding: 3px">상품 리뷰 작성하기</a>
 		        <br /><br />
 		        <table style="">
 		          <tr style="border: none">
@@ -330,6 +345,7 @@
         </c:when>
 		</c:choose>
       </div>
+   
 
       <!-- Q&A -->
            	<div class="fingForm" id="3" style="display: none;">
@@ -447,8 +463,10 @@
           </tr>
         </table>
       </div>
+    </div>
     </section>
     <div class="clear"></div>
   </body>
 
 </html>
+
