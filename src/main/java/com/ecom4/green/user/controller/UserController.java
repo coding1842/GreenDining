@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -75,7 +76,8 @@ public class UserController
 		         Model model,
 		         HttpSession session,
 		         OrdersDTO ordersDTO,
-		         @PageableDefault(page = 0, size = 5) Pageable pageable)
+		         @PageableDefault(page = 0, size = 5, sort = "id",
+				 direction = Sort.Direction.DESC) Pageable pageable)
         {
 	      String main = "user/view/MyPage";
 	      String url = "";
