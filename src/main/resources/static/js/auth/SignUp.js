@@ -18,8 +18,7 @@ $().ready(function () {
         alert("패스워드가 다릅니다.");
         return false;
       }
-      if (!phoneCheck);
-      {
+      if (phoneCheck) {
         alert("해당 휴대폰 번호로 이미 가입된 계정이 있습니다.");
         return false;
       }
@@ -110,13 +109,13 @@ $().ready(function () {
             $("font[id=phone_font]").text("");
             $("font[id=phone_font]").attr("color", "red");
             $("font[id=phone_font]").text("이미 사용중인 번호 입니다.");
-            phoneCheck = false;
+            phoneCheck = true;
           } else {
             //사용가능한 아이디
             $("font[id=phone_font]").text("");
             $("font[id=phone_font]").attr("color", "blue");
             $("font[id=phone_font]").text("사용가능한 번호 입니다.");
-            phoneCheck = true;
+            phoneCheck = false;
           }
         },
       });
@@ -132,6 +131,9 @@ $().ready(function () {
     validatePassword(password, email);
     $("font[id=check]").text("");
     if ($("#check1").val() != $("#check2").val()) {
+      textDanger("#password_text_04");
+      pcheck = true;
+    } else if ($("#check2").val() == "") {
       textDanger("#password_text_04");
       pcheck = true;
     } else {

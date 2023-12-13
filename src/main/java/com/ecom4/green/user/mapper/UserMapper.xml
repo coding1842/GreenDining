@@ -129,93 +129,98 @@
         where id = #{map.address_id}
         and user_id = #{map.user_id}
     </select>
-	<select id="getAddressIdByOrderId" parameterType="int" resultType="int">
-		select address_id
-		from orders
-		where id = #{order_id}
-	</select>
-	 <select id="getOrderAddress" parameterType="int" resultType="AddressDTO">
-	    SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name 
-	    FROM address 
-	    WHERE id = #{address_id}
-	</select>
-	
-	<!-- qna -->
-	<insert id="insertQna" parameterType="QnaDTO">
-		<selectKey keyProperty="id" order="BEFORE"
-	        resultType="int">
-	      SELECT NVL(MAX(id),0)+1 FROM QNA
-	    </selectKey>
-		INSERT INTO QNA(	ID,
-							USER_ID,
-							ORDER_ID,
-							PRODUCT_ID,
-							TITLE,
-							CONTENT,
-							CREATED_AT,
-							CHILD_ID,
-							IMAGE_GROUP_ID,
-							SALE_ID)
-		VALUES( #{id},
-				#{user_id},
-				#{order_id},
-				#{product_id},
-				#{title},
-				#{content},
-				SYSDATE,
-				#{child_id},
-				<if test="image_group_id != 0">
-				#{image_group_id},
-				</if>
-				<if test="image_group_id == 0">
-				0,
-				</if>
-				#{sale_id})
-	</insert>
-	
-	<select id="selectQnaList" resultType="QnaDTO" parameterType="QnaDTO">
-		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
-				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
-		FROM qna
-		WHERE  SALE_ID = #{sale_id} 
-		<if test="user_id != '' and user_id != null">
-		and
-		 	USER_ID = #{user_id}
-		</if>
-	</select>
-	
-	 <select id="selectQnaDetail" resultType="QnaDTO" parameterType="int">
-		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
-				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
-		FROM qna
-		WHERE id = #{id}
-	</select>
-	
-	<update id="updateProc" parameterType="QnaDTO">
-		UPDATE QNA SET
-		USER_ID = #{user_id},
-		ID = #{id},
-		ORDER_ID = #{order_id},
-		PRODUCT_ID = #{product_id},
-		TITLE = #{title},
-		CONTENT = #{content}
-		CREATED_AT = #{created_at}
-		CHILD_ID = #{child_id}
-		IMAGE_GROUP_ID = #{image_group_id}
-		SALE_ID = #{sale_id}
-		WHERE ID = #{id}
-   </update>
-   
-   <update id="deleteProc" parameterType="QnaDTO">
-	UPDATE QNA SET STATE = 'D'
-	WHERE ID = #{id}
-   </update>
-   
-   <select id="qnaUp" parameterType="QnaDTO" resultType="QnaDTO">
-		SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
-				CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
-		FROM QNA
-		WHERE id = #{id}
-	</select>
-	
+    <select id="getAddressIdByOrderId" parameterType="int" resultType="int">
+        select address_id
+        from orders
+        where id = #{order_id}
+    </select>
+    <select id="getOrderAddress" parameterType="int" resultType="AddressDTO">
+        SELECT address, zipcode, ADDRESS2, REQUEST_OPTION, PHONE, name
+        FROM address
+        WHERE id = #{address_id}
+    </select>
+
+    <!-- qna -->
+    <insert id="insertQna" parameterType="QnaDTO">
+        <selectKey keyProperty="id" order="BEFORE"
+                   resultType="int">
+            SELECT NVL(MAX(id),0)+1 FROM QNA
+        </selectKey>
+        INSERT INTO QNA( ID,
+        USER_ID,
+        ORDER_ID,
+        PRODUCT_ID,
+        TITLE,
+        CONTENT,
+        CREATED_AT,
+        CHILD_ID,
+        IMAGE_GROUP_ID,
+        SALE_ID)
+        VALUES( #{id},
+        #{user_id},
+        #{order_id},
+        #{product_id},
+        #{title},
+        #{content},
+        SYSDATE,
+        #{child_id},
+        <if test="image_group_id != 0">
+            #{image_group_id},
+        </if>
+        <if test="image_group_id == 0">
+            0,
+        </if>
+        #{sale_id})
+    </insert>
+
+    <select id="selectQnaList" resultType="QnaDTO" parameterType="QnaDTO">
+        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+        CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
+        FROM qna
+        WHERE SALE_ID = #{sale_id}
+        <if test="user_id != '' and user_id != null">
+            and
+            USER_ID = #{user_id}
+        </if>
+    </select>
+
+    <select id="selectQnaDetail" resultType="QnaDTO" parameterType="int">
+        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+        CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
+        FROM qna
+        WHERE id = #{id}
+    </select>
+
+    <update id="updateProc" parameterType="QnaDTO">
+        UPDATE QNA SET
+        USER_ID = #{user_id},
+        ID = #{id},
+        ORDER_ID = #{order_id},
+        PRODUCT_ID = #{product_id},
+        TITLE = #{title},
+        CONTENT = #{content}
+        CREATED_AT = #{created_at}
+        CHILD_ID = #{child_id}
+        IMAGE_GROUP_ID = #{image_group_id}
+        SALE_ID = #{sale_id}
+        WHERE ID = #{id}
+    </update>
+
+    <update id="deleteProc" parameterType="QnaDTO">
+        UPDATE QNA SET STATE = 'D'
+        WHERE ID = #{id}
+    </update>
+
+    <select id="qnaUp" parameterType="QnaDTO" resultType="QnaDTO">
+        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+        CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
+        FROM QNA
+        WHERE id = #{id}
+    </select>
+    <select id="selectAddressById" parameterType="int" resultType="addressDTO">
+        select *
+        from address
+        where id = #{address_id}
+    </select>
+
 </mapper>

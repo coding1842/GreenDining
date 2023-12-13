@@ -1,21 +1,23 @@
 package com.ecom4.green.payment.controller;
 
 import com.ecom4.green.authentication.service.AuthService;
+import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.order.dto.OrdersDTO;
 import com.ecom4.green.order.service.OrdersService;
 import com.ecom4.green.payment.service.ApiService;
+import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.CartDTO;
 import com.ecom4.green.user.dto.UserDTO;
+import com.ecom4.green.user.service.UserService;
 import jdk.jfr.Frequency;
+import org.apache.catalina.User;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
@@ -40,6 +42,9 @@ public class PaymentController
 
         @Autowired
         AuthService authService;
+
+        @Autowired
+        UserService userService;
 
         @PostMapping("/cancel")
         public ResponseEntity<?> cancel(@RequestParam Map<String, String> paramMap)
@@ -68,6 +73,25 @@ public class PaymentController
 	      }
 
 	      return new ResponseEntity<>("/user/my-page", HttpStatus.OK);
+        }
+
+        @GetMapping("/done")
+        public String PayDone(HttpSession session, @RequestParam(value = "resultMap", required = false) Map<String, Object> resultMap, Model model)
+        {
+	      String main = "payment/view/PaymentDone";
+
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+		    String user_id = authService.getCurrentUser(session).getId();
+		    OrdersDTO orderDTO = ordersService.selectLastOrderByUserId(user_id);
+		    AddressDTO addressDTO = userService.selectAddressById(orderDTO.getAddress_id());
+		    model.addAttribute("resultMap", resultMap);
+		    model.addAttribute("address", addressDTO);
+		    model.addAttribute("order", orderDTO);
+	      }
+
+	      model.addAttribute("main", main);
+	      return "Index";
         }
 
         @RequestMapping("/cardPay")
@@ -135,7 +159,7 @@ public class PaymentController
 		    orderMap.put("order_id", order_id);
 		    orderMap.put("transaction_id", transaction_id);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("payment/view/PaymentDone");
+		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
 	      }
 	      return mav;
 
@@ -182,7 +206,8 @@ public class PaymentController
 		    orderMap.put("transaction_id", transaction_id);
 		    orderMap.put("payment", payment);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("payment/view/PaymentDone");
+		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
+
 	      }
 	      return mav;
         }
@@ -227,7 +252,8 @@ public class PaymentController
 		    orderMap.put("transaction_id", transaction_id);
 		    orderMap.put("payment", payment);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("payment/view/PaymentDone");
+		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
+
 	      }
 	      return mav;
         }
@@ -278,7 +304,8 @@ public class PaymentController
 		    orderMap.put("transaction_id", transaction_id);
 		    orderMap.put("payment", payment);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("payment/view/PaymentDone");
+		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
+
 	      }
 	      return mav;
         }

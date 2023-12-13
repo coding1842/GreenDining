@@ -31,22 +31,23 @@ public interface UserService
 
         UserDTO getOrderUser(String userId);
 
-	//Qna -----------------------------
-	int insertQna(QnaDTO qnaDTO);
+        //Qna -----------------------------
+        int insertQna(QnaDTO qnaDTO);
 
-	List<QnaDTO> selectQnaList(QnaDTO qna);
+        List<QnaDTO> selectQnaList(QnaDTO qna);
 
-	QnaDTO selectQnaDetail(int qna_id);
+        QnaDTO selectQnaDetail(int qna_id);
 
-	int updateQna(QnaDTO qnaDTO);
+        int updateQna(QnaDTO qnaDTO);
 
-	int deleteQna(QnaDTO qnaDTO);
+        int deleteQna(QnaDTO qnaDTO);
 
-	QnaDTO qnaUp(QnaDTO qnaDto);
+        QnaDTO qnaUp(QnaDTO qnaDto);
 
-	
 
         AddressDTO selectAddress(Map<String, Object> map);
 
-		AddressDTO getOrderAddress(int order_id);
+        AddressDTO getOrderAddress(int order_id);
+
+        AddressDTO selectAddressById(int addressId);
 }

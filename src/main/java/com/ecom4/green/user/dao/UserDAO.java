@@ -11,6 +11,7 @@ import com.ecom4.green.user.dto.ReviewDTO;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.dto.CartDTO;
 import com.ecom4.green.user.dto.QnaDTO;
+
 @Mapper
 public interface UserDAO
 {
@@ -21,11 +22,10 @@ public interface UserDAO
 
         int updateAddress(AddressDTO addressDTO);
 
-	int deleteAddress(AddressDTO addressDTO);
-	
-	//review
-	int insertReview(ReviewDTO reviewDTO);
+        int deleteAddress(AddressDTO addressDTO);
 
+        //review
+        int insertReview(ReviewDTO reviewDTO);
 
 
         //	List<ReviewDTO> selectReviewList(int id);
@@ -35,27 +35,27 @@ public interface UserDAO
 
         int deleteReview(ReviewDTO reviewDTO);
 
-	//QnA ----------------------------------------------------------------
-	int insertQna(QnaDTO qnaDTO);
+        //QnA ----------------------------------------------------------------
+        int insertQna(QnaDTO qnaDTO);
 
-	List<QnaDTO> selectQnaList(QnaDTO qnaDTO);
+        List<QnaDTO> selectQnaList(QnaDTO qnaDTO);
 
-	QnaDTO selectQnaDetail(@Param("id") int qna_id);
+        QnaDTO selectQnaDetail(@Param("id") int qna_id);
 
-	int updateQna(QnaDTO qnaDTO);
+        int updateQna(QnaDTO qnaDTO);
 
-	int deleteQna(QnaDTO qnaDTO);
+        int deleteQna(QnaDTO qnaDTO);
 
-	QnaDTO qnaUp(QnaDTO qnaDto);
-	
-	
+        QnaDTO qnaUp(QnaDTO qnaDto);
 
 
         AddressDTO selectAddress(@Param("map") Map<String, Object> map);
 
-		UserDTO getOrderUser(String userId);
+        UserDTO getOrderUser(String userId);
 
-		AddressDTO getOrderAddress(@Param("address_id") int address_id);
+        AddressDTO getOrderAddress(@Param("address_id") int address_id);
 
-		int getAddressIdByOrderId(@Param("order_id") int order_id);
+        int getAddressIdByOrderId(@Param("order_id") int order_id);
+
+        AddressDTO selectAddressById(@Param("address_id") int addressId);
 }

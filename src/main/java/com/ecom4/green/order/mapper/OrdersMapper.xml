@@ -57,7 +57,7 @@
         </foreach>
         END;
     </insert>
-    
+
     <update id="updateOrderTransactionId" parameterType="map">
         UPDATE orders
         SET transaction_id = #{map.transaction_id}, payment = #{map.payment}
@@ -69,62 +69,75 @@
         SET status = #{status_cancel}
         where id = #{order_id}
     </update>
-	<select id="getMOrdersPage" parameterType="RequestPageList" resultType="ordersDTO">
-    select o.* from orders o
-    join order_item oi on o.id = oi.order_id
-		    <where>
-		        <if test="data.category != null and data.category != 0">
-		            o.category_code = #{data.category}
-		        </if>
-		        <if test="data.store_name != null and data.store_name != ''">
-		            and oi.store_name = #{data.store_name}
-		        </if>
-		    </where>
-		    OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
-	</select>
-	<select id="getMOrdersListCount" parameterType="map" resultType="int">
-    SELECT count(*)
-    FROM order_item
-    INNER JOIN orders ON order_item.order_id = orders.id 
-	    <where>
-	        order_item.store_name = #{map.store_name}
-	    </where>
-	</select>
-	<select id="getUserAddress" parameterType="int" resultType="AddressDTO">
-		SELECT user_id, name, address, address2, zipcode, request_option, request_text, id, phone FROM address WHERE id = #{address_id}
-	</select>
+    <select id="getMOrdersPage" parameterType="RequestPageList" resultType="ordersDTO">
+        select o.* from orders o
+        join order_item oi on o.id = oi.order_id
+        <where>
+            <if test="data.category != null and data.category != 0">
+                o.category_code = #{data.category}
+            </if>
+            <if test="data.store_name != null and data.store_name != ''">
+                and oi.store_name = #{data.store_name}
+            </if>
+        </where>
+        OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
+    </select>
+    <select id="getMOrdersListCount" parameterType="map" resultType="int">
+        SELECT count(*)
+        FROM order_item
+        INNER JOIN orders ON order_item.order_id = orders.id
+        <where>
+            order_item.store_name = #{map.store_name}
+        </where>
+    </select>
+    <select id="getUserAddress" parameterType="int" resultType="AddressDTO">
+        SELECT user_id, name, address, address2, zipcode, request_option, request_text, id, phone FROM address WHERE id
+        = #{address_id}
+    </select>
 
-	<update id="updateDelivery" parameterType="ordersDTO">
-		update orders set
-		status = #{status}		
-		where id = #{id}
-	</update>
-	<delete id="deleteOrder" parameterType="ordersDTO">
-		delete from orders
-		where id = #{id}
-	</delete>
-	<select id="countOrdersByStatus" parameterType="map" resultType="int">
-		SELECT COUNT(*)
-		    FROM ORDERS o
-		    JOIN order_item oi on o.id = oi.order_id
-		    WHERE oi.STORE_NAME = #{storeName} AND o.STATUS = #{status}
-	</select>
+    <update id="updateDelivery" parameterType="ordersDTO">
+        update orders set
+        status = #{status}
+        where id = #{id}
+    </update>
+    <delete id="deleteOrder" parameterType="ordersDTO">
+        delete from orders
+        where id = #{id}
+    </delete>
+    <select id="countOrdersByStatus" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+        FROM ORDERS o
+        JOIN order_item oi on o.id = oi.order_id
+        WHERE oi.STORE_NAME = #{storeName} AND o.STATUS = #{status}
+    </select>
 
-	<select id="getProductByOrderId" parameterType="int" resultType="ProductDTO">
-	SELECT p.* 
-	FROM product p 
-	JOIN order_item oi ON p.id = oi.product_id 
-	WHERE oi.order_id = #{order_id}
-	</select>
-	<select id="getStoreNameByMerchantId" parameterType="String" resultType="String">
-	    SELECT store_name
-	    FROM merchant
-	    WHERE id = #{merchant_id}
-	</select>
-	
-	<delete id="deleteOrderItem" parameterType="ordersDTO">
-		delete from order_item
-		where order_id = #{id}
-	</delete>
-	
+    <select id="getProductByOrderId" parameterType="int" resultType="ProductDTO">
+        SELECT p.*
+        FROM product p
+        JOIN order_item oi ON p.id = oi.product_id
+        WHERE oi.order_id = #{order_id}
+    </select>
+    <select id="getStoreNameByMerchantId" parameterType="String" resultType="String">
+        SELECT store_name
+        FROM merchant
+        WHERE id = #{merchant_id}
+    </select>
+
+    <delete id="deleteOrderItem" parameterType="ordersDTO">
+        delete from order_item
+        where order_id = #{id}
+    </delete>
+
+    <select id="selectLastOrderByUserId" parameterType="String" resultType="ordersDTO">
+        select *
+        from
+        (
+        select *
+        from orders
+        where user_id = #{user_id}
+        order by id desc
+        )
+        where rownum = 1
+    </select>
+
 </mapper>
