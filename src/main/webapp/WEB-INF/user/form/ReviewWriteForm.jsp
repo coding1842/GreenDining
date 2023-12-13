@@ -82,7 +82,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="3">
-						<button type="submit" id="imgur_push">리뷰 작성</button>
+						<button type="button" id="imgur_push">리뷰 작성</button>
 					</td>
 				</tr>
 			</tfoot>

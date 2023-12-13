@@ -13,7 +13,6 @@
 			  <div class="dropdown-options">
 			    <a href="/merchant/my-page/product/list">상품 리스트</a><br>
 			    <a href="/product/write">상품 등록</a><br>
-			    <a href="/product/write/{product-id}">상품 수정</a><br>
 			  </div>
 		 </div>
     </li>

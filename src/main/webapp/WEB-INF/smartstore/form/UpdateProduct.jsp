@@ -4,7 +4,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>스마트 스토어 상품 등록</title>
+    <title>스마트 스토어 상품 수정</title>
   </head>
   <!-- 사업자로 로그인 된상태임 -->
   <body>
@@ -58,7 +58,7 @@
               <th class="product_puch_space"></th>
               <td class="product_puch_space">
                 <button type="reset" id="product_reset">다시쓰기</button>
-                <input class="submit1" type="button" id="updateBtn" value="상품 수정하기" />
+                <input class="submit1" type="button" id="imgur_push" value="상품 수정하기" />
                 <input type="hidden" name="merchant_id" value="${ssKey.id}" />
                 <input type="hidden" name="image_group_id" value="${product.image_group_id}" />
                 <input type="hidden" id="imgurUrl" value="/imgur/update" />

@@ -2408,14 +2408,14 @@ div#sale_button .btn-group a button {
 #product_table th{
 	width: 150px;
 	height: 40px;
-	background-color: aqua;
+	
 }
 #product_table td{
 	width: 280px;
 	height: 30px;
 	padding-left: 30px;
 	padding-right: 30px;
-	background-color: yellow;
+	
 }
 #product_a, #product_b, #product_c{
 	padding-top: 5px;

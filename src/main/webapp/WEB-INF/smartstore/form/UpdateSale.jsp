@@ -6,12 +6,12 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>상품 판매 등록</title>
+    <title>상품 판매글 수정</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   </head>
   <body>
     <div id="sale-wrap">
-      <h2 style="text-align: center; padding: 10px 0">상품 판매글 등록</h2>
+      <h2 style="text-align: center; padding: 10px 0">상품 판매글 수정</h2>
       <form action="/item/write/${sale.id}" method="post" id="ajaxForm" enctype="multipart/form-data" autocomplete="off">
         <table>
           <tr>

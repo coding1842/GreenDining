@@ -76,6 +76,7 @@ public class ProductController
         }
 
         //	상품 등록
+        @ResponseBody
         @PostMapping("/write")
         public Map<String, Object> insertProduct(HttpServletRequest req,
 				         HttpServletResponse resp,
@@ -142,6 +143,7 @@ public class ProductController
         }
 
         //	상품 수정 요청
+        @ResponseBody
         @PostMapping("/write/{product-id}")
         public Map<String, Object> updateProduct(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO, @PathVariable("product-id") int product_id)
         {

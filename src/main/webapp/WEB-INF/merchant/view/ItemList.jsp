@@ -14,7 +14,6 @@
 			  <div class="dropdown-options">
 			    <a href="/merchant/my-page/product/list">상품 리스트</a><br>
 			    <a href="/product/write">상품 등록</a><br>
-			    <a href="/product/write/{product-id}">상품 수정</a><br>
 			  </div>
 		 </div>
     </li>
@@ -146,15 +145,13 @@ window.onload = function() {
     // URL에서 'size' 파라미터를 가져옵니다.
     var urlParams = new URLSearchParams(window.location.search);
     var size = urlParams.get('size');
+    var page = urlParams.get('page');
 
     // 'size' 파라미터를 select box의 선택 값으로 설정합니다.
     var selectBox = document.getElementById('size');
     selectBox.value = size;
 };
-function changeSize() {
-  var size = document.getElementById("size").value;
-  window.location.href = "?page=0&size=" + size;
-}
+
 </script>
 <script>
 var currentPage = ${salePage.number};  // 현재 페이지 번호 초기화
@@ -166,7 +163,7 @@ window.onload = function() {
 
 function changeSize() {
   currentSize = document.getElementById("size").value;  // 페이지 사이즈 변경 시 사이즈 업데이트
-  window.location.href = "?page=" + currentPage + "&size=" + currentSize;
+  window.location.href = "?page=0" + "&size=" + currentSize;
 }
 
 function changePage(page) {
