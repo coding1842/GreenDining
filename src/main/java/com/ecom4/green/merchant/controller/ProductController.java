@@ -145,7 +145,11 @@ public class ProductController
         //	상품 수정 요청
         @ResponseBody
         @PostMapping("/write/{product-id}")
-        public Map<String, Object> updateProduct(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, ProductDTO productDTO, @PathVariable("product-id") int product_id)
+        public Map<String, Object> updateProduct(HttpSession session,
+        		HttpServletRequest req, HttpServletResponse resp, 
+        		Model model, ProductDTO productDTO, 
+        		@PathVariable("product-id") int product_id,
+        		@RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String msg = null;
@@ -158,6 +162,7 @@ public class ProductController
 	      {
 		    ProductDTO pdto = productDTO;
 		    pdto.setId(product_id);
+		    pdto.setImage_group_id(image_group_id);
 		    r = productService.updateProduct(pdto);
 		    url = "/merchant/my-page/product/list";
 		    msg = "상품 수정 완료";

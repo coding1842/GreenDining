@@ -27,7 +27,7 @@ import java.util.Map;
 public class ImgurController
 {
        private static String CLIENT_ID = "898c7032bf09d08";
-
+       private static String ACCESS_TOKEN = "a0605e178d954c9385bf21a5767f1888c61a124b";
        @Autowired
         ImgurService imgurService;
 
@@ -103,8 +103,8 @@ public class ImgurController
         }
 
 //        원래 group_id을 가진 이미지 업로드 삭제하고 , 해당 group_id로 다시 재 삽입
-        @PatchMapping("/update")
-		public ResponseEntity<?> updateImageList(@RequestParam ("fileList") MultipartFile[] fileList, @RequestParam("image_group_id") int image_group_id) throws IOException
+        @PostMapping("/update/{image_group_id}")
+		public ResponseEntity<?> updateImageList(@RequestParam ("fileList") MultipartFile[] fileList, @PathVariable("image_group_id") int image_group_id) throws IOException
         {
 	      int r = 0;
 
@@ -113,24 +113,30 @@ public class ImgurController
 	      List<ImgurDTO> imgurDTOList = new ArrayList<>();
 
 	      HttpHeaders headers = new HttpHeaders();
-	      headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-	      headers.set("Authorization", "Client-ID " + CLIENT_ID);
-
-	      List<ImgurDTO> deleteList = imgurService.selectImageList(image_group_id);
-	      int result = imgurService.deleteImageList(image_group_id);
-
-	      HttpEntity<String> deleteEntity = new HttpEntity<>(headers);
-	      for(ImgurDTO imgurDTO : deleteList)
+	      
+	      
+	      if(image_group_id != 0)
 	      {
-		    String imgur_id = imgurDTO.getImgur_id();
-		    restTemplate.exchange("https://api.imgur.com/3/image/" + imgur_id, HttpMethod.DELETE,deleteEntity ,Void.class);
+		      headers.setContentType(MediaType.APPLICATION_JSON);
+		      headers.set("Authorization", "Bearer " + ACCESS_TOKEN);
+		 
+		      List<ImgurDTO> deleteList = imgurService.selectImageList(image_group_id);
+		      int result = imgurService.deleteImageList(image_group_id);
+	
+		      HttpEntity<String> deleteEntity = new HttpEntity<>(headers);
+		      for(ImgurDTO imgurDTO : deleteList)
+		      {
+			    String imgur_id = imgurDTO.getImgur_id();
+			    restTemplate.exchange("https://api.imgur.com/3/image/" + imgur_id, HttpMethod.DELETE,deleteEntity ,Void.class);
+		      }
 	      }
-
 	      for (MultipartFile file : fileList)
 	      {
 		    MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		    
 		    body.add("image", new ByteArrayResource(file.getBytes()));
-
+		    headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		    headers.set("Authorization", "Client-ID " + CLIENT_ID);
 		    HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
 
 		    ResponseEntity<String> response = restTemplate.postForEntity("https://api.imgur.com/3/image", requestEntity, String.class);
@@ -161,10 +167,6 @@ public class ImgurController
 	      {
 		    r = imgurService.insertImageList(imgurDTOList);
 
-		    if(r < 1)
-		    {
-			  throw new Exception("업로드가 정상적으로 되지 않았습니다.");
-		    }
 	      }
 	      catch (Exception e)
 	      {
@@ -199,7 +201,7 @@ public class ImgurController
 
         }*/
 //        다중 삭제
-        @GetMapping("/delete/{image_group_id}")
+        @PostMapping("/delete/{image_group_id}")
         public  ResponseEntity<?> deleteImageList(@PathVariable("image_group_id") int image_group_id) {
 
 	      RestTemplate restTemplate = new RestTemplate();
@@ -224,7 +226,7 @@ public class ImgurController
         }
 
         // s
-        @DeleteMapping("/delete/sale-clear")
+        @PostMapping("/delete/sale-clear")
         public  ResponseEntity<?> deleteImageSaleClear() {
 
 	      RestTemplate restTemplate = new RestTemplate();

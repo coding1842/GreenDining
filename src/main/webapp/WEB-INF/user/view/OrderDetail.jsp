@@ -139,11 +139,11 @@
 				<tbody>
 					<tr>
 						<th scope="row">받는사람</th>
-						<td>${userDTO.name}</td>
+						<td>${addressDTO.name}</td>
 					</tr>
 					<tr>
 						<th scope="row">연락처</th>
-						<td colspan="2">${userDTO.phone}</td>
+						<td colspan="2">${addressDTO.phone}</td>
 					</tr>
 					<tr>
 						<th scope="row">받는주소</th>

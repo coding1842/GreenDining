@@ -8,7 +8,6 @@
 <title>리뷰 수정하기</title>
 <link rel="stylesheet" href="/css/QnaWriteForm.css" />
 <link rel="stylesheet" href="/css/user/Review.css" />
-<script src="/js/imgur/ImgurManagement.js"></script>
 <script>
 	var reviewStar = ${review.star};
 
@@ -109,7 +108,7 @@
 			<tfoot>
 				<tr>
 					<td colspan="3">
-						<button type="submit" id="imgur_push">리뷰 수정</button>
+						<button type="button" id="imgur_push">리뷰 수정</button>
 					</td>
 				</tr>
 			</tfoot>

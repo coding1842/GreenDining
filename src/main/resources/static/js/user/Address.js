@@ -90,7 +90,7 @@ $(function () {
     let address_popup_request_option = $(this).siblings(".address_popup_request_option").val();
     let address_popup_request_text = $(this).siblings(".address_popup_request_text").val();
 
-    $("#address_id", opener.document).html(address_popup_id);
+	$("#address_id", opener.document).val(address_popup_id);
     $("#address_name", opener.document).html(address_popup_name);
     $("#address_address", opener.document).html(address_popup_address + " , " + address_popup_address2 + " [" + address_popup_zipcode + "]");
     $("#address_phone", opener.document).html(address_popup_phone);

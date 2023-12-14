@@ -50,7 +50,7 @@
 	               <td>
 	                 <input type="file" name="fileList" />
 	                 <br />
-	                 <small>*(여러개 선택 가능합니다.)</small>
+	                 <small>*(장바구니 또는 주문목록에서 보여질 사진 등록(1장).)</small>
 	               </td>
 	             </tr>
             <tr>

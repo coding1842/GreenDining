@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -129,17 +131,18 @@ public class ReviewController {
 
 		return "Index";
 	}
-
+	@ResponseBody
 	@PostMapping("/update")
-	public String updateReview(@RequestParam(required = false, defaultValue = "0") int image_group_id, HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session, ReviewDTO reviewDTO) {
+	public ResponseEntity<?> updateReview(@RequestParam(required = false, defaultValue = "0") int image_group_id, HttpServletRequest req, HttpServletResponse res, Model model, HttpSession session, ReviewDTO reviewDTO) {
 		
 		//*************************************************************
 		//처음에 이미지 넣은 상태로 리뷰 등록하고 수정하기로 이미지 바꾸면 이미지가 사라짐( 데이터도 사라짐 )
 		//위에 @RequestParam(required = false, defaultValue = "0") int image_group_id 이걸 넣어보고 아래 if문을 줘봤음
 		
 		String url = null;
+		String msg = null;
         int r = 0;
-        
+        Map<String,Object> map = new HashMap<>();
         RoleStatus status = authService.checkRoleStatus(session);
  
         if(status == RoleStatus.USER) {
@@ -148,14 +151,18 @@ public class ReviewController {
 				reviewDTO.setImage_group_id(image_group_id);
 			}
            r = reviewService.updateReview(reviewDTO);
-           url = "redirect:/item/" + req.getParameter("sale_id");
-           
+           url = "/item/" + req.getParameter("sale_id");
+           msg = "리뷰 수정 되었습니다.";
        }
         else {
-           url = "redirect:/";
+        	msg = "로그인 이후 이용해주세요.";
+            url = "/auth/login";
        }
+       
+        map.put("msg",msg);
+        map.put("url",url);
         
-       return url;
+       return new ResponseEntity<>(map,HttpStatus.OK);
 	}
 	
 	@ResponseBody

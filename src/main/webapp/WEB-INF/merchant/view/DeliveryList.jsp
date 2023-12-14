@@ -211,7 +211,8 @@ window.onload = function() {
     // URL에서 'size' 파라미터를 가져옵니다.
     var urlParams = new URLSearchParams(window.location.search);
     var size = urlParams.get('size');
-
+    var page = urlParams.get('page');
+    
     // 'size' 파라미터를 select box의 선택 값으로 설정합니다.
     var selectBox = document.getElementById('size');
     selectBox.value = size;
@@ -236,5 +237,5 @@ function changePage(page) {
   window.location.href = "?page=" + currentPage + "&size=" + currentSize;
 }
 
-});
+
 </script>

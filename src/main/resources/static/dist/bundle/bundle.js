@@ -14747,6 +14747,7 @@ function imgurProcess() {
   }
   // 파일 정보가 있으면 업로드 합니다
   if (imageData.get("fileList") != undefined) {
+	  alert("IMAGE UPLOAD");
     $.ajax({
       type: "post",
       url: imgurUrl,
@@ -14757,6 +14758,7 @@ function imgurProcess() {
       contentType: false,
       // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
       success: function success(response) {
+		formData.delete("image_group_id");
         formData.append("image_group_id", response.image_group_id);
         $.ajax({
           type: "post",
@@ -14780,6 +14782,7 @@ function imgurProcess() {
   }
   // 없으면 데이터만 전달
   else {
+	  alert("NO IMAGE UPLOAD");
     $.ajax({
       type: "post",
       url: formUrl,
@@ -15311,7 +15314,7 @@ $(function () {
     var address_popup_phone = $(this).siblings(".address_popup_phone").val();
     var address_popup_request_option = $(this).siblings(".address_popup_request_option").val();
     var address_popup_request_text = $(this).siblings(".address_popup_request_text").val();
-    $("#address_id", opener.document).html(address_popup_id);
+    $("#address_id", opener.document).val(address_popup_id);
     $("#address_name", opener.document).html(address_popup_name);
     $("#address_address", opener.document).html(address_popup_address + " , " + address_popup_address2 + " [" + address_popup_zipcode + "]");
     $("#address_phone", opener.document).html(address_popup_phone);

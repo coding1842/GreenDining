@@ -113,7 +113,7 @@
               </div>
               <div id="sale-discount-text" style="display: none">
                 <br />
-                <input type="number" placeholder="숫자만 입력" value="0" name="discount" class="sale-discount-text" />&nbsp;%
+                <input type="number" placeholder="숫자만 입력" value="0" name="saleDTO.discount" class="sale-discount-text" />&nbsp;%
               </div>
               <div id="sale-discount-total" style="display: none">
                 <br />
@@ -146,9 +146,9 @@
           <button type="reset" id="sale_reset">다시쓰기</button>
           <button class="submit-data" type="button" id="imgur_push" >상품 수정하기</button>
           <input type="hidden" name="saleDTO.merchant_id" value="${ssKey.id}" />
-          <input type="hidden" name="saleDTO.image_group_id" value="${sale.image_group_id}">
+          <input type="hidden" name="image_group_id" value="${sale.image_group_id}">
           <input type="hidden" name="saleDTO.id" value="${sale.id}" />
-          <input type="hidden" id="url" value="/imgur/update" />
+          <input type="hidden" id="url" value="/imgur/update/${sale.image_group_id}" />
         </div>
       </form>
     </div>

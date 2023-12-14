@@ -19,6 +19,7 @@
             </if>
             and merchant_id = #{data.merchant_id}
         </where>
+        ORDER BY id desc
         OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
     </select>
     <select id="getProductList" parameterType="String" resultType="productDTO">
@@ -54,7 +55,8 @@
         price = #{price},
         weight = #{weight},
         stock = #{stock},
-        status = #{status}
+        status = #{status},
+        image_group_id = #{image_group_id}
         where merchant_id = #{merchant_id}
         and id = #{id}
     </update>

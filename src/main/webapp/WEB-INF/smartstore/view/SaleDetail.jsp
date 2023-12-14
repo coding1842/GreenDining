@@ -13,13 +13,14 @@
     <!-- JS -->
     <script src="/jquery/jquery-3.7.0.min.js"></script>
     <script src="/js/user/Review.js"></script>
+    <script src="/js/Script.js"></script>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>  
   </head>
   <body>
     <!-- 상품이미지 -->
-    <section id="detailSwiper" class="w-50 h-500px d-block position-relative float-start">
+    <section id="detailSwiper" class="w-50 h-700px d-block position-relative float-start">
       <div style="--swiper-navigation-color: #fff; --swiper-pagination-color: #fff" class="swiper mySwiper mainSwiper">
 	<div class="swiper-wrapper">
 		<c:forEach var="path" items="${sale.image_group_path}" varStatus="i">
@@ -255,11 +256,11 @@
           </tr>
         </table>
         <br /><br />
-        <img alt="상품상세정보이미지" src="/image/hani1.jpg" />
-        <img alt="상품상세정보이미지" src="/image/hani2.jpg" />
-        <img alt="상품상세정보이미지" src="/image/hani3.jpg" />
-        <img alt="상품상세정보이미지" src="/image/hani4.jpg" />
-        <img alt="상세정보 펼처보기 기능넣기" src="" />
+<!--         <img alt="상품상세정보이미지" src="/image/hani1.jpg" /> -->
+<!--         <img alt="상품상세정보이미지" src="/image/hani2.jpg" /> -->
+<!--         <img alt="상품상세정보이미지" src="/image/hani3.jpg" /> -->
+<!--         <img alt="상품상세정보이미지" src="/image/hani4.jpg" /> -->
+<!--         <img alt="상세정보 펼처보기 기능넣기" src="" /> -->
       </div>
 
       <!-- 리뷰 1 -->

@@ -34,6 +34,7 @@
                     AND m.store_name = #{data.store_name}
                     AND systimestamp between started_at and ended_at
                 </where>
+                order by total_rate desc
                 OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
             </when>
             <!--            MERCHANT가 판매글 관리 위해서 요청할시-->
@@ -64,6 +65,7 @@
                     </if>
                     and merchant_id = #{data.merchant_id}
                 </where>
+                ORDER BY id desc
                 OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
             </when>
             <!--           검색 페이지 또는 카테고리 별 상품 탐색에서 public-->
@@ -164,7 +166,8 @@
         started_at = TO_DATE(#{started_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
         ended_at = TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
         category_code = #{category_code},
-        region_code = #{region_code}
+        region_code = #{region_code},
+        image_group_id = #{image_group_id}
         where merchant_id = #{merchant_id}
         and id = #{id}
     </update>

@@ -76,7 +76,7 @@ public class PaymentController
         }
 
         @GetMapping("/done")
-        public String PayDone(HttpSession session, @RequestParam(value = "resultMap", required = false) Map<String, Object> resultMap, Model model)
+        public String PayDone(HttpSession session, Model model)
         {
 	      String main = "payment/view/PaymentDone";
 
@@ -85,6 +85,8 @@ public class PaymentController
 		    String user_id = authService.getCurrentUser(session).getId();
 		    OrdersDTO orderDTO = ordersService.selectLastOrderByUserId(user_id);
 		    AddressDTO addressDTO = userService.selectAddressById(orderDTO.getAddress_id());
+		    Map<String,Object> resultMap = (Map<String,Object>)session.getAttribute("resultMap");
+		    
 		    model.addAttribute("resultMap", resultMap);
 		    model.addAttribute("address", addressDTO);
 		    model.addAttribute("order", orderDTO);
@@ -166,7 +168,7 @@ public class PaymentController
         }
 
         @RequestMapping("/authPay")
-        public ModelAndView AuthPay(@RequestParam Map<String, String> param)
+        public ModelAndView AuthPay(@RequestParam Map<String, String> param,HttpSession session)
         {
 
 	      System.out.println(param.toString());
@@ -188,9 +190,7 @@ public class PaymentController
 
 	      Map<String, Object> resultMap = apiService.JsonApi(url, map);
 	      ModelAndView mav = new ModelAndView();
-	      mav.addObject("resultMap", resultMap);
-	      mav.setViewName("payment/view/PaymentDone");
-
+	      
 	      if (!"0000".equals(resultMap.get("responseCode")))
 	      {
 		    mav.setViewName("payment/view/PaymentFail");
@@ -206,14 +206,15 @@ public class PaymentController
 		    orderMap.put("transaction_id", transaction_id);
 		    orderMap.put("payment", payment);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
+		    session.setAttribute("resultMap", resultMap);
+		    mav.setViewName("redirect:/payment/done");
 
 	      }
 	      return mav;
         }
 
         @RequestMapping("/kakaoPay")
-        public ModelAndView KakaoPay(@RequestParam Map<String, String> param)
+        public ModelAndView KakaoPay(@RequestParam Map<String, String> param,HttpSession session)
         {
 
 
@@ -252,14 +253,15 @@ public class PaymentController
 		    orderMap.put("transaction_id", transaction_id);
 		    orderMap.put("payment", payment);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
+		    session.setAttribute("resultMap", resultMap);
+		    mav.setViewName("redirect:/payment/done");
 
 	      }
 	      return mav;
         }
 
         @RequestMapping("/naverPay")
-        public ModelAndView naverPay(@RequestParam Map<String, String> param)
+        public ModelAndView naverPay(@RequestParam Map<String, String> param,HttpSession session)
         {
 
 	      String res_cd = param.get("res_cd");
@@ -304,7 +306,8 @@ public class PaymentController
 		    orderMap.put("transaction_id", transaction_id);
 		    orderMap.put("payment", payment);
 		    ordersService.updateOrderTransactionId(orderMap);
-		    mav.setViewName("redirect:/payment/done?resultMap=" + resultMap);
+		    session.setAttribute("resultMap", resultMap);
+		    mav.setViewName("redirect:/payment/done");
 
 	      }
 	      return mav;

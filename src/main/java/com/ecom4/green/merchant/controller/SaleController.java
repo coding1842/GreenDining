@@ -276,7 +276,11 @@ public class SaleController
 //        }
         @ResponseBody
         @PostMapping("/write/{sale-id}")
-        public ResponseEntity<?> updateSale(HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model, @ModelAttribute SaleForm saleForm, @PathVariable("sale-id") int sale_id)
+        public ResponseEntity<?> updateSale(HttpSession session,
+        		HttpServletRequest req, HttpServletResponse resp, 
+        		Model model, @ModelAttribute SaleForm saleForm, 
+        		@PathVariable("sale-id") int sale_id,
+        		@RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String msg = null;
@@ -284,7 +288,7 @@ public class SaleController
 	      int r = 0;
 
 	      SaleDTO saleDTO = saleForm.getSaleDTO();
-
+	      saleDTO.setImage_group_id(image_group_id);
 	      List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
 
 	      RoleStatus status = authService.checkRoleStatus(session);

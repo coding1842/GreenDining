@@ -40,9 +40,9 @@
               <th>상품 타입</th>
               <td>
                 <select name="status" id="product_status" value="${product.status}">
-                  <option value="PREPARE">준비중</option>
-                  <option value="READY">판매중</option>
-                  <option value="CLOSE">판매종료</option>
+                  <option value="PREPARE" ${product.status == 'PREPARE' ? 'selected' : ''}>준비중</option>
+                  <option value="READY" ${product.status == 'READY' ? 'selected' : ''}>판매중</option>
+                  <option value="CLOSE" ${product.status == 'CLOSE' ? 'selected' : ''}>판매종료</option>
                 </select>
               </td>
             </tr>
@@ -51,7 +51,7 @@
               <td>
                 <input type="file" name="fileList" />
                 <br />
-                <small>*(여러개 선택 가능합니다.)</small>
+                <small>*(장바구니 또는 주문목록에서 보여질 사진 등록(1장).)</small>
               </td>
             </tr>
             <tr>
@@ -61,7 +61,7 @@
                 <input class="submit1" type="button" id="imgur_push" value="상품 수정하기" />
                 <input type="hidden" name="merchant_id" value="${ssKey.id}" />
                 <input type="hidden" name="image_group_id" value="${product.image_group_id}" />
-                <input type="hidden" id="imgurUrl" value="/imgur/update" />
+                <input type="hidden" id="url" value="/imgur/update/${product.image_group_id}" />
               </td>
             </tr>
           </table>
