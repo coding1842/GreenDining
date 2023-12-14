@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.imgur.dto.ImgurDTO;
+import com.ecom4.green.imgur.service.ImgurService;
 import com.ecom4.green.merchant.dto.SaleDTO;
 
 import com.ecom4.green.merchant.service.SaleService;
@@ -53,6 +55,9 @@ public class UserController
         @Autowired
         AuthService authService;
 
+        @Autowired
+        ImgurService imgurService;
+        
         @Autowired
         SaleService saleService;
 
@@ -480,74 +485,79 @@ public class UserController
      }
 	 
 		
-	  @GetMapping("/qna/detail") public String qnaDetailForm(@RequestParam int qna_id, HttpServletRequest req, HttpServletResponse res, Model model) { 
+	  @GetMapping("/qna/detail") public String qnaDetailForm(@RequestParam int qna_id, 
+			  													HttpServletRequest req, 
+			  													HttpServletResponse res, 
+			  													Model model) { 
 		  
 		HttpSession session = req.getSession(); 
 		UserDTO custom = (UserDTO) session.getAttribute("ssKey");
 		String main = "user/form/QnaDetailForm";
 		
 		QnaDTO qnaDTO = userService.selectQnaDetail(qna_id);
+	    List<ImgurDTO> imgurDTOList = imgurService.selectImageList(qnaDTO.getImage_group_id());
 	  
-	
 	  model.addAttribute("sskey", custom); 
 	  model.addAttribute("main",main);
 	  model.addAttribute("qna",qnaDTO); 
-	  
+	  model.addAttribute("imgurDTOList",imgurDTOList);	  
 	  
 	  return "Index"; 
 	  }
 		 
-	 @RequestMapping("/qnaProc")
-	 public String qnaProc(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
-		 String flag = req.getParameter("flag");
-		 HttpSession session = req.getSession();
-		 String contentsJsp = null;
-		 String page = null;
-		 
-		 QnaDTO qnaDto = (QnaDTO) session.getAttribute("ssKey");
-		 if(qnaDto != null && qnaDto.getUser_id() == authService.getCurrentUser(session).getId()) {
-			 String msg = null;
-			 String url = null;
-			 
-			 switch (flag) {
-			 case "update": {
-				 page = "MsgPage";
-				 int r = userService.updateQna(qnaDTO);
-				 if(r>0) msg = "수정이 완료되었습니다.";
-				 else msg = "수정을 실패했습니다.";
-				 url = "item/" + sale_id;
-				 break;
-			 }
-			 case "delete": {
-				 page = "MsgPage";
-                 int r = userService.deleteQna(qnaDTO);
-                 if(r>0) msg = "삭제가 완료되었습니다.";
-                 else msg = "삭제를 실패했습니다.";
-                 url = "item/" + sale_id;
-                 break;
-			 }
-			 }
-			 url = "redirect:/item/" + sale_id;
-			 if(url != null) model.addAttribute("url", url);
-			 if(msg != null) model.addAttribute("msg", msg);
-		 }
-		 else {
-			 page = "redirect:/auth/login";
-			 contentsJsp = "";
-		 }
-		 session.setAttribute("ssKey", qnaDto);
-		 model.addAttribute("contentsJsp", contentsJsp);
-		 
-		 
-		 return page;
-	 }
+//	 @RequestMapping("/qnaProc")
+//	 public String qnaProc(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse res, QnaDTO qnaDTO, Model model) {
+//		 String flag = req.getParameter("flag");
+//		 HttpSession session = req.getSession();
+//		 String contentsJsp = null;
+//		 String page = null;
+//		 
+//		 QnaDTO qnaDto = (QnaDTO) session.getAttribute("ssKey");
+//		 if(qnaDto != null && qnaDto.getUser_id() == authService.getCurrentUser(session).getId()) {
+//			 String msg = null;
+//			 String url = null;
+//			 
+//			 switch (flag) {
+//			 case "update": {
+//				 page = "MsgPage";
+//				 int r = userService.updateQna(qnaDTO);
+//				 if(r>0) msg = "수정이 완료되었습니다.";
+//				 else msg = "수정을 실패했습니다.";
+//				 url = "item/" + sale_id;
+//				 break;
+//			 }
+//			 case "delete": {
+//				 page = "MsgPage";
+//                 int r = userService.deleteQna(qnaDTO);
+//                 if(r>0) msg = "삭제가 완료되었습니다.";
+//                 else msg = "삭제를 실패했습니다.";
+//                 url = "item/" + sale_id;
+//                 break;
+//			 }
+//			 }
+//			 url = "redirect:/item/" + sale_id;
+//			 if(url != null) model.addAttribute("url", url);
+//			 if(msg != null) model.addAttribute("msg", msg);
+//		 }
+//		 else {
+//			 page = "redirect:/auth/login";
+//			 contentsJsp = "";
+//		 }
+//		 session.setAttribute("ssKey", qnaDto);
+//		 model.addAttribute("contentsJsp", contentsJsp);
+//		 
+//		 
+//		 return page;
+//	 }
 	 
 	 @RequestMapping("/qna/qnaUpForm")
-		public String noticeUpForm(HttpServletRequest request, HttpServletResponse response, QnaDTO qnaDto, Model model) {
+		public String noticeUpForm(@RequestParam int qna_id, HttpServletRequest request, HttpServletResponse response, QnaDTO qnaDto, Model model,
+									@RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id) {
 			HttpSession session = request.getSession();
 			String main = "user/form/QnaUpForm";
 //			String page = null;
-			UserDTO userDto = (UserDTO) session.getAttribute("ssKey");
+			UserDTO custom = (UserDTO) session.getAttribute("ssKey");
+//			UserDTO userDto = (UserDTO) session.getAttribute("ssKey");
 //			main = "user/form/QnaUpForm";
 			
 //			if(userDto!=null && userDto.getRole().equals("USER")) {
@@ -557,11 +567,11 @@ public class UserController
 //				page = "Index";
 //				main = "redirect:/auth/login";
 //			}
-			QnaDTO qnaDTO = userService.qnaUp(qnaDto);
-			System.out.println("====="+qnaDto);
-			System.out.println("+++++"+qnaDTO);
-			session.setAttribute("ssKey", userDto);
-			session.setAttribute("qna", qnaDTO);
+//			QnaDTO qnaDTO = userService.selectQnaDetail(qna_id);
+			userService.updateQna(qnaDto);
+			QnaDTO qnaDTO = userService.selectQnaDetail(qna_id);
+			session.setAttribute("ssKey", custom);
+			model.addAttribute("qnaDTO",qnaDTO);
 			model.addAttribute("main", main);
 			return "Index";
 		}

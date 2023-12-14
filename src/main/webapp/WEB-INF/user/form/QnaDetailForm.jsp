@@ -35,7 +35,7 @@ td{
 <body>
 <h2 style="text-align: center;">질문 내용</h2>
 <br><br>
-<form action="" method="post" name="form1" method="post">
+<form action="/user/qnaProc" method="post" name="form1" method="post">
 <table>
 	<tbody>
 	<tr>
@@ -59,7 +59,9 @@ td{
 	<tr>
 		<th>이미지</th>
 		<td>
-			<input type="image" size = "52" name="image" readonly="readonly" value="${qna.image_group_id}">
+			<c:forEach var="imgur" items="${imgurDTOList}">
+				<img alt="" src="${imgur.path}">
+			</c:forEach>
 		</td>
 	</tr>
 	<tr>
@@ -72,7 +74,7 @@ td{
 	<tfoot>
 		<tr style="text-align: center">
 			<td colspan="2">
-				<input type="button" value="글수정" id="update" onclick="location.href='/user/qna/qnaUpForm'">
+				<input type="button" value="글수정" id="update" onclick="location.href='/user/qna/qnaUpForm?qna_id=${qna.id}'">
 				&nbsp;&nbsp;&nbsp;
 				<input type="button" value="글삭제" id="delete">
 				&nbsp;&nbsp;&nbsp;

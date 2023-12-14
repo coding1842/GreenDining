@@ -79,4 +79,14 @@
 		WHERE USER_ID = #{user_id}
 		AND ID = #{id}
 	</delete>
+	<select id="selectReviewCountBySaleId" parameterType="map" resultType="int">
+		select count(*)
+		from review
+		where sale_id = #{map.sale_id}
+	</select>
+	<select id="selectReviewTotalStarBySaleid" parameterType="map" resultType="int">
+		select nvl(sum(star),0)
+		from review
+		where sale_id = #{map.sale_id}
+	</select>
 </mapper>

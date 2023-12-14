@@ -22,4 +22,8 @@ public interface ReviewDAO {
 		ReviewDTO selectReview(ReviewDTO review);
 
 		int deleteReview(ReviewDTO reviewDTO);
+		
+		int selectReviewCountByMap(@Param("map") Map<String,Object> map);
+		
+		int selectReviewTotalStarByMap(@Param("map") Map<String,Object> map);
 }

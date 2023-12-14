@@ -42,6 +42,11 @@ public class SaleDTO
         private int min_price;
         private String store_name;
         private List<String> image_group_path;
+        
+        // REVIEW FILED
+        
+        private float review_average_star = 0;
+        private int review_count = 0;
 
 
 }

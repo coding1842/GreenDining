@@ -23,6 +23,7 @@
 					<td class="col2">
 						<input type="text" name="title">
 						<input type="hidden" name="user_id" value="${sskey.id}">
+						
 					</td>
 				</tr>
 <!-- 				<tr> -->

@@ -69,6 +69,8 @@ public class SaleController
         @Autowired
         ProductService productService;
         
+        
+        
         @Autowired
         ReviewService reviewService;
 
@@ -89,23 +91,26 @@ public class SaleController
 
                 ReviewDTO review = new ReviewDTO();
                 
-                if(authService.checkRoleStatus(session) == RoleStatus.USER)
-                {
-                	review.setSale_id(sale_id);
-					review.setUser_id(authService.getCurrentUser(session).getId());
-                }
-                else
-                {
-                	review.setSale_id(sale_id);
-                }
+  
+                review.setSale_id(sale_id);
                 
+                
+                Map<String,Object> map = new HashMap<>();
+                map.put("sale_id",sale_id);
+                
+                int review_total = reviewService.selectReviewTotalCountByMap(map);
 				List<ReviewDTO> reviewDTOList = reviewService.selectReviewList(review);
+				QnaDTO qna = new QnaDTO();
+				qna.setSale_id(sale_id);
+				List<QnaDTO> qnaDTOList = userService.selectQnaList(qna);
+				
 				
                 model.addAttribute("sale",sale);
                 model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
                 model.addAttribute("saleProductList_SUB", saleProductList_SUB);
                 model.addAttribute("main",main);
                 model.addAttribute("sale_id", sale_id);
+                model.addAttribute("qnaDTOList",qnaDTOList);
                 model.addAttribute("reviewDTOList", reviewDTOList);
                 return "Index";
         }

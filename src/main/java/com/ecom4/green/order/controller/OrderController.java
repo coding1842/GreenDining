@@ -220,6 +220,7 @@ public class OrderController
 			  hashMap.put("sale_rate", sale_rate);
 			  hashMap.put("sale_id", sale_id);
 			  hashMap.put("product_id", product_id);
+			  cartService.deleteCartByOrderItem(hashMap);
 			  saleService.updateTotalRate(hashMap);
 			  productService.updateStock(hashMap);
 		    }

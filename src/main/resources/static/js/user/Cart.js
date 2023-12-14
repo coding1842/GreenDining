@@ -21,14 +21,15 @@ $(document).ready(function () {
   setTotalInfo();
 
   /* 체크박스 전체선택 */
-  $("#all_check_input").on("click", function () {
-    //체크박스 체크or해제
+  $("#all_check_input").on("click off on", function () {
+    
     if ($("#all_check_input").prop("checked")) {
-      $(".individual_cart_checkbox").attr("checked", true);
+      $(".individual_cart_checkbox").prop("checked", true);
     } else {
-      $(".individual_cart_checkbox").removeAttr("checked");
+      $(".individual_cart_checkbox").prop("checked", false);
     }
-    setTotalInfo($(".cart_info"));
+    
+   setTotalInfo();
   });
 
   $("#cartOrder").click(function (e) {
@@ -39,7 +40,7 @@ $(document).ready(function () {
 
 /*체크여부에 따른 종합 정보 변화*/
 $(".individual_cart_checkbox").on("change", function () {
-  setTotalInfo($(".cart_info"));
+  setTotalInfo();
 	});  
 	
 	$("#all_check_input").click(function(){
@@ -67,11 +68,11 @@ function setTotalInfo() {
   let product_discount = 0; //할인금액
   let order_price = 0; //주문금액
 
-  $(".cart_info").each(function (index, element) {
-    if ($(element).find(".individual_cart_checkbox").is(":checked") === true) {
-      product_price += parseInt($(element).find(".individual_product_price").val());
-      product_discount += parseInt($(element).find(".individual_product_discount").val());
-      order_price += parseInt($(element).find(".individual_order_price").val());
+  $(".cart_info").each(function(){
+    if ($(this).find(".individual_cart_checkbox").is(":checked")) {
+      product_price += parseInt($(this).find(".individual_product_price").val());
+      product_discount += parseInt($(this).find(".individual_product_discount").val());
+      order_price += parseInt($(this).find(".individual_order_price").val());
     }
   });
 
@@ -91,18 +92,26 @@ function setTotalInfo() {
 
 function cartProcess() {
   var cartDTOList = []; // CartDTO 객체를 저장할 배열
-
-  $(".my_cart_top").each(function () {
+  
+  if($(".individual_cart_checkbox:checked").length == 0)
+  {
+	  alert("1개 이상의 상품을 선택해주세요.")
+	  return false;
+  }
+  
+  $(".individual_cart_checkbox:checked").each(function () {
     var cartDTO = {};
-    cartDTO.product_id = $(this).find("input[name='product_id']").val();
-    cartDTO.sale_id = $(this).find("input[name='sale_id']").val();
-    cartDTO.store_name = $(this).find("input[name='store_name']").val();
-    cartDTO.quantity = $(this).find("input[name='quantity']").val();
-    cartDTO.name = $(this).find("input[name='name']").val();
-    cartDTO.before_price = parseInt($(this).find("input[name='process_before_price']").val());
-    cartDTO.after_price = parseInt($(this).find("input[name='process_after_price']").val());
+    var topElement = $(this).parents(".my_cart_middle").next(".my_cart_top");
+    cartDTO.product_id = topElement.find("input[name='product_id']").val();
+    cartDTO.sale_id = topElement.find("input[name='sale_id']").val();
+    cartDTO.store_name = topElement.find("input[name='store_name']").val();
+    cartDTO.quantity = topElement.find("input[name='quantity']").val();
+    cartDTO.name = topElement.find("input[name='name']").val();
+    cartDTO.before_price = parseInt(topElement.find("input[name='process_before_price']").val());
+    cartDTO.after_price = parseInt(topElement.find("input[name='process_after_price']").val());
     cartDTOList.push(cartDTO);
   });
+
 
   $.ajax({
     type: "POST",

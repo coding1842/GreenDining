@@ -3,6 +3,7 @@
 package com.ecom4.green.user.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -34,4 +35,6 @@ public interface CartDAO {
 	public int updateCart(CartDTO cartDto);
 
 	public int deleteCart(CartDTO cartDto);
+
+	public void deleteCartByOrderItem(@Param("map") Map<String, Object> hashMap);
 }

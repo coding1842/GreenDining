@@ -114,18 +114,20 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <div class="col h-460px">
                 <div class="card h-100">
                   <img src="${sale.image_path}" class="card-img-top w-220px h-220px" alt="..." />
-                  <div class="card-body">
+                  <div class="card-body m-0 ms-1">
                     <h5 class="card-title">
                       <span id="percent" class="text-danger me-2">${sale.discount}%</span>
                       <c:set var="discountedPrice" value="${sale.min_price*(1-sale.discount/100)}" />
                       <fmt:formatNumber value="${discountedPrice}" pattern="#,##0" />원
                     </h5>
-                    <p class="card-text fw-lighter fs-14px">
+                    <p class="card-text fw-lighter fs-14px float-start">
                       ${sale.title}
                       <br />
                       <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                      <span id="star_score" class="fs-11px mt-3">4.8</span>
-                      <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
+                      <span id="star_score" class="fs-11px mt-3">${sale.review_average_star}</span>
+                      <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 ${sale.review_count}</span>
+                      <br>
+                      <span id="total_rate">${sale.total_rate}개 판매</span>
                     </p>
                   </div>
                   <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">

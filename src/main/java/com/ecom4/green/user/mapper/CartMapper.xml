@@ -36,4 +36,9 @@
         from cart
         where sale_id = #{sale_id}
     </select>
+    <delete id="deleteCartByOrderItem" parameterType="map">
+    	delete from cart
+    	where sale_id = #{map.sale_id}
+    	and product_id = #{map.product_id}
+    </delete>
 </mapper>

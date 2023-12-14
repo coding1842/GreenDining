@@ -105,8 +105,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                       ${sale.title}
                       <br />
                       <i class="fa-solid fa-star fs-10px mt-3" style="color: #ff0000"></i>
-                      <span id="star_score" class="fs-11px mt-3">4.8</span>
-                      <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 14,321</span>
+                      <span id="star_score" class="fs-11px mt-3">${sale.review_average_star}</span>
+                      <span id="review_count" class="fs-12px text-black-50 mt-3">- 리뷰 ${sale.review_count}</span>
                     </p>
                   </div>
                   <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">

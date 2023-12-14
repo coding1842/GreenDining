@@ -23,5 +23,7 @@ public interface ReviewService {
 
 		int deleteReview(ReviewDTO reviewDTO);
 
+		int selectReviewTotalCountByMap(Map<String, Object> map);
+
 
 }

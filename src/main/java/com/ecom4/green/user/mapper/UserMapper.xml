@@ -148,8 +148,6 @@
         </selectKey>
         INSERT INTO QNA( ID,
         USER_ID,
-        ORDER_ID,
-        PRODUCT_ID,
         TITLE,
         CONTENT,
         CREATED_AT,
@@ -158,8 +156,6 @@
         SALE_ID)
         VALUES( #{id},
         #{user_id},
-        #{order_id},
-        #{product_id},
         #{title},
         #{content},
         SYSDATE,
@@ -174,9 +170,9 @@
     </insert>
 
     <select id="selectQnaList" resultType="QnaDTO" parameterType="QnaDTO">
-        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+        SELECT USER_ID, ID, TITLE, CONTENT,
         CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
-        FROM qna
+        FROM QNA
         WHERE SALE_ID = #{sale_id}
         <if test="user_id != '' and user_id != null">
             and
@@ -185,23 +181,21 @@
     </select>
 
     <select id="selectQnaDetail" resultType="QnaDTO" parameterType="int">
-        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+        SELECT USER_ID, ID, TITLE, CONTENT,
         CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
         FROM qna
         WHERE id = #{id}
     </select>
 
-    <update id="updateProc" parameterType="QnaDTO">
+    <update id="updateQna" parameterType="QnaDTO">
         UPDATE QNA SET
         USER_ID = #{user_id},
         ID = #{id},
-        ORDER_ID = #{order_id},
-        PRODUCT_ID = #{product_id},
         TITLE = #{title},
-        CONTENT = #{content}
-        CREATED_AT = #{created_at}
-        CHILD_ID = #{child_id}
-        IMAGE_GROUP_ID = #{image_group_id}
+        CONTENT = #{content},
+        CREATED_AT = #{created_at},
+        CHILD_ID = #{child_id},
+        IMAGE_GROUP_ID = #{image_group_id},
         SALE_ID = #{sale_id}
         WHERE ID = #{id}
     </update>
@@ -210,9 +204,14 @@
         UPDATE QNA SET STATE = 'D'
         WHERE ID = #{id}
     </update>
+    <delete id="deleteQna" parameterType="QnaDTO">
+    	DELETE QNA FORM QNA
+    	WHERE USER_ID = #{user_id}
+    	AND SALE_ID = #{sale_id}
+    </delete>
 
     <select id="qnaUp" parameterType="QnaDTO" resultType="QnaDTO">
-        SELECT USER_ID, ID, ORDER_ID, PRODUCT_ID, TITLE, CONTENT,
+        SELECT USER_ID, ID, TITLE, CONTENT,
         CREATED_AT, CHILD_ID, IMAGE_GROUP_ID, SALE_ID
         FROM QNA
         WHERE id = #{id}

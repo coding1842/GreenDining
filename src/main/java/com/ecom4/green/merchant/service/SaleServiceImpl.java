@@ -6,12 +6,15 @@ import com.ecom4.green.merchant.dao.ProductDAO;
 import com.ecom4.green.merchant.dao.SaleDAO;
 import com.ecom4.green.merchant.dto.SaleDTO;
 import com.ecom4.green.merchant.dto.SaleProductDTO;
+import com.ecom4.green.user.dao.ReviewDAO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -25,6 +28,9 @@ public class SaleServiceImpl implements SaleService
 
         @Autowired
         ProductDAO productDAO;
+        
+        @Autowired
+        ReviewDAO reviewDAO;
 
         @Override
         public Page<SaleDTO> getSalePage(Map<String, Object> dataMap)
@@ -54,9 +60,20 @@ public class SaleServiceImpl implements SaleService
 			  minPrice = 0;  // 예시입니다. 실제로는 적절한 기본값 또는 오류 처리를 해야합니다.
 		    }
 		    ele.setMin_price(minPrice);
-
+		    
 		    ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
-	      }
+		    
+		    Map<String,Object> map = new HashMap<>();
+		    map.put("sale_id", ele.getId());
+		    int review_count = reviewDAO.selectReviewCountByMap(map);
+		    int review_total_star = reviewDAO.selectReviewTotalStarByMap(map);
+		    ele.setReview_count(review_count);
+		    if(review_count != 0)
+		    {
+		    	ele.setReview_average_star(review_total_star/review_count);
+		    }
+		
+		   }
 
 	      return new PageImpl<>(content, (Pageable) dataMap.get("pageable"), total);
         }

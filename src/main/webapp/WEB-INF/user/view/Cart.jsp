@@ -6,6 +6,8 @@
   
 <script src="/jquery/jquery-3.7.0.min.js"></script>
 <link rel="stylesheet" href="/css/Cart.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script type="text/javascript" src="/js/user/Cart.js"></script>
 <div id="my_cart_box">
 	<div class="all_check_input_div">
@@ -14,26 +16,27 @@
 	<c:choose>
 		<c:when test="${fn:length(cartDTOList) > 0}">
 		<c:forEach var="cart" items="${cartDTOList}" varStatus="index">
+			<c:choose>
+			<c:when test="${cart.stock > 0}">
 			<form  id="cartForm" action="" method="post" enctype="multipart/form-data" autocomplete="off">
-				
 				<div class="my_cart_it">
 					<div class="my_cart_title" style="width:500px;">
 						<p style="">${cart.title}</p>
 					</div>
 					<div class="my_cart_middle">
 						<div class="cart_middle_1" style="margin-top: 20px;">
-								<div class="cart_info">
-									<input name="check_box" class="individual_cart_checkbox" type="checkbox" style="zoom:1.4;" checked>
-									<input type="hidden" class="individual_product_price" value="${cart.price * cart.quantity}">
-									<input type="hidden" class="individual_product_discount" value="${cart.price * cart.discount / 100 * cart.quantity}">
-									<input type="hidden" class="individual_order_price" value="${cart.price * cart.quantity - (cart.price * cart.discount / 100 * cart.quantity)}">
-								</div>		
-							<div>
+							<div class="cart_info mx-5">
+								<input name="check_box" class="individual_cart_checkbox" type="checkbox" style="zoom:1.4;" checked>
+								<input type="hidden" class="individual_product_price" value="${cart.price * cart.quantity}">
+								<input type="hidden" class="individual_product_discount" value="${cart.price * cart.discount / 100 * cart.quantity}">
+								<input type="hidden" class="individual_order_price" value="${cart.price * cart.quantity - (cart.price * cart.discount / 100 * cart.quantity)}">
+							</div>		
+							<div class="ms-3 me-0">
 								<a href="/item/${cart.sale_id}"><img src="${cart.image_path}" style="width: 90px; height: 90px; margin-left: 10px;"></a>
 							</div>
-							<div class="cart_detail" style="height: 109px;">
-								<p class="ps1">상품명 : ${cart.name}</p>
-								<p class="ps2">상품단가 : ${cart.price} 원  &nbsp;//&nbsp;
+							<div class="cart_detail m-0" style="height: 109px;">
+								<p class="ps1">${cart.name}</p>
+								<p class="ps2">${cart.price} 원  &nbsp;//&nbsp;
 								 주문수량 : <input type="number" name="quantity"  value="${cart.quantity}" 
 								 min="1" style="text-align: center; width: 80px;" class="input_number">
 									<input type="button" value="수정" class="update_cart">&nbsp;/&nbsp;
@@ -73,6 +76,69 @@
 					<!-- <button>주문하기</button> -->
 				</div>
 			</form>	
+			</c:when>
+			<c:when test="${cart.stock == 0}">
+				<form  id="cartForm" action="" method="post" enctype="multipart/form-data" autocomplete="off" class="text-secondary">
+				<div class="my_cart_it">
+					<div class="my_cart_title" style="width:500px;">
+						<p style="">${cart.title}</p>
+					</div>
+					<div class="my_cart_middle">
+						<div class="cart_middle_1 " style="margin-top: 20px;">
+							<div class="cart_info mx-5">
+								<input class="individual_cart_disable_checkbox" type="checkbox" style="zoom:1.4;" disabled>
+								<input type="hidden" class="individual_product_disable_price" value="${cart.price * cart.quantity}">
+								<input type="hidden" class="individual_product_disable_discount" value="${cart.price * cart.discount / 100 * cart.quantity}">
+								<input type="hidden" class="individual_order_disable_price" value="${cart.price * cart.quantity - (cart.price * cart.discount / 100 * cart.quantity)}">
+							</div>		
+							<div class="ms-3 me-0">
+								<a href="/item/${cart.sale_id}"><img src="${cart.image_path}" style="width: 90px; height: 90px; margin-left: 10px;"></a>
+							</div>
+							<div class="cart_detail m-0" style="height: 109px;">
+								<p class="ps1">${cart.name}</p>
+								<p class="ps2">${cart.price} 원 
+									<div class="d-flex align-items-center">
+										<span class="material-symbols-outlined mx-0">block</span><span class="align-center fs-5 ms-1" style="line-height:1">품절</span>
+										 <input type="button" value="삭제" class="delete_cart">
+									</div>
+				                   
+								</p>
+								<p class="ps3">${cart.store_name} | 스마트스토어</p>
+							</div>
+							
+						</div>
+					</div>
+						<div class="my_cart_top">
+					<input type="hidden" name="user_id" value="${ssKey.id}">
+					<input type="hidden" name="product_id" value="${cart.product_id}">
+					<input type="hidden" name="sale_id" value="${cart.sale_id}">
+					<input type="hidden" name="store_name" value="${cart.store_name}">
+					<input type="hidden" name="quantity" value="${cart.quantity}">
+					<input type="hidden" name="name" value="${cart.name}">
+					<input type="hidden" name="process_before_price" value="${cart.price}">
+					<input type="hidden" name="process_after_price" value="${cart.price * (1-cart.discount/100)}">
+				</div>
+						<div>
+						</div>
+					<div class="my_cart_under">
+						<div class="cart_pc1">
+							<c:set var="productPrice" value="${cart.price * cart.quantity}" />
+							<span>선택상품금액</span><span><fmt:formatNumber value="${productPrice}" pattern="#,##0" />원</span>
+						</div>
+						<div class="cart_pc1">
+							<c:set var="discountPrice" value="${cart.price * cart.discount / 100 * cart.quantity}" />
+							<span>할인 금액</span><span style="color: red;"><fmt:formatNumber value="${discountPrice}" pattern="#,##0" />원</span>
+						</div> 
+						<div class="cart_pc2">
+							<c:set var="orderPrice" value="${cart.price * cart.quantity - (cart.price * cart.discount / 100 * cart.quantity)}" />
+							<span>주문 금액</span><span><fmt:formatNumber value="${orderPrice}" pattern="#,##0" />원</span>
+						</div>
+					</div>
+					<!-- <button>주문하기</button> -->
+				</div>
+			</form>	
+			</c:when>
+			</c:choose>
 			</c:forEach>
 		</c:when>
 		<c:when test="${fn:length(cartDTOList) == 0}">

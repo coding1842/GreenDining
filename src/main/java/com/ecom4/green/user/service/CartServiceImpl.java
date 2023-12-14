@@ -2,6 +2,7 @@ package com.ecom4.green.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,6 +78,13 @@ public class CartServiceImpl implements CartService {
     {
             return cartDao.checkDuplication(sale_id);
     }
+
+	@Override
+	public void deleteCartByOrderItem(Map<String, Object> hashMap) {
+		
+		cartDao.deleteCartByOrderItem(hashMap);
+		
+	}
 }
 
 

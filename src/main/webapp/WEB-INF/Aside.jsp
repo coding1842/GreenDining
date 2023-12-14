@@ -38,12 +38,48 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             
           </li>
           <li class="w-100 h-60px text-center">
-            <span class="material-symbols-outlined fs-35px"> local_shipping </span>
-            <p>배송</p>
+          	<c:choose>
+          		<c:when test="${ssKey.role eq 'USER'}">
+		          	<a href="/user/my-page">
+		            <span class="material-symbols-outlined fs-35px"> local_shipping </span>
+		            <p>배송</p>
+		          	</a>
+          		</c:when>
+          		<c:when test="${ssKey.role eq 'MERCHANT'}">
+		          	<a href="/merchant/my-page">
+		            <span class="material-symbols-outlined fs-35px"> local_shipping </span>
+		            <p>배송</p>
+		          	</a>
+          		</c:when>
+          		<c:otherwise>
+			    <a href="/auth/login">
+			       <span class="material-symbols-outlined fs-35px"> local_shipping </span>
+		            <p>배송</p>
+			    </a>
+			  </c:otherwise>
+          	</c:choose>
           </li>
           <li class="w-100 h-60px text-center">
-            <span class="material-symbols-outlined fs-35px"> shopping_cart </span>
-            <p>장바구니</p>
+          <c:choose>
+          	<c:when test="${ssKey.role eq 'USER'}">
+	            <a href="/cart/list">
+	            <span class="material-symbols-outlined fs-35px"> shopping_cart </span>
+	            <p>장바구니</p>
+	            </a>
+          	</c:when>
+          	<c:when test="${ssKey.role eq 'MERCHANT'}">
+	            <a href="/">
+	            <span class="material-symbols-outlined fs-35px"> shopping_cart </span>
+	            <p>장바구니</p>
+	            </a>
+          	</c:when>
+          	<c:otherwise>
+			    <a href="/auth/login">
+			       <span class="material-symbols-outlined fs-35px"> shopping_cart </span>
+	            	<p>장바구니</p>
+			    </a>
+			  </c:otherwise>
+          </c:choose>
           </li>
           <li class="w-100 h-60px text-center">
             <span class="material-symbols-outlined fs-35px"> inventory </span>

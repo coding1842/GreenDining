@@ -31,4 +31,6 @@ public class ReviewDTO {
 	
 //	DB 필드 아님
 	private List<ImgurDTO> imgurList;
+	
+	private int review_total_count;
 }
