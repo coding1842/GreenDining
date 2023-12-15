@@ -28,7 +28,7 @@ public class SaleServiceImpl implements SaleService
 
         @Autowired
         ProductDAO productDAO;
-        
+
         @Autowired
         ReviewDAO reviewDAO;
 
@@ -47,7 +47,6 @@ public class SaleServiceImpl implements SaleService
 	      {
 		    ele.setImage_path(saleDAO.selectImagePath(ele.getImage_group_id()));
 
-		    // SelectMinPrice를 호출하는 부분
 		    Integer result = saleDAO.selectMinPrice(ele.getId());
 		    int minPrice;
 		    if (result != null)
@@ -56,24 +55,23 @@ public class SaleServiceImpl implements SaleService
 		    }
 		    else
 		    {
-			  // 적절한 기본값 할당 또는 오류 처리
-			  minPrice = 0;  // 예시입니다. 실제로는 적절한 기본값 또는 오류 처리를 해야합니다.
+			  minPrice = 0;
 		    }
 		    ele.setMin_price(minPrice);
-		    
+
 		    ele.setStore_name(saleDAO.selectStoreName(ele.getMerchant_id()));
-		    
-		    Map<String,Object> map = new HashMap<>();
+
+		    Map<String, Object> map = new HashMap<>();
 		    map.put("sale_id", ele.getId());
 		    int review_count = reviewDAO.selectReviewCountByMap(map);
 		    int review_total_star = reviewDAO.selectReviewTotalStarByMap(map);
 		    ele.setReview_count(review_count);
-		    if(review_count != 0)
+		    if (review_count != 0)
 		    {
-		    	ele.setReview_average_star(review_total_star/review_count);
+			  ele.setReview_average_star(review_total_star / review_count);
 		    }
-		
-		   }
+
+	      }
 
 	      return new PageImpl<>(content, (Pageable) dataMap.get("pageable"), total);
         }
@@ -180,8 +178,6 @@ public class SaleServiceImpl implements SaleService
         {
 	      saleDAO.updateTotalRate(hashMap);
         }
-
-	
 
 
 }

@@ -13,59 +13,72 @@ import com.ecom4.green.user.dto.AddressDTO;
 import com.ecom4.green.user.dto.ReviewDTO;
 
 @Service
-public class ReviewServiceImpl implements ReviewService {
-	
-	@Autowired
-	AddressDTO addressDTO;
-	
-	@Autowired
-	ReviewDAO reviewDao;
-	
-	@Autowired
-	ImgurDAO imgurDAO;
-	//review
-		@Override
-		public int insertReview(ReviewDTO reviewDTO) {
-			return reviewDao.insertReview(reviewDTO);
-		}
+public class ReviewServiceImpl implements ReviewService
+{
 
-		@Override
-		public int updateReview(ReviewDTO reviewDTO) {
-			return reviewDao.updateReview(reviewDTO);
-		}
+        @Autowired
+        AddressDTO addressDTO;
 
-		
+        @Autowired
+        ReviewDAO reviewDao;
 
-		@Override
-		public List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO) {
+        @Autowired
+        ImgurDAO imgurDAO;
+
+        //review
+        @Override
+        public int insertReview(ReviewDTO reviewDTO)
+        {
+	      return reviewDao.insertReview(reviewDTO);
+        }
+
+        @Override
+        public int updateReview(ReviewDTO reviewDTO)
+        {
+	      return reviewDao.updateReview(reviewDTO);
+        }
+
+
+        @Override
+        public List<ReviewDTO> selectReviewList(ReviewDTO reviewDTO)
+        {
+
+	      List<ReviewDTO> list = reviewDao.selectReviewList(reviewDTO);
 			
-			List<ReviewDTO> list = reviewDao.selectReviewList(reviewDTO);
-			
-			for(ReviewDTO ele : list)
-			{
-				List<ImgurDTO> imgurList = imgurDAO.selectImageList(ele.getImage_group_id());
-				ele.setImgurList(imgurList);
-		
-			}
-			return list;
-		}
+	      for (ReviewDTO ele : list)
+	      {
+		    List<ImgurDTO> imgurList = imgurDAO.selectImageList(ele.getImage_group_id());
+		    ele.setImgurList(imgurList);
 
-		@Override
-		public ReviewDTO selectReview(ReviewDTO review) {
-			return reviewDao.selectReview(review);
-		}
+	      }
+	      return list;
+        }
+
+        @Override
+        public ReviewDTO selectReview(ReviewDTO review)
+        {
+	      return reviewDao.selectReview(review);
+        }
 
 
-		@Override
-		public List<ReviewDTO> selectReviewList(String id) {
-			return reviewDao.selectReviewList(id);
-		}
+        @Override
+        public List<ReviewDTO> selectReviewList(String id)
+        {
+	      return reviewDao.selectReviewList(id);
+        }
 
-	
-		@Override
-		public int deleteReview(ReviewDTO reviewDTO) {
-			return reviewDao.deleteReview(reviewDTO);
-		}
+
+        @Override
+        public int deleteReview(ReviewDTO reviewDTO)
+        {
+	      return reviewDao.deleteReview(reviewDTO);
+        }
+
+        @Override
+        public int selectReviewTotalCountByMap(Map<String, Object> map)
+        {
+	      return 0;
+        }
 
 
 }

@@ -70,34 +70,65 @@
             </when>
             <!--           검색 페이지 또는 카테고리 별 상품 탐색에서 public-->
             <otherwise>
-                select id
-                , title
-                , content
-                , status
-                , discount
-                , started_at
-                , ended_at
-                , created_at
-                , image_group_id
-                , merchant_id
-                , category_code
-                , region_code
-                , total_rate
-                from sale
+                SELECT s.id
+                , s.title
+                , s.content
+                , s.status
+                , s.discount
+                , s.started_at
+                , s.ended_at
+                , s.created_at
+                , s.image_group_id
+                , s.merchant_id
+                , s.category_code
+                , s.region_code
+                , s.total_rate
+                , s.delivery_fee
+                FROM sale s
+                <if test="data.star != null and data.star != 0">
+                    JOIN (
+                    SELECT sale_id, AVG(star) AS avg_star
+                    FROM review
+                    GROUP BY sale_id
+                    ) r ON s.id = r.sale_id
+                </if>
+                <if test="data.sort == 'price'">
+                    JOIN (
+                    SELECT sp.sale_id, MIN(pr.price * (100 - s.discount) / 100) as minPrice
+                    FROM sale_product sp
+                    JOIN product pr ON sp.product_id = pr.id
+                    JOIN sale s ON sp.sale_id = s.id
+                    GROUP BY sp.sale_id
+                    ) p ON s.id = p.sale_id
+                </if>
                 <where>
                     <if test="data.category != null and data.category != 0">
-                        category_code = #{data.category}
+                        AND s.category_code = #{data.category}
                     </if>
                     <if test="data.region != null and data.region != 0">
-                        region_code = #{data.region}
+                        AND s.region_code = #{data.region}
                     </if>
                     <if test="data.keyword != null and data.keyword != ''">
-                        title LIKE '%' || #{data.keyword} || '%'
+                        AND s.title LIKE '%' || #{data.keyword} || '%'
                     </if>
-                    AND systimestamp between started_at and ended_at
+                    <if test="data.star != null and data.star != 0">
+                        AND r.avg_star >= #{data.star}
+                    </if>
+                    <if test="data.delivery == 'free'">
+                        and delivery_fee = 0
+                    </if>
+                    AND systimestamp between s.started_at and s.ended_at
                     <bind name="status" value="'READY'"/>
-                    AND status = #{status}
+                    AND s.status = #{status}
                 </where>
+                <choose>
+                    <when test="data.sort == 'price'">
+                        ORDER BY p.minPrice ${data.direction}
+                    </when>
+                    <otherwise>
+                        ORDER BY ${data.sort} ${data.direction}
+                    </otherwise>
+                </choose>
                 OFFSET #{pageable.offset} ROWS FETCH NEXT #{pageable.pageSize} ROWS ONLY
             </otherwise>
         </choose>
@@ -133,12 +164,12 @@
             SELECT NVL(MAX(ID),0)+1 FROM SALE
         </selectKey>
         INSERT INTO sale (id, title, content, status, discount, started_at, ended_at, IMAGE_GROUP_ID, created_at,
-        category_code, region_code, merchant_id , total_rate)
+        category_code, region_code, merchant_id , total_rate,delivery_fee)
         VALUES (
         #{id}, #{title}, #{content}, #{status}, #{discount},
         TO_DATE(#{started_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
         TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
-        #{image_group_id}, SYSDATE, #{category_code}, #{region_code}, #{merchant_id}, 0
+        #{image_group_id}, SYSDATE, #{category_code}, #{region_code}, #{merchant_id}, 0 ,#{delivery_fee}
         )
     </insert>
     <insert id="insertSaleProductList" parameterType="list">
@@ -167,7 +198,8 @@
         ended_at = TO_DATE(#{ended_at, jdbcType=VARCHAR, javaType=java.lang.String}, 'YYYY-MM-DD"T"HH24:MI'),
         category_code = #{category_code},
         region_code = #{region_code},
-        image_group_id = #{image_group_id}
+        image_group_id = #{image_group_id},
+        delivery_fee = #{delivery_fee}
         where merchant_id = #{merchant_id}
         and id = #{id}
     </update>

@@ -36,15 +36,16 @@ public class SaleDTO
 
         //        판매량
         private int total_rate;
+        private int delivery_fee;
 
         //        DB없는 필드
         private String image_path;
         private int min_price;
         private String store_name;
         private List<String> image_group_path;
-        
+
         // REVIEW FILED
-        
+
         private float review_average_star = 0;
         private int review_count = 0;
 

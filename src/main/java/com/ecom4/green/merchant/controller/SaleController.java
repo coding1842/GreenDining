@@ -62,15 +62,14 @@ public class SaleController
 
         @Autowired
         SaleService saleService;
-        
+
         @Autowired
         UserService userService;
 
         @Autowired
         ProductService productService;
-        
-        
-        
+
+
         @Autowired
         ReviewService reviewService;
 
@@ -79,40 +78,40 @@ public class SaleController
         public String getSaleDetail(@PathVariable("sale_id") int sale_id,
 			      HttpSession session, HttpServletRequest req, HttpServletResponse resp, Model model)
         {
-                String main = "smartstore/view/SaleDetail";
-                SaleDTO sale = new SaleDTO();
-                
-                List<SaleProductDTO> saleProductList_MAIN = new ArrayList<>();
-                List<SaleProductDTO> saleProductList_SUB = new ArrayList<>();
+	      String main = "smartstore/view/SaleDetail";
+	      SaleDTO sale = new SaleDTO();
+
+	      List<SaleProductDTO> saleProductList_MAIN = new ArrayList<>();
+	      List<SaleProductDTO> saleProductList_SUB = new ArrayList<>();
 
 	      sale = saleService.getSale(sale_id);
 	      saleProductList_MAIN = saleService.selectSaleProductListMain(sale_id);
 	      saleProductList_SUB = saleService.selectSaleProductListSub(sale_id);
 
-                ReviewDTO review = new ReviewDTO();
-                
-  
-                review.setSale_id(sale_id);
-                
-                
-                Map<String,Object> map = new HashMap<>();
-                map.put("sale_id",sale_id);
-                
-                int review_total = reviewService.selectReviewTotalCountByMap(map);
-				List<ReviewDTO> reviewDTOList = reviewService.selectReviewList(review);
-				QnaDTO qna = new QnaDTO();
-				qna.setSale_id(sale_id);
-				List<QnaDTO> qnaDTOList = userService.selectQnaList(qna);
-				
-				
-                model.addAttribute("sale",sale);
-                model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
-                model.addAttribute("saleProductList_SUB", saleProductList_SUB);
-                model.addAttribute("main",main);
-                model.addAttribute("sale_id", sale_id);
-                model.addAttribute("qnaDTOList",qnaDTOList);
-                model.addAttribute("reviewDTOList", reviewDTOList);
-                return "Index";
+	      ReviewDTO review = new ReviewDTO();
+
+
+	      review.setSale_id(sale_id);
+
+
+	      Map<String, Object> map = new HashMap<>();
+	      map.put("sale_id", sale_id);
+
+	      int review_total = reviewService.selectReviewTotalCountByMap(map);
+	      List<ReviewDTO> reviewDTOList = reviewService.selectReviewList(review);
+	      QnaDTO qna = new QnaDTO();
+	      qna.setSale_id(sale_id);
+	      List<QnaDTO> qnaDTOList = userService.selectQnaList(qna);
+
+
+	      model.addAttribute("sale", sale);
+	      model.addAttribute("saleProductList_MAIN", saleProductList_MAIN);
+	      model.addAttribute("saleProductList_SUB", saleProductList_SUB);
+	      model.addAttribute("main", main);
+	      model.addAttribute("sale_id", sale_id);
+	      model.addAttribute("qnaDTOList", qnaDTOList);
+	      model.addAttribute("reviewDTOList", reviewDTOList);
+	      return "Index";
         }
 
         //        권한 - 사업자로 제한
@@ -182,16 +181,16 @@ public class SaleController
         @PostMapping("/write")
         public Map<String, Object> insertSale(HttpServletRequest req,
 				      HttpServletResponse resp,
-				      Model model, @ModelAttribute SaleForm saleForm, HttpSession session, @RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id)
+				      Model model, @ModelAttribute SaleForm saleForm, HttpSession session, @RequestParam(defaultValue = "0", required = false, value = "image_group_id") int image_group_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String url = null;
 	      String msg = null;
 	      SaleDTO saleDTO = saleForm.getSaleDTO();
-	     
-    	  saleDTO.setImage_group_id(image_group_id);
-	      
-	     
+
+	      saleDTO.setImage_group_id(image_group_id);
+
+
 	      List<SaleProductDTO> saleProductDTOList = saleForm.getSaleProductDTOList();
 
 	      if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
@@ -227,12 +226,16 @@ public class SaleController
 	      String url = null;
 	      SaleDTO saleDTO = new SaleDTO();
 	      List<ProductDTO> productDTOList = new ArrayList<>();
+	      List<SaleProductDTO> saleProductDTOList = new ArrayList<>();
 
 	      if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	      {
 		    saleDTO = saleService.getSale(saleID);
 		    main = "smartstore/form/UpdateSale";
 		    productDTOList = productService.getProductList(authService.getCurrentUser(session).getId());
+		    saleProductDTOList.addAll(saleService.selectSaleProductListMain(saleID));
+		    saleProductDTOList.addAll(saleService.selectSaleProductListSub(saleID));
+
 	      }
 	      else
 	      {
@@ -243,6 +246,7 @@ public class SaleController
 
 	      model.addAttribute("sale", saleDTO);
 	      model.addAttribute("productList", productDTOList);
+	      model.addAttribute("saleProductList", saleProductDTOList);
 	      model.addAttribute("merchant_id", authService.getCurrentUser(session).getId());
 	      model.addAttribute("main", main);
 	      return "Index";
@@ -282,10 +286,10 @@ public class SaleController
         @ResponseBody
         @PostMapping("/write/{sale-id}")
         public ResponseEntity<?> updateSale(HttpSession session,
-        		HttpServletRequest req, HttpServletResponse resp, 
-        		Model model, @ModelAttribute SaleForm saleForm, 
-        		@PathVariable("sale-id") int sale_id,
-        		@RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id)
+				    HttpServletRequest req, HttpServletResponse resp,
+				    Model model, @ModelAttribute SaleForm saleForm,
+				    @PathVariable("sale-id") int sale_id,
+				    @RequestParam(defaultValue = "0", required = false, value = "image_group_id") int image_group_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String msg = null;
@@ -305,7 +309,7 @@ public class SaleController
 		    msg = "판매글 수정 완료";
 		    url = "/merchant/my-page/item/list";
 		    respMap.put("url", url);
-		      respMap.put("msg", msg);
+		    respMap.put("msg", msg);
 	      }
 	      else
 	      {
@@ -313,11 +317,11 @@ public class SaleController
 		    url = "/auth/login";
 		    respMap.put("url", url);
 		    respMap.put("msg", msg);
-		    return new ResponseEntity<>(respMap,HttpStatus.UNAUTHORIZED);
+		    return new ResponseEntity<>(respMap, HttpStatus.UNAUTHORIZED);
 	      }
 
-	     
-	      return new ResponseEntity<>(respMap,HttpStatus.OK);
+
+	      return new ResponseEntity<>(respMap, HttpStatus.OK);
         }
 
         //	상품 삭제

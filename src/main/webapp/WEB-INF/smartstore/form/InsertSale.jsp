@@ -67,7 +67,7 @@
                           </c:forEach>
                         </select>
                         <input type="text" name="saleProductDTOList[0].name" placeholder="설정하실 상품명">
-                        <input type="text" name="saleProductDTOList[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게">
+                        <!-- <input type="text" name="saleProductDTOList[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게"> -->
                         <select name="saleProductDTOList[0].sale_type" id="sale_type">
                           <option value="MAIN">메인상품</option>
                           <option value="SUB">추가상품</option>
@@ -91,6 +91,12 @@
               <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="PREPARE" /><span>판매 대기</span></label>
               <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="READY" /><span>판매중</span></label>
               <label class="sale-type-label"><input type="radio" name="saleDTO.status" value="CLOSE" /><span>판매 종료</span></label>
+            </td>
+          </tr>
+          <tr>
+            <th>배송료</th>
+            <td class="sale_flex">
+             <input type="number" placeholder="숫자만 입력" value="0" name="saleDTO.delivery_fee" class="sale-discount-text" />&nbsp;원
             </td>
           </tr>
           <tr>

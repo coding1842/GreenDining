@@ -37,6 +37,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
               type="text"
               placeholder="검색어를 입력하세요"
               class="w-580px h-38px ms-3 border-0 position-absolute start-0 top-50 translate-middle-y" />
+
             <input type="submit" value="" class="d-none" />
             <i id="search_button" class="fa-solid fa-magnifying-glass position-absolute end-0 top-50 translate-middle text-primary"></i>
           </form>

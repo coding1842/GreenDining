@@ -60,19 +60,21 @@
                 <c:choose>
                   <c:when test="${fn:length(productList)>0}">
                     <div id="product_container" class="w-100">
+                      <c:forEach var="saleProduct" items="${saleProductList}" varStatus="m">
                       <div class="saleProductDTO d-flex flex-row" id="">
-                        <select name="saleProductDTOList[0].product_id" id="product_id">
+                        <select name="saleProductDTOList[${m.index}].product_id" id="product_id">
                           <c:forEach var="product" items="${productList}" varStatus="i">
-                            <option value="${product.id}">${product.name}</option>
+                            <option value="${product.id}" ${saleProduct.product_id == product.id ? 'selected' : ''}>${product.name}</option>
                           </c:forEach>
                         </select>
-                        <input type="text" name="saleProductDTOList[0].name" placeholder="설정하실 상품명">
-                        <input type="text" name="saleProductDTOList[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게">
-                        <select name="saleProductDTOList[0].sale_type" id="sale_type">
+                        <input type="text" name="saleProductDTOList[${m.index}].name" value="${saleProduct.name}" placeholder="설정하실 상품명">
+                        <!-- <input type="text" name="saleProductDTOList[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게"> -->
+                        <select name="saleProductDTOList[${m.index}].sale_type" value="${saleProduct.sale_type}" id="sale_type">
                           <option value="MAIN">메인상품</option>
                           <option value="SUB">추가상품</option>
                         </select>
                       </div>
+                      </c:forEach>
                     </div>
                     
                   </c:when>
@@ -101,6 +103,12 @@
 			        <span>판매 종료</span>
 			    </label>
 			</td>
+          </tr>
+           <tr>
+            <th>배송료</th>
+            <td class="sale_flex">
+             <input type="number" placeholder="숫자만 입력" value="${sale.delivery_fee}" name="saleDTO.delivery_fee" class="sale-discount-text" />&nbsp;원
+            </td>
           </tr>
           <tr>
             <th>할인</th>
