@@ -90,6 +90,8 @@ public class MainController
 		         @RequestParam(value = "delivery", defaultValue = "normal", required = false) String delivery,
 		         @RequestParam(value = "direction", required = false, defaultValue = "desc") String direction,
 		         @RequestParam(value = "star", required = false, defaultValue = "0") int star,
+		         @RequestParam(value = "minPrice", required = false, defaultValue = "0") int minPrice,
+		         @RequestParam(value = "maxPrice", required = false, defaultValue = "0") int maxPrice,
 		         @PageableDefault(value = 25, page = 0) Pageable pageable,
 		         HttpServletRequest req, HttpServletResponse resp, Model model)
         {
@@ -105,6 +107,8 @@ public class MainController
 	      dataMap.put("star", star);
 	      dataMap.put("direction", direction);
 	      dataMap.put("pageable", pageable);
+	      dataMap.put("minPrice", minPrice);
+	      dataMap.put("maxPrice", maxPrice);
 	      salePage = saleService.getSalePage(dataMap);
 
 	      model.addAttribute("salePage", salePage);
@@ -115,6 +119,8 @@ public class MainController
 	      model.addAttribute("star", star);
 	      model.addAttribute("direction", direction);
 	      model.addAttribute("keyword", keyword);
+	      model.addAttribute("minPrice", minPrice);
+	      model.addAttribute("maxPrice", maxPrice);
 	      model.addAttribute("main", main);
 	      return "Index";
         }

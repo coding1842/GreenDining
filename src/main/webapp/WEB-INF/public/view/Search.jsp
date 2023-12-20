@@ -15,8 +15,22 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <style>
+    /* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+  </style>
   <script>
-   
+   var currentPage = ${salePage.number};  // 현재 페이지 번호 초기화
+   var currentSize = ${salePage.size};  // 현재 페이지 사이즈 초기화
+
+
     function filterControl(ele,name,value) {
       $("#search_form_02 input[name=" + name + "]").val(value);
 
@@ -32,11 +46,37 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     {
       $("#search_form_02 input[name=sort]").val(sort);
       $("#search_form_02 input[name=direction]").val(direction);
-      $("#search_form_02").submit();
+      $("#search_form_02").submit();      
+    }
+    function priceByControl()
+    {
+      var minPrice = $("#minPrice").val();
+      var maxPrice = $("#maxPrice").val();
 
-      
+      $("#search_form_02 input[name=minPrice]").val(minPrice);
+      $("#search_form_02 input[name=maxPrice]").val(maxPrice);
+
+      $("#search_form_02").submit();
     }
   
+    function resetByControl()
+    {
+      $("#search_form_02 input").each(function()
+      {
+        $(this).val("");
+      });
+
+      $("#search_form_02").submit();
+    }
+    function changeSize() {
+      currentSize = document.getElementById("size").value;  // 페이지 사이즈 변경 시 사이즈 업데이트
+      window.location.href = "?page=0" + "&size=" + currentSize;
+    }
+
+    function changePage(page) {
+      currentPage = page;  // 페이지 이동할 때마다 페이지 번호 업데이트
+      window.location.href = "?page=" + currentPage + "&size=" + currentSize;
+    }
   </script>
   </head>
   <body>
@@ -52,14 +92,16 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         <input type="hidden" name="sort" value="${sort}">
         <input type="hidden" name="direction" value="${direction}">
         <input type="hidden" name="star" value="${star}">
+        <input type="hidden" name="minPrice" value="${minPrice}">
+        <input type="hidden" name="maxPrice" value="${maxPrice}">
       </form>
       <!-- ! 체크 항목 있으면 전체 해제 옵션 보이게 -->
       <div id="checked_option" class="fs-14px position-absolute end-0 mt-4 me-2">
-        <button class="bg-white" @click="resetFilters"><span class="fs-16px material-symbols-outlined align-middle"> restart_alt </span>전체해제</button>
+        <button class="bg-white" onclick="resetByControl()"><span class="fs-16px material-symbols-outlined align-middle"> restart_alt </span>전체해제</button>
       </div>
       <!-- ! 배송 옵션 -->
       <div id="delivery_option" class="d-flex flex-column mt-2 w-100">
-        <label><input type="checkbox"  value="오늘출발" /> 오늘출발</label>
+        <label><input type="checkbox"  value="오늘출발" /> 오늘출발(미구현)</label>
         <label><input type="checkbox"  value="무료배송" onchange="filterControl(this,'delivery','free')" ${delivery == 'free' ? 'checked' : ''} /> 무료배송</label>
       </div>
       <!-- ! 카테고리 옵션 -->
@@ -87,7 +129,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       <!-- ! 별점 옵션 -->
       <div id="star_option" class="d-flex flex-column w-100">
         <h6 class="fw-bold">별점</h6>
-        <label ><input type="checkbox" onclick="filterControl(this,'star',0)"> 별점 전체</input></label>
+        <label onclick="filterControl(this,'star',0)"> 별점 전체</label>
         <label onclick="filterControl(this,'star',4)" class="w-100">
           
           <div class="float-start">
@@ -135,9 +177,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       <div id="price_option">
         <h6 class="fw-bold">가격</h6>
         <div id="price_range" class="fs-10px">
-          <span> <input type="text" class="" maxlength="10" /> ~ </span>
-          <span> <input type="text" class="" maxlength="10" />원 </span>
-          <span><button class="bg-info rounded-2">검색</button></span>
+          <span> <input type="number" class="" min="0" maxlength="10" id="minPrice" value="${minPrice}" /> ~ </span>
+          <span> <input type="number" class="" min="0" maxlength="10" id="maxPrice" value="${maxPrice}" />원 </span>
+          <span><button class="bg-white w-30px h-20px rounded-2" onclick="priceByControl()">검색</button></span>
         </div>
       </div>
     </section>
@@ -146,7 +188,14 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
       <div id="product_option" class="ms-4 mt-4">
         <h5>'${keyword}'에 대한 검색 결과</h5>
         <div id="product_option_list" class="bg-secondary">
-          <label for="" class="ms-3">랭킹순(미완성)</label>
+           <div class="size-selector">
+              <select id="size" onchange="changeSize()">
+                <option value="12">12개씩 보기</option>
+                <option value="16">16개씩 보기</option>
+                <option value="20">20개씩 보기</option>
+              </select>
+            </div>
+          <label for="" class="ms-3">랭킹순(미구현)</label>
           <label for=""  onclick="orderByControl('price','asc')">낮은가격순</label>
           <label for=""  onclick="orderByControl('price','desc')">높은가격순</label>
           <label for=""  onclick="orderByControl('total_rate','desc')">판매량순</label>
@@ -199,13 +248,33 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
             <c:forEach begin="${fn:length(salePage.content) % 5}" end="5">
               <div class="col" h-460px></div>
             </c:forEach>
+            
           </c:when>
           <c:when test="${fn:length(salePage.content) == 0}">
             <h6>검색한 상품이 없습니다.</h6>
           </c:when>
         </c:choose>
       </div>
-      </div>
+      <div class="pagination w-200px">
+              <c:if test="${salePage.first == false}">
+                  <a href="javascript:changePage(0)"><<</a>
+                <a href="javascript:changePage(${salePage.number - 1})"><</a>
+              </c:if>
+              <c:forEach begin="0" end="${salePage.totalPages -1}" step="1" var="page">
+                <c:choose>
+                  <c:when test="${page == salePage.number}">
+                    <span class="current">${page + 1}</span>
+                  </c:when>
+                  <c:otherwise>
+                    <a href="?page=${page}&size=${salePage.size}">${page + 1}</a>
+                  </c:otherwise>
+                </c:choose>
+              </c:forEach>
+              <c:if test="${salePage.last == false}">
+                  <a href="javascript:changePage(${salePage.number + 1})">></a>
+                  <a href="javascript:changePage(${salePage.totalPages - 1})">>></a>
+              </c:if>
+            </div></div>
     </section>
     <div class="clearfix"></div>
   </body>

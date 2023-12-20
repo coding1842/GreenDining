@@ -92,15 +92,13 @@
                     GROUP BY sale_id
                     ) r ON s.id = r.sale_id
                 </if>
-                <if test="data.sort == 'price'">
-                    JOIN (
-                    SELECT sp.sale_id, MIN(pr.price * (100 - s.discount) / 100) as minPrice
-                    FROM sale_product sp
-                    JOIN product pr ON sp.product_id = pr.id
-                    JOIN sale s ON sp.sale_id = s.id
-                    GROUP BY sp.sale_id
-                    ) p ON s.id = p.sale_id
-                </if>
+                JOIN (
+                SELECT sp.sale_id, MIN(pr.price * (100 - s.discount) / 100) as minPrice
+                FROM sale_product sp
+                JOIN product pr ON sp.product_id = pr.id
+                JOIN sale s ON sp.sale_id = s.id
+                GROUP BY sp.sale_id
+                ) p ON s.id = p.sale_id
                 <where>
                     <if test="data.category != null and data.category != 0">
                         AND s.category_code = #{data.category}
@@ -116,6 +114,9 @@
                     </if>
                     <if test="data.delivery == 'free'">
                         and delivery_fee = 0
+                    </if>
+                    <if test="data.minPrice != null and data.maxPrice != null and data.maxPrice != 0">
+                        and p.minPrice between #{data.minPrice} and #{data.maxPrice}
                     </if>
                     AND systimestamp between s.started_at and s.ended_at
                     <bind name="status" value="'READY'"/>
