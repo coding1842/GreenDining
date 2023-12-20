@@ -18,14 +18,14 @@
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="/js/zipCheck.js"></script>
     <script src="/dist/bundle/bundle.js"></script>
-    <title>배송지 수정</title>
+    <title>배송지 등록</title>
   </head>
   <body class="bg-white">
     <div style="text-align: center">
       <div id="" style="width: 490px; display: inline-block">
         <div style="width: 490px; height: 40px" class="position-relative z-3 overflow-hidden bg-white">
           <div class="position-fixed border-bottom border-1 border-secondary bg-white" style="width: 490px; height: 40px">
-            <h6 class="fw-bold pt-2">배송지 수정</h6>
+            <h6 class="fw-bold pt-2">배송지 등록</h6>
           </div>
         </div>
         <form action="" id="addressForm" method="post">

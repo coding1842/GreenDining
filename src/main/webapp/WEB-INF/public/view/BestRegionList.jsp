@@ -113,7 +113,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <a href="/item/${sale.id}">
                <div class="col h-450px">
                 <div class="card h-100 overflow-hidden">
-                  <img src="${sale.image_path}" class="card-img-top w-100 h-220px" alt="..." />
+                  <div class="embed-responsive embed-responsive-4by3">
+                    <img src="${sale.image_path}" class="card-img-top" alt="tree">
+                  </div>
                   <div class="card-body m-0 ms-1">
                     <h5 class="card-title">
                       <c:if test="${sale.discount != 0}">
@@ -141,7 +143,6 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                   <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
                     <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">${sale.store_name}</small>
                   </div>
-                    <img src="${sale.image_path}" alt="" srcset="" class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
 
                 </div>
               </div>

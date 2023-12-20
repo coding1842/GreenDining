@@ -92,7 +92,7 @@ public class MainController
 		         @RequestParam(value = "star", required = false, defaultValue = "0") int star,
 		         @RequestParam(value = "minPrice", required = false, defaultValue = "0") int minPrice,
 		         @RequestParam(value = "maxPrice", required = false, defaultValue = "0") int maxPrice,
-		         @PageableDefault(value = 25, page = 0) Pageable pageable,
+		         @PageableDefault(value = 16, page = 0) Pageable pageable,
 		         HttpServletRequest req, HttpServletResponse resp, Model model)
         {
 	      String main = null;

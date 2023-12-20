@@ -9,6 +9,8 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.logging.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,9 @@ import com.ecom4.green.constant.RoleStatus;
 import com.ecom4.green.merchant.dao.MerchantDAO;
 import com.ecom4.green.merchant.dto.MerchantDTO;
 import com.ecom4.green.user.dto.UserDTO;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Controller
@@ -149,6 +154,38 @@ public class AuthController
 	      return cnt;
         }
 
+        @RequestMapping("/password-check")
+        @ResponseBody
+        public ResponseEntity<?> passwordCheck(HttpServletRequest req, HttpServletResponse resp, Model model, UserDTO userDto)
+        {
+	      Map<String, Object> map = new HashMap<>();
+	      String msg = "";
+	      try
+	      {
+		    String salt = authService.selectSalt(userDto);
+		    String encyptionPassword = encryptionService.getSHA256Hash(userDto.getPassword() + salt + pepper);
+		    userDto.setPassword(encyptionPassword);
+	      }
+	      catch (Exception e)
+	      {
+		    e.printStackTrace();
+	      }
+	      UserDTO udto = authService.getUser(userDto);
+
+	      if (udto.getRole() == RoleStatus.USER)
+	      {
+		    msg = "비밀번호가 맞습니다";
+		    map.put("msg", msg);
+	      }
+	      else
+	      {
+		    msg = "비밀번호가 틀립니다.";
+		    map.put("msg", msg);
+		    return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+        }
 
         @GetMapping("/sign-up/business")
         public String signUpBusinessForm(HttpServletRequest req, HttpServletResponse resp, Model model)
@@ -231,6 +268,7 @@ public class AuthController
 		    ssKey.setPassword(udto.getPassword());
 		    ssKey.setName(udto.getName());
 		    ssKey.setRole(udto.getRole());
+		    ssKey.setEmail(udto.getEmail());
 		    msg = udto.getName() + "님 반갑습니다!!";
 		    model.addAttribute("msg", msg);
 		    model.addAttribute("url", url);

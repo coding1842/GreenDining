@@ -105,7 +105,7 @@
 					                </div>
 					                <div class="or_it">
 					                    <div class="or_name">
-					                        ${orderItem.name}
+					                        <a href="/item/${orderItem.sale_id}">${orderItem.name}</a>
 					                    </div>
 					                    <div class="or_price">
 					                    	<div>

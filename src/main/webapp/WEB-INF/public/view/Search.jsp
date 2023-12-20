@@ -68,9 +68,9 @@ input[type=number] {
 
       $("#search_form_02").submit();
     }
-    function changeSize() {
-      currentSize = document.getElementById("size").value;  // 페이지 사이즈 변경 시 사이즈 업데이트
-      window.location.href = "?page=0" + "&size=" + currentSize;
+    function changeSize(size) {
+      
+      window.location.href = "?page=0" + "&size=" + size;
     }
 
     function changePage(page) {
@@ -188,18 +188,21 @@ input[type=number] {
       <div id="product_option" class="ms-4 mt-4">
         <h5>'${keyword}'에 대한 검색 결과</h5>
         <div id="product_option_list" class="bg-secondary">
-           <div class="size-selector">
-              <select id="size" onchange="changeSize()">
-                <option value="12">12개씩 보기</option>
-                <option value="16">16개씩 보기</option>
-                <option value="20">20개씩 보기</option>
-              </select>
-            </div>
+          
           <label for="" class="ms-3">랭킹순(미구현)</label>
           <label for=""  onclick="orderByControl('price','asc')">낮은가격순</label>
           <label for=""  onclick="orderByControl('price','desc')">높은가격순</label>
           <label for=""  onclick="orderByControl('total_rate','desc')">판매량순</label>
           <label for=""  onclick="orderByControl('created_at','desc')">최신순</label>
+           <div class="size-selector position-relative w-100px float-end">
+              <div class="current-size">${salePage.size}개씩 보기</div>
+              <div class="btn-group-vertical visually-hidden size-btn_box position-absolute fs-12px z-3" role="group" aria-label="Vertical button group">
+                <button type="button" onclick="changeSize(12)" class="btn btn-secondary z-3 fs-12px">12개씩 보기</button>
+                <button type="button" onclick="changeSize(16)" class="btn btn-secondary z-3 fs-12px">16개씩 보기</button>
+                <button type="button" onclick="changeSize(20)" class="btn btn-secondary z-3 fs-12px">20개씩 보기</button>
+                <button type="button" onclick="changeSize(24)" class="btn btn-secondary z-3 fs-12px">24개씩 보기</button>
+              </div>
+            </div>
         </div>
       </div>
 
@@ -211,7 +214,9 @@ input[type=number] {
               <a href="/item/${sale.id}">
               <div class="col w-400px h-450px p-0">
                 <div class="card h-100 overflow-hidden">
-                  <img src="${sale.image_path}" class="card-img-top h-200px" alt="..." />
+                 <div class="embed-responsive">
+                    <img src="${sale.image_path}" class="card-img-top" alt="tree">
+                  </div>
                   <div class="card-body m-0 ms-1">
                     <h5 class="card-title">
                       <c:if test="${sale.discount != 0}">
@@ -239,7 +244,6 @@ input[type=number] {
                   <div class="card-footer border-0 bg-transparent ps-1 pb-0 pe-0 w-100">
                     <small class="position-absolute bottom-0 mb-2 ms-2 fs-12px align-bottom">${sale.store_name}</small>
                   </div>
-                    <img src="${sale.image_path}" alt="" srcset="" class="w-60px h-60px rounded-circle float-end mb-2 me-2" />
 
                 </div>
               </div>

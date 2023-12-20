@@ -4,7 +4,10 @@
   font-weight: normal;
   font-style: normal;
 }
-
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
 /* ! 슬라이더 디자인 */
 section#main_slider {
   width: 100%;
@@ -98,9 +101,6 @@ div#item {
   border-radius: 50%;
   color: black;
 }
-
-
-
 
 .bestSwiper .product_title {
   font-size: 14px;

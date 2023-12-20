@@ -40,7 +40,7 @@
        <div id="m_aside">
        <strong>MY 정보</strong>
       	 <ul>
-      	 	<a><li>개인정보확인/수정</li></a>
+      	 	<a href="/user/my-page/modify-check-form"><li>개인정보확인/수정</li></a>
       	 	<a><li>결제수단관리</li></a>
       	 	<a><li>배송지 관리</li></a>
        	</ul>
@@ -118,7 +118,7 @@
 							                </div>
 							                <div class="or_it">
 							                    <div class="or_name">
-							                        ${orderItem.name}
+							                        <a href="/item/${orderItem.sale_id}">${orderItem.name}</a>
 							                    </div>
 							                    <div class="or_price">
 							                    	<div>

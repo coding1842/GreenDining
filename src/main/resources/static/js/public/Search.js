@@ -15,6 +15,17 @@ $(function () {
       $("#search_form").submit(function (e) {});
     }
   });
+
+  $(".size-selector").hover(
+    function () {
+      // over
+      $(".size-btn_box").removeClass("visually-hidden");
+    },
+    function () {
+      // out
+      $(".size-btn_box").addClass("visually-hidden");
+    }
+  );
 });
 
 function filterControl(name, value) {

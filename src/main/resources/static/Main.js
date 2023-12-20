@@ -46,6 +46,7 @@ import "./js/smartstore/SaleForm.js";
 // ! 일반 유저 관련
 import "./js/user/ReturnProductForm.js";
 import "./js/user/Address.js";
+import "./js/public/Search.js";
 
 // ! 주소 검색 관련
 import "./js/zipCheck.js";
