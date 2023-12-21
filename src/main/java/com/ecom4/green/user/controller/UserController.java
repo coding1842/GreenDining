@@ -199,7 +199,7 @@ public class UserController
 		    url = "redirect:/auth/login";
 		    return url;
 	      }
-
+	      model.addAttribute("user", authService.getCurrentUser(session));
 	      model.addAttribute("main", main);
 	      return "Index";
         }

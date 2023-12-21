@@ -29,15 +29,25 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           <tr>
             <th>아이디</th>
             <td>
-              <input type="text" name="id" id="" value="${ssKey.id}" readonly />
+              <form action="/auth/id-change"></form>
+              <input type="text" name="id" id="" value="${user.id}" readonly />
+              <button type="submit">아이디 변경</button>
             </td>
           </tr>
           <tr>
             <th>이메일</th>
             <td>
               <form action="/auth/email-change"></form>
-              <input type="text" name="email" id="" value="${ssKey.email}" readonly />
+              <input type="text" name="email" id="" value="${user.email}" readonly />
               <button type="submit">이메일 변경</button>
+            </td>
+          </tr>
+          <tr>
+            <th>휴대폰 번호</th>
+            <td>
+              <form action="/auth/phone-change"></form>
+              <input type="text" name="phone" id="" value="${user.phone}" readonly />
+              <button type="submit">휴대폰 번호 변경</button>
             </td>
           </tr>
           <tr>

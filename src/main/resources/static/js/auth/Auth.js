@@ -29,8 +29,6 @@ function modifyCheck() {
     processData: false, // FormData 객체를 직렬화하지 않음
     contentType: false, // 요청 본문의 타입을 'multipart/form-data'로 자동 설정
     success: function (response) {
-      console.log(Object.keys(response));
-      alert(response.msg);
       window.location.href = "/user/my-page/modify-form";
     },
     error: function (error, two, three) {
