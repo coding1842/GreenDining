@@ -25,4 +25,6 @@ public interface AuthService
         String selectSalt(UserDTO userDto);
 
         int phoneCheck(String phone);
+
+        void updateUserByUserDTO(UserDTO userDTO);
 }

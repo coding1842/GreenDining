@@ -2,6 +2,8 @@ package com.ecom4.green.merchant.controller;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.imgur.dto.ImgurDTO;
+import com.ecom4.green.imgur.service.ImgurService;
 import com.ecom4.green.merchant.dto.ProductDTO;
 import com.ecom4.green.merchant.dto.SaleDTO;
 import com.ecom4.green.merchant.dto.SaleProductDTO;
@@ -72,6 +74,9 @@ public class SaleController
 
         @Autowired
         ReviewService reviewService;
+
+        @Autowired
+        ImgurService imgurService;
 
         //        public 권한
         @GetMapping("/{sale_id}")
@@ -227,7 +232,7 @@ public class SaleController
 	      SaleDTO saleDTO = new SaleDTO();
 	      List<ProductDTO> productDTOList = new ArrayList<>();
 	      List<SaleProductDTO> saleProductDTOList = new ArrayList<>();
-
+	      List<ImgurDTO> imgurDTOList = new ArrayList<>();
 	      if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	      {
 		    saleDTO = saleService.getSale(saleID);
@@ -235,7 +240,7 @@ public class SaleController
 		    productDTOList = productService.getProductList(authService.getCurrentUser(session).getId());
 		    saleProductDTOList.addAll(saleService.selectSaleProductListMain(saleID));
 		    saleProductDTOList.addAll(saleService.selectSaleProductListSub(saleID));
-
+		    imgurDTOList = imgurService.selectImageList(saleDTO.getImage_group_id());
 	      }
 	      else
 	      {
@@ -249,6 +254,7 @@ public class SaleController
 	      model.addAttribute("saleProductList", saleProductDTOList);
 	      model.addAttribute("merchant_id", authService.getCurrentUser(session).getId());
 	      model.addAttribute("main", main);
+	      model.addAttribute("imgurList", imgurDTOList);
 	      return "Index";
         }
 

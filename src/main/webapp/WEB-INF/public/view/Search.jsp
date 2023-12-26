@@ -259,29 +259,25 @@ input[type=number] {
           </c:when>
         </c:choose>
       </div>
-      <div class="pagination w-200px">
-              <c:if test="${salePage.first == false}">
-                  <a href="javascript:changePage(0)"><<</a>
-                <a href="javascript:changePage(${salePage.number - 1})"><</a>
-              </c:if>
-              <c:if test="${fn:length(salePage.content) != 0}">
-                <c:forEach begin="0" end="${salePage.totalPages -1}" step="1" var="page">
-                <c:choose>
-                  <c:when test="${page == salePage.number}">
-                    <span class="current">${page + 1}</span>
-                  </c:when>
-                  <c:otherwise>
-                    <a href="?page=${page}&size=${salePage.size}">${page + 1}</a>
-                  </c:otherwise>
-                </c:choose>
-                </c:forEach>
-              </c:if>
-              
-              <c:if test="${salePage.last == false}">
-                  <a href="javascript:changePage(${salePage.number + 1})">></a>
-                  <a href="javascript:changePage(${salePage.totalPages - 1})">>></a>
-              </c:if>
-            </div></div>
+      <div class="pagination justify-content-center">
+	
+		
+		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			 <div class="btn-group me-2" role="group" aria-label="First group">
+				<c:forEach begin="${Math.floor((salePage.number + 1) / 10) * 10}" end="${salePage.totalPages - 1}" step="1" var="page" varStatus="i">
+					<c:choose>
+						<c:when test="${page == salePage.number}">
+							<button  type="button" class="current btn btn-primary">${page + 1}</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" onClick="location.href='?page=${page}&size=${size}'" class="btn btn-secondary">${page + 1}</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+			</div>
+		</div>
+	</div>
+	</div></div>
     </section>
     <div class="clearfix"></div>
   </body>

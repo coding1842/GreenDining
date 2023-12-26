@@ -6,6 +6,8 @@ import javax.servlet.http.HttpSession;
 
 import com.ecom4.green.authentication.service.AuthService;
 import com.ecom4.green.constant.RoleStatus;
+import com.ecom4.green.imgur.dto.ImgurDTO;
+import com.ecom4.green.imgur.service.ImgurService;
 import com.ecom4.green.user.dto.UserDTO;
 import com.ecom4.green.user.service.UserService;
 
@@ -48,6 +50,9 @@ public class ProductController
         AuthService authService;
         @Autowired
         UserService userService;
+
+        @Autowired
+        ImgurService imgurService;
 
 
         //	상품 등록폼
@@ -122,10 +127,12 @@ public class ProductController
 	      String main = null;
 	      String url = null;
 	      ProductDTO productDTO = new ProductDTO();
+	      List<ImgurDTO> imgurDTOList = new ArrayList<>();
 
 	      if (authService.checkRoleStatus(session) == RoleStatus.MERCHANT)
 	      {
 		    productDTO = productService.getProduct(productID);
+		    imgurDTOList = imgurService.selectImageList(productDTO.getImage_group_id());
 		    main = "smartstore/form/UpdateProduct";
 	      }
 	      else
@@ -136,8 +143,7 @@ public class ProductController
 
 
 	      model.addAttribute("product", productDTO);
-//	        테스트에서는 비활성화
-//	        model.addAttribute("merchant_id",authService.getCurrentUser(session).getId());
+	      model.addAttribute("imgurList", imgurDTOList);
 	      model.addAttribute("main", main);
 	      return "Index";
         }
@@ -146,10 +152,10 @@ public class ProductController
         @ResponseBody
         @PostMapping("/write/{product-id}")
         public Map<String, Object> updateProduct(HttpSession session,
-        		HttpServletRequest req, HttpServletResponse resp, 
-        		Model model, ProductDTO productDTO, 
-        		@PathVariable("product-id") int product_id,
-        		@RequestParam( defaultValue = "0", required = false,value="image_group_id") int image_group_id)
+				         HttpServletRequest req, HttpServletResponse resp,
+				         Model model, ProductDTO productDTO,
+				         @PathVariable("product-id") int product_id,
+				         @RequestParam(defaultValue = "0", required = false, value = "image_group_id") int image_group_id)
         {
 	      Map<String, Object> respMap = new HashMap<>();
 	      String msg = null;

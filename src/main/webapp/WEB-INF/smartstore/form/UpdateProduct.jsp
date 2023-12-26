@@ -49,9 +49,15 @@
             <tr>
               <th>상품 설명 이미지</th>
               <td>
+                
+                <div id="image_list">
+                  <c:forEach items="${imgurList}" var="imgur" varStatus="i">
+                    <img src="${imgur.path}" class="img-thumbnail w-100px h-100px" alt="" srcset="">
+                  </c:forEach>
+                </div>
                 <input type="file" name="fileList" />
                 <br />
-                <small>*(장바구니 또는 주문목록에서 보여질 사진 등록(1장).)</small>
+                <small>*(장바구니 또는 주문목록에서 보여질 사진 등록(1장). 파일 선택 시 이전 이미지는 덮어 씌워 집니다.)</small>
               </td>
             </tr>
             <tr>

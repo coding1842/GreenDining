@@ -1,8 +1,11 @@
-$(function () {
-  var idCheck = 1;
-  var passwordCheck = true; //두개가 다르면 true, 같으면 false
-  var phoneCheck = true;
+var idCheck = false;
+var passwordCheck = false; // 비밀번호 확인이 맞는지
+var passwordCheck2 = false; // 비밀번호 유효성이 맞는지
+var emailCheck = false;
+var nameCheck = false;
+var phoneCheck = false;
 
+$(function () {
   // * 변경 버튼 처리
   $("#id_change").click(function (e) {
     if ($(this).html() == "아이디 변경") {
@@ -46,18 +49,51 @@ $(function () {
   // * 회원 탈퇴 처리 (버튼)
   $("#delete_user").click(function (e) {
     if (confirm("정말로 탈퇴하시겠습니까?")) {
-      $.ajax({
-        type: "POST",
-        url: "url",
-        data: "data",
-        dataType: "dataType",
-        success: function (response) {},
-      });
+      authFormSubmit(this);
+    }
+  });
+
+  // 개인정보 변경 요청 처리 - 아이디
+  $("#id-change-submit").click(function (e) {
+    if (idCheck) {
+      authFormSubmit(this);
+    } else {
+      alert("입력하신 아이디가 이미 존재하거나 형식에 맞지 않습니다.");
+    }
+  });
+  // 개인정보 변경 요청 처리 - 이메일
+  $("#email-change-submit").click(function (e) {
+    if (emailCheck) {
+      authFormSubmit(this);
+    } else {
+      alert("입력하신 이메일이 형식에 맞지 않습니다.");
+    }
+  });
+  $("#name-change-submit").click(function (e) {
+    if (nameCheck) {
+      authFormSubmit(this);
+    } else {
+      alert("입력하신 이름이 형식에 맞지 않습니다(2글자 이상)");
+    }
+  });
+  $("#phone-change-submit").click(function (e) {
+    if (phoneCheck) {
+      authFormSubmit(this);
+    } else {
+      alert("입력하신 휴대폰번호가 이미 존재하거나 형식에 맞지 않습니다.");
+    }
+  });
+  $("#password-change-submit").click(function (e) {
+    if (passwordCheck && passwordCheck2) {
+      authFormSubmit(this);
+    } else {
+      alert("비밀번호가 같지 않거나 형식에 맞지 않습니다");
     }
   });
 
   // ? ID 체크
   $("#idCheck").on("propertychange change input paste", function () {
+    idCheck = false;
     var regex = /^(?=.*[A-Za-z])(?=.*[0-9])[A-Za-z0-9]{6,15}$/;
     var str = $("#idCheck").val();
     if (regex.test(str)) {
@@ -75,14 +111,14 @@ $(function () {
             $("font[id=warning]").attr("color", "red");
             $("font[id=warning]").text("이미 존재하는 아이디 입니다.");
             $("#idCheck").focus();
-            idCheck = 1;
+            idCheck = false;
           } else {
             //사용가능한 아이디
             $("font[id=warning]").text("");
             $("font[id=warning]").attr("color", "blue");
             $("font[id=warning]").text("사용가능한 아이디 입니다.");
             $("#idCheck").focus();
-            idCheck = 0;
+            idCheck = true;
           }
         },
       });
@@ -91,6 +127,14 @@ $(function () {
       $("font[id=warning]").text("");
     }
   });
+  $("#name_check").on("propertychange change input paste", function () {
+    if ($(this).val().length >= 2) {
+      nameCheck = true;
+    } else {
+      nameCheck = false;
+    }
+  });
+
   // ? 이메일 체크
   $("#email_chk").on("propertychange change input paste", function () {
     var str = $("#email_chk").val();
@@ -103,8 +147,10 @@ $(function () {
 
     if (!(atPos > 1 && atPos == atLastPos && dotPos > 3 && spacePos == -1 && commaPos == -1 && atPos + 1 < dotPos && dotPos + 1 < eMailSize)) {
       textDanger("#email_text");
+      emailCheck = false;
     } else {
       textPrimary("#email_text");
+      emailCheck = true;
     }
   });
   // ? 휴대폰 체크
@@ -124,18 +170,19 @@ $(function () {
             $("font[id=phone_font]").text("");
             $("font[id=phone_font]").attr("color", "red");
             $("font[id=phone_font]").text("이미 사용중인 번호 입니다.");
-            phoneCheck = true;
+            phoneCheck = false;
           } else {
             //사용가능한 아이디
             $("font[id=phone_font]").text("");
             $("font[id=phone_font]").attr("color", "blue");
             $("font[id=phone_font]").text("사용가능한 번호 입니다.");
-            phoneCheck = false;
+            phoneCheck = true;
           }
         },
       });
     } else {
       textDanger("#phone_text");
+      phoneCheck = false;
     }
   });
 
@@ -146,13 +193,13 @@ $(function () {
     validatePassword(password, email);
     if ($("#new_password").val() != $("#re_password").val()) {
       textDanger("#password_text_04");
-      passwordCheck = true;
+      passwordCheck = false;
     } else if ($("#re_password").val() == "") {
       textDanger("#password_text_04");
-      passwordCheck = true;
+      passwordCheck = false;
     } else {
       textPrimary("#password_text_04");
-      passwordCheck = false;
+      passwordCheck = true;
     }
   });
 });
@@ -183,10 +230,17 @@ function buttonOff(ele) {
 
 // 비밀번호 유효성 검사
 function validatePassword(password, email) {
+  var lengthCheck = false;
+  var combinationCheck = false;
+  var sameCheck = false;
+  var emailCheck = false;
+
   // 1. 비밀번호 길이 체크 (8~20자)
   if (password.length < 8 || password.length > 20) {
     textDanger("#password_text_01");
+    lengthCheck = false;
   } else {
+    lengthCheck = true;
     // 2. 영문/숫자/특수문자 중 2가지 이상 조합 확인
     var check = 0;
     if (/[A-Za-z]/.test(password)) check++; // 영문 포함 체크
@@ -194,8 +248,10 @@ function validatePassword(password, email) {
     if (/[\!\@\#\$\%\^\&\*\(\)\_\+\[\]\{\}\;\:\/\?\.\,\>\<\~\`\|\-]/.test(password)) check++; // 특수문자 포함 체크
 
     if (check < 2) {
+      combinationCheck = false;
       textDanger("#password_text_01");
     } else {
+      combinationCheck = true;
       textPrimary("#password_text_01");
     }
   }
@@ -203,16 +259,63 @@ function validatePassword(password, email) {
   // 3. 3개 이상 연속되거나 동일한 문자/숫자 제외
   for (var i = 0; i < password.length - 2; i++) {
     var char = password[i];
-    textPrimary("#password_text_02");
     if (char === password[i + 1] && char === password[i + 2]) {
+      sameCheck = false;
       textDanger("#password_text_02");
+    } else {
+      sameCheck = true;
+      textPrimary("#password_text_02");
     }
   }
 
   // 4. 아이디(이메일) 제외
   if (password.includes(email)) {
+    emailCheck = false;
     textDanger("#password_text_03");
   } else {
+    emailCheck = true;
     textPrimary("#password_text_03");
   }
+
+  // 비밀번호 유효성 체크 승인
+  if (lengthCheck && combinationCheck && sameCheck && emailCheck) {
+    passwordCheck2 = true;
+  } else {
+    passwordCheck2 = false;
+  }
+}
+
+function authFormSubmit(ele) {
+  var form = $(ele).parent("form").get(0);
+  var url = $(ele).parent("form").attr("action");
+  var formData = new FormData(form);
+  console.log(form + url + formData);
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: formData,
+    dataType: "json",
+    processData: false,
+    contentType: false,
+    success: function (response) {
+      alert(response.msg);
+      if (response.url != null) {
+        location.href = response.url;
+      } else {
+        location.reload();
+      }
+    },
+    error: function (xhr, status, error) {
+      // UNAUTHORIZED
+      if (xhr.status == 401) {
+        alert("로그인 이후 이용 바랍니다.");
+        window.location.href = "/auth/login";
+      }
+      // BAD_REQUEST
+      else if (xhr.status == 400) {
+        alert("현재 비밀번호가 맞지 않습니다. 다시 입력하십시오");
+      }
+    },
+  });
 }

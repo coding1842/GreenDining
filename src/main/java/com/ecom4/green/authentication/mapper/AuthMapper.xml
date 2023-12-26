@@ -28,5 +28,31 @@
         from users
         where id = #{id}
     </select>
+    <update id="updateUserByUserDTO" parameterType="userDTO">
+        update users
+        <set>
+            <if test="new_id != null and new_id != ''">
+                id = #{new_id}
+            </if>
+            <if test="new_email != null and new_email != ''">
+                email = #{new_email}
+            </if>
+            <if test="new_phone != null and new_phone != ''">
+                phone = #{new_phone}
+            </if>
+            <if test="new_name != null and new_name != ''">
+                name = #{new_name}
+            </if>
+            <if test="new_password != null and new_password != ''">
+                password = #{new_password}
+            </if>
+            <if test="role != null">
+                role = #{role}
+            </if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
 </mapper>
 

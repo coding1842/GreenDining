@@ -23,4 +23,6 @@ public interface AuthDAO
         String selectSalt(UserDTO userDto);
 
         int phoneCheck(@Param("phone") String phone);
+
+        void updateUserByUserDTO(UserDTO userDTO);
 }

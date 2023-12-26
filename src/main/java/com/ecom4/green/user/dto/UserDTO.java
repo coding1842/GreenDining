@@ -25,4 +25,11 @@ public class UserDTO
         private RoleStatus role;
         private String created_at;
         private int country_code;
+
+        // NO DB
+        private String new_id;
+        private String new_name;
+        private String new_phone;
+        private String new_email;
+        private String new_password;
 }

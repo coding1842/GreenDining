@@ -29,8 +29,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <span>${user.id}</span>
               <button class="ms-5 btn btn-light border-1 border-black h-30px" id="id_change" type="button">아이디 변경</button>
               <form action="/auth/id-change" id="id-change-form" class="mt-3 visually-hidden">
-                <input type="text" name="id" id="idCheck" value="${user.id}">
-                <button type="button" class="btn btn-light border-1 border-black h-30px" id="id-change-submit">아이디 변경</button>
+                <input type="hidden" name="id" value="${user.id}">
+                <input type="text" name="new_id" id="idCheck" value="${user.id}">
+                <button type="button" class="btn btn-light border-1 border-black h-30px id-change-btn" id="id-change-submit">아이디 변경</button>
                 <div id="id_text" class="text-start ms-2 me-2 h-25 text-danger fs-12px mt-2">
                   <span class="material-symbols-outlined float-start"> close </span>
                   <div class="float-start align-middle" style="line-height: 27px">띄어쓰기 없이 영/숫자 6~15자</div>
@@ -46,7 +47,8 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <input type="hidden" name="" id="hidden_email" value="${user.email}">
               <button class="ms-5 btn btn-light border-1 border-black h-30px" id="email_change" type="button">이메일 변경</button>
               <form action="/auth/email-change" class="visually-hidden mt-3">
-                <input type="text" name="email" id="email_chk" value="${user.email}">
+                <input type="hidden" name="id" value="${user.id}">
+                <input type="text" name="new_email" id="email_chk" value="${user.email}">
                 <button type="button" class="btn btn-light border-1 border-black h-30px" id="email-change-submit">이메일 변경</button>
                 <div id="email_text" class="text-start ms-2 h-25 text-danger fs-12px mt-2">
                   <span class="material-symbols-outlined float-start"> close </span>
@@ -61,8 +63,10 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <span class="fw-bold">${user.name}</span>
               <button class="ms-5 btn btn-light border-1 border-black h-30px" id="name_change" type="button">개명하셨다면? 이름 변경</button>
               <form action="/auth/name-change" class="mt-3 visually-hidden">
-                <input id="name_check" title="이름" type="text" name="name" value="${user.name}" />
-                <button type="button" class="btn btn-light border-1 border-black h-30px" id="name-change-submit">이름 변경</button>
+                <input type="hidden" name="id" value="${user.id}">
+
+                <input id="name_check" title="이름" type="text" name="new_name" value="${user.name}" />
+                <button type="button" class="btn btn-light border-1 border-black h-30px authButton" id="name-change-submit">이름 변경</button>
                 <div id="name_text" class="text-start ms-2 h-25 text-danger fs-12px mt-2">
                   <span class="material-symbols-outlined float-start"> close </span>
                   <div class="float-start align-middle" style="line-height: 27px">이름을 정확히 입력해주세요.(2글자 이상)</div>
@@ -76,8 +80,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <span>${user.phone}</span>
               <button class="ms-5 btn btn-light border-1 border-black h-30px" id="phone_change" type="button">휴대폰 변경</button>
               <form action="/auth/phone-change" class="mt-3 visually-hidden">
-                <input id="phone_check" title="이름" type="text" name="phone" value="${user.phone}" />
-                <button type="button" class="btn btn-light border-1 border-black h-30px" id="name-change-submit">이름 변경</button>
+                <input type="hidden" name="id" value="${user.id}">
+                <input id="phone_check" title="휴대폰" type="text" name="new_phone" value="${user.phone}" />
+                <button type="button" class="btn btn-light border-1 border-black h-30px authButton" id="phone-change-submit">휴대폰 변경</button>
                 <div id="phone_text" class="text-start ms-2 h-25 text-danger fs-12px mt-2">
                   <span class="material-symbols-outlined float-start"> close </span>
                   <div class="float-start align-middle" style="line-height: 27px">휴대폰 번호을 정확히 입력해주세요.(-없이)</div>
@@ -89,15 +94,16 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
           <tr>
             <th>비밀번호</th>
             <td>
-              <form action="">
+              <form action="/auth/password-change">
                 <span class="d-inline-block w-150px">현재 비밀번호</span>
                 <!--  -->
-                <input type="password" name="old_password" id="" />
+                <input type="hidden" name="id" value="${user.id}">
+                <input type="password" name="password" id="" />
                 <br>
                 <br>
                 <span class="d-inline-block w-150px">새 비밀번호</span>
                 <!--  -->
-                <input type="password" name="password" id="new_password" />
+                <input type="password" name="new_password" id="new_password" />
                 <div id="password_check" class="fs-12px text-secondary mt-2 h-100px">
                   <div id="password_text_01" class="text-start ms-2 h-25 text-danger">
                     <span class="material-symbols-outlined float-start"> close </span>
@@ -123,7 +129,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 </div>
                 
                 <span class="d-inline-block w-150px"></span>
-                <button type="submit" class="btn btn-light border-1 border-black h-30px mb-2 mt-3">비밀번호 변경</button>
+                <button type="button" class="btn btn-light border-1 border-black h-30px mb-2 mt-3" id="password-change-submit">비밀번호 변경</button>
               </form>
             </td>
           </tr>
@@ -137,7 +143,9 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
         </tbody>
       </table>
       <div class="float-end">
-        <form class="float-end ms-2" action="/auth/delete-user">
+        <form class="float-end ms-2" action="/auth/delete/user">
+          <input type="hidden" name="id" value="${user.id}">
+          <input type="hidden" name="role" value="DELETED">
           <button type="button" id="delete_user" class="btn btn-secondary w-80px h-30px fs-12px">회원탈퇴</button>          
         </form>
         <span class="float-end h-30px" style="line-height: 30px;">탈퇴를 원하시면 우측의 회원탈퇴 버튼을 눌러주세요.</span>

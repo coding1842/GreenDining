@@ -62,17 +62,18 @@
                     <div id="product_container" class="w-100">
                       <c:forEach var="saleProduct" items="${saleProductList}" varStatus="m">
                       <div class="saleProductDTO d-flex flex-row" id="">
-                        <select name="saleProductDTOList[${m.index}].product_id" id="product_id">
+                        <select name="saleProductDTOList[${m.index}].product_id" class="product_id">
                           <c:forEach var="product" items="${productList}" varStatus="i">
                             <option value="${product.id}" ${saleProduct.product_id == product.id ? 'selected' : ''}>${product.name}</option>
                           </c:forEach>
                         </select>
-                        <input type="text" name="saleProductDTOList[${m.index}].name" value="${saleProduct.name}" placeholder="설정하실 상품명">
-                        <!-- <input type="text" name="saleProductDTOList[0].sale_option" placeholder="상품을 묶을 대제목, ex) 색상,사이즈,무게"> -->
-                        <select name="saleProductDTOList[${m.index}].sale_type" value="${saleProduct.sale_type}" id="sale_type">
-                          <option value="MAIN">메인상품</option>
-                          <option value="SUB">추가상품</option>
+                        <input type="text" name="saleProductDTOList[${m.index}].name" class="saleProduct_name" value="${saleProduct.name}" placeholder="설정하실 상품명">
+                        <select name="saleProductDTOList[${m.index}].sale_type" value="${saleProduct.sale_type}" class="sale_type">
+                          <option value="MAIN" ${saleProduct.sale_type eq 'MAIN' ? 'selected' : ''} >메인상품</option>
+                          <option value="SUB" ${saleProduct.sale_type eq 'SUB' ? 'selected' : ''} >추가상품</option>
                         </select>
+                      <button type="button" id="remove_product">삭제</button>
+
                       </div>
                       </c:forEach>
                     </div>
@@ -83,7 +84,6 @@
                   </c:when>
                 </c:choose>
                 <button type="button" id="add_product">상품 추가</button>
-                <button type="button" id="remove_product">상품 삭제</button>
             </td>
            
           </tr>
@@ -144,9 +144,14 @@
           <tr>
             <th>상품 설명 이미지</th>
             <td>
+              <div id="image_list">
+                  <c:forEach items="${imgurList}" var="imgur" varStatus="i">
+                    <img src="${imgur.path}" class="img-thumbnail w-100px h-100px" alt="" srcset="">
+                  </c:forEach>
+              </div>
               <input type="file" name="fileList" multiple />
               <br />
-              <small>*(여러개 선택 가능합니다.)</small>
+              <small>*(여러개 선택 가능합니다. 파일 선택 시 이전 이미지는 덮어 씌워 집니다.)</small>
             </td>
           </tr>
         </table>

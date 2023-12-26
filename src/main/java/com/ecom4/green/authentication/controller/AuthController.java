@@ -130,6 +130,31 @@ public class AuthController
 	      return url;
         }
 
+        @PostMapping("/delete/user")
+        @ResponseBody
+        public ResponseEntity<?> deleteUser(HttpSession session, UserDTO userDTO)
+        {
+	      Map<String, Object> map = new HashMap<>();
+	      String url = "";
+	      String msg = "";
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+		    userDTO.setRole(RoleStatus.DELETED);
+		    authService.updateUserByUserDTO(userDTO);
+		    msg = "정상적으로 탈퇴 되었습니다.이후 30일동안 가탈퇴 상태가 되며, 언제든지 철회할수 있습니다.";
+		    url = "/auth/logoutProc";
+		    map.put("url", url);
+		    map.put("msg", msg);
+
+	      }
+	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+	      {
+		    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+
         @RequestMapping("/id-check")
         @ResponseBody
         public ResponseEntity<?> idCheck(HttpServletRequest request, HttpServletResponse response, Model model, UserDTO userDto)
@@ -294,5 +319,149 @@ public class AuthController
 	      return url;
         }
 
+        //        단일 필드 수정 요
+        @ResponseBody
+        @PostMapping("/id-change")
+        public ResponseEntity<?> idChange(HttpSession session, UserDTO userDTO, Model model)
+        {
+	      String msg = "";
+	      String url = "";
+	      Map<String, Object> map = new HashMap<>();
+
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+		    authService.updateUserByUserDTO(userDTO);
+		    url = "/auth/logoutProc";
+		    msg = "아이디를 정상적으로 변경 했습니다. 다시 로그인 해주세요.";
+		    map.put("msg", msg);
+		    map.put("url", url);
+	      }
+	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+	      {
+		    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+
+        @PostMapping("/email-change")
+        @ResponseBody
+        public ResponseEntity<?> emailChange(HttpSession session, UserDTO userDTO, Model model)
+        {
+	      String msg = "";
+	      Map<String, Object> map = new HashMap<>();
+
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+
+		    authService.updateUserByUserDTO(userDTO);
+		    msg = "이메일를 정상적으로 변경 했습니다";
+		    map.put("msg", msg);
+
+	      }
+	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+	      {
+		    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+
+        @PostMapping("/name-change")
+        @ResponseBody
+        public ResponseEntity<?> nameChange(HttpSession session, UserDTO userDTO, Model model)
+        {
+	      String msg = "";
+	      Map<String, Object> map = new HashMap<>();
+
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+
+		    authService.updateUserByUserDTO(userDTO);
+		    msg = "성함를 정상적으로 변경 했습니다";
+		    map.put("msg", msg);
+
+	      }
+	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+	      {
+		    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+
+        }
+
+        @PostMapping("/phone-change")
+        @ResponseBody
+        public ResponseEntity<?> phoneChange(HttpSession session, UserDTO userDTO, Model model)
+        {
+	      String msg = "";
+	      Map<String, Object> map = new HashMap<>();
+
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+
+		    authService.updateUserByUserDTO(userDTO);
+		    msg = "휴대폰 번호를 정상적으로 변경 했습니다";
+		    map.put("msg", msg);
+
+	      }
+	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+	      {
+		    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+
+        }
+
+        @PostMapping("/password-change")
+        @ResponseBody
+        public ResponseEntity<?> passwordChange(HttpSession session, UserDTO userDTO, Model model)
+        {
+	      String msg = "";
+	      String url = "";
+	      Map<String, Object> map = new HashMap<>();
+
+	      if (authService.checkRoleStatus(session) == RoleStatus.USER)
+	      {
+		    try
+		    {
+			  String salt = authService.selectSalt(userDTO);
+			  String encyptionPassword = encryptionService.getSHA256Hash(userDTO.getPassword() + salt + pepper);
+			  String new_encyptionPassword = encryptionService.getSHA256Hash(userDTO.getNew_password() + salt + pepper);
+			  userDTO.setPassword(encyptionPassword);
+			  userDTO.setNew_password(new_encyptionPassword);
+
+		    }
+		    catch (Exception e)
+		    {
+			  e.printStackTrace();
+		    }
+		    UserDTO udto = authService.getUser(userDTO);
+
+		    if (udto == null)
+		    {
+			  map.put("msg", msg);
+			  return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		    }
+		    else
+		    {
+
+			  authService.updateUserByUserDTO(userDTO);
+			  msg = "비밀번호를 정상적으로 변경 했습니다. 다시 로그인 요청 드립니다.";
+			  url = "/auth/logoutProc";
+			  map.put("msg", msg);
+			  map.put("url", url);
+		    }
+	      }
+	      else if (authService.checkRoleStatus(session) == RoleStatus.NOT_LOGGED_IN)
+	      {
+		    return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	      }
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
+
+        }
 
 }

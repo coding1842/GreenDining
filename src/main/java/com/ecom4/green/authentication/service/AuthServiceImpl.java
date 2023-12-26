@@ -60,7 +60,7 @@ public class AuthServiceImpl implements AuthService
 		    return RoleStatus.ADMIN;
 	      }
 
-	      return RoleStatus.NOT_FOUND;
+	      return RoleStatus.NOT_LOGGED_IN;
         }
 
         @Override
@@ -92,6 +92,12 @@ public class AuthServiceImpl implements AuthService
         public int phoneCheck(String phone)
         {
 	      return authDao.phoneCheck(phone);
+        }
+
+        @Override
+        public void updateUserByUserDTO(UserDTO userDTO)
+        {
+	      authDao.updateUserByUserDTO(userDTO);
         }
 
 
