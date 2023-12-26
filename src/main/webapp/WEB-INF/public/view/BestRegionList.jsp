@@ -28,7 +28,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <legend class="checkbox-group-legend">MD 추천</legend>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="0" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="0" onclick="checkedCategory(this)" ${region == 0 ? 'checked' : ''}/>
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-1"> apps </span>
@@ -39,7 +39,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="1000" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="1000" onclick="checkedCategory(this)" ${region == 1000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon"> <i class="material-symbols-outlined fs-2 mb-3 text-warning">restaurant</i> </span>
                     <span class="checkbox-label">수도권</span>
@@ -48,7 +48,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="2000" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="2000" onclick="checkedCategory(this)" ${region == 2000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-2 mb-3" style="color: rgb(247, 138, 21)">restaurant</span>
@@ -59,7 +59,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="3000" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="3000" onclick="checkedCategory(this)" ${region == 3000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-2 mb-3" style="color: rgb(192, 176, 133)">restaurant</span>
@@ -71,7 +71,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="4000" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="4000" onclick="checkedCategory(this)" ${region == 4000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-2 mb-3 text-danger">restaurant</span>
@@ -82,7 +82,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="5000" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="5000" onclick="checkedCategory(this)" ${region == 5000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-2 mb-3 text-primary">restaurant</span>
@@ -93,7 +93,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="6000" onclick="checkedCategory(this)" />
+                  <input type="checkbox" class="checkbox-input" value="6000" onclick="checkedCategory(this)" ${region == 6000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-2 mb-3" style="color: rgb(242, 154, 95)">restaurant</span>

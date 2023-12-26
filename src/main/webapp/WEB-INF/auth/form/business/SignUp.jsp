@@ -22,7 +22,7 @@
   crossorigin="anonymous"></script>
 <form action="/auth/sign-up/user" name="form1" method="post" class="h-1300px">
   <div id="general_box">
-    <h1 class="general_title">일반회원 가입</h1>
+    <h1 class="general_title">사업자 회원 가입</h1>
     <div id="general">
       <h6>회원정보를 입력해주세요</h6>
       <input class="text_in chk" id="idchk" title="아이디" type="text" name="userDTO.id" placeholder=" 아이디" /><br />

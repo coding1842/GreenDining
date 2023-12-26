@@ -9,7 +9,7 @@
       <ul class="list-group list-group-flush" id="aside_list_sort">
         <li class="list-group-item">
           <div class="dropdown float-start">
-            <button>상품관리</button>
+            <button class="text-start">상품관리</button>
             <div class="dropdown-options">
               <a href="/merchant/my-page/product/list">상품 리스트</a><br />
               <a href="/product/write">상품 등록</a><br />
@@ -18,7 +18,7 @@
         </li>
         <li class="list-group-item">
           <div class="dropdown float-start">
-            <button>판매글</button>
+            <button class="text-start">판매글</button>
             <div class="dropdown-options">
               <a href="/merchant/my-page/item/list">판매글 리스트</a><br />
               <a href="/item/write">판매글 등록</a><br />
@@ -27,7 +27,7 @@
         </li>
         <li class="list-group-item">
           <div class="dropdown float-start">
-            <button>주문/배송</button>
+            <button class="text-start">주문/배송</button>
             <div class="dropdown-options">
               <a href="/merchant/my-page/delivery/list">배송 관리</a><br />
               <a href="#">주문 조회</a><br />
@@ -36,7 +36,7 @@
         </li>
         <li class="list-group-item">
           <div class="dropdown float-start">
-            <button>판매자 정보</button>
+            <button class="text-start">판매자 정보</button>
             <div class="dropdown-options">
               <a href="#">계정 정보</a><br />
               <a href="#">비밀번호 변겅</a><br />
@@ -45,7 +45,7 @@
         </li>
         <li class="list-group-item">
           <div class="dropdown float-start">
-            <button>공지사항</button>
+            <button class="text-start">공지사항</button>
             <div class="dropdown-options">
               <a href="#">공지사항 리스트</a><br />
               <a href="#">공지사항 등록</a><br />

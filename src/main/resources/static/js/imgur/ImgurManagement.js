@@ -43,7 +43,7 @@ function imgurProcess() {
         });
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        alert(jqXHR.responseJSON.msg);
+        alert("ERROR : ", textStatus, errorThrown);
       },
     });
   }

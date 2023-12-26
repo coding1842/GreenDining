@@ -10,11 +10,11 @@
         INSERT INTO MERCHANT(ID,BUSINESS_NAME , BUSINESS_NUMBER)
         VALUES(#{id},#{business_name},#{business_number})
     </insert>
-    <select id="idCheck" resultType="int">
+    <select id="idCheck" resultType="int" parameterType="String">
         select count(ID) from users
         where ID = #{id}
     </select>
-    <select id="phoneCheck" resultType="int">
+    <select id="phoneCheck" resultType="int" parameterType="String">
         select count(phone) from users
         where phone = #{phone}
     </select>

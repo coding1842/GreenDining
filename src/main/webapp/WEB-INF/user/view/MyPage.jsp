@@ -82,7 +82,7 @@
 		<div class="m_main">
 			<div class="m_main_search">
 			<h3>주문배송</h3>
-			<input class="w-500px mt-3 mb-3" type="text" placeholder="주문한 상품을 검색할 수 있어요!"><br>
+			<input class="w-500px mt-3 mb-3" type="text" placeholder="주문한 상품을 검색할 수 있어요!(미완성)"><br>
 			</div>
 		</div>
 		<div id="my_order_box">

@@ -35,7 +35,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               <legend class="checkbox-group-legend">MD 추천</legend>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="0" onclick="checkedCategory(this,0)" />
+                  <input type="checkbox" class="checkbox-input" value="0" onclick="checkedCategory(this,0)" ${category == 0 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <span class="material-symbols-outlined fs-1"> apps </span>
@@ -46,7 +46,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="10000" onclick="checkedCategory(this,10000)" />
+                  <input type="checkbox" class="checkbox-input" value="10000" onclick="checkedCategory(this,10000)" ${category == 10000 ? 'checked' : ''} />
                   <span class="checkbox-tile">
                     <span class="checkbox-icon"> <i class="fa-solid fa-lemon fs-2 mb-3 text-warning"></i> </span>
                     <span class="checkbox-label">과일</span>
@@ -55,7 +55,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="20000" onclick="checkedCategory(this,20000)" />
+                  <input type="checkbox" class="checkbox-input" value="20000" onclick="checkedCategory(this,20000)"  ${category == 20000 ? 'checked' : ''}/>
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <i class="fa-solid fa-carrot fs-2 mb-3" style="color: rgb(247, 138, 21)"></i>
@@ -66,7 +66,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="30000" onclick="checkedCategory(this,30000)" />
+                  <input type="checkbox" class="checkbox-input" value="30000" onclick="checkedCategory(this,30000)" ${category == 30000 ? 'checked' : ''}/>
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <i class="fa-solid fa-bowl-rice fs-2 mb-3" style="color: rgb(192, 176, 133)"></i>
@@ -78,7 +78,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="40000" onclick="checkedCategory(this,40000)" />
+                  <input type="checkbox" class="checkbox-input" value="40000" onclick="checkedCategory(this,40000)" ${category == 40000 ? 'checked' : ''}/>
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <i class="fa-solid fa-bacon fs-2 mb-3 text-danger"></i>
@@ -89,7 +89,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="50000" onclick="checkedCategory(this,50000)" />
+                  <input type="checkbox" class="checkbox-input" value="50000" onclick="checkedCategory(this,50000)" ${category == 50000 ? 'checked' : ''}/>
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <i class="fa-solid fa-fish-fins fs-2 mb-3 text-primary"></i>
@@ -100,7 +100,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
               </div>
               <div class="checkbox">
                 <label class="checkbox-wrapper">
-                  <input type="checkbox" class="checkbox-input" value="60000" onclick="checkedCategory(this,60000)" />
+                  <input type="checkbox" class="checkbox-input" value="60000" onclick="checkedCategory(this,60000)" ${category == 60000 ? 'checked' : ''}/>
                   <span class="checkbox-tile">
                     <span class="checkbox-icon">
                       <i class="fa-solid fa-egg fs-2 mb-3" style="color: rgb(242, 154, 95)"></i>

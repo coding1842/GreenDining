@@ -223,26 +223,6 @@ public class UserController
         }
 
 
-        //리뷰는 마이페이지로 가서 리뷰, Q&A 작성할거니까 user에 작성
-        //REVIEW 컨트롤러
-
-//	 @GetMapping("/review/write")
-//     public String reviewForm(@RequestParam int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
-//     {
-//     	String main = "user/form/ReviewWriteForm";
-//     	
-//     	model.addAttribute("main",main);
-//     	model.addAttribute("sale_id",sale_id);
-//     	return "Index";
-//     }	 
-
-//		String main = "user/form/AddressForm";
-//		
-//		model.addAttribute("main", main);
-//		
-//		return "Index";
-//	}
-
         @PostMapping("/insertAddress")
         public String insertAddress(HttpServletRequest request,
 			      HttpServletResponse response,
@@ -417,24 +397,6 @@ public class UserController
 	      model.addAttribute("main", main);
 	      return "Index";
         }
-
-//	 @GetMapping("/update/review/{sale_id}")
-//	 public String updateReviewForm(@PathVariable("sale_id") int sale_id, HttpServletRequest req, HttpServletResponse res, Model model)
-//	 {
-//		 String main = "user/form/ReviewUpdateForm";
-//		 SaleDTO sale = new SaleDTO();
-//		 List<ReviewDTO> reviewDTOList = new ArrayList<>();
-//		 
-////		 List<ReviewDTO> reviewDTOList = new ArrayList<>();
-//		 sale = saleService.getSale(sale_id);
-//		 reviewDTOList = userService.selectReviewList(sale_id);
-//		 model.addAttribute("sale",sale);
-//		 model.addAttribute("main",main);
-//         model.addAttribute("sale_id", sale_id);
-//         model.addAttribute("reviewDTOList", reviewDTOList);
-//         System.out.println("====>" +sale_id);
-//		 return "Index";
-//	 }
 
         @PostMapping("/update/review")
         public ResponseEntity<String> updateReview(ReviewDTO reviewDTO)

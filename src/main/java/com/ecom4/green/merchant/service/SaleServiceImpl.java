@@ -40,7 +40,9 @@ public class SaleServiceImpl implements SaleService
 		        .pageable((Pageable) dataMap.get("pageable"))
 		        .build();
 
+//	      현재 요청한 콘텐츠 size 갯수만큼만 List에 담음
 	      List<SaleDTO> content = saleDAO.getSalePage(requestPageList);
+//	      size 갯수 상관없이 전부 , 페이지네이션을 위해서
 	      int total = saleDAO.getSaleListCount(dataMap);
 
 	      for (SaleDTO ele : content)

@@ -11,8 +11,8 @@
     <div id="mer_aside"> 
 <ul class="list-group list-group-flush" id="aside_list_sort"> 
 	<li class="list-group-item">
-		<div class="dropdown">
-		  <button>상품관리</button>
+		<div class="dropdown float-start">
+		  <button class="text-start">상품관리</button>
 			  <div class="dropdown-options">
 			    <a href="/merchant/my-page/product/list">상품 리스트</a><br>
 			    <a href="/product/write">상품 등록</a><br>
@@ -20,17 +20,17 @@
 		 </div>
     </li>
 	<li class="list-group-item">
-		<div class="dropdown">
-		  <button>판매글</button>
+		<div class="dropdown float-start">
+		  <button class="text-start">판매글</button>
 		  	<div class="dropdown-options">
 			    <a href="/merchant/my-page/item/list">판매글 리스트</a><br>
-			    <a href="#">판매글 등록</a><br>
+			    <a href="/item/write">판매글 등록</a><br>
 		 	</div>
 		</div>
     </li>
 	<li class="list-group-item">
-		<div class="dropdown">
-		  <button>주문/배송</button>
+		<div class="dropdown float-start">
+		  <button class="text-start">주문/배송</button>
 		  	<div class="dropdown-options">
 			    <a href="/merchant/my-page/delivery/list">배송 관리</a><br>
 			    <a href="#">주문 조회</a><br>
@@ -38,8 +38,8 @@
 		</div>
     </li>
 	<li class="list-group-item">
-		<div class="dropdown">
-		  <button>판매자 정보</button>
+		<div class="dropdown float-start">
+		  <button class="text-start">판매자 정보</button>
 			  <div class="dropdown-options">
 			    <a href="#">계정 정보</a><br>
 			    <a href="#">비밀번호 변겅</a><br>
@@ -47,8 +47,8 @@
 	    </div>
     </li>
 	<li class="list-group-item">
-		<div class="dropdown">
-		  <button>공지사항</button>
+		<div class="dropdown float-start">
+		  <button class="text-start">공지사항</button>
 			  <div class="dropdown-options">
 			    <a href="#">공지사항 리스트</a><br>
 			    <a href="#">공지사항 등록</a><br>
@@ -155,37 +155,6 @@
 		    </tr>
 		  </tbody>
 		  		</c:forEach>
-		  			<div class="pagination">
-					  <div class="size-selector">
-					    <select id="size" onchange="changeSize()">
-					      <option value="5">5</option>
-					      <option value="10">10</option>
-					      <option value="20">20</option>
-					    </select>
-					  </div>
-					  <c:if test="${ordersPage.first == false}">
-			<%-- 		    <a href="?page=0&size=${size}"><<</a> --%>
-			<%-- 		    <a href="?page=${productPage.number - 1}&size=${size}"><</a> --%>
-					    	<a href="javascript:changePage(0)"><<</a>
-							<a href="javascript:changePage(${ordersPage.number - 1})"><</a>
-					  </c:if>
-					  <c:forEach begin="0" end="${ordersPage.totalPages -1}" step="1" var="page">
-					    <c:choose>
-					      <c:when test="${page == ordersPage.number}">
-					        <span class="current">${page + 1}</span>
-					      </c:when>
-					      <c:otherwise>
-					        <a href="?page=${page}&size=${size}">${page + 1}</a>
-					      </c:otherwise>
-					    </c:choose>
-					  </c:forEach>
-					  <c:if test="${ordersPage.last == false}">
-			<%-- 		    <a href="?page=${productPage.number + 1}&size=${size}">></a> --%>
-			<%-- 		    <a href="?page=${productPage.totalPages - 1}&size=${size}">>></a> --%>
-					  		<a href="javascript:changePage(${ordersPage.number + 1})">></a>
-							<a href="javascript:changePage(${ordersPage.totalPages - 1})">>></a>
-					  </c:if>
-					</div>
 		  </c:when>
 		  <c:when test="${fn:length(ordersPage.content)==0}">
 			<tbody>
@@ -196,10 +165,35 @@
 		 </c:choose>
 		  
 		</table>
-		<div id="del_btn">
+		<div id="del_btn" class="h-30px">
 			<input name="s" type ="button" class="selectBtn" value="상태수정">
 			<input type="button" class="deleteBtn" value="삭제">
 		</div>
+		<div class="pagination justify-content-center">
+		<div class="size-selector">
+			<select id="size" onchange="changeSize()" class="me-3" style="height:37px">
+				<option value="5">5개씩 보기</option>
+				<option value="10">10개씩 보기</option>
+				<option value="20">20개씩 보기</option>
+			</select>
+		</div>
+		
+		<div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+			 <div class="btn-group me-2" role="group" aria-label="First group">
+				<c:forEach begin="${Math.floor((ordersPage.number + 1) / 10) * 10}" end="${ordersPage.totalPages - 1}" step="1" var="page" varStatus="i">
+					<c:choose>
+						<c:when test="${page == ordersPage.number}">
+							<button  type="button" class="current btn btn-primary w-30px">${page + 1}</button>
+						</c:when>
+						<c:otherwise>
+							<button type="button" onClick="location.href='?page=${page}&size=${size}'" class="btn btn-secondary w-30px">${page + 1}</button>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				
+			</div>
+		</div>
+	</div>
 	</div>
 </div>
   </div>

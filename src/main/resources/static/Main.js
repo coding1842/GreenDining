@@ -55,3 +55,5 @@ import "./js/imgur/ImgurManagement.js";
 
 // ! 주문 관련
 import "./js/order/OrderPaymentForm.js";
+
+import "./js/user/ModifyForm.js";

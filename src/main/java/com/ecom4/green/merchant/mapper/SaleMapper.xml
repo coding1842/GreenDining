@@ -142,13 +142,13 @@
         FROM sale
         <where>
             <if test="map.category != null and map.category != 0">
-                category_code = #{map.category}
+                and category_code = #{map.category}
             </if>
             <if test="map.region != null and map.region != 0">
-                region_code = #{map.region}
+                and region_code = #{map.region}
             </if>
             <if test="map.keyword != null and map.keyword != ''">
-                title LIKE '%' || #{map.keyword} || '%'
+                and title LIKE '%' || #{map.keyword} || '%'
             </if>
         </where>
     </select>

@@ -264,7 +264,8 @@ input[type=number] {
                   <a href="javascript:changePage(0)"><<</a>
                 <a href="javascript:changePage(${salePage.number - 1})"><</a>
               </c:if>
-              <c:forEach begin="0" end="${salePage.totalPages -1}" step="1" var="page">
+              <c:if test="${fn:length(salePage.content) != 0}">
+                <c:forEach begin="0" end="${salePage.totalPages -1}" step="1" var="page">
                 <c:choose>
                   <c:when test="${page == salePage.number}">
                     <span class="current">${page + 1}</span>
@@ -273,7 +274,9 @@ input[type=number] {
                     <a href="?page=${page}&size=${salePage.size}">${page + 1}</a>
                   </c:otherwise>
                 </c:choose>
-              </c:forEach>
+                </c:forEach>
+              </c:if>
+              
               <c:if test="${salePage.last == false}">
                   <a href="javascript:changePage(${salePage.number + 1})">></a>
                   <a href="javascript:changePage(${salePage.totalPages - 1})">>></a>

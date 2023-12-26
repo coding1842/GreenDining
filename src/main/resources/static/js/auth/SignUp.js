@@ -43,10 +43,10 @@ $().ready(function () {
         async: true,
         type: "post",
         url: "/auth/id-check",
-        data: {ID: $("#idchk").val()},
+        data: {id: $("#idchk").val()},
         dataType: "json",
         success: function (data) {
-          if (data > 0) {
+          if (data.cnt > 0) {
             //이미 존재하는 아이디
             $("font[id=warning]").text("");
             $("font[id=warning]").attr("color", "red");
@@ -104,7 +104,7 @@ $().ready(function () {
         data: {phone: $("#phone_check").val()},
         dataType: "json",
         success: function (data) {
-          if (data > 0) {
+          if (data.cnt > 0) {
             //이미 존재하는 아이디
             $("font[id=phone_font]").text("");
             $("font[id=phone_font]").attr("color", "red");

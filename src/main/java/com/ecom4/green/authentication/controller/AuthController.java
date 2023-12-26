@@ -132,26 +132,31 @@ public class AuthController
 
         @RequestMapping("/id-check")
         @ResponseBody
-        public int idCheck(HttpServletRequest request, HttpServletResponse response, Model model, UserDTO userDto)
+        public ResponseEntity<?> idCheck(HttpServletRequest request, HttpServletResponse response, Model model, UserDTO userDto)
         {
 	      int cnt = 0;
+	      Map<String, Object> map = new HashMap<>();
 	      if (userDto.getId() != null)
 	      {
 		    cnt = authService.idCheck(userDto.getId());
 	      }
-	      return cnt;
+	      map.put("cnt", cnt);
+	      return new ResponseEntity<>(map, HttpStatus.OK);
         }
 
         @RequestMapping("/phone-check")
         @ResponseBody
-        public int phoneCheck(HttpServletRequest req, HttpServletResponse resp, Model model, UserDTO userDto)
+        public ResponseEntity<?> phoneCheck(HttpServletRequest req, HttpServletResponse resp, Model model, UserDTO userDto)
         {
 	      int cnt = 0;
+	      Map<String, Object> map = new HashMap<>();
 	      if (userDto.getPhone() != null)
 	      {
 		    cnt = authService.phoneCheck(userDto.getPhone());
 	      }
-	      return cnt;
+	      map.put("cnt", cnt);
+
+	      return new ResponseEntity<>(map, HttpStatus.OK);
         }
 
         @RequestMapping("/password-check")

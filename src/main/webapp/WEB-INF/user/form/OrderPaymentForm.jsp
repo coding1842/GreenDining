@@ -145,7 +145,15 @@
               </tr>
               <tr>
                 <th style="border: solid 1px #ddd" class="w-100px text-center">배송 요청사항</th>
-                <td id="address_request">${addressList[0].request_option} / ${addressList[0].request_text}
+                <td id="address_request">
+                  <c:choose>
+                    <c:when test="${empty addressList[0].request_text}">
+                      ${addressList[0].request_option}
+                    </c:when>
+                    <c:otherwise>
+                      ${addressList[0].request_option} / ${addressList[0].request_text}
+                    </c:otherwise>
+                  </c:choose>
                 </td>
               </tr>
             </table>
@@ -209,7 +217,7 @@
                     <div class="payment_radio_group">
                       <div class="inputGroup">
                         <input id="radio1" name="radio" class="radio_simple" type="radio" checked/>
-                        <label for="radio1">간편 카드 결제</label>
+                        <label for="radio1">간편 카드 결제(보안상 잠금)</label>
                       </div>
                     </div>
                        <div id="simple_payment">
