@@ -133,11 +133,27 @@
             <table style="border: solid 1px #eeeeee">
               <tr>
                 <th style="border: solid 1px #ddd" class="w-100px text-center">이름</th>
-                <td id="address_name">${addressList[0].name}</td>
+                <c:choose>
+                  <c:when test="${addressList[0].name != null}">
+                    <td id="address_name">${addressList[0].name}</td>
+                  </c:when>
+                  <c:otherwise>
+                    <td id="address_name">등록된 배송지가 없습니다.</td>
+                  </c:otherwise>
+                </c:choose>
+               
+                
               </tr>
               <tr>
                 <th style="border: solid 1px #ddd" class="w-100px text-center">배송 주소</th>
-                <td id="address_address">${addressList[0].address} , ${addressList[0].address2} [${addressList[0].zipcode}]</td>
+                <c:choose>
+                  <c:when test="${addressList[0].address != null}">
+                    <td id="address_address">${addressList[0].address} , ${addressList[0].address2} [${addressList[0].zipcode}]</td>
+                  </c:when>
+                  <c:otherwise>
+                    <td id="address_address"></td>
+                  </c:otherwise>
+                </c:choose>
               </tr>
               <tr>
                 <th style="border: solid 1px #ddd" class="w-100px text-center">연락처</th>

@@ -15,13 +15,7 @@ prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
       crossorigin="anonymous" />
   </head>
   <body>
-    <section id="coupon_banner">
-      <a href="/login/memberjoin">
-        <div class="text-center h-30px" id="coupon_contents">
-          <p>지금 회원가입 하면 즉시 <b>1만원 쿠폰팩 지급</b></p>
-        </div>
-      </a>
-    </section>
+    <section id="coupon_banner"></section>
     <section id="header_popup" class="mt-2 border-bottom border-2 mb-3 border-danger border-opacity-50">
       <nav id="logo_and_icons" class="position-relative h-60px">
         <div id="logo" class="position-absolute start-0 w-300px">
